@@ -53,6 +53,11 @@ return [
             'level' => 'debug',
             'days' => 14,
         ],
+        'doublelog' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/doubles.log'),
+            'level' => 'info',
+        ],
 
         'slack' => [
             'driver' => 'slack',

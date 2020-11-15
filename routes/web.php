@@ -23,3 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin_dashboard',function(){
     return view('admin/admin_dashboard');
 });
+
+Route::get('/sync','TempInvAbItemController@index')->name('sync');
