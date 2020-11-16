@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class InvAbItemController extends Controller
 {
+
+
+
+    public function search(Request $request)
+    {
+        $search_text = strtoupper($_GET['search']);
+        $items = InvAbItem::where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        //return $items->kp;
+        return view('admin/admin_dashboard',compact('items'));
+    }
     /**
      * Display a listing of the resource.
      *
