@@ -27,3 +27,6 @@ Route::get('/admin_dashboard',function(){
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
 
 Route::get('/search','InvAbItemController@search')->name('search');
+
+// pdf upload test
+Route::post('/upload-file', 'FileUpload@fileUpload')->name('fileUpload');

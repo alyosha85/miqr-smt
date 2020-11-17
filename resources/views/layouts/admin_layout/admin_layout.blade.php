@@ -28,6 +28,9 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Datatables Css -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+  <!-- toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 
 
 </head>
@@ -81,12 +84,19 @@
 <script src="{{ url ('js/admin_js/adminlte.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url ('js/admin_js/pages/dashboard.js') }}"></script>
+<!-- toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@if(Session::has('sync'))
+<script>
+    toastr.success("{!! Session::get('sync') !!}");
+</script>
+@endif
 <!-- Datatables script-->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
 </script>
 </body>
 </html>

@@ -57,25 +57,28 @@
                 <form>
                     <!-- First row -->
                     <div class="form-row mb-3">
-                        <div class="form-group col-md-3 mt-0">
-                            <input class="form-control" type="text" placeholder="Suchen" aria-label="Search">
+                        <div class="form-group col-md-3">
+                            <input type="text" class="form-control" id="machine_name" placeholder="Gerätename" value="{{$items->gname ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätename">
                         </div>
                         <div class="form-group col-md-3">
-                            <input type="text" class="form-control" id="inventNumber" placeholder="Inventarnummer" value="{{$items->invnr ?? '' }}"readonly>
+                            <input type="text" class="form-control" id="inventNumber" placeholder="Inventarnummer" value="{{$items->invnr ?? '' }}"readonly
+                            data-toggle="tooltip" data-placement="top" title="Inventarnummer">
                         </div>
 
                         <div class="form-group col-md-3">
-                            	<input type="date" class="form-control" id="date" placeholder="Anschffungsdatum" value="{{$items->andat ?? '' }}" readonly>
+                                <input type="date" class="form-control" id="date" placeholder="Anschaffungsdatum" value="{{$items->andat ?? '' }}" readonly
+                                data-toggle="tooltip" data-placement="top" title="Anschaffungsdatum">
                         </div>
                         <div class="form-group col-md-3">
-                            <input type="text" class="form-control" id="price" placeholder="Kaufpreis" value="{{$items->kp ?? '' }}" readonly>
+                            <input type="text" class="form-control" id="price" placeholder="Kaufpreis" value="{{$items->kp ?? '' }}" readonly
+                            data-toggle="tooltip" data-placement="top" title="Kaufpreis">
                         </div>
                     </div>
                     <!-- End of First row-->
                     <!-- Second row-->
                     <div class="form-row mb-3">
                         <div class="form-group col-md-4">
-                            <select id="inputState" class="form-control" readonly>
+                            <select id="Standort" class="form-control" readonly data-toggle="tooltip" data-placement="top" title="Standort">
                                 <option selected>Standort</option>
                                 <option>Trachenberg 93</option>
                                 <option>Barbarossa 2</option>
@@ -84,7 +87,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <select id="inputState" class="form-control" readonly>
+                            <select id="Raum" class="form-control" readonly data-toggle="tooltip" data-placement="top" title="Raum">
                                 <option selected>Raum</option>
                                 <option>1.01</option>
                                 <option>1.02</option>
@@ -104,27 +107,28 @@
                     <!-- Third row-->
                     <div class="form-row mb-3">
                         <div class="form-group col-md-3">
-                            <select id="inputState" class="form-control">
+                            <select id="gtype" class="form-control" data-toggle="tooltip" data-placement="top" title="Geräteart">
                                 <option selected>Geräteart</option>
                                 <option>Rechner</option>
                                 <option>Laptop</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            	<input type="text" class="form-control" id="machine_type" placeholder="Gerätetyp" value="{{$items->gtyp ?? '' }}" readonly>
+                            	<input type="text" class="form-control" id="machine_type" placeholder="Gerätetyp" value="{{$items->gtyp ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätetyp">
                         </div>
                         <div class="form-group col-md-3">
-                            <input type="text" class="form-control" id="machine_name" placeholder="Gerätename" value="{{$items->gname ?? '' }}" readonly>
+                            <input type="text" class="form-control" id="machine_name" placeholder="Gerätename" value="{{$items->gname ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätename">
                         </div>
                         <div class="form-group col-md-3">
-                            <input type="text" class="form-control" id="serial_nummber" placeholder="Seriennummer" value="{{$items->sn ?? '' }}" readonly>
+                            <input type="text" class="form-control" id="serial_nummber" placeholder="Seriennummer" value="{{$items->sn ?? '' }}" readonly
+                            data-toggle="tooltip" data-placement="top" title="Seriennummer">
                         </div>
                     </div>
                     <!-- End of Third row-->
                     <!-- Forth row -->
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <textarea class="form-control" id="notes" rows="3" placeholder="Notizen"> {{$items->notes ?? '' }} </textarea>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Notizen" data-toggle="tooltip" data-placement="top" title="Notizen"> {{$items->notes ?? '' }} </textarea>
                         </div>
                     </div>
                     <!-- End of Forth row -->
@@ -146,5 +150,4 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
 @endsection

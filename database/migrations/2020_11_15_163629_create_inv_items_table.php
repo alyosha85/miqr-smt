@@ -17,7 +17,7 @@ class CreateInvItemsTable extends Migration
             $table->id();
             $table->date('dateupd')->comment('Datem der letzten Änderung');
             $table->string('invnr',20)->unique();
-            $table->string('rname',50);
+            $table->string('rname',50)->nullable(); //until tonight 17/11
             $table->string('gname',20)->nullable();
             $table->string('sn',50)->nullable();
             $table->string('gart',50)->nullable();

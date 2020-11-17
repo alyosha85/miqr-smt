@@ -41,7 +41,7 @@ class TempInvAbItemController extends Controller
                 }
             }
             \Log::channel('doublelog')->error('====================================================================================================================================================================================================');
-            return 'Success !';
+            return view('admin.admin_dashboard')->with("sync",'Database uploaded successfully');
         }
         return 'No Data Found';
     }
@@ -73,7 +73,7 @@ class TempInvAbItemController extends Controller
      * @param  \App\Temp_inv_ab_item  $temp_inv_ab_item
      * @return \Illuminate\Http\Response
      */
-    public function show(Temp_inv_ab_item $temp_inv_ab_item)
+    public function show(TempInvAbItem $temp_inv_ab_item)
     {
         //
     }
@@ -84,7 +84,7 @@ class TempInvAbItemController extends Controller
      * @param  \App\Temp_inv_ab_item  $temp_inv_ab_item
      * @return \Illuminate\Http\Response
      */
-    public function edit(Temp_inv_ab_item $temp_inv_ab_item)
+    public function edit(TempInvAbItem $temp_inv_ab_item)
     {
         //
     }
@@ -96,7 +96,7 @@ class TempInvAbItemController extends Controller
      * @param  \App\Temp_inv_ab_item  $temp_inv_ab_item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Temp_inv_ab_item $temp_inv_ab_item)
+    public function update(Request $request, TempInvAbItem $temp_inv_ab_item)
     {
         //
     }
@@ -107,7 +107,7 @@ class TempInvAbItemController extends Controller
      * @param  \App\Temp_inv_ab_item  $temp_inv_ab_item
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Temp_inv_ab_item $temp_inv_ab_item)
+    public function destroy(TempInvAbItem $temp_inv_ab_item)
     {
         //
     }
