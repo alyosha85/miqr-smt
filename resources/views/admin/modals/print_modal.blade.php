@@ -11,16 +11,11 @@
 
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <select id="inputState" class="form-control">
-                        <option selected>Standort</option>
-                        <option>Trachenberg 93</option>
-                        <option>Barbarossa 2</option>
-                        <option>Park 28</option>
-                        <option>Löscher 16</option>
+                    <select id="address" class="form-control">
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="inventNumber" placeholder="Inventarnummer" readonly>
+                    <input type="text" class="form-control inventNumber" id="inventNumber" placeholder="Inventarnummer" readonly>
                 </div>
                 <div class="form-group col-md-4">
                     <input type="text" class="form-control" id="anzahl" placeholder="Anzahl">
@@ -35,3 +30,6 @@
       </div>
     </div>
   </div>
+
+
+  

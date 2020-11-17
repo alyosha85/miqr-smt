@@ -28,5 +28,7 @@ Route::get('/sync','TempInvAbItemController@index')->name('sync');
 
 Route::get('/search','InvAbItemController@search')->name('search');
 
+Route::get('/auto','InvLastNumberController@index')->name('auto');
+
 // pdf upload test
 Route::post('/upload-file', 'FileUpload@fileUpload')->name('fileUpload');

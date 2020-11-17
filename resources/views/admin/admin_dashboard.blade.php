@@ -22,7 +22,7 @@
 
         <div class="col-sm-6">
         <div class="breadcrumb float-sm-right">
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#print">Inventarnummer Drucken</button>
+        <button type="button" class="btn btn-success print" data-toggle="modal" data-target="#print">Inventarnummer Drucken</button>
         </div>
         <!-- modal Print -->
          @include('admin.modals.print_modal')
@@ -150,4 +150,33 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+@endsection
+@section('script')
+<script>
+let locationData = new Array();
+let text = '';
+$( document ).on( "click", ".print", function() {
+    $('#address').find('option').remove();
+    $("#address").append(new Option("Bitte Wählen...",0));
+    $.ajax({
+        type: "GET",
+        url: "{{ route('auto') }}", //Route NAME USED
+        }).done(function( data ) {
+            $.each(data, function(index, item) {
+                $("#address").append(new Option(item.location.address,item.locid));  
+                locationData.push(item);
+            });
+    });
+});
+$( document ).on( "change", "#address", function() {
+    for(let i = 0; i<locationData.length ; i++){
+        if(locationData[i].locid == $( this ).val()){
+            texty = locationData[i].locid + '-' + locationData[i].last_inv_num + '-' + locationData[i].suffix;  
+        }
+    }
+    $('.inventNumber').val(texty);
+});
+</script>
 @endsection

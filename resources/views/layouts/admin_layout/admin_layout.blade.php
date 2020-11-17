@@ -98,5 +98,6 @@
         $('[data-toggle="tooltip"]').tooltip()
       })
 </script>
+@yield('script')
 </body>
 </html>

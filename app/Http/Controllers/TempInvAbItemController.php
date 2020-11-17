@@ -29,7 +29,7 @@ class TempInvAbItemController extends Controller
             foreach ($reads as $read) {
                 $member = InvAbItem::where('invnr',$read['invnr'])->orWhere('gname',strtoupper($read['gname']))->first();
                 if ($member) {
-                    \Log::channel('doublelog')->error($member);
+                    \Log::channel('doublelog')->error($read);
                 } else {
                 InvAbItem::create([
                     'invnr' => $read['invnr'],
