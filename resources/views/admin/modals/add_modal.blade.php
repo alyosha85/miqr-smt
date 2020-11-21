@@ -16,7 +16,7 @@
                     <input type="text" class="form-control"  placeholder="Inventarnummer" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                        <input type="date" class="form-control" name="date"  placeholder="Anschffungsdatum">
+                        <input type="date" class="form-control" name="date"  placeholder="Anschffungsdatu">
                 </div>
                 <div class="form-group col-md-4">
                     <input type="text" class="form-control"  name="price" placeholder="Kaufpreis" >
