@@ -14,17 +14,17 @@ class CreateInvRoomsTable extends Migration
     public function up()
     {
         Schema::create('inv_rooms', function (Blueprint $table) {
-            $table->bigIncrements('rid');
-            $table->unsignedBigInteger('pid')->nullable();
-            $table->unsignedBigInteger('locid')->nullable();
+            $table->id();
+            $table->foreignId('place_id')->nullable();
+            $table->foreignId('location_id')->nullable();
             $table->integer('etage')->default(0)->nullable();
             $table->string('rname',50)->nullable();
             $table->string('altrname',50)->nullable();
             $table->timestamps();
 
-            $table->foreign('pid')->references('pid')->on('places');
-            $table->foreign('locid')->references('locid')->on('locations');
-            $table->index(['rname']);
+            $table->foreign('place_id')->references('id')->on('places');
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->index(['rname']); /// make the id
         });
     }
 

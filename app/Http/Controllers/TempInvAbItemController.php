@@ -33,7 +33,7 @@ class TempInvAbItemController extends Controller
                 } else {
                 InvAbItem::create([
                     'invnr' => $read['invnr'],
-                    'locid' => $read['locid'],
+                    'location_id' => $read['location_id'],
                     'gname' => strtoupper($read['gname']),
                     'gart' => $read['gart'],
                     'andat' => date('Y-m-d') // current date

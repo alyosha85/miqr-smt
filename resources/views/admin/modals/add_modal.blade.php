@@ -8,24 +8,25 @@
           </button>
         </div>
         <div class="modal-body">
-        <form>
+        <form action="{{}}" method="POST">
+            @csrf
             <!-- First row -->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="inventNumber" placeholder="Inventarnummer" readonly>
+                    <input type="text" class="form-control"  placeholder="Inventarnummer" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                        <input type="date" class="form-control" id="date" placeholder="Anschffungsdatum">
+                        <input type="date" class="form-control" name="date"  placeholder="Anschffungsdatum">
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="price" placeholder="Kaufpreis" >
+                    <input type="text" class="form-control"  name="price" placeholder="Kaufpreis" >
                 </div>
             </div>
             <!-- End of First row-->
             <!-- Second row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <select id="inputState" class="form-control">
+                    <select id="locations" name="locations" class="form-control">
                         <option selected>Standort</option>
                         <option>Trachenberg 93</option>
                         <option>Barbarossa 2</option>
@@ -34,7 +35,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select id="inputState" class="form-control">
+                    <select id="rooms" name="rooms" class="form-control">
                         <option selected>Raum</option>
                         <option>1.01</option>
                         <option>1.02</option>
@@ -42,14 +43,10 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary" type="button">Hochladen</button>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile03">
-                            <label class="custom-file-label" for="inputGroupFile03">Rechnung</label>
-                        </div>
+                    <div class="dropzone">
+                        <span>
+                            throw your shit here
+                        </span>
                     </div>
                 </div>
             </div>
@@ -57,36 +54,38 @@
             <!-- Third row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
-                    <select id="inputState" class="form-control">
+                    <select id="art" name="art" class="form-control">
                         <option selected>Geräteart</option>
                         <option>Rechner</option>
                         <option>Laptop</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                        <input type="text" class="form-control" id="text" placeholder="Gerätetyp">
+                        <input type="text" class="form-control" id="typ" name="typ" placeholder="Gerätetyp">
                 </div>
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="price" placeholder="Gerätename">
+                    <input type="text" class="form-control" id="gname" name="gname" placeholder="Gerätename">
                 </div>
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="price" placeholder="Seriennummer">
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="Seriennummer">
                 </div>
             </div>
             <!-- End of Third row-->
             <!-- Forth row -->
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <textarea class="form-control" id="notes" rows="3" placeholder="Notizen"></textarea>
+                    <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Notizen"></textarea>
                 </div>
             </div>
             <!-- End of Forth row -->
-        </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-primary">Einfügen</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+            <button type="submit"  class="btn btn-primary">Einfügen</button>
         </div>
-      </div>
+    </form>
     </div>
-  </div>
+    </div>
+</div>
+
+

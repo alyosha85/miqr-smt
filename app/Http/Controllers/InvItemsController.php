@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\InvItems;
+use App\TempInvAbItem;
 use Illuminate\Http\Request;
 
 class InvItemsController extends Controller

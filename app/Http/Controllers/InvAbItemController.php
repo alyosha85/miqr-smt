@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class InvAbItemController extends Controller
 {
 
-
-
     public function search(Request $request)
     {
         $search_text = strtoupper($_GET['search']);
@@ -24,7 +22,7 @@ class InvAbItemController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.admin_dashboard');
     }
 
     /**
@@ -34,30 +32,9 @@ class InvAbItemController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
-    public function fileUpload(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:pdf|max:2048'
-            ]);
-
-            $fileModel = new File;
-
-            if($request->file()) {
-                $fileName = time().'_'.$request->file->getClientOriginalName();
-                $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
-
-                $fileModel->name = time().'_'.$request->file->getClientOriginalName();
-                $fileModel->file_path = '/storage/' . $filePath;
-                $fileModel->save();
-
-                return back()
-                ->with('success','File has been uploaded.')
-                ->with('file', $fileName);
-            }
-    }
 
 
     /**
@@ -68,7 +45,7 @@ class InvAbItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

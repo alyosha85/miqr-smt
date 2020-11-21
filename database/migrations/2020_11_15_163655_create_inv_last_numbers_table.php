@@ -14,12 +14,13 @@ class CreateInvLastNumbersTable extends Migration
     public function up()
     {
         Schema::create('inv_last_numbers', function (Blueprint $table) {
-            $table->unsignedBigInteger('locid');
+            $table->id();
+            $table->foreignId('location_id');
             $table->integer('last_inv_num')->default('0');
             $table->string('suffix',2)->default('IT');
             $table->timestamps();
 
-            $table->foreign('locid')->references('locid')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->index(['last_inv_num']);
         });
     }

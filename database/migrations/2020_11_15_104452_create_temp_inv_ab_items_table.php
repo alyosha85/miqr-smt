@@ -14,13 +14,17 @@ class CreateTempInvAbItemsTable extends Migration
     public function up()
     {
         Schema::create('temp_inv_ab_items', function (Blueprint $table) {
-            $table->integer('locid')->nullable();
+            $table->id();
+            $table->foreignId('location_id')->nullable();
             $table->integer('lfd_num')->nullable();
             $table->string('invnr',50)->nullable();
-            $table->string('rname',50)->nullable();
+            $table->foreignId('room_id')->nullable();
             $table->string('gname',50)->nullable();
             $table->string('gart',50)->nullable();
             $table->timestamps();
+
+            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('room_id')->references('id')->on('inv_rooms');
         });
     }
 

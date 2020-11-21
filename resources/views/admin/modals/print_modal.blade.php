@@ -10,14 +10,14 @@
         <div class="modal-body">
 
             <div class="form-row mb-3">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <select id="address" class="form-control">
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control inventNumber" id="inventNumber" placeholder="Inventarnummer" readonly>
+                    <input type="text" class="form-control inventNumber" id="prntinvnr" placeholder="Inventarnummer" readonly>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                     <input type="text" class="form-control" id="anzahl" placeholder="Anzahl">
                 </div>
             </div>
@@ -32,4 +32,4 @@
   </div>
 
 
-  
+

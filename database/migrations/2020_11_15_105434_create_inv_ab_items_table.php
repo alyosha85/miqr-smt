@@ -17,7 +17,7 @@ class CreateInvAbItemsTable extends Migration
             $table->id();
             $table->string('invnr',20)->default(null)->unique();
             $table->date('andat')->default(null);
-            $table->unsignedBigInteger('locid')->nullable();
+            $table->foreignId('location_id')->nullable();
             $table->float('kp', 8, 2)->nullable();
             $table->string('gart',50)->nullable();
             $table->string('gtyp',50)->nullable();
@@ -29,7 +29,7 @@ class CreateInvAbItemsTable extends Migration
             $table->mediumText('ausgrund')->nullable();
             $table->timestamps();
 
-            $table->foreign('locid')->references('locid')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->index(['gtyp','gname']);
         });
     }

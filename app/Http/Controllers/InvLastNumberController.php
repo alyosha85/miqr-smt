@@ -14,7 +14,7 @@ class InvLastNumberController extends Controller
      */
     public function index()
     {
-        $lastNumber = InvLastNumber::with('location')->orderBy('created_at','desc')->get()->unique('locid')->toArray();
+        $lastNumber = InvLastNumber::with('location')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
         return $lastNumber;
     }
 

@@ -13,25 +13,25 @@ class LocationTableSeeder extends Seeder
     public function run()
     {
         Location::insert([
-            ["locid"=>1,"pid"=>1,"address"=>"Heinrichstrasse 89"],
-            ["locid"=>2,"pid"=>1,"address"=>"Heinrichstrasse 92"],
-            ["locid"=>3,"pid"=>1,"address"=>"Ottostrasse 35"],
-            ["locid"=>4,"pid"=>1,"address"=>"Barbarossahof 4/5"],
-            ["locid"=>5,"pid"=>1,"address"=>"Barbarossahof 2"],
-            ["locid"=>6,"pid"=>1,"address"=>"Barbarossahof 18"],
-            ["locid"=>7,"pid"=>1,"address"=>"Barbarossahof 1"],
-            ["locid"=>8,"pid"=>2,"address"=>"Puschkinstrasse 1"],
-            ["locid"=>9,"pid"=>2,"address"=>"Blücherstrasse 6"],
-            ["locid"=>10,"pid"=>3,"address"=>"Landsberger Strasse 23"],
-            ["locid"=>11,"pid"=>3,"address"=>"Landsberger Strasse 4"],
-            ["locid"=>12,"pid"=>3,"address"=>"Franz-Mehring-Strasse 3"],
-            ["locid"=>13,"pid"=>4,"address"=>"Löscherstrasse 16"],
-            ["locid"=>14,"pid"=>4,"address"=>"Mendelssohnallee 18"],
-            ["locid"=>15,"pid"=>4,"address"=>"Glashütter Strasse 101"],
-            ["locid"=>16,"pid"=>4,"address"=>"Glashütter Strasse 101A"],
-            ["locid"=>17,"pid"=>5,"address"=>"Parkstrasse 28"],
-            ["locid"=>18,"pid"=>5,"address"=>"Barbarossastrasse 2"],
-            ["locid"=>19,"pid"=>6,"address"=>"Trachenbergring 93"]
+            ["id"=>1,"place_id"=>1,"address"=>"Heinrichstrasse 89"],
+            ["id"=>2,"place_id"=>1,"address"=>"Heinrichstrasse 92"],
+            ["id"=>3,"place_id"=>1,"address"=>"Ottostrasse 35"],
+            ["id"=>4,"place_id"=>1,"address"=>"Barbarossahof 4/5"],
+            ["id"=>5,"place_id"=>1,"address"=>"Barbarossahof 2"],
+            ["id"=>6,"place_id"=>1,"address"=>"Barbarossahof 18"],
+            ["id"=>7,"place_id"=>1,"address"=>"Barbarossahof 1"],
+            ["id"=>8,"place_id"=>2,"address"=>"Puschkinstrasse 1"],
+            ["id"=>9,"place_id"=>2,"address"=>"Blücherstrasse 6"],
+            ["id"=>10,"place_id"=>3,"address"=>"Landsberger Strasse 23"],
+            ["id"=>11,"place_id"=>3,"address"=>"Landsberger Strasse 4"],
+            ["id"=>12,"place_id"=>3,"address"=>"Franz-Mehring-Strasse 3"],
+            ["id"=>13,"place_id"=>4,"address"=>"Löscherstrasse 16"],
+            ["id"=>14,"place_id"=>4,"address"=>"Mendelssohnallee 18"],
+            ["id"=>15,"place_id"=>4,"address"=>"Glashütter Strasse 101"],
+            ["id"=>16,"place_id"=>4,"address"=>"Glashütter Strasse 101A"],
+            ["id"=>17,"place_id"=>5,"address"=>"Parkstrasse 28"],
+            ["id"=>18,"place_id"=>5,"address"=>"Barbarossastrasse 2"],
+            ["id"=>19,"place_id"=>6,"address"=>"Trachenbergring 93"]
         ]);
     }
 }

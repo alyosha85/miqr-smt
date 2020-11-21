@@ -10,12 +10,13 @@
   <link rel="stylesheet" href="{{ url ('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Dropzone -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/basic.css"/>
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="{{ url ('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ url ('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="{{ url ('plugins/jqvmap/jqvmap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url ('css/admin_css/adminlte.min.css') }}">
   <!-- overlayScrollbars -->
@@ -67,8 +68,7 @@
 <!-- Sparkline -->
 <script src="{{ url ('plugins/sparklines/sparkline.js') }}"></script>
 <!-- JQVMap -->
-<script src="{{ url ('plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ url ('plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+<!--Scripts for JQMap are deleted -->
 <!-- jQuery Knob Chart -->
 <script src="{{ url ('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
 <!-- daterangepicker -->
@@ -82,6 +82,8 @@
 <script src="{{ url ('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url ('js/admin_js/adminlte.js') }}"></script>
+<!--DropZone-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url ('js/admin_js/pages/dashboard.js') }}"></script>
 <!-- toastr -->

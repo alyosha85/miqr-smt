@@ -8,6 +8,6 @@ class InvLastNumber extends Model
 {
     public function location()
     {
-        return $this->belongsTo(Location::class,'locid','locid');
+        return $this->belongsTo(Location::class);
     }
 }

@@ -13,12 +13,12 @@ class PlaceTableSeeder extends Seeder
     public function run()
     {
         Place::insert([
-            ["pid"=>1,"pnname"=>"Erfurt"],
-            ["pid"=>2,"pnname"=>"Suhl"],
-            ["pid"=>3,"pnname"=>"Leipzig"],
-            ["pid"=>4,"pnname"=>"Dresden"],
-            ["pid"=>5,"pnname"=>"Chemnitz"],
-            ["pid"=>6,"pnname"=>"Berlin"]
+            ["id"=>1,"pnname"=>"Erfurt"],
+            ["id"=>2,"pnname"=>"Suhl"],
+            ["id"=>3,"pnname"=>"Leipzig"],
+            ["id"=>4,"pnname"=>"Dresden"],
+            ["id"=>5,"pnname"=>"Chemnitz"],
+            ["id"=>6,"pnname"=>"Berlin"]
         ]);
     }
 }

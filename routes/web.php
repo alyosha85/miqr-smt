@@ -23,12 +23,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin_dashboard',function(){
     return view('admin/admin_dashboard');
 });
+//Route::post('/store', 'InvAbItemController@store')->name('store');
 
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
 
 Route::get('/search','InvAbItemController@search')->name('search');
 
+Route::get('/items/create','InvAbItemController@create')->name('items.create');
+
 Route::get('/auto','InvLastNumberController@index')->name('auto');
 
 // pdf upload test
-Route::post('/upload-file', 'FileUpload@fileUpload')->name('fileUpload');
+
