@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\InvRoom;
+use Illuminate\Database\Seeder;
 
 class InvRoomTableSeeder extends Seeder
 {

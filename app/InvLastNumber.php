@@ -10,4 +10,9 @@ class InvLastNumber extends Model
     {
         return $this->belongsTo(Location::class);
     }
+    public function room()
+    {
+        return $this->hasMany(InvRoom::class,'location_id','location_id');
+
+    }
 }

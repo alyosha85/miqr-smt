@@ -8,61 +8,46 @@
           </button>
         </div>
         <div class="modal-body">
-        <form action="{{}}" method="POST">
+        <form action="{{ route('item.store') }}" method="POST" id="item_form">
             @csrf
             <!-- First row -->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control"  placeholder="Inventarnummer" readonly>
+                    <input type="text" class="form-control invnr" name="invnr" placeholder="Inventarnummer" readonly>
                 </div>
                 <div class="form-group col-md-4">
-                        <input type="date" class="form-control" name="date"  placeholder="Anschffungsdatu">
+                        <input type="text" class="form-control date" name="andat"  placeholder="Anschffungsdatum">
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control"  name="price" placeholder="Kaufpreis" >
+                    <input type="text" class="form-control"  name="kp" placeholder="Kaufpreis" >
                 </div>
             </div>
             <!-- End of First row-->
             <!-- Second row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <select id="locations" name="locations" class="form-control">
-                        <option selected>Standort</option>
-                        <option>Trachenberg 93</option>
-                        <option>Barbarossa 2</option>
-                        <option>Park 28</option>
-                        <option>Löscher 16</option>
+                    <select id="location_id" name="location_id" class="form-control">
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select id="rooms" name="rooms" class="form-control">
-                        <option selected>Raum</option>
-                        <option>1.01</option>
-                        <option>1.02</option>
-                        <option>1.03</option>
+                    <select id="rooms" name="rname" class="form-control">
                     </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <div class="dropzone">
-                        <span>
-                            throw your shit here
-                        </span>
-                    </div>
                 </div>
             </div>
             <!-- End of Second row-->
             <!-- Third row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
-                    <select id="art" name="art" class="form-control">
+                    <select id="art" name="gart" class="form-control">
                         <option selected>Geräteart</option>
                         <option>Rechner</option>
                         <option>Laptop</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                        <input type="text" class="form-control" id="typ" name="typ" placeholder="Gerätetyp">
+                        <input type="text" class="form-control" id="gtyp" name="gtyp" placeholder="Gerätetyp">
                 </div>
+                <input type="hidden" class="form-control path_to_rg" id="path_to_rg" name="path_to_rg" placeholder="Gerätetyp">
                 <div class="form-group col-md-3">
                     <input type="text" class="form-control" id="gname" name="gname" placeholder="Gerätename">
                 </div>
@@ -81,11 +66,32 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-            <button type="submit"  class="btn btn-primary">Einfügen</button>
+            <button type="button" class="btn btn-primary submit_form_ajax" style="visibility:hidden;">Einfügen</button>
+            <button type="submit" class="btn btn-primary submit_form">Einfügen</button>
         </div>
     </form>
+          <div class="panel-heading">
+            <h3 class="panel-title">Select PDF</h3>
+          </div>
+          <div class="panel-body">
+            <form id="dropzoneForm" class="dropzone" action="{{ route('dropzone.upload_pdf') }}">
+              @csrf
+            </form>
+            {{-- <div align="center">
+              <button type="button" class="btn btn-info" id="submit-all">Upload</button>
+            </div> --}}
+          </div>
+        <br />
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Uploaded Pdf</h3>
+          </div>
+          <div class="panel-body" id="uploaded_pdf">
+          </div>
+        </div>
     </div>
     </div>
 </div>
+
 
 

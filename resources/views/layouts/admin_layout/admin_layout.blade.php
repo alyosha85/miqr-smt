@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="{{ url ('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Dropzone -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/basic.css"/>
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="{{ url ('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <!-- Dropzone -->
+    <link rel="stylesheet" href="{{ url('dropzone-5.7.0/dist/min/dropzone.min.css') }}" />
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ url ('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- JQVMap -->
@@ -30,7 +30,8 @@
   <!-- Datatables Css -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
   <!-- toastr -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
 
 
 
@@ -82,12 +83,11 @@
 <script src="{{ url ('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ url ('js/admin_js/adminlte.js') }}"></script>
-<!--DropZone-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/min/dropzone.min.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url ('js/admin_js/pages/dashboard.js') }}"></script>
 <!-- toastr -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @if(Session::has('sync'))
 <script>
     toastr.success("{!! Session::get('sync') !!}");
@@ -100,6 +100,8 @@
         $('[data-toggle="tooltip"]').tooltip()
       })
 </script>
+<!--DropZone-->
+<script src="{{ url('dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
 @yield('script')
 </body>
 </html>

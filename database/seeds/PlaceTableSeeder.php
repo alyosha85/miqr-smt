@@ -1,7 +1,8 @@
 <?php
+
+
 use App\Place;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PlaceTableSeeder extends Seeder
 {
