@@ -12,4 +12,6 @@ class InvAbItem extends Model
     {
         return $this->belongsTO(Location::class);
     }
+
+
 }

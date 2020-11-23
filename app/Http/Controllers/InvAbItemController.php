@@ -7,6 +7,7 @@ use App\Location;
 use App\InvLastNumber;
 use App\TempInvAbItem;
 use App\InvItems;
+use App\InvRoom;
 use Illuminate\Http\Request;
 
 class InvAbItemController extends Controller
@@ -15,8 +16,9 @@ class InvAbItemController extends Controller
     public function search(Request $request)
     {
         $search_text = strtoupper($_GET['search']);
-        $items = InvAbItem::where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
-        return view('inventory/index',compact('items'));
+        $items = InvAbItem::with('location')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
+        return view('inventory.index',compact('items','room'));
     }
     /**
      * Display a listing of the resource.
@@ -109,7 +111,7 @@ class InvAbItemController extends Controller
         $item->last_inv_num = $split[1];
         $item -> save();
 
-        return redirect()->back();
+        return redirect()->back()->with("item_added",'Added successfully !!!!');
 
     }
 

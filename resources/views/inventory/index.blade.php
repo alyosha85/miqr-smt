@@ -78,17 +78,24 @@
                     <!-- Second row-->
                     <div class="form-row mb-3">
                         <div class="form-group col-md-4">
-                                <input type="text" class="form-control" placeholder="Standort" value="{{$items->address ?? ''}}" readonly data-toggle="tooltip" data-placement="top" title="Standort">
+                                <input type="text" class="form-control" placeholder="Standort" value="{{$items->location->address ?? ''}}" readonly data-toggle="tooltip" data-placement="top" title="Standort">
                         </div>
                         <div class="form-group col-md-4">
-                            <input type="text" class="form-control" placeholder="Raum" value="{{$items->address ?? ''}}" readonly data-toggle="tooltip" data-placement="top" title="Raum">
-
+                            @if (!empty($room->invroom->rname))
+                            <input type="text" class="form-control" placeholder="Raum" value="{{$room->invroom->rname}}" readonly data-toggle="tooltip" data-placement="top" title="Raum">
+                            @else
+                            <input type="text" class="form-control" placeholder="Raum" value="{{$room->invroom->altrname ?? ''}}" readonly data-toggle="tooltip" data-placement="top" title="Raum">
+                            @endif
                         </div>
                         <div class="form-group col-md-2">
-                            <div >
+                            <div class="ml-5">
+                                @isset($items->path_to_rg)
                                 <a href="{{'inventar/rechnungen/'.$items->path_to_rg ?? ''}}" target="_blank" >
-                                    <img src="{{ url('images/admin_images/rechnung.png') }}" alt="rechnung.png" class="rounded">
+                                    <i class="fas fa-file-pdf fa-4x" style="color:green" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
                                 </a>
+                                @else
+                                <i class="far fa-file-pdf fa-4x" style="color:#d9534f" data-toggle="tooltip" data-placement="top" title="Keine Rechnung"></i>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group col-md-2">
@@ -99,11 +106,7 @@
                     <!-- Third row-->
                     <div class="form-row mb-3">
                         <div class="form-group col-md-3">
-                            <select id="gtype" class="form-control" data-toggle="tooltip" data-placement="top" title="Geräteart">
-                                <option selected>Geräteart</option>
-                                <option>Rechner</option>
-                                <option>Laptop</option>
-                            </select>
+                            <input type="text" class="form-control" placeholder="Geräteart" value="{{$items->gart ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Geräteart">
                         </div>
                         <div class="form-group col-md-3">
                             	<input type="text" class="form-control" placeholder="Gerätetyp" value="{{$items->gtyp ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätetyp">
@@ -175,15 +178,16 @@ $( document ).on( "change", "#address", function() {
 
 $( document ).on( "click", ".add", function() {
     $('#location_id').find('option').remove();
-    $("#location_id").append(new Option("Bitte Wählen...",0));
+    $("#location_id").append(new Option("Standort...",0));
     $('#rooms').find('option').remove();
-    $("#rooms").append(new Option("Bitte Wählen...",0));
+    $("#rooms").append(new Option("Raum...",0));
     $('.invnr').val('');
     locationData = new Array();
     $.ajax({
         type: "GET",
-        url: "{{ route('item.create') }}", //Route NAME USED
+        url: "{{ route('item.create') }}", //Route NAME USE
         }).done(function( data ) {
+            console.log(data);
             $.each(data, function(index, item) {
                 $("#location_id").append(new Option(item.location.address,item.location_id));
                 locationData.push(item);
@@ -273,5 +277,16 @@ Dropzone.options.dropzoneForm = {
     })
   });
 
+  Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
+  Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
+  Dropzone.prototype.defaultOptions.dictFallbackText = "Benutzen Sie das Formular um Ihre Dateien hochzuladen";
+  Dropzone.prototype.defaultOptions.dictInvalidFileType = "Eine Datei dieses Typs kann nicht hochgeladen werden";
+  Dropzone.prototype.defaultOptions.dictCancelUpload = "Hochladen abbrechen";
+  Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "null";
+  Dropzone.prototype.defaultOptions.dictRemoveFile = "Datei entfernen";
+  Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Sie können keine weiteren Dateien mehr hochladen.";
+
 </script>
 @endsection
+
+

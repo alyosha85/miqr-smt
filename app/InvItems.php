@@ -10,6 +10,6 @@ class InvItems extends Model
 
     public function invroom ()
     {
-        return $this->belongsTo(InvRoom::class);
+        return $this->belongsTo(InvRoom::class,'room_id','id');
     }
 }

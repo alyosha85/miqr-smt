@@ -42,6 +42,10 @@
                         <option selected>Geräteart</option>
                         <option>Rechner</option>
                         <option>Laptop</option>
+                        <option>Drucker</option>
+                        <option>Beamer</option>
+                        <option>Bildschirm</option>
+                        <option>Tablet</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -70,9 +74,6 @@
             <button type="submit" class="btn btn-primary submit_form">Einfügen</button>
         </div>
     </form>
-          <div class="panel-heading">
-            <h3 class="panel-title">Select PDF</h3>
-          </div>
           <div class="panel-body">
             <form id="dropzoneForm" class="dropzone" action="{{ route('dropzone.upload_pdf') }}">
               @csrf
@@ -83,9 +84,6 @@
           </div>
         <br />
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Uploaded Pdf</h3>
-          </div>
           <div class="panel-body" id="uploaded_pdf">
           </div>
         </div>

@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{{ url('dropzone-5.7.0/dist/min/dropzone.min.css') }}" />
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ url ('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-  <!-- JQVMap -->
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url ('css/admin_css/adminlte.min.css') }}">
   <!-- overlayScrollbars -->
@@ -102,6 +101,15 @@
 </script>
 <!--DropZone-->
 <script src="{{ url('dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
+<!-- sweet alert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+@if(Session::has('item_added'))
+<script>
+    swat("Create Job!","{!!Session::get('item_added') !!}","success",{
+        button:"Ok",
+    });
+</script>
+@endif
 @yield('script')
 </body>
 </html>

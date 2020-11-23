@@ -16,4 +16,5 @@ class Location extends Model
         return $this->hasMany(InvRoom::class);
     }
 
+
 }
