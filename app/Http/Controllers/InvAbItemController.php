@@ -163,7 +163,10 @@ class InvAbItemController extends Controller
      */
     public function update(Request $request, Invabitem $invabitem)
     {
-        //
+        $items = InvAbItem::findorfail($request->id);
+        $items->notes = $request->notes;
+        $items->update();
+        return redirect()->back();
     }
 
     /**

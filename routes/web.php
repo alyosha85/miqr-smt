@@ -41,6 +41,7 @@ Route::get('/auto','InvLastNumberController@index')->name('auto');
 //Item Controllers
 Route::get('/inventory','InvAbItemController@index')->name('inventory');
 Route::get('/item/create','InvAbItemController@create')->name('item.create');
+Route::patch('/item/update/{id}','InvAbItemController@update')->name('item.update');
 Route::post('/item','InvAbItemController@store')->name('item.store');
 
 

@@ -15,7 +15,7 @@
           </button>
         </div><!-- /.col -->
 
-        <div class="col-sm-4 mt-5"><!-- <h1 class="m-0 text-dark">H1 Header</h1> -->
+        <div class="col-sm-4 mt-4"><!-- <h1 class="m-0 text-dark">H1 Header</h1> -->
             <form action="{{ url('/search') }}" type="get">
                 <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                   <div class="input-group">
@@ -55,7 +55,9 @@
         <!-- Left col -->
         <section class="col-lg-12 connectedSortable">
             <div class="col-lg-12 mt-2">
-                <form>
+                <form action="{{ route('item.update',$items->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
                     <!-- First row -->
                     <div class="form-row mb-3">
                         <div class="form-group col-md-3">
@@ -121,13 +123,13 @@
                     <!-- Forth row -->
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <textarea class="form-control" rows="3" placeholder="Notizen" data-toggle="tooltip" data-placement="top" title="Notizen"> {{$items->notes ?? '' }} </textarea>
+                            <textarea class="form-control" name="notes" rows="3" placeholder="Notizen" data-toggle="tooltip" data-placement="top" title="Notizen"> {{$items->notes ?? '' }} </textarea>
                         </div>
                     </div>
                     <!-- End of Forth row -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">verwerfen</button>
-                        <button type="button" class="btn btn-primary">Speichern</button>
+                        <button type="submit" class="btn btn-primary">Speichern</button>
                     </div>
                 </form>
             </div>
