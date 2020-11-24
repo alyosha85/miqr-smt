@@ -9,6 +9,7 @@ use App\TempInvAbItem;
 use App\InvItems;
 use App\InvRoom;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Print_;
 
 class InvAbItemController extends Controller
 {
@@ -19,6 +20,22 @@ class InvAbItemController extends Controller
         $items = InvAbItem::with('location')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
         $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
         return view('inventory.index',compact('items','room'));
+    }
+
+    public function searchCheck(Request $request)
+    {
+        $data = $request->all();
+        //echo "<pre>"; print_r($data);
+        $invnr = InvAbItem::select('invnr')->get()->toArray();
+        $gname = InvAbItem::select('gname')->get()->toArray();
+        // echo "<pre>"; print_r($gname);
+
+        if($data['search'] == $invnr or $data['search'] == $gname) {
+            echo "true";
+        }else{
+            echo"false";
+        }
+
     }
     /**
      * Display a listing of the resource.

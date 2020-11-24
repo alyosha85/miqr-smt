@@ -109,6 +109,8 @@
         button:"Ok",
     });
 </script>
+    <!-- Custom JS -->
+    <script src="{{ url('js/admin_js/script.js') }}"></script>
 @endif
 @yield('script')
 </body>

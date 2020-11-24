@@ -32,6 +32,8 @@ Route::get('/sync','TempInvAbItemController@index')->name('sync');
 // item search query
 Route::get('/search','InvAbItemController@search')->name('search');
 
+Route::post('search_check','InvAbItemController@searchCheck')->name('search_check');
+
 Route::get('/items/create','InvAbItemController@create')->name('items.create');
 
 Route::get('/auto','InvLastNumberController@index')->name('auto');

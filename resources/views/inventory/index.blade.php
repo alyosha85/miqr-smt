@@ -19,13 +19,14 @@
             <form action="{{ url('/search') }}" type="get">
                 <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                   <div class="input-group">
-                    <input type="search" name="search" placeholder="Suchen" aria-describedby="button-addon1" class="form-control border-0 bg-light" value="{{ request()->input('search') }}">
+                    <input type="search" name="search" placeholder="Suchen" id="search" aria-describedby="button-addon1" class="form-control border-0 bg-light" value="{{ request()->input('search') }}">
                     <div class="input-group-append">
                       <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                     </div>
                     </div>
                 </div>
             </form>
+            <span id="chksrch"></span>
         </div><!-- /.col -->
         <!-- modal -->
         @include('admin.modals.add_modal')
@@ -104,17 +105,14 @@
                     </div>
                     <!-- End of Second row-->
                     <!-- Third row-->
-                    <div class="form-row mb-3">
+                    <div class="form-row mb-4">
                         <div class="form-group col-md-3">
                             <input type="text" class="form-control" placeholder="Geräteart" value="{{$items->gart ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Geräteart">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             	<input type="text" class="form-control" placeholder="Gerätetyp" value="{{$items->gtyp ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätetyp">
                         </div>
-                        <div class="form-group col-md-3">
-                            <input type="text" class="form-control" placeholder="Gerätename" value="{{$items->gname ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätename">
-                        </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <input type="text" class="form-control" id="serial_nummber" placeholder="Seriennummer" value="{{$items->sn ?? '' }}" readonly
                             data-toggle="tooltip" data-placement="top" title="Seriennummer">
                         </div>
@@ -276,6 +274,29 @@ Dropzone.options.dropzoneForm = {
       }
     })
   });
+
+  $(document).ready(function(){
+    $('#search').keyup(function(){
+        let search = $("#search").val();
+        $.ajax({
+            type:'post',
+            url:"{{ route('search_check') }}",
+            data:{search:search},
+            success:function(resp){
+                if(resp=="false"){
+                    $("#chksrch").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+                }else{
+                    if(resp =="true") {
+                    $("#chksrch").html("<font color=green>Gerätename ist korrekt</font>");
+                    }
+                }
+            },error:function(){
+                alert("Error");
+            }
+        });
+    });
+});
+
 
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
   Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";

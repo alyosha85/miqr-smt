@@ -17,7 +17,7 @@ class CreateInvRoomsTable extends Migration
             $table->id();
             $table->foreignId('place_id')->nullable();
             $table->foreignId('location_id')->nullable();
-            $table->integer('etage')->default(0)->nullable();
+            $table->string('etage',50)->default('0')->nullable();
             $table->string('rname',50)->nullable();
             $table->string('altrname',50)->nullable();
             $table->timestamps();
