@@ -25,7 +25,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">verwerfen</button>
-          <button type="button" class="btn btn-primary">Drucken</button>
+          <button class="btn btn-primary hidden-print" onclick="myFunction()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
         </div>
       </div>
     </div>

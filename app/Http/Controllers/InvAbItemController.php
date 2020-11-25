@@ -19,23 +19,17 @@ class InvAbItemController extends Controller
         $search_text = strtoupper($_GET['search']);
         $items = InvAbItem::with('location')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
         $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
+
         return view('inventory.index',compact('items','room'));
     }
 
     public function searchCheck(Request $request)
     {
         $data = $request->all();
-        //echo "<pre>"; print_r($data);
-        $invnr = InvAbItem::select('invnr')->get()->toArray();
-        $gname = InvAbItem::select('gname')->get()->toArray();
-        // echo "<pre>"; print_r($gname);
-
-        if($data['search'] == $invnr or $data['search'] == $gname) {
-            echo "true";
-        }else{
-            echo"false";
-        }
-
+        echo "<pre>"; print_r($data['search']);
+        // $invnr = InvAbItem::whereRow('invnr',$data['search']);
+        // $gname = InvAbItem::select('gname')->get()->toArray();
+        // echo "<pre>"; print_r($invnr);
     }
     /**
      * Display a listing of the resource.
@@ -44,6 +38,7 @@ class InvAbItemController extends Controller
      */
     public function index()
     {
+
         return view('inventory.index');
     }
 
@@ -151,7 +146,7 @@ class InvAbItemController extends Controller
      */
     public function edit(Invabitem $invabitem)
     {
-        //
+
     }
 
     /**
@@ -166,7 +161,11 @@ class InvAbItemController extends Controller
         $items = InvAbItem::findorfail($request->id);
         $items->notes = $request->notes;
         $items->update();
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Erfolgreich aktualisiert',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
     /**

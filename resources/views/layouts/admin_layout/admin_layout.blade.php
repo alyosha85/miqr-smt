@@ -37,7 +37,6 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
 @include('layouts.admin_layout.admin_header')
 
 @include('layouts.admin_layout.admin_sidebar')
@@ -87,9 +86,26 @@
 <script src="{{ url ('js/admin_js/pages/dashboard.js') }}"></script>
 <!-- toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-@if(Session::has('sync'))
+@if(Session::has('message'))
 <script>
-    toastr.success("{!! Session::get('sync') !!}");
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
 </script>
 @endif
 <!-- Datatables script-->
@@ -103,15 +119,8 @@
 <script src="{{ url('dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
 <!-- sweet alert -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-@if(Session::has('item_added'))
-<script>
-    swat("Create Job!","{!!Session::get('item_added') !!}","success",{
-        button:"Ok",
-    });
-</script>
     <!-- Custom JS -->
     <script src="{{ url('js/admin_js/script.js') }}"></script>
-@endif
 @yield('script')
 </body>
 </html>

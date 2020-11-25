@@ -55,7 +55,12 @@
         <!-- Left col -->
         <section class="col-lg-12 connectedSortable">
             <div class="col-lg-12 mt-2">
+                @if (!empty($items->id))
                 <form action="{{ route('item.update',$items->id) }}" method="POST">
+                @else
+                <form action="#" method=""></form>
+                @endif
+
                     @csrf
                     @method('PATCH')
                     <!-- First row -->
@@ -298,6 +303,9 @@ Dropzone.options.dropzoneForm = {
         });
     });
 });
+
+
+
 
 
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";

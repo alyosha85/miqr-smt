@@ -14,17 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin_dashboard',function(){
-    return view('admin/admin_dashboard');
-});
-//Route::post('/store', 'InvAbItemController@store')->name('store');
+Route::get('/home', 'InvAbItemController@index')->name('home');
 
 // one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
@@ -32,20 +24,22 @@ Route::get('/sync','TempInvAbItemController@index')->name('sync');
 // item search query
 Route::get('/search','InvAbItemController@search')->name('search');
 
+// Ajax Routes
+    // search Check
 Route::post('search_check','InvAbItemController@searchCheck')->name('search_check');
-
+    // create Address and room lists
 Route::get('/items/create','InvAbItemController@create')->name('items.create');
-
+    // query last InvNumber
 Route::get('/auto','InvLastNumberController@index')->name('auto');
 
-//Item Controllers
+//Inventory  Controllers
 Route::get('/inventory','InvAbItemController@index')->name('inventory');
 Route::get('/item/create','InvAbItemController@create')->name('item.create');
 Route::patch('/item/update/{id}','InvAbItemController@update')->name('item.update');
 Route::post('/item','InvAbItemController@store')->name('item.store');
 
 
-// pdf upload test
+// pdf upload
 Route::post('dropzone/upload_pdf', 'InvAbItemController@upload_pdf')->name('dropzone.upload_pdf');
 // show pdf
 Route::get('dropzone/fetch_pdf', 'InvAbItemController@fetch_pdf')->name('dropzone.fetch_pdf');
