@@ -305,6 +305,18 @@ Dropzone.options.dropzoneForm = {
 });
 
 
+function printfunction() {
+    $('#print').modal('hide');
+    let printinvnr = $('#prntinvnr').val();
+    let anzahl = $('#anzahl').val();
+    let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    setInterval(function(){ WinPrint.close()}, 3000);
+
+}
+
 
 
 

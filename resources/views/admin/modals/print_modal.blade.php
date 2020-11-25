@@ -11,21 +11,21 @@
 
             <div class="form-row mb-3">
                 <div class="form-group col-md-6">
-                    <select id="address" class="form-control">
+                    <select id="address" class="form-control" required>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
                     <input type="text" class="form-control inventNumber" id="prntinvnr" placeholder="Inventarnummer" readonly>
                 </div>
                 <div class="form-group col-md-2">
-                    <input type="text" class="form-control" id="anzahl" placeholder="Anzahl">
+                    <input type="text" class="form-control" id="anzahl" placeholder="Anzahl" value="1" required>
                 </div>
             </div>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">verwerfen</button>
-          <button class="btn btn-primary hidden-print" onclick="myFunction()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+          <button class="btn btn-primary hidden-print" onclick="printfunction()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
         </div>
       </div>
     </div>

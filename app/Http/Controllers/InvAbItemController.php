@@ -13,6 +13,14 @@ use PhpParser\Node\Expr\Print_;
 
 class InvAbItemController extends Controller
 {
+    public function printlabel($printinvnr, $anzahl)
+    {
+        $explode = explode('-',$printinvnr);
+        $anzahlnew = InvLastNumber::where('last_inv_num',($explode[1])-1)->first();
+        $anzahlnew->last_inv_num += $anzahl;
+        $anzahlnew->save();
+        return view ('inventory.print',compact('explode','anzahl'));
+    }
 
     public function search(Request $request)
     {
@@ -26,10 +34,9 @@ class InvAbItemController extends Controller
     public function searchCheck(Request $request)
     {
         $data = $request->all();
-        echo "<pre>"; print_r($data['search']);
-        // $invnr = InvAbItem::whereRow('invnr',$data['search']);
-        // $gname = InvAbItem::select('gname')->get()->toArray();
-        // echo "<pre>"; print_r($invnr);
+        // echo "<pre>"; print_r($data['search']);
+        $check = InvAbItem::where('invnr',$data['search'])->orwhere('gname',$data['search'])->first();
+        return $check;
     }
     /**
      * Display a listing of the resource.
