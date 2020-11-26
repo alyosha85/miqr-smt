@@ -34,9 +34,13 @@ class InvAbItemController extends Controller
     public function searchCheck(Request $request)
     {
         $data = $request->all();
-        // echo "<pre>"; print_r($data['search']);
+        //echo "<pre>"; print_r($data['search']);
         $check = InvAbItem::where('invnr',$data['search'])->orwhere('gname',$data['search'])->first();
-        return $check;
+        if ($check && $data['search']!="") {
+            echo "true";
+        }else{
+            echo "false";
+        }
     }
     /**
      * Display a listing of the resource.

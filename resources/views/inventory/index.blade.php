@@ -19,9 +19,9 @@
             <form action="{{ url('/search') }}" type="get">
                 <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                   <div class="input-group">
-                    <input type="search" name="search" placeholder="Suchen" id="search" aria-describedby="button-addon1" class="form-control border-0 bg-light" value="{{ request()->input('search') }}">
+                    <input type="search" name="search" placeholder="Suchen" id="search" aria-describedby="button-addon1" class="form-control border-0 bg-light sform" value="{{ request()->input('search') }}">
                     <div class="input-group-append">
-                      <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                      <button id="srch_button" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                     </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
         <div class="col-sm-4">
         <div class="breadcrumb float-sm-right">
-        <button type="button" class="btn btn-success print" data-toggle="modal" data-target="#print">Inventarnummer Drucken</button>
+        <button type="button" class="btn btn-success print" data-toggle="modal" data-target="#printpage">Inventarnummer Drucken</button>
         </div>
         <!-- modal Print -->
          @include('admin.modals.print_modal')
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="form-group col-md-2">
-                            <button type="button" class="btn btn-danger">Ausmustern</button>
+                            <button type="button" class="btn btn-secondary">Ausmustern</button>
                         </div>
                     </div>
                     <!-- End of Second row-->
@@ -158,6 +158,7 @@
 let locationData = new Array();
 let text = '';
 $( document ).on( "click", ".print", function() {
+    $('#anzahl').val(1);
     $('#address').find('option').remove();
     $("#address").append(new Option("Bitte Wählen...",0));
     $('.inventNumber').val('');
@@ -183,7 +184,7 @@ $( document ).on( "change", "#address", function() {
 
 $( document ).on( "click", ".add", function() {
     $('#location_id').find('option').remove();
-    $("#location_id").append(new Option("Standort...",0));
+    $('#location_id').append(new Option("Standort...",0));
     $('#rooms').find('option').remove();
     $("#rooms").append(new Option("Raum...",0));
     $('.invnr').val('');
@@ -292,6 +293,13 @@ Dropzone.options.dropzoneForm = {
             success:function(resp){
                 if(resp=="false"){
                     $("#chksrch").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+                    $('#srch_button').attr("type","button");
+                    $('form input').keydown(function (e) {
+                        if (e.keyCode == 13) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    });
                 }else{
                     if(resp =="true") {
                     $("#chksrch").html("<font color=green>Gerätename ist korrekt</font>");
@@ -306,7 +314,7 @@ Dropzone.options.dropzoneForm = {
 
 
 function printfunction() {
-    $('#print').modal('hide');
+    $('#printpage').modal('hide');
     let printinvnr = $('#prntinvnr').val();
     let anzahl = $('#anzahl').val();
     let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
@@ -316,10 +324,6 @@ function printfunction() {
     setInterval(function(){ WinPrint.close()}, 3000);
 
 }
-
-
-
-
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
   Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
   Dropzone.prototype.defaultOptions.dictFallbackText = "Benutzen Sie das Formular um Ihre Dateien hochzuladen";

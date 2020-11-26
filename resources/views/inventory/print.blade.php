@@ -6,6 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LabelDrücken</title>
     <style>
+        @page {
+            size: 90mm 29mm rotated;
+        }
+        @media print {
+            html, body {
+                height: 50%;
+            }
+        }
         @font-face {
             font-family: 'BrzBC_Code39_MK';
             src: url('font/BrzBC_Code39_MK.woff2') format('woff2'),
@@ -16,12 +24,12 @@
                 font-display: swap;
             }
 
-        #print {
+        .print {
             height: 29mm;
-            width:  90mm;
+            min-width:  90mm;
             border: solid black thin;
             padding: 0px;
-            margin: 120px 0px 5000px -120px;
+            margin: 120px 400px 650px -120px;
             font-family: 'BrzBC_Code39_MK', 'Courier', 'monospace';
             text-align: center;
             line-height: 100px;
@@ -41,11 +49,10 @@
     </style>
 </head>
 <body>
-
-    @for($i=0; $i<$anzahl;$i++)
-        <div id="print">
+    @for($i=0; $i<$anzahl; $i++)
+        <div class="print">
             <span>*{{$explode[0]}}-{{(int)($explode[1])+$i}}-{{$explode[2]}}*</span>
         </div>
     @endfor
-</body>
+    </body>
 </html>
