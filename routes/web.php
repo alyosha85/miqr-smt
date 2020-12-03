@@ -16,7 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home', 'InvAbItemController@index')->name('home');
+Route::get('/home',function(){
+    return view('admin.admin_dashboard')->name('home');
+});
+Route::get('/',function(){
+    return view('admin/admin_dashboard');
+});
+
 
 // one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
@@ -35,6 +41,7 @@ Route::get('/auto','InvLastNumberController@index')->name('auto');
 //Inventory  Controllers
 Route::get('/inventory','InvAbItemController@index')->name('inventory');
 Route::get('/item/create','InvAbItemController@create')->name('item.create');
+Route::get('/item/create_man','InvAbItemController@create_man')->name('item.create_man');
 Route::patch('/item/update/{id}','InvAbItemController@update')->name('item.update');
 Route::post('/item','InvAbItemController@store')->name('item.store');
 Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->name('printlabel');

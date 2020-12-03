@@ -1,159 +1,87 @@
 @extends('layouts.admin_layout.admin_layout')
 
 @section('content')
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-<!-- Content Header (Page header) -->
-<div class="content-header">
-    <div class="container">
-    <div class="row mb-2">
-        <div class="col-sm-4">
-        <!-- <h1 class="m-0 text-dark">H1 Header</h1> -->
-        <button type="button" class="btn btn-primary add" data-toggle="modal" data-target="#add">
-            Erfassung
-          </button>
-        </div><!-- /.col -->
-
-        <div class="col-sm-4 mt-4"><!-- <h1 class="m-0 text-dark">H1 Header</h1> -->
-            <form action="{{ url('/search') }}" type="get">
-                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
-                  <div class="input-group">
-                    <input type="search" name="search" placeholder="Suchen" id="search" aria-describedby="button-addon1" class="form-control border-0 bg-light sform" value="{{ request()->input('search') }}">
-                    <div class="input-group-append">
-                      <button id="srch_button" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
-                    </div>
-                    </div>
-                </div>
-            </form>
-            <span id="chksrch"></span>
-        </div><!-- /.col -->
-        <!-- modal -->
-        @include('admin.modals.add_modal')
-        <!--End Add Modal-->
-
-
-        <div class="col-sm-4">
-        <div class="breadcrumb float-sm-right">
-        <button type="button" class="btn btn-success print" data-toggle="modal" data-target="#printpage">Inventarnummer Drucken</button>
-        </div>
-        <!-- modal Print -->
-         @include('admin.modals.print_modal')
-        <!--End modal Print -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
-
 <!-- Main content -->
 <section class="content">
-    <div class="container">
-    <!-- Small boxes (Stat box) -->
-    <!-- Main row -->
-    <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-            <div class="col-lg-12 mt-2">
-                @if (!empty($items->id))
-                <form action="{{ route('item.update',$items->id) }}" method="POST">
-                @else
-                <form action="#" method=""></form>
-                @endif
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>1000</h3>
+                        <p>Total Rechner & Laptops</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">Mehr Info<i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                    @csrf
-                    @method('PATCH')
-                    <!-- First row -->
-                    <div class="form-row mb-3">
-                        <div class="form-group col-md-3">
-                            <input type="text" class="form-control" placeholder="Gerätename" value="{{$items->gname ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätename">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <input type="text" class="form-control" placeholder="Inventarnummer" value="{{$items->invnr ?? '' }}"readonly
-                            data-toggle="tooltip" data-placement="top" title="Inventarnummer">
-                        </div>
+                    <p>Hard Code</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">Mehr Info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>00</h3>
 
-                        <div class="form-group col-md-3">
-                                <input type="date" class="form-control" placeholder="Anschaffungsdatum" value="{{$items->andat ?? '' }}" readonly
-                                data-toggle="tooltip" data-placement="top" title="Anschaffungsdatum">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <input type="text" class="form-control" placeholder="Kaufpreis" value="{{$items->kp ?? '' }}" readonly
-                            data-toggle="tooltip" data-placement="top" title="Kaufpreis">
-                        </div>
-                    </div>
-                    <!-- End of First row-->
-                    <!-- Second row-->
-                    <div class="form-row mb-3">
-                        <div class="form-group col-md-4">
-                                <input type="text" class="form-control" placeholder="Standort" value="{{$items->location->address ?? ''}}" readonly data-toggle="tooltip" data-placement="top" title="Standort">
-                        </div>
-                        <div class="form-group col-md-4">
-                            @if (!empty($room->invroom->rname))
-                            <input type="text" class="form-control" placeholder="Raum" value="{{$room->invroom->rname}}" readonly data-toggle="tooltip" data-placement="top" title="Raum">
-                            @else
-                            <input type="text" class="form-control" placeholder="Raum" value="{{$room->invroom->altrname ?? ''}}" readonly data-toggle="tooltip" data-placement="top" title="Raum">
-                            @endif
-                        </div>
-                        <div class="form-group col-md-2">
-                            <div class="ml-5">
-                                @isset($items->path_to_rg)
-                                <a href="{{'inventar/rechnungen/'.$items->path_to_rg ?? ''}}" target="_blank" >
-                                    <i class="fas fa-file-pdf fa-4x" style="color:green" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
-                                </a>
-                                @else
-                                <i class="far fa-file-pdf fa-4x" style="color:#d9534f" data-toggle="tooltip" data-placement="top" title="Keine Rechnung"></i>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <button type="button" class="btn btn-secondary">Ausmustern</button>
-                        </div>
-                    </div>
-                    <!-- End of Second row-->
-                    <!-- Third row-->
-                    <div class="form-row mb-4">
-                        <div class="form-group col-md-3">
-                            <input type="text" class="form-control" placeholder="Geräteart" value="{{$items->gart ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Geräteart">
-                        </div>
-                        <div class="form-group col-md-4">
-                            	<input type="text" class="form-control" placeholder="Gerätetyp" value="{{$items->gtyp ?? '' }}" readonly data-toggle="tooltip" data-placement="top" title="Gerätetyp">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <input type="text" class="form-control" id="serial_nummber" placeholder="Seriennummer" value="{{$items->sn ?? '' }}" readonly
-                            data-toggle="tooltip" data-placement="top" title="Seriennummer">
-                        </div>
-                    </div>
-                    <!-- End of Third row-->
-                    <!-- Forth row -->
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <textarea class="form-control" name="notes" rows="3" placeholder="Notizen" data-toggle="tooltip" data-placement="top" title="Notizen"> {{$items->notes ?? '' }} </textarea>
-                        </div>
-                    </div>
-                    <!-- End of Forth row -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">verwerfen</button>
-                        <button type="submit" class="btn btn-primary">Speichern</button>
-                    </div>
-                </form>
+                    <p>Hard Code</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">Mehr Info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            <div class="col-lg-6 mt-5">
+            <!-- ./col -->
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>65</h3>
+
+                    <p>Hard Code</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">Mehr Info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
-            </div>
-</section>
-<!-- right col -->
+            <!-- ./col -->
+        </div>
     </div>
-    <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
 </section>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
 
+
+<!-- TODO: Modals -->
+<!-- Create Modal -->
+@include('inventory.create')
+@include('inventory.create_man')
+<!-- Print modal -->
+@include('inventory.label')
 
 @endsection
+
 @section('script')
+
 <script>
 let locationData = new Array();
 let text = '';
@@ -203,6 +131,7 @@ $( document ).on( "click", ".add", function() {
 $( document ).on( "change", "#location_id", function() {
     $('#rooms').find('option').remove();
     $("#rooms").append(new Option("Bitte Wählen...",0));
+    $("#rooms").append(new Option("N/A",1));
     for(let i = 0; i<locationData.length ; i++){
         if(locationData[i].location_id == $( this ).val()){
             texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
@@ -332,6 +261,108 @@ function printfunction() {
   Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "null";
   Dropzone.prototype.defaultOptions.dictRemoveFile = "Datei entfernen";
   Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Sie können keine weiteren Dateien mehr hochladen.";
+
+
+
+  //TODO: Manuell create
+  let locationSelect = new Array();
+$( document ).on( "click", ".add_man", function() {
+    $('#location_id_man').find('option').remove();
+    $('#location_id_man').append(new Option("Standort...",0));
+    $('#rooms_man').find('option').remove();
+    $("#rooms_man").append(new Option("Raum...",0));
+    $.ajax({
+        type: "GET",
+        url: "{{ route('item.create_man') }}", //Route NAME USE
+        }).done(function( data ) {
+            $.each(data, function(index, item) {
+                $("#location_id_man").append(new Option(item.address,item.id));
+                locationSelect.push(item);
+            });
+    });
+});
+
+$( document ).on( "change", "#location_id_man", function() {
+    $('#rooms_man').find('option').remove();
+    $("#rooms_man").append(new Option("Bitte Wählen...",0));
+    $("#rooms_man").append(new Option("N/A",1));
+    for(let i = 0; i<locationSelect.length ; i++){
+        if(locationSelect[i].id == $( this ).val()){
+            console.log(locationSelect[i])
+            $.each(locationSelect[i].invrooms, function(index, item) {
+                    let name = item.altrname;
+                    if(item.rname != '')
+                        name = item.rname;
+                    $("#rooms_man").append(new Option(name,item.id));
+                });
+            }
+        }
+
+        });
+
+
+$(function() {
+  $('.date_man').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: parseInt(moment().format('YYYY'))-1,
+    maxYear: parseInt(moment().format('YYYY'))+1,
+    locale: {
+      format: 'YYYY-MM-DD'
+    }
+  });
+});
+
+// drop zone
+Dropzone.options.dropzoneForm = {
+    autoProcessQueue : false,
+    acceptedFiles : ".pdf",
+    maxFiles:1,
+    init:function(){
+      var submitButton = document.querySelector(".submit_form_ajax");
+      myDropzone = this;
+
+      submitButton.addEventListener('click', function(){
+        myDropzone.processQueue();
+      });
+
+      this.on("addedfile", function(data){
+          console.log('file.selected');
+            $('.submit_form_ajax').css('visibility','visible');
+            $('.submit_form').css('visibility','hidden');
+      });
+      this.on("complete", function(data){
+
+        $('.path_to_rg').val(data.xhr.response);
+        // load_images();
+        $('#item_form_man').submit();
+      });
+    }
+
+  };
+//   load_images();
+  function load_images()
+  {
+    $.ajax({
+      url:"{{ route('dropzone.fetch_pdf') }}",
+      success:function(data)
+      {
+        $('#uploaded_pdf_man').html(data);
+      }
+    })
+  }
+
+  $(document).on('click', '.remove_pdf', function(){
+    var name = $(this).attr('id');
+    $.ajax({
+      url:"{{ route('dropzone.delete_pdf') }}",
+      data:{name : name},
+      success:function(data){
+        load_images();
+      }
+    })
+  });
+
 
 </script>
 @endsection

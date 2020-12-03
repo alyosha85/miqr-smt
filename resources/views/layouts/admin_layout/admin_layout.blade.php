@@ -30,27 +30,34 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
   <!-- toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-
-
-
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 @include('layouts.admin_layout.admin_header')
 
 @include('layouts.admin_layout.admin_sidebar')
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+            <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
+                <!-- <li class="breadcrumb-item active">Dashboard v1</li> -->
+            </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
 
-@yield('content')
+    @yield('content')
+
+</div>
 
 @include('layouts.admin_layout.admin_footer')
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="{{ url ('plugins/jquery/jquery.min.js') }}"></script>
@@ -106,8 +113,23 @@
             toastr.error("{{ Session::get('message') }}");
             break;
     }
+
 </script>
 @endif
+
+@if(count($errors) > 0)
+    <!-- @foreach($errors->all() as $error) -->
+    <script>
+        $('#add').modal('show');
+        // toastr.error("{{ $error }}");
+        // toastr.options = {
+        //   "preventDuplicates": true
+        //}
+    </script>
+    <!-- @endforeach -->
+@endif
+
+
 <!-- Datatables script-->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 <script>

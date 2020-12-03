@@ -101,6 +101,14 @@ class InvAbItemController extends Controller
      }
     }
 
+    public function create_man()
+
+    {
+        $locations = Location::with('invrooms')->get()->toArray();
+        return $locations;
+    }
+
+
 
 
     /**
