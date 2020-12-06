@@ -20,10 +20,11 @@ class CreateTempInvAbItemsTable extends Migration
             $table->string('invnr',50)->nullable();
             $table->foreignId('room_id')->nullable();
             $table->string('gname',50)->nullable();
-            $table->string('gart',50)->nullable();
+            $table->foreignId('gart_id')->nullable();
             $table->timestamps();
 
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('gart_id')->references('id')->on('garts');
             $table->foreign('room_id')->references('id')->on('inv_rooms');
         });
     }

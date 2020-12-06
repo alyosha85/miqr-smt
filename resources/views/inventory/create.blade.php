@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select id="rooms" name="rname" class="form-control" required>
+                    <select id="rooms" name="room_id" class="form-control" required>
                     </select>
                 </div>
             </div>
@@ -38,14 +38,8 @@
             <!-- Third row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
-                    <select id="art" name="gart" class="form-control" required>
-                        <option selected>Geräteart</option>
-                        <option>Rechner</option>
-                        <option>Laptop</option>
-                        <option>Drucker</option>
-                        <option>Beamer</option>
-                        <option>Bildschirm</option>
-                        <option>Tablet</option>
+                    <select id="gart_id" name="gart_id" class="form-control" required>
+                        <option  selected="true" disabled="disabled" value=''>Bitte wählen...</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">

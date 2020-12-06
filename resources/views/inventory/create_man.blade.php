@@ -8,7 +8,7 @@
           </button>
         </div>
         <div class="modal-body">
-        <form action="{{ route('item.store') }}" method="POST" id="item_form_man">
+        <form action="{{ route('item.storeMan') }}" method="POST" id="item_form_man">
             @csrf
             <!-- First row -->
             <div class="form-row mb-3">
@@ -30,7 +30,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select id="rooms_man" name="rname" class="form-control" required>
+                    <select id="rooms_man" name="room_id" class="form-control" required>
                     </select>
                 </div>
             </div>
@@ -38,14 +38,8 @@
             <!-- Third row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
-                    <select id="art_t_man" name="gart" class="form-control" required>
-                        <option selected>Geräteart</option>
-                        <option>Rechner</option>
-                        <option>Laptop</option>
-                        <option>Drucker</option>
-                        <option>Beamer</option>
-                        <option>Bildschirm</option>
-                        <option>Tablet</option>
+                    <select id="gart_id_man" name="gart_id" class="form-control" required>
+                        <option  selected="true" disabled="disabled" value=''>Bitte wählen...</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">

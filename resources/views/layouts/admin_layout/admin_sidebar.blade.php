@@ -35,7 +35,7 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                <a href="#" class="nav-link add" data-toggle="modal" data-target="#add">
+                <a href="{{ url('/inventory') }}" class="nav-link add" data-toggle="modal" data-target="#add">
                     <i class="fas fa-plus nav-icon" style="color:#28a745;"></i>
                     <p>Erfassen</p>
                 </a>
@@ -47,19 +47,19 @@
                 </a>
                 </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#edit">
                     <i class="fas fa-pen-fancy nav-icon"></i>
                     <p>Ändern</p>
                 </a>
                 </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route ('item_change') }}" class="nav-link">
                     <i class="fas fa-expand-arrows-alt nav-icon"></i>
                     <p>Bewegen</p>
                 </a>
                 </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link invalid" data-toggle="modal" data-target="#invalid">
                     <i class="far fa-times-circle nav-icon"></i>
                     <p>Ausmustern</p>
                 </a>
@@ -84,6 +84,12 @@
                       </a>
                     </li>
                   </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-dolly-flatbed nav-icon" style="color: orange;"></i>
+                        <p>Inventur</p>
+                    </a>
                 </li>
             </ul>
           <li class="nav-header">Matrix</li>

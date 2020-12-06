@@ -27,12 +27,15 @@ Route::get('/',function(){
 // one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
 
-// item search query
+// item search Ausmustern query
 Route::get('/search','InvAbItemController@search')->name('search');
+// item search Edit query
+Route::get('/search_edit','InvAbItemController@search_edit')->name('search_edit');
 
 // Ajax Routes
     // search Check
 Route::post('search_check','InvAbItemController@searchCheck')->name('search_check');
+Route::post('search_check_edit','InvAbItemController@searchCheckEdit')->name('search_check_edit');
     // create Address and room lists
 Route::get('/items/create','InvAbItemController@create')->name('items.create');
     // query last InvNumber
@@ -43,8 +46,11 @@ Route::get('/inventory','InvAbItemController@index')->name('inventory');
 Route::get('/item/create','InvAbItemController@create')->name('item.create');
 Route::get('/item/create_man','InvAbItemController@create_man')->name('item.create_man');
 Route::patch('/item/update/{id}','InvAbItemController@update')->name('item.update');
+Route::post('/invalid','InvAbItemController@invalid')->name('invalid');
 Route::post('/item','InvAbItemController@store')->name('item.store');
+Route::post('/item_man','InvAbItemController@storeMan')->name('item.storeMan');
 Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->name('printlabel');
+Route::get('/item_change','InvAbItemController@itemchange')->name('item_change');
 
 
 // pdf upload

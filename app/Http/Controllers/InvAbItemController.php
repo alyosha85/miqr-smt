@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\InvAbItem;
+use App\Gart;
+use App\Amg;
+use App\Place;
 use App\Location;
 use App\InvLastNumber;
 use App\TempInvAbItem;
@@ -11,26 +14,65 @@ use App\InvRoom;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
 
+
+
+
+
 class InvAbItemController extends Controller
 {
-    public function printlabel($printinvnr, $anzahl)
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
-        $explode = explode('-',$printinvnr);
-        $anzahlnew = InvLastNumber::where('last_inv_num',($explode[1])-1)->first();
-        $anzahlnew->last_inv_num += $anzahl;
-        $anzahlnew->save();
-        return view ('inventory.print',compact('explode','anzahl'));
+        return view('inventory.index');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $invnr = InvLastNumber::with('location')->with('room')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
+        $garts = Gart::get()->toArray();
+        $places = Place::pluck('id','pnname')->toArray();
+        return ['invnr'=>$invnr,'garts'=>$garts,'places'=>$places];
+    }
+
+    /**
+     * Show the form for creating a new resource (Manuell).
+     */
+    public function create_man()
+    {
+        $locations = Location::with('invrooms')->get()->toArray();
+        $garts = Gart::get()->toArray();
+        return ['locations'=>$locations,'garts'=>$garts];
+    }
+
+    /**
+     * Search Method Ausmustern
+     */
     public function search(Request $request)
     {
         $search_text = strtoupper($_GET['search']);
+        $items = InvAbItem::with('location')->with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
+        $amgs = Amg::all();
+        return ['items'=>$items,'room'=>$room,'amgs'=>$amgs];
+    }
+     /**
+     * Search Method Edit
+     */
+    public function search_edit(Request $request)
+    {
+        $search_text = strtoupper($_GET['search_edit']);
         $items = InvAbItem::with('location')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
         $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
-
-        return view('inventory.index',compact('items','room'));
+        return ['items'=>$items,'room'=>$room];
     }
-
+     /**
+     * Searchcheck Method
+     */
     public function searchCheck(Request $request)
     {
         $data = $request->all();
@@ -42,30 +84,34 @@ class InvAbItemController extends Controller
             echo "false";
         }
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function searchCheckEdit(Request $request)
     {
-
-        return view('inventory.index');
+        $data = $request->all();
+        $check = InvAbItem::where('invnr',$data['search_edit'])->orwhere('gname',$data['search_edit'])->first();
+        if ($check && $data['search_edit']!="") {
+            echo "true";
+        }else{
+            echo "false";
+        }
     }
+
+    /**
+     * Print Label Method
+     */
+    public function printlabel($printinvnr, $anzahl)
+    {
+        $explode = explode('-',$printinvnr);
+        $anzahlnew = InvLastNumber::where('last_inv_num',($explode[1])-1)->first();
+        $anzahlnew->last_inv_num += $anzahl;
+        $anzahlnew->save();
+        return view ('inventory.print',compact('explode','anzahl'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create()
 
-    {
-        $invnr = InvLastNumber::with('location')->with('room')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
-
-        return $invnr;
-
-    }
 
     public function upload_pdf(Request $request)
     {
@@ -101,21 +147,21 @@ class InvAbItemController extends Controller
      }
     }
 
-    public function create_man()
 
-    {
-        $locations = Location::with('invrooms')->get()->toArray();
-        return $locations;
-    }
 
 
 
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Item Change Method
+     */
+    public function itemchange()
+    {
+        return view('inventory.change');
+    }
+
+    /**
+     * Auto Creation invnr (MAIN)
      */
     public function store(Request $request)
     {
@@ -124,7 +170,39 @@ class InvAbItemController extends Controller
         $item -> andat = $request-> andat;
         $item -> location_id = $request-> location_id;
         $item -> kp = str_replace(',','.',$request -> kp);
-        $item -> gart = $request-> gart;
+        $item -> gart_id = $request-> gart_id;
+        $item -> gname = $request-> gname;
+        $item -> gtyp = $request-> gtyp;
+        $item -> sn = $request-> sn;
+        $item -> notes = $request-> notes;
+        $item -> path_to_rg = $request-> path_to_rg;
+        $item->save();
+
+        $item = InvItems::Where('invnr',$request->invnr)->first();
+        $item->room_id = $request->room_id;
+        $item->save();
+
+        $item = New InvLastNumber;
+        $split = explode('-',$request->invnr);
+        $item->location_id = $split[0];
+        $item->last_inv_num = $split[1];
+        $item -> save();
+
+        return redirect()->back()->with("success",'Added successfully !!!!');
+
+    }
+
+    /**
+     * Manuell Creation invnr
+     */
+    public function storeMan(Request $request)
+    {
+        $item = New InvAbItem;
+        $item -> invnr = $request->location_id.'-'.$request->invnr.'-IT';
+        $item -> andat = $request-> andat;
+        $item -> location_id = $request-> location_id;
+        $item -> kp = str_replace(',','.',$request -> kp);
+        $item -> gart_id = $request-> gart_id;
         $item -> gname = $request-> gname;
         $item -> gtyp = $request-> gtyp;
         $item -> sn = $request-> sn;
@@ -137,9 +215,8 @@ class InvAbItemController extends Controller
         $item->save();
 
         $item = New InvLastNumber;
-        $split = explode('-',$request->invnr);
-        $item->location_id = $split[0];
-        $item->last_inv_num = $split[1];
+        $item->location_id = $request->location_id;
+        $item->last_inv_num = $request->invnr;
         $item -> save();
 
         return redirect()->back()->with("item_added",'Added successfully !!!!');
@@ -165,7 +242,7 @@ class InvAbItemController extends Controller
      */
     public function edit(Invabitem $invabitem)
     {
-
+        return view('inventory.edit');
     }
 
     /**
@@ -186,6 +263,38 @@ class InvAbItemController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+
+
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Inv_ab_item  $inv_ab_item
+     * @return \Illuminate\Http\Response
+     */
+    public function invalid(Request $request)
+    {
+        $items = InvAbItem::where('invnr',$request->invnr)->with('garts')->first();
+        $items->notes = $request->notes;
+        $items->amg_id = $request->grund;
+        $items->ausdat = date('Y-m-d');
+        $items->save();
+
+        $delItem = InvItems::where('invnr',$request->invnr)->with('invroom')->first();
+        $room = $delItem->invroom->rname;
+        $delItem->delete();
+
+        return view('inventory.print_invalid',compact('items','room'));
+
+
+        // $notification = array(
+        //     'message' => 'Erfolgreich aktualisiert',
+        //     'alert-type' => 'success'
+        // );
+        // return redirect()->back()->with($notification);
+    }
+
 
     /**
      * Remove the specified resource from storage.

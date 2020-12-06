@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTrigger extends Migration
+class CreateAmgsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AddTrigger extends Migration
      */
     public function up()
     {
-        DB::unprepared('Create Trigger inv_ab_items_after_insert AFTER INSERT ON  `inv_ab_items` FOR EACH ROW
-        BEGIN
-        INSERT INTO inv_items SET dateupd = NEW.andat, gart_id = NEW.gart_id, gname = NEW.gname, gtyp = NEW.gtyp, invnr = NEW.invnr, sn = NEW.sn;
-        END');
+        Schema::create('amgs', function (Blueprint $table) {
+            $table->id();
+            $table->string('name',50)->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,6 +27,6 @@ class AddTrigger extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('amgs');
     }
 }

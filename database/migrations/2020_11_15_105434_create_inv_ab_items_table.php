@@ -19,17 +19,19 @@ class CreateInvAbItemsTable extends Migration
             $table->date('andat')->default(null);
             $table->foreignId('location_id')->nullable();
             $table->float('kp', 8, 2)->nullable();
-            $table->string('gart',50)->nullable();
+            $table->foreignId('gart_id')->nullable();
             $table->string('gtyp',50)->nullable();
             $table->string('gname',50)->nullable();
             $table->string('sn',50)->nullable();
             $table->mediumText('notes')->nullable();
             $table->string('path_to_rg',100)->nullable();
             $table->date('ausdat')->nullable();
-            $table->mediumText('ausgrund')->nullable();
+            $table->foreignId('amg_id')->nullable();
             $table->timestamps();
 
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('gart_id')->references('id')->on('garts');
+            $table->foreign('amg_id')->references('id')->on('amgs');
             $table->index(['gtyp','gname']);
         });
     }

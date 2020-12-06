@@ -35,7 +35,7 @@ class TempInvAbItemController extends Controller
                     'invnr' => $read['invnr'],
                     'location_id' => $read['location_id'],
                     'gname' => strtoupper($read['gname']),
-                    'gart' => $read['gart'],
+                    'gart_id' => $read['gart_id'],
                     'andat' => date('Y-m-d') // current date
                 ]);
                 }
