@@ -37,6 +37,18 @@ class InvAbItemController extends Controller
         return ['invnr'=>$invnr,'garts'=>$garts,'places'=>$places];
     }
 
+
+    /**
+     * Show the form for creating a new resource (Manuell).
+     */
+    public function create_man()
+    {
+        $places = Place::pluck('id','pnname')->toArray();
+        $locations = Location::with('invrooms')->get()->toArray();
+        $garts = Gart::get()->toArray();
+        return ['locations'=>$locations,'garts'=>$garts,'places'=>$places];
+    }
+
     public function inventur(Request $reqeust)
     {
         $inventur = InvItems::with('invroom')->get()->toArray();
@@ -45,15 +57,6 @@ class InvAbItemController extends Controller
         return ['locations'=>$locations,'places'=>$places,'inventur'=>$inventur];
     }
 
-    /**
-     * Show the form for creating a new resource (Manuell).
-     */
-    public function create_man()
-    {
-        $locations = Location::with('invrooms')->get()->toArray();
-        $garts = Gart::get()->toArray();
-        return ['locations'=>$locations,'garts'=>$garts];
-    }
 
     /**
      * Search Method Ausmustern
@@ -82,9 +85,10 @@ class InvAbItemController extends Controller
     public function search_move(Request $request)
     {
         $search_text = strtoupper($_GET['search_move']);
-        $items = InvItems::with('invroom')->Where('gname',strtoupper($search_text))->first();
-        $locations = Location::all();
-        return ['items'=>$items,'locations'=>$locations];
+        $items = InvItems::with('invroom.location')->Where('gname',strtoupper($search_text))->first();
+        $locations = Location::with('invrooms')->get()->toArray();
+        $places = Place::pluck('id','pnname')->toArray();
+        return ['items'=>$items,'locations'=>$locations,'places'=>$places];
     }
      /**
      * Searchcheck Method

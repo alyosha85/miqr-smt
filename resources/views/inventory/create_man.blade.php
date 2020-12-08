@@ -42,7 +42,7 @@
                 <div class="form-group col-md-3">
                     <input type="text" class="form-control gtyp_man" name="gtyp" placeholder="Gerätetyp" required>
                 </div>
-                <input type="hidden" class="form-control path_to_rg_man" id="path_to_rg_man" name="path_to_rg">
+                <input type="text" class="form-control path_to_rg_man" id="path_to_rg_man" name="path_to_rg">
                 <div class="form-group col-md-3">
                     <input type="text" class="form-control gname_man" name="gname" placeholder="Gerätename" required>
                 </div>
@@ -59,20 +59,15 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-            <button type="button" class="btn btn-primary submit_form_ajax" style="visibility:hidden;">Einfügen</button>
-            <button type="submit" class="btn btn-primary submit_form">Einfügen</button>
+            <button type="button" class="btn btn-primary submit_form_ajax_man">Einfügen</button>
+            {{-- <button type="submit" class="btn btn-primary submit_form_man">Einfügen</button> --}}
         </div>
         </form>
           <div class="panel-body">
-            <!-- <form id="dropzoneForm_man" class="dropzone" action="{{ route('dropzone.upload_pdf') }}">
+            <form id="dropzoneForm_man" class="dropzone" action="{{ route('dropzone.upload_pdf') }}">
               @csrf
-            </form> -->
+            </form>
           </div>
-        <br />
-        <div class="panel panel-default">
-          <div class="panel-body" id="uploaded_pdf_man">
-          </div>
-        </div>
     </div>
     </div>
 </div>

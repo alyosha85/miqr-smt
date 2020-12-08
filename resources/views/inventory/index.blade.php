@@ -30,7 +30,7 @@
                     <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="javascript:" data-toggle="modal" data-target="#invalid">Ausmustern <i class="far fa-times-circle"></i></a>
+                    <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -149,7 +149,8 @@ $(document).on("click", "#inventur_modal", function() {
     });
 });
 
-$( document ).on( "click", "#move_modal", function() {
+    let selectAddress = new Array();
+    $( document ).on( "click", "#move_modal", function() {
     $('#move').modal('show');
     $(document).on('keyup change', '#search_move', function(){
         let search_move = $(this).val();
@@ -168,12 +169,18 @@ $( document ).on( "click", "#move_modal", function() {
                         url:"{{ route('search_move') }}",
                         data: {search_move:search_move},
                         success:function(resp){
+                            selectAddress = new Array();
                             $('#location_id_move').find('option').remove();
-                            console.log(resp);
-                            $('body .move_form .move_address').val(resp.items.invroom.location_id)
+                            $('#location_id_move').find('optgroup').remove();
+                            $('#location_id_move').find('option').remove();
+                            $('body .move_form .move_address').val(resp.items.invroom.location.address)
                             $('body .move_form .move_raum').val(resp.items.invroom.rname)
-                            $.each(resp.locations, function(index, item){
-                                $('body .move_form #location_id_move').append(new Option(item.address,item.id));
+                            $.each(resp['places'], function(index, item) {
+                            $("body #location_id_move").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+                            });
+                            $.each(resp['locations'], function(index, item) {
+                            $("#location_id_move #"+item.place_id).append(new Option(item.address,item.id));
+                            selectAddress.push(item);
                             });
                         },error:function(){
                             alert("Error");
@@ -185,6 +192,20 @@ $( document ).on( "click", "#move_modal", function() {
         });
     });
 });
+
+$( document ).on( "change", "#location_id_move", function() {
+    $('#room_id_move').find('option').remove();
+    $("#room_id_move").append(new Option("Bitte Wählen...",''));
+    $("#room_id_move").append(new Option("N/A",0));
+    for(let i = 0; i<selectAddress.length ; i++){
+        if(selectAddress[i].id == $( this ).val()){
+            $.each(selectAddress[i].invrooms, function(index, item) {
+                $("body #room_id_move").append(new Option(item.rname,item.id));
+            });
+        }
+    }
+});
+
 
 let locationData = new Array();
 let text = '';
@@ -218,6 +239,7 @@ $( document ).on( "change", "#address", function() {
 $( document ).on( "click", "#add_modal", function() {
     $('#add').modal('show');
     $('#location_id').find('option').remove();
+    $('#location_id').find('optgroup').remove();
     $('#gart_id').find('option').remove();
     $('#location_id').append(new Option("Standort...",0));
     $('#gart_id').append(new Option("Bitte Wählen...",0));
@@ -238,7 +260,6 @@ $( document ).on( "click", "#add_modal", function() {
             });
             $.each(data['garts'], function(index, item) {
                 $("#gart_id").append(new Option(item.name,item.id));
-                locationData.push(item);
             });
     });
 });
@@ -328,6 +349,9 @@ Dropzone.options.dropzoneForm = {
 
     // Search function in Ausmustern
     $(document).ready(function(){
+    $(document).on( "click", "#invalid_modal", function() {
+    $('#invalid').modal('show');
+    });
     $(document).on('keyup change', '#search_amg', function(){
         let search = $(this).val();
         $.ajax({
@@ -445,6 +469,7 @@ Dropzone.options.dropzoneForm = {
     $(document).on( "click", "#add_modal_man", function() {
     $('#add_man').modal('show');
     $('#location_id_man').find('option').remove();
+    $('#location_id_man').find('optgroup').remove();
     locationSelect = new Array();
     $('#gart_id_man').find('option').remove();
     $('#gart_id_man').append(new Option("Geräteart...",0));
@@ -455,8 +480,11 @@ Dropzone.options.dropzoneForm = {
         type: "GET",
         url: "{{ route('item.create_man') }}",
         }).done(function(data) {
+            $.each(data['places'], function(index, item) {
+                $("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+            });
             $.each(data['locations'], function(index, item){
-                $("#location_id_man").append(new Option(item.address,item.id));
+                $("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
                 locationSelect.push(item);
             });
             $.each(data['garts'], function(idex,item){
@@ -497,17 +525,17 @@ Dropzone.options.dropzoneForm = {
     acceptedFiles : ".pdf",
     maxFiles:1,
     init:function(){
-      var submitButton = document.querySelector(".submit_form_ajax");
+      var submitButton = document.querySelector(".submit_form_ajax_man");
       myDropzone = this;
       submitButton.addEventListener('click', function(){
         myDropzone.processQueue();
       });
-      this.on("addedfile", function(data){
-            $('.submit_form_ajax').css('visibility','visible');
-            $('.submit_form').css('visibility','hidden');
-      });
+    //   this.on("addedfile", function(data){
+    //         $('.submit_form_ajax').css('visibility','visible');
+    //         $('.submit_form').css('visibility','hidden');
+    //   });
       this.on("complete", function(data){
-        $('.path_to_rg').val(data.xhr.response);
+        $('.path_to_rg_man').val(data.xhr.response);
         // load_images();
         $('#item_form_man').submit();
       });

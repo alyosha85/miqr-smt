@@ -29,7 +29,8 @@
                     </div>
                     <select id="location_id_move" name="location_id" class="form-control mr-sm-1 col-md-3" required>
                     </select>
-                    <input type="text" class="form-control col-md-2" placeholder="name">
+                    <select id="room_id_move" name="room_id" class="form-control mr-sm-1 col-md-2" required>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
