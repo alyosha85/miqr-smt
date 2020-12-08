@@ -125,7 +125,6 @@ class InvAbItemController extends Controller
     }
 
 
-
     /**
      * Print Label Method
      */
@@ -221,6 +220,10 @@ class InvAbItemController extends Controller
 
         return redirect()->back()->with($sucMsg);
 
+    }
+    public function moveSore(Request $reqeust)
+    {
+        
     }
 
     /**
