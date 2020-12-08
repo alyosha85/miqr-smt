@@ -49,7 +49,7 @@
     </style>
 </head>
 <body>
-    @for($i=0; $i<$anzahl; $i++)
+    @for($i=0; $i < $anzahl; $i++)
         <div class="print">
             <span>*{{$explode[0]}}-{{(int)($explode[1])+$i}}-{{$explode[2]}}*</span>
         </div>

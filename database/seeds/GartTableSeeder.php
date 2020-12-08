@@ -1,7 +1,7 @@
 <?php
 
-use App\Gart;
 use Illuminate\Database\Seeder;
+use App\Gart;
 
 class GartTableSeeder extends Seeder
 {

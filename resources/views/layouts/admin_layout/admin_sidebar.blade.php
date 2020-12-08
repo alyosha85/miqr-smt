@@ -30,68 +30,8 @@
               <i class="nav-icon fas fa-boxes" style="color:yellow;"></i>
               <p>
                 Inventar
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                <a href="{{ url('/inventory') }}" class="nav-link add" data-toggle="modal" data-target="#add">
-                    <i class="fas fa-plus nav-icon" style="color:#28a745;"></i>
-                    <p>Erfassen</p>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a href="#" class="nav-link add_man" data-toggle="modal" data-target="#add_man">
-                    <i class="fas fa-plus nav-icon" style="color:#28a745;"></i>
-                    <p>Manuell Erfassen</p>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a href="#" class="nav-link" data-toggle="modal" data-target="#edit">
-                    <i class="fas fa-pen-fancy nav-icon"></i>
-                    <p>Ändern</p>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a href="{{ route ('item_change') }}" class="nav-link">
-                    <i class="fas fa-expand-arrows-alt nav-icon"></i>
-                    <p>Bewegen</p>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a href="#" class="nav-link invalid" data-toggle="modal" data-target="#invalid">
-                    <i class="far fa-times-circle nav-icon"></i>
-                    <p>Ausmustern</p>
-                </a>
-                </li>
-                <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="fas fa-print nav-icon" style="color:#007bff;"></i>
-                    <p>Drucken</p>
-                    <i class="right fas fa-angle-left"></i>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">
-                        <i class="fas fa-list-ol nav-icon"></i>
-                        <p>Listen</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link print" data-toggle="modal" data-target="#printpage">
-                        <i class="fas fa-ticket-alt nav-icon"></i>
-                        <p>Etiketten</p>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-dolly-flatbed nav-icon" style="color: orange;"></i>
-                        <p>Inventur</p>
-                    </a>
-                </li>
-            </ul>
           <li class="nav-header">Matrix</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

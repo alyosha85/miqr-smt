@@ -16,8 +16,6 @@ use PhpParser\Node\Expr\Print_;
 
 
 
-
-
 class InvAbItemController extends Controller
 {
     /**
@@ -37,6 +35,14 @@ class InvAbItemController extends Controller
         $garts = Gart::get()->toArray();
         $places = Place::pluck('id','pnname')->toArray();
         return ['invnr'=>$invnr,'garts'=>$garts,'places'=>$places];
+    }
+
+    public function inventur(Request $reqeust)
+    {
+        $inventur = InvItems::with('invroom')->get()->toArray();
+        $places = Place::pluck('id','pnname')->toArray();
+        $locations = Location::with('invrooms')->get()->toArray();
+        return ['locations'=>$locations,'places'=>$places,'inventur'=>$inventur];
     }
 
     /**
@@ -66,9 +72,19 @@ class InvAbItemController extends Controller
     public function search_edit(Request $request)
     {
         $search_text = strtoupper($_GET['search_edit']);
-        $items = InvAbItem::with('location')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        $items = InvAbItem::with('location')->with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
         $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
         return ['items'=>$items,'room'=>$room];
+    }
+      /**
+     * Search Method Move
+     */
+    public function search_move(Request $request)
+    {
+        $search_text = strtoupper($_GET['search_move']);
+        $items = InvItems::with('invroom')->Where('gname',strtoupper($search_text))->first();
+        $locations = Location::all();
+        return ['items'=>$items,'locations'=>$locations];
     }
      /**
      * Searchcheck Method
@@ -76,7 +92,6 @@ class InvAbItemController extends Controller
     public function searchCheck(Request $request)
     {
         $data = $request->all();
-        //echo "<pre>"; print_r($data['search']);
         $check = InvAbItem::where('invnr',$data['search'])->orwhere('gname',$data['search'])->first();
         if ($check && $data['search']!="") {
             echo "true";
@@ -94,6 +109,18 @@ class InvAbItemController extends Controller
             echo "false";
         }
     }
+    public function searchCheckMove(Request $request)
+    {
+        $data = $request->all();
+        $check = InvItems::where('gname',$data['search_move'])->first();
+        if ($check && $data['search_move']!="") {
+            echo "true";
+        }else{
+            echo "false";
+        }
+    }
+
+
 
     /**
      * Print Label Method
@@ -147,11 +174,6 @@ class InvAbItemController extends Controller
      }
     }
 
-
-
-
-
-
     /**
      * Item Change Method
      */
@@ -188,7 +210,12 @@ class InvAbItemController extends Controller
         $item->last_inv_num = $split[1];
         $item -> save();
 
-        return redirect()->back()->with("success",'Added successfully !!!!');
+        $sucMsg = array(
+            'message' => 'Erfolgreich hinzugefügt ',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($sucMsg);
 
     }
 
@@ -198,7 +225,8 @@ class InvAbItemController extends Controller
     public function storeMan(Request $request)
     {
         $item = New InvAbItem;
-        $item -> invnr = $request->location_id.'-'.$request->invnr.'-IT';
+        $invnr = $request->location_id.'-'.$request->invnr.'-IT';
+        $item -> invnr = $invnr;
         $item -> andat = $request-> andat;
         $item -> location_id = $request-> location_id;
         $item -> kp = str_replace(',','.',$request -> kp);
@@ -210,16 +238,20 @@ class InvAbItemController extends Controller
         $item -> path_to_rg = $request-> path_to_rg;
         $item->save();
 
-        $item = InvItems::Where('invnr',$request->invnr)->first();
-        $item->room_id = $request->rname;
-        $item->save();
+        $invitems = InvItems::Where('invnr',$invnr)->first();
+        $invitems->room_id = $request->room_id;
+        $invitems->save();
 
         $item = New InvLastNumber;
         $item->location_id = $request->location_id;
         $item->last_inv_num = $request->invnr;
         $item -> save();
 
-        return redirect()->back()->with("item_added",'Added successfully !!!!');
+        $sucMsg = array(
+            'message' => 'Erfolgreich hinzugefügt ',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($sucMsg);
 
     }
 
@@ -252,16 +284,16 @@ class InvAbItemController extends Controller
      * @param  \App\Inv_ab_item  $inv_ab_item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Invabitem $invabitem)
+    public function update(Request $request)
     {
-        $items = InvAbItem::findorfail($request->id);
+        $items = InvAbItem::where('invnr',$request->invnr)->first();
         $items->notes = $request->notes;
-        $items->update();
-        $notification = array(
-            'message' => 'Erfolgreich aktualisiert',
+        $items->save();
+        $sucMsg = array(
+            'message' => 'Erfolgreich bearbeitet',
             'alert-type' => 'success'
         );
-        return redirect()->back()->with($notification);
+        return redirect()->back()->with($sucMsg);
     }
 
 
@@ -285,14 +317,12 @@ class InvAbItemController extends Controller
         $room = $delItem->invroom->rname;
         $delItem->delete();
 
-        return view('inventory.print_invalid',compact('items','room'));
+        $sucMsg = array(
+            'message' => 'Erfolgreich bearbeitet',
+            'alert-type' => 'success'
+        );
 
-
-        // $notification = array(
-        //     'message' => 'Erfolgreich aktualisiert',
-        //     'alert-type' => 'success'
-        // );
-        // return redirect()->back()->with($notification);
+        return view('inventory.print_invalid',compact('items','room'))->with($sucMsg);
     }
 
 

@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <!-- SubNav Bar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Inventar</a>
+            <a class="navbar-brand" href="Javascript:">Inventar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -15,39 +15,38 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#edit">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
+                    <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Erfassen <i class="fas fa-plus" style="color:#5bc0de;"></i></a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add">Erfassen</a>
+                    <a class="dropdown-item" href="javascript:" id="add_modal">Erfassen</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="Javascript:" id="addMan">Manuell Erfassen</a>
+                    <a class="dropdown-item" href="Javascript:" id="add_modal_man">Manuell Erfassen</a>
                   </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#move">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
+                    <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#invalid">Ausmustern <i class="far fa-times-circle" style="#f7f7f7";></i></a>
+                    <a class="nav-link" href="javascript:" data-toggle="modal" data-target="#invalid">Ausmustern <i class="far fa-times-circle"></i></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Drucken <i class="fas fa-print" style="color:#007bff;"></i></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="#">Listen</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#printpage">Etiketten</a>
+                      <a class="dropdown-item" href="javascript:" id="etiketten_modal">Etiketten</a>
                     </div>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
+                    <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
                 </li>
               </ul>
             </div>
           </nav>
-
 
         <!-- Small boxes (Stat box) -->
         <div class="row mt-5">
@@ -113,27 +112,6 @@
             <!-- ./col -->
         </div>
     </div>
-    <div class="col-xs-6">
-        <select class="form-control" name="select1" id="select1">
-          <option value="1">Fruit</option>
-          <option value="2">Animal</option>
-          <option value="3">Bird</option>
-          <option value="4">Car</option>
-        </select>
-      </div>
-      <div class="col-xs-6">
-        <select class="form-control" name="select2" id="select2">
-          <option value="1">Banana</option>
-          <option value="1">Apple</option>
-          <option value="1">Orange</option>
-          <option value="2">Wolf</option>
-          <option value="2">Fox</option>
-          <option value="2">Bear</option>
-          <option value="3">Eagle</option>
-          <option value="3">Hawk</option>
-          <option value="4">BWM<option>
-      </select>
-      </div>
 </section>
 
 <!-- TODO: Modals -->
@@ -142,6 +120,8 @@
 @include('inventory.create_man')
 @include('inventory.edit')
 @include('inventory.invalid')
+@include('inventory.move')
+@include('inventory.inventur')
 <!-- Print modal -->
 @include('inventory.label')
 
@@ -152,9 +132,64 @@
 @section('script')
 
 <script>
+$(document).on("click", "#inventur_modal", function() {
+    $('#inventur').modal('show');
+    $.ajax({
+        type: "get",
+        url: "{{route('item.inventur')}}",
+    }).done(function(data) {
+        console.log(data);
+        $.each(data['places'], function(index, item) {
+            $("body #location_id_inventur").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+        });
+        $.each(data['invnr'], function(index, item) {
+            $("#location_id_inventur #"+item.location.place_id).append(new Option(item.location.address,item.location_id));
+            locationData.push(item);
+        });
+    });
+});
+
+$( document ).on( "click", "#move_modal", function() {
+    $('#move').modal('show');
+    $(document).on('keyup change', '#search_move', function(){
+        let search_move = $(this).val();
+        $.ajax({
+            type:'post',
+            url:"{{ route('search_check_move') }}",
+            data:{search_move:search_move},
+            success:function(resp){
+                if(resp=="false"){
+                    $("body #chksrchmove").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+                }else{
+                    if(resp =="true") {
+                    $("body #chksrchmove").html("<i class='fas fa-check' style='color:green;'></i>");
+                    $.ajax({
+                        type: 'get',
+                        url:"{{ route('search_move') }}",
+                        data: {search_move:search_move},
+                        success:function(resp){
+                            $('#location_id_move').find('option').remove();
+                            console.log(resp);
+                            $('body .move_form .move_address').val(resp.items.invroom.location_id)
+                            $('body .move_form .move_raum').val(resp.items.invroom.rname)
+                            $.each(resp.locations, function(index, item){
+                                $('body .move_form #location_id_move').append(new Option(item.address,item.id));
+                            });
+                        },error:function(){
+                            alert("Error");
+                        }
+                    });
+                    }
+                }
+            }
+        });
+    });
+});
+
 let locationData = new Array();
 let text = '';
-$( document ).on( "click", ".print", function() {
+$( document ).on( "click", "#etiketten_modal", function() {
+    $('#printpage').modal('show');
     $('#anzahl').val(1);
     $('#address').find('option').remove();
     $("#address").append(new Option("Bitte Wählen...",0));
@@ -165,11 +200,12 @@ $( document ).on( "click", ".print", function() {
         url: "{{ route('auto') }}", //Route NAME USED
         }).done(function( data ) {
             $.each(data, function(index, item) {
-                $("#address").append(new Option(item.location.address,item.location_id));
-                locationData.push(item);
-            });
+            $("#address").append(new Option(item.location.address,item.location_id));
+            locationData.push(item);
+        });
     });
 });
+
 $( document ).on( "change", "#address", function() {
     for(let i = 0; i<locationData.length ; i++){
         if(locationData[i].location_id == $( this ).val()){
@@ -179,7 +215,8 @@ $( document ).on( "change", "#address", function() {
     $('.inventNumber').val(texty);
 });
 
-$( document ).on( "click", ".add", function() {
+$( document ).on( "click", "#add_modal", function() {
+    $('#add').modal('show');
     $('#location_id').find('option').remove();
     $('#gart_id').find('option').remove();
     $('#location_id').append(new Option("Standort...",0));
@@ -190,7 +227,7 @@ $( document ).on( "click", ".add", function() {
     locationData = new Array();
     $.ajax({
         type: "GET",
-        url: "{{ route('item.create') }}", //Route NAME USE
+        url: "{{ route('item.create') }}",
         }).done(function( data ) {
             $.each(data['places'], function(index, item) {
                 $("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
@@ -317,6 +354,7 @@ Dropzone.options.dropzoneForm = {
                                 $('body .amg_form .gart_amg').val(resp.items.garts.name)
                                 $('body .amg_form .gtyp_amg').val(resp.items.gtyp)
                                 $('body .amg_form .sn_amg').val(resp.items.sn)
+                                $('body .amg_form .notes_amg').val(resp.items.notes)
                                 $('body #grund').find('option').remove();
                                 $('body #grund').append(new Option("Grund...",0));
                                 $.each(resp.amgs, function(index, item){
@@ -335,8 +373,9 @@ Dropzone.options.dropzoneForm = {
     });
 });
 
-
     // Search function Edit
+    $(document).on( "click", "#edit_modal", function() {
+    $('#edit').modal('show');
     $(document).ready(function(){
     $(document).on('keyup change', '#search_edit', function(){
         let search_edit = $(this).val();
@@ -360,9 +399,10 @@ Dropzone.options.dropzoneForm = {
                                 $('body .item_edit_form .kp_edit').val(resp.items.kp)
                                 $('body .item_edit_form .standort_edit').val(resp.items.location.address)
                                 $('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
-                                $('body .item_edit_form .gart_edit').val(resp.items.gart_id)
+                                $('body .item_edit_form .gart_edit').val(resp.items.garts.name)
                                 $('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
                                 $('body .item_edit_form .sn_edit').val(resp.items.sn)
+                                $('body .item_edit_form .notes_edit').val(resp.items.notes)
                             },error:function(){
                                 alert("Error");
                             }
@@ -375,19 +415,19 @@ Dropzone.options.dropzoneForm = {
         });
     });
 });
+});
 
 
-function printfunction() {
-   // $('#printpage').modal('hide');
-    let printinvnr = $('#prntinvnr').val();
-    let anzahl = $('#anzahl').val();
-    let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-    WinPrint.document.close();
-    WinPrint.focus();
-    WinPrint.print();
-    setInterval(function(){ WinPrint.close()}, 3000);
-
-}
+    function printfunction() {
+        $('#printpage').modal('show');
+        let printinvnr = $('#prntinvnr').val();
+        let anzahl = $('#anzahl').val();
+        let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        setInterval(function(){ WinPrint.close()}, 3000);
+        }
 
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
   Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
@@ -401,18 +441,19 @@ function printfunction() {
 
 
   //TODO: Manuell create
-  let locationSelect = new Array();
-    $(document).on( "click", "#addMan", function() {
+    let locationSelect = new Array();
+    $(document).on( "click", "#add_modal_man", function() {
     $('#add_man').modal('show');
     $('#location_id_man').find('option').remove();
     locationSelect = new Array();
     $('#gart_id_man').find('option').remove();
+    $('#gart_id_man').append(new Option("Geräteart...",0));
     $('#location_id_man').append(new Option("Standort...",0));
-    $('#rooms_man').find('option').remove();
-    $("#rooms_man").append(new Option("Raum...",''));#
+    $('#rooms_id_man').find('option').remove();
+    $("#rooms_id_man").append(new Option("Raum...",''));
     $.ajax({
         type: "GET",
-        url: "{{ route('item.create_man') }}", //Route NAME USE
+        url: "{{ route('item.create_man') }}",
         }).done(function(data) {
             $.each(data['locations'], function(index, item){
                 $("#location_id_man").append(new Option(item.address,item.id));
@@ -423,13 +464,10 @@ function printfunction() {
             })
         });
 });
-
-
-
 $( document ).on( "change", "#location_id_man", function() {
-    $('#rooms_man').find('option').remove();
-    $("#rooms_man").append(new Option("Bitte Wählen...",''));
-    $("#rooms_man").append(new Option("N/A",0));
+    $('#rooms_id_man').find('option').remove();
+    $("#rooms_id_man").append(new Option("Bitte Wählen...",''));
+    $("#rooms_id_man").append(new Option("N/A",0));
     for(let i = 0; i<locationSelect.length ; i++){
         console.log(locationSelect[i]);
         if(locationSelect[i].id == $( this ).val()){
@@ -437,15 +475,13 @@ $( document ).on( "change", "#location_id_man", function() {
                     let name = item.altrname;
                     if(item.rname != '')
                         name = item.rname;
-                    $("#rooms_man").append(new Option(name,item.id));
+                    $("#rooms_id_man").append(new Option(name,item.id));
                 });
             }
         }
     });
-
-
 $(function() {
-  $('.date_man').daterangepicker({
+  $('.andat_man').daterangepicker({
     singleDatePicker: true,
     showDropdowns: true,
     minYear: parseInt(moment().format('YYYY'))-1,
@@ -455,7 +491,6 @@ $(function() {
     }
   });
 });
-
 // drop zone
 Dropzone.options.dropzoneForm = {
     autoProcessQueue : false,
@@ -464,23 +499,19 @@ Dropzone.options.dropzoneForm = {
     init:function(){
       var submitButton = document.querySelector(".submit_form_ajax");
       myDropzone = this;
-
       submitButton.addEventListener('click', function(){
         myDropzone.processQueue();
       });
-
       this.on("addedfile", function(data){
             $('.submit_form_ajax').css('visibility','visible');
             $('.submit_form').css('visibility','hidden');
       });
       this.on("complete", function(data){
-
         $('.path_to_rg').val(data.xhr.response);
         // load_images();
         $('#item_form_man').submit();
       });
     }
-
   };
 //   load_images();
   function load_images()
@@ -493,7 +524,6 @@ Dropzone.options.dropzoneForm = {
       }
     })
   }
-
   $(document).on('click', '.remove_pdf', function(){
     var name = $(this).attr('id');
     $.ajax({
@@ -504,6 +534,8 @@ Dropzone.options.dropzoneForm = {
       }
     })
   });
+
+
 
 
 </script>

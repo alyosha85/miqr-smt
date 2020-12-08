@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PlaceTableSeeder::class);
         $this->call(LocationTableSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(GartTableSeeder::class);
         $this->call(AmgTableSeeder::class);
+        $this->call(GartTableSeeder::class);
         //$this->call(InvRoomTableSeeder::class);
     }
 }

@@ -19,7 +19,7 @@
                         <input type="text" class="form-control date" name="andat"  placeholder="Anschffungsdatum" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control"  name="kp" placeholder="Kaufpreis">
+                    <input type="text" class="form-control"  name="kp" placeholder="Kaufpreis" required>
                 </div>
             </div>
             <!-- End of First row-->
@@ -50,7 +50,7 @@
                     <input type="text" class="form-control" id="gname" name="gname" placeholder="Gerätename" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="sn" name="sn" placeholder="Seriennummer">
+                    <input type="text" class="form-control" id="sn" name="sn" placeholder="Seriennummer" required>
                 </div>
             </div>
             <!-- End of Third row-->
