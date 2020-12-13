@@ -50,16 +50,32 @@ class InvAbItemController extends Controller
         return ['locations'=>$locations,'garts'=>$garts,'places'=>$places];
     }
 
-    public function inventur(Request $reqeust)
+
+    /*************************************************************{{ Inventur }}******************************************************************************
+     * Search Method Inventur
+     */
+    public function inventur(Request $request)
     {
-        $inventur = InvItems::with('invroom')->get()->toArray();
+
         $places = Place::pluck('id','pnname')->toArray();
         $locations = Location::with('invrooms')->get()->toArray();
-        return ['locations'=>$locations,'places'=>$places,'inventur'=>$inventur];
+        return ['locations'=>$locations,'places'=>$places];
+    }
+    public function roomInventur(Request $request)
+    {
+        $roomInventur = InvItems::with('invroom.location.place')->where('room_id',$request->room_id)->whereHas('invroom', function ($query) use ($request) {
+            return $query->where('location_id', '=', $request->location_id);
+            })->get()->toArray();
+        return $roomInventur;
+
+    }
+    public function inventurStoreFinal(Request $request)
+    {
+        return $request->all();
     }
 
 
-    /*************************************************************Ausmustern******************************************************************************
+    /*************************************************************{{ Ausmustern }}******************************************************************************
      * Search Method Ausmustern
      */
     public function search(Request $request)

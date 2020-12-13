@@ -54,10 +54,12 @@ Route::patch('/item/update','InvAbItemController@update')->name('item.update');
 Route::post('/invalid','InvAbItemController@invalid')->name('invalid'); //Item Ausmustern
 
 Route::post('/item_man','InvAbItemController@storeMan')->name('item.storeMan');
+Route::post('/inventur_store_final','InvAbItemController@inventurStoreFinal')->name('inventurStoreFinal');
+Route::post('/room_inventur','InvAbItemController@roomInventur')->name('roomInventur'); //room Inventur
 Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->name('printlabel');
 Route::get('/item_change','InvAbItemController@itemchange')->name('item_change');
 Route::get('/item/move','InvAbItemController@move')->name('item.move');
-Route::get('/item/inventur','InvAbItemController@inventur')->name('item.inventur');
+Route::get('/item/inventur','InvAbItemController@inventur')->name('item.inventur'); //Item Inventur
 
 
 // pdf upload
