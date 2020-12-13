@@ -10,6 +10,7 @@ use App\Location;
 use App\InvLastNumber;
 use App\TempInvAbItem;
 use App\InvItems;
+use App\InvMoveItem;
 use App\InvRoom;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
@@ -58,40 +59,19 @@ class InvAbItemController extends Controller
     }
 
 
-    /**
+    /*************************************************************Ausmustern******************************************************************************
      * Search Method Ausmustern
      */
     public function search(Request $request)
     {
         $search_text = strtoupper($_GET['search']);
-        $items = InvAbItem::with('location')->with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
-        $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
+        $items = InvAbItem::with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        $room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
         $amgs = Amg::all();
         return ['items'=>$items,'room'=>$room,'amgs'=>$amgs];
     }
-     /**
-     * Search Method Edit
-     */
-    public function search_edit(Request $request)
-    {
-        $search_text = strtoupper($_GET['search_edit']);
-        $items = InvAbItem::with('location')->with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
-        $room = InvItems::with('invroom')->where('invnr',$items->invnr)->first();
-        return ['items'=>$items,'room'=>$room];
-    }
-      /**
-     * Search Method Move
-     */
-    public function search_move(Request $request)
-    {
-        $search_text = strtoupper($_GET['search_move']);
-        $items = InvItems::with('invroom.location')->Where('gname',strtoupper($search_text))->first();
-        $locations = Location::with('invrooms')->get()->toArray();
-        $places = Place::pluck('id','pnname')->toArray();
-        return ['items'=>$items,'locations'=>$locations,'places'=>$places];
-    }
-     /**
-     * Searchcheck Method
+    /**
+     * Searchcheck Method Ausmustern
      */
     public function searchCheck(Request $request)
     {
@@ -103,6 +83,42 @@ class InvAbItemController extends Controller
             echo "false";
         }
     }
+    /**
+     *  Store Method Ausmustern
+     */
+    public function invalid(Request $request)
+    {
+        $items = InvAbItem::where('invnr',$request->invnr)->with('garts')->first();
+        $items->notes = $request->notes;
+        $items->amg_id = $request->grund;
+        $items->ausdat = date('Y-m-d');
+        $items->save();
+
+        $delItem = InvItems::where('invnr',$request->invnr)->with('invroom')->first();
+        $room = $delItem->invroom->rname;
+        $delItem->delete();
+
+        $sucMsg = array(
+            'message' => 'Erfolgreich bearbeitet',
+            'alert-type' => 'success'
+        );
+
+        return view('inventory.print_invalid',compact('items','room'))->with($sucMsg);
+    }
+
+     /**********************************************************{{ EDIT }}******************************************************************************
+     * Search Method Edit
+     */
+    public function search_edit(Request $request)
+    {
+        $search_text = strtoupper($_GET['search_edit']);
+        $items = InvAbItem::with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        $room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
+        return ['items'=>$items,'room'=>$room];
+    }
+    /**
+     * Search Method Edit Search_Check
+     */
     public function searchCheckEdit(Request $request)
     {
         $data = $request->all();
@@ -113,6 +129,33 @@ class InvAbItemController extends Controller
             echo "false";
         }
     }
+    /**
+     * Method Edit update
+     */
+    public function update(Request $request)
+    {
+        $items = InvAbItem::where('invnr',$request->invnr)->first();
+        $items->notes = $request->notes;
+        $items->save();
+        $sucMsg = array(
+            'message' => 'Erfolgreich bearbeitet',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($sucMsg);
+    }
+
+    /**********************************************************{{ MOVE }}******************************************************************************
+     * Search Method Move
+     */
+    public function search_move(Request $request)
+    {
+        $search_text = strtoupper($_GET['search_move']);
+        $items = InvItems::with('invroom.location')->Where('gname',strtoupper($search_text))->first();
+        $locations = Location::with('invrooms')->get()->toArray();
+        $places = Place::pluck('id','pnname')->toArray();
+        return ['items'=>$items,'locations'=>$locations,'places'=>$places];
+    }
+
     public function searchCheckMove(Request $request)
     {
         $data = $request->all();
@@ -221,9 +264,24 @@ class InvAbItemController extends Controller
         return redirect()->back()->with($sucMsg);
 
     }
-    public function moveSore(Request $reqeust)
+    public function movestore(Request $request)
     {
-        
+
+        $move = New InvMoveItem;
+        $move -> gname = $request->gname_move;
+        $move -> room_id = $request->room_id;
+        $move->save();
+
+        $move = InvItems::Where('gname',$request->gname_move)->first();
+        $move->room_id = $request->room_id;
+        $move->save();
+
+         $sucMsg = array(
+            'message' => 'Standort wurde erfolgreich geändert.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($sucMsg);
     }
 
     /**
@@ -283,55 +341,6 @@ class InvAbItemController extends Controller
     {
         return view('inventory.edit');
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Inv_ab_item  $inv_ab_item
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        $items = InvAbItem::where('invnr',$request->invnr)->first();
-        $items->notes = $request->notes;
-        $items->save();
-        $sucMsg = array(
-            'message' => 'Erfolgreich bearbeitet',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($sucMsg);
-    }
-
-
-
-     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Inv_ab_item  $inv_ab_item
-     * @return \Illuminate\Http\Response
-     */
-    public function invalid(Request $request)
-    {
-        $items = InvAbItem::where('invnr',$request->invnr)->with('garts')->first();
-        $items->notes = $request->notes;
-        $items->amg_id = $request->grund;
-        $items->ausdat = date('Y-m-d');
-        $items->save();
-
-        $delItem = InvItems::where('invnr',$request->invnr)->with('invroom')->first();
-        $room = $delItem->invroom->rname;
-        $delItem->delete();
-
-        $sucMsg = array(
-            'message' => 'Erfolgreich bearbeitet',
-            'alert-type' => 'success'
-        );
-
-        return view('inventory.print_invalid',compact('items','room'))->with($sucMsg);
-    }
-
 
     /**
      * Remove the specified resource from storage.

@@ -173,8 +173,10 @@ $(document).on("click", "#inventur_modal", function() {
                             $('#location_id_move').find('option').remove();
                             $('#location_id_move').find('optgroup').remove();
                             $('#location_id_move').find('option').remove();
+                            $('#location_id_move').append(new Option("Standort...",0));
                             $('body .move_form .move_address').val(resp.items.invroom.location.address)
                             $('body .move_form .move_raum').val(resp.items.invroom.rname)
+                            $('body .move_form .gname_move').val(resp.items.gname)
                             $.each(resp['places'], function(index, item) {
                             $("body #location_id_move").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
                             });
@@ -195,7 +197,7 @@ $(document).on("click", "#inventur_modal", function() {
 
 $( document ).on( "change", "#location_id_move", function() {
     $('#room_id_move').find('option').remove();
-    $("#room_id_move").append(new Option("Bitte Wählen...",''));
+    $("#room_id_move").append(new Option("Raum...",''));
     $("#room_id_move").append(new Option("N/A",0));
     for(let i = 0; i<selectAddress.length ; i++){
         if(selectAddress[i].id == $( this ).val()){
@@ -373,7 +375,7 @@ Dropzone.options.dropzoneForm = {
                                 $('body .amg_form .inventarnummer_amg').val(resp.items.invnr)
                                 $('body .amg_form .andat_amg').val(resp.items.andat)
                                 $('body .amg_form .kp_amg').val(resp.items.kp)
-                                $('body .amg_form .standort_amg').val(resp.items.location.address)
+                                $('body .amg_form .standort_amg').val(resp.room.invroom.location.address)
                                 $('body .amg_form .raum_amg').val(resp.room.invroom.rname)
                                 $('body .amg_form .gart_amg').val(resp.items.garts.name)
                                 $('body .amg_form .gtyp_amg').val(resp.items.gtyp)
@@ -421,7 +423,7 @@ Dropzone.options.dropzoneForm = {
                                 $('body .item_edit_form .invnr_edit').val(resp.items.invnr)
                                 $('body .item_edit_form .andat_edit').val(resp.items.andat)
                                 $('body .item_edit_form .kp_edit').val(resp.items.kp)
-                                $('body .item_edit_form .standort_edit').val(resp.items.location.address)
+                                $('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
                                 $('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
                                 $('body .item_edit_form .gart_edit').val(resp.items.garts.name)
                                 $('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
@@ -440,7 +442,6 @@ Dropzone.options.dropzoneForm = {
     });
 });
 });
-
 
     function printfunction() {
         $('#printpage').modal('show');

@@ -1,4 +1,4 @@
-<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 1080px!important;"  role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -65,7 +65,7 @@
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button type="submit" class="btn btn-primary submit_form">Ändern</button>
+                    <button type="submit" id="submit_form_edit" class="btn btn-primary submit_form">Ändern</button>
                 </div>
             </form>
         </div>

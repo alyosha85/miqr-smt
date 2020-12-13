@@ -3,7 +3,7 @@
     <div class="modal-dialog" style="max-width: 1080px!important;"  role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Formular Erfassung</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Formular Bewegen</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -19,7 +19,7 @@
                     </div>
                     <span id="chksrchmove" class="ml-3"></span>
                 </div>
-            <form action="{{route('item.move.store')}}" method="POST" class="move_form">
+            <form action=" {{route('item_move_store')}} " method="POST" class="move_form">
                 @csrf
                 <div class="col-md-12 form-inline">
                     <input type="text" name="address" class="form-control mr-sm-1 col-md-3 move_address" placeholder="Address" readonly>
@@ -32,8 +32,10 @@
                     <select id="room_id_move" name="room_id" class="form-control mr-sm-1 col-md-2" required>
                     </select>
                 </div>
+                <input type="hidden" name="gname_move" class="gname_move">
             </div>
             <div class="modal-footer">
+                <p class="text-left"> IT May Take from 2 to 4 Hours to take affect </p>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
                 <button type="submit" class="btn btn-primary submit_form_move">Bewegen</button>
             </div>

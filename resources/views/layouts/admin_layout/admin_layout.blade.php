@@ -31,6 +31,9 @@
   <!-- toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <style>
+    .swal2-container {
+        z-index: X;
+      }
       /* right bounce */
 @-webkit-keyframes bounceRight {
     0%,
@@ -217,7 +220,7 @@
 <!--DropZone-->
 <script src="{{ url('dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
 <!-- sweet alert -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- Custom JS -->
     <script src="{{ url('js/admin_js/script.js') }}"></script>
 @yield('script')
