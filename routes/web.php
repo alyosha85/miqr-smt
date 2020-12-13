@@ -48,6 +48,7 @@ Route::get('/inventory','InvAbItemController@index')->name('inventory');
 Route::get('/item/create','InvAbItemController@create')->name('item.create'); // Item Create
 Route::get('/item/create_man','InvAbItemController@create_man')->name('item.create_man'); // Item Create Manuell
 Route::post('/item','InvAbItemController@store')->name('item.store'); //Item Store
+Route::post('/move','InvAbItemController@moveStore')->name('item.move.store'); //Item move store
 
 Route::patch('/item/update','InvAbItemController@update')->name('item.update');
 Route::post('/invalid','InvAbItemController@invalid')->name('invalid'); //Item Ausmustern

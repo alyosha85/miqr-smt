@@ -19,7 +19,7 @@
                     </div>
                     <span id="chksrchmove" class="ml-3"></span>
                 </div>
-            <form action="" method="POST" class="move_form">
+            <form action="{{route('item.move.store')}}" method="POST" class="move_form">
                 @csrf
                 <div class="col-md-12 form-inline">
                     <input type="text" name="address" class="form-control mr-sm-1 col-md-3 move_address" placeholder="Address" readonly>
@@ -35,7 +35,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                <button type="submit" class="btn btn-primary submit_form">Bewegen</button>
+                <button type="submit" class="btn btn-primary submit_form_move">Bewegen</button>
             </div>
             </form>
         </div>
