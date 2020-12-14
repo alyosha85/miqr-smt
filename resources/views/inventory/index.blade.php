@@ -131,9 +131,21 @@
 
 @section('script')
 
+
 <script>
+
+//************************************************************* Inventur ************************************************************
+
+let selectAddressInventur = new Array();
+let roomInventur = new Array();
 $(document).on("click", "#inventur_modal", function() {
     $('#inventur').modal('show');
+    $('#location_id_inventur').find('option').remove();
+    $('#location_id_inventur').find('optgroup').remove();
+    $('#location_id_inventur').append(new Option("Standort...",0));
+    $('#rooms_id_inventur').find('option').remove();
+    $("#rooms_id_inventur").append(new Option("Raum...",''));
+    selectAddressInventur = new Array();
     $.ajax({
         type: "get",
         url: "{{route('item.inventur')}}",
@@ -142,13 +154,94 @@ $(document).on("click", "#inventur_modal", function() {
         $.each(data['places'], function(index, item) {
             $("body #location_id_inventur").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
         });
-        $.each(data['invnr'], function(index, item) {
-            $("#location_id_inventur #"+item.location.place_id).append(new Option(item.location.address,item.location_id));
-            locationData.push(item);
+        $.each(data['locations'], function(index, item) {
+        $("#location_id_inventur #"+item.place_id).append(new Option(item.address,item.id));
+        selectAddressInventur.push(item);
         });
     });
 });
 
+$( document ).on( "change", "#location_id_inventur", function() {
+    $('#room_id_inventur').find('option').remove();
+    $("#room_id_inventur").append(new Option("Raum...",''));
+    $("#room_id_inventur").append(new Option("N/A",0));
+    for(let i = 0; i<selectAddressInventur.length ; i++){
+        if(selectAddressInventur[i].id == $( this ).val()){
+            $.each(selectAddressInventur[i].invrooms, function(index, item) {
+                $("body #room_id_inventur").append(new Option(item.rname,item.id));
+                roomInventur.push(item);
+            });
+        }
+    }
+});
+
+$( document ).on( "change","#room_id_inventur",function() {
+    $( "body #inventur_check_input" ).focus();
+    $.ajax({
+        type:'post',
+        url:"{{ route('roomInventur') }}",
+        data:{room_id:$( this ).val(),location_id:$('#location_id_inventur').val()},
+        success:function(resp){
+            $('body #table_inventur').show();
+            $('body #table_inventur tbody').empty();
+            itemList = new Array();
+                $.each(resp, function(index, item) {
+                    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td></tr>')
+                    let itemListPush = new Array();
+                                        itemListPush['invnr']= item.invnr;
+                                        itemListPush['gname']= item.gname;
+                                        itemListPush['place']= item.invroom.location.place.pnname;
+                                        itemListPush['address']= item.invroom.location.address;
+                                        itemListPush['room']= item.invroom.rname;
+                                        itemListPush['zuordnen']= 1;
+                                        // itemList[item.invnr]=itemListPush;
+                                        // itemList[item.invnr]={invnr:item.invnr,gname:item.gname};  <-----maman Kunem
+                                        itemList.push({ invnr:item.invnr,
+                                                        gname:item.gname,
+                                                        place:item.invroom.location.place.pnname,
+                                                        address:item.invroom.location.address,
+                                                        room:item.invroom.rname,
+                                                        zuordnen:1});
+
+                });
+        },error:function(){
+            alert("Error");
+        }
+    });
+});
+
+let itemList = new Array();
+$( document ).on( "change keyup","body #inventur_check_input",function() {
+    $.each(itemList, function(index, item) {
+        if(item.invnr == $('body #inventur_check_input').val())
+        {
+            item.zuordnen=0;
+            $('body #table_inventur tbody #'+$('body #inventur_check_input').val()).hide();
+            $('body #inventur_check_input').val('');
+            $( "body #inventur_check_input" ).focus();
+
+        }
+    });
+});
+
+$( document ).on( "click","body #inventur_submit",function() {
+    console.log(itemList)
+    $.ajax({
+        type:'post',
+        url:"{{ route('inventurStoreFinal') }}",
+        data:{'itemList':itemList},
+        success:function(resp){
+            console.log(resp);
+        },error:function(){
+            alert("Error");
+        }
+    });
+
+});
+
+
+
+//************************************************************* Bewegen ************************************************************
     let selectAddress = new Array();
     $( document ).on( "click", "#move_modal", function() {
     $('#move').modal('show');
@@ -208,7 +301,7 @@ $( document ).on( "change", "#location_id_move", function() {
     }
 });
 
-
+//************************************************************* Print Label ************************************************************
 let locationData = new Array();
 let text = '';
 $( document ).on( "click", "#etiketten_modal", function() {
@@ -238,6 +331,7 @@ $( document ).on( "change", "#address", function() {
     $('.inventNumber').val(texty);
 });
 
+//************************************************************* Create ************************************************************
 $( document ).on( "click", "#add_modal", function() {
     $('#add').modal('show');
     $('#location_id').find('option').remove();
@@ -348,124 +442,114 @@ Dropzone.options.dropzoneForm = {
     })
   });
 
-
-    // Search function in Ausmustern
-    $(document).ready(function(){
-    $(document).on( "click", "#invalid_modal", function() {
-    $('#invalid').modal('show');
-    });
-    $(document).on('keyup change', '#search_amg', function(){
-        let search = $(this).val();
-        $.ajax({
-            type:'post',
-            url:"{{ route('search_check') }}",
-            data:{search:search},
-            success:function(resp){
-                if(resp=="false"){
-                    $("body #chksrch").html("<font color=red>Gerätename ist nicht vorhanden</font>");
-                }else{
-                    if(resp =="true") {
-                    $("body #chksrch").html("<font color=green>Gerätename ist korrekt</font>");
-                        $.ajax({
-                            type:'get',
-                            url:"{{ route('search') }}",
-                            data:{search:search},
-                            success:function(resp){
-                                $('body .amg_form .gname_amg').val(resp.items.gname)
-                                $('body .amg_form .inventarnummer_amg').val(resp.items.invnr)
-                                $('body .amg_form .andat_amg').val(resp.items.andat)
-                                $('body .amg_form .kp_amg').val(resp.items.kp)
-                                $('body .amg_form .standort_amg').val(resp.room.invroom.location.address)
-                                $('body .amg_form .raum_amg').val(resp.room.invroom.rname)
-                                $('body .amg_form .gart_amg').val(resp.items.garts.name)
-                                $('body .amg_form .gtyp_amg').val(resp.items.gtyp)
-                                $('body .amg_form .sn_amg').val(resp.items.sn)
-                                $('body .amg_form .notes_amg').val(resp.items.notes)
-                                $('body #grund').find('option').remove();
-                                $('body #grund').append(new Option("Grund...",0));
-                                $.each(resp.amgs, function(index, item){
-                                    $("body #grund").append(new Option(item.name,item.id));
-                                });
-                            },error:function(){
-                                alert("Error");
-                            }
-                        });
-                    }
+//************************************************************* Ausmuster ****************************************************
+$(document).ready(function(){
+$(document).on( "click", "#invalid_modal", function() {
+$('#invalid').modal('show');
+});
+$(document).on('keyup change', '#search_amg', function(){
+    let search = $(this).val();
+    $.ajax({
+        type:'post',
+        url:"{{ route('search_check') }}",
+        data:{search:search},
+        success:function(resp){
+            if(resp=="false"){
+                $("body #chksrch").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+            }else{
+                if(resp =="true") {
+                $("body #chksrch").html("<font color=green>Gerätename ist korrekt</font>");
+                    $.ajax({
+                        type:'get',
+                        url:"{{ route('search') }}",
+                        data:{search:search},
+                        success:function(resp){
+                            $('body .amg_form .gname_amg').val(resp.items.gname)
+                            $('body .amg_form .inventarnummer_amg').val(resp.items.invnr)
+                            $('body .amg_form .andat_amg').val(resp.items.andat)
+                            $('body .amg_form .kp_amg').val(resp.items.kp)
+                            $('body .amg_form .standort_amg').val(resp.room.invroom.location.address)
+                            $('body .amg_form .raum_amg').val(resp.room.invroom.rname)
+                            $('body .amg_form .gart_amg').val(resp.items.garts.name)
+                            $('body .amg_form .gtyp_amg').val(resp.items.gtyp)
+                            $('body .amg_form .sn_amg').val(resp.items.sn)
+                            $('body .amg_form .notes_amg').val(resp.items.notes)
+                            $('body #grund').find('option').remove();
+                            $('body #grund').append(new Option("Grund...",0));
+                            $.each(resp.amgs, function(index, item){
+                                $("body #grund").append(new Option(item.name,item.id));
+                            });
+                        },error:function(){
+                            alert("Error");
+                        }
+                    });
                 }
-            },error:function(){
-                alert("Error");
             }
-        });
-    });
-});
-
-    // Search function Edit
-    $(document).on( "click", "#edit_modal", function() {
-    $('#edit').modal('show');
-    $(document).ready(function(){
-    $(document).on('keyup change', '#search_edit', function(){
-        let search_edit = $(this).val();
-        $.ajax({
-            type:'post',
-            url:"{{ route('search_check_edit') }}",
-            data:{search_edit:search_edit},
-            success:function(resp){
-                if(resp=="false"){
-                    $("body #chksrchedit").html("<font color=red>Gerätename ist nicht vorhanden</font>");
-                }else{
-                    if(resp =="true") {
-                    $("body #chksrchedit").html("<font color=green>Gerätename ist korrekt</font>");
-                        $.ajax({
-                            type:'get',
-                            url:"{{ route('search_edit') }}",
-                            data:{search_edit:search_edit},
-                            success:function(resp){
-                                $('body .item_edit_form .invnr_edit').val(resp.items.invnr)
-                                $('body .item_edit_form .andat_edit').val(resp.items.andat)
-                                $('body .item_edit_form .kp_edit').val(resp.items.kp)
-                                $('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
-                                $('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
-                                $('body .item_edit_form .gart_edit').val(resp.items.garts.name)
-                                $('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
-                                $('body .item_edit_form .sn_edit').val(resp.items.sn)
-                                $('body .item_edit_form .notes_edit').val(resp.items.notes)
-                            },error:function(){
-                                alert("Error");
-                            }
-                        });
-                    }
-                }
-            },error:function(){
-                alert("Error");
-            }
-        });
-    });
-});
-});
-
-    function printfunction() {
-        $('#printpage').modal('show');
-        let printinvnr = $('#prntinvnr').val();
-        let anzahl = $('#anzahl').val();
-        let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-        WinPrint.document.close();
-        WinPrint.focus();
-        WinPrint.print();
-        setInterval(function(){ WinPrint.close()}, 3000);
+        },error:function(){
+            alert("Error");
         }
+    });
+});
+});
 
-  Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
-  Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
-  Dropzone.prototype.defaultOptions.dictFallbackText = "Benutzen Sie das Formular um Ihre Dateien hochzuladen";
-  Dropzone.prototype.defaultOptions.dictInvalidFileType = "Eine Datei dieses Typs kann nicht hochgeladen werden";
-  Dropzone.prototype.defaultOptions.dictCancelUpload = "Hochladen abbrechen";
-  Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "null";
-  Dropzone.prototype.defaultOptions.dictRemoveFile = "Datei entfernen";
-  Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Sie können keine weiteren Dateien mehr hochladen.";
+//************************************************************* Edit ************************************************************
 
+$(document).on( "click", "#edit_modal", function() {
+$('#edit').modal('show');
+// $(document).ready(function(){
+$(document).on('keyup change', '#search_edit', function(){
+    let search_edit = $(this).val();
+    $.ajax({
+        type:'post',
+        url:"{{ route('search_check_edit') }}",
+        data:{search_edit:search_edit},
+        success:function(resp){
+            if(resp=="false"){
+                $("body #chksrchedit").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+            }else{
+                if(resp =="true") {
+                $("body #chksrchedit").html("<font color=green>Gerätename ist korrekt</font>");
+                    $.ajax({
+                        type:'get',
+                        url:"{{ route('search_edit') }}",
+                        data:{search_edit:search_edit},
+                        success:function(resp){
+                            $('body .item_edit_form .invnr_edit').val(resp.items.invnr)
+                            $('body .item_edit_form .andat_edit').val(resp.items.andat)
+                            $('body .item_edit_form .kp_edit').val(resp.items.kp)
+                            $('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
+                            $('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
+                            $('body .item_edit_form .gart_edit').val(resp.items.garts.name)
+                            $('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
+                            $('body .item_edit_form .sn_edit').val(resp.items.sn)
+                            $('body .item_edit_form .notes_edit').val(resp.items.notes)
+                        },error:function(){
+                            alert("Error");
+                        }
+                    });
+                }
+            }
+        },error:function(){
+            alert("Error");
+        }
+    });
+});
+// });
+});
 
+function printfunction() {
+    $('#printpage').modal('show');
+    let printinvnr = $('#prntinvnr').val();
+    let anzahl = $('#anzahl').val();
+    let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    setInterval(function(){ WinPrint.close()}, 3000);
+    }
 
-  //TODO: Manuell create
+//************************************************************* Man. Create **************************************
+
     let locationSelect = new Array();
     $(document).on( "click", "#add_modal_man", function() {
     $('#add_man').modal('show');
@@ -509,6 +593,7 @@ $( document ).on( "change", "#location_id_man", function() {
             }
         }
     });
+
 $(function() {
   $('.andat_man').daterangepicker({
     singleDatePicker: true,
@@ -520,6 +605,7 @@ $(function() {
     }
   });
 });
+
 // drop zone
 Dropzone.options.dropzoneForm = {
     autoProcessQueue : false,
@@ -563,6 +649,16 @@ Dropzone.options.dropzoneForm = {
       }
     })
   });
+
+//************************************************************* Dropzone ***********************************
+  Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
+  Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
+  Dropzone.prototype.defaultOptions.dictFallbackText = "Benutzen Sie das Formular um Ihre Dateien hochzuladen";
+  Dropzone.prototype.defaultOptions.dictInvalidFileType = "Eine Datei dieses Typs kann nicht hochgeladen werden";
+  Dropzone.prototype.defaultOptions.dictCancelUpload = "Hochladen abbrechen";
+  Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "null";
+  Dropzone.prototype.defaultOptions.dictRemoveFile = "Datei entfernen";
+  Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Sie können keine weiteren Dateien mehr hochladen.";
 
 
 

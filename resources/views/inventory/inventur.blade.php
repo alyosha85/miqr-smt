@@ -15,17 +15,28 @@
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <select id="rooms_inventur" name="room_id" class="form-control" required>
+                        <select id="room_id_inventur" name="room_id" class="form-control" required>
                         </select>
                     </div>
                 </div>
+                    <input type="text" id="inventur_check_input">
 
-
+                <table class="table" id="table_inventur" style="display: none;">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Inventarnummer</th>
+                        <th scope="col">Gerätename</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                <button type="submit" class="btn btn-primary submit_form">Einfugen</button>
+                <button type="submit" id="inventur_submit" class="btn btn-primary submit_form">Einfugen</button>
             </div>
         </div>
     </div>

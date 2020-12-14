@@ -37,7 +37,7 @@
             <div class="modal-footer">
                 <p class="text-left"> IT May Take from 2 to 4 Hours to take affect </p>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                <button type="submit" class="btn btn-primary submit_form">Bewegen</button>
+                <button type="submit" class="btn btn-primary submit_form_move">Bewegen</button>
             </div>
             </form>
         </div>
