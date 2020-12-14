@@ -195,6 +195,7 @@ $( document ).on( "change","#room_id_inventur",function() {
                                     room:item.invroom.rname,
                                     zuordnen:0});
             });
+
         },error:function(){
             alert("Error");
         }
@@ -234,7 +235,6 @@ $( document ).on( "change","body #inventur_check_input",function() {
     });
 
 $( document ).on( "click","body #inventur_submit",function() {
-    console.log(itemList)
     $.ajax({
         type:'post',
         url:"{{ route('inventurStoreFinal') }}",
@@ -407,12 +407,11 @@ Dropzone.options.dropzoneForm = {
     init:function(){
       var submitButton = document.querySelector(".submit_form_ajax");
       myDropzone = this;
-
       submitButton.addEventListener('click', function(){
         myDropzone.processQueue();
       });
-
       this.on("addedfile", function(data){
+          console.log('file.selected');
             $('.submit_form_ajax').css('visibility','visible');
             $('.submit_form').css('visibility','hidden');
       });
@@ -439,7 +438,6 @@ Dropzone.options.dropzoneForm = {
       }
     })
   }
-
   $(document).on('click', '.remove_pdf', function(){
     var name = $(this).attr('id');
     $.ajax({
@@ -523,9 +521,11 @@ $(document).on('keyup change', '#search_edit', function(){
                         url:"{{ route('search_edit') }}",
                         data:{search_edit:search_edit},
                         success:function(resp){
+                            console.log(resp);
                             $('body .item_edit_form .invnr_edit').val(resp.items.invnr)
                             $('body .item_edit_form .andat_edit').val(resp.items.andat)
                             $('body .item_edit_form .kp_edit').val(resp.items.kp)
+                            $('body .item_edit_form .pdf_edit').val(resp.items.path_to_rg)
                             $('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
                             $('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
                             $('body .item_edit_form .gart_edit').val(resp.items.garts.name)

@@ -14,6 +14,7 @@ use App\InvMoveItem;
 use App\InvRoom;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
+use Carbon\Carbon;
 
 
 
@@ -77,7 +78,13 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-        return $request->all();
+        $request->all();
+        $sucMsg = array(
+            'message' => 'Erfolgreich bearbeitet',
+            'alert-type' => 'success'
+        );
+        return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
+
     }
 
 
@@ -188,6 +195,25 @@ class InvAbItemController extends Controller
             echo "false";
         }
     }
+    public function movestore(Request $request)
+    {
+
+        $move = New InvMoveItem;
+        $move -> gname = $request->gname_move;
+        $move -> room_id = $request->room_id;
+        $move->save();
+
+        $move = InvItems::Where('gname',$request->gname_move)->first();
+        $move->room_id = $request->room_id;
+        $move->save();
+
+         $sucMsg = array(
+            'message' => 'Standort wurde erfolgreich geändert.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($sucMsg);
+    }
 
 
     /**
@@ -286,25 +312,7 @@ class InvAbItemController extends Controller
         return redirect()->back()->with($sucMsg);
 
     }
-    public function movestore(Request $request)
-    {
 
-        $move = New InvMoveItem;
-        $move -> gname = $request->gname_move;
-        $move -> room_id = $request->room_id;
-        $move->save();
-
-        $move = InvItems::Where('gname',$request->gname_move)->first();
-        $move->room_id = $request->room_id;
-        $move->save();
-
-         $sucMsg = array(
-            'message' => 'Standort wurde erfolgreich geändert.',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($sucMsg);
-    }
 
     /**
      * Manuell Creation invnr
