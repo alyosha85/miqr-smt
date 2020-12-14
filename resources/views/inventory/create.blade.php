@@ -68,7 +68,7 @@
             <button type="submit" class="btn btn-primary submit_form">Einfügen</button>
         </div>
     </form>
-          <div class="panel-body">
+           <div class="panel-body">
             <form id="dropzoneForm" class="dropzone" action="{{ route('dropzone.upload_pdf') }}">
               @csrf
             </form>

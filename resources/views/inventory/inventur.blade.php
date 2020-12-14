@@ -36,7 +36,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                <button type="submit" id="inventur_submit" class="btn btn-primary submit_form">Einfugen</button>
+                <button type="submit" id="inventur_submit" class="btn btn-primary">Einfugen</button>
             </div>
         </div>
     </div>

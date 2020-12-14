@@ -41,6 +41,17 @@
                     <div class="form-group col-md-4">
                         <input type="text" class="form-control raum_edit"  name="room_id" placeholder="Raum" readonly>
                     </div>
+                    <div class="form-group col-md-2">
+                        <div class="ml-5">
+                            @isset($items->path_to_rg)
+                            <a href="{{'inventar/rechnungen/'.$items->path_to_rg ?? ''}}" target="_blank" class="pdf_edit">
+                                <i class="fas fa-file-pdf fa-4x" style="color:green" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
+                            </a>
+                            @else
+                            <i class="far fa-file-pdf fa-4x" style="color:#d9534f" data-toggle="tooltip" data-placement="top" title="Keine Rechnung"></i>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <!-- Third row-->
                 <div class="form-row mb-3">

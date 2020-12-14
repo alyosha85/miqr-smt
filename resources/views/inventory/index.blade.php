@@ -195,7 +195,8 @@ $( document ).on( "change","#room_id_inventur",function() {
                                         itemListPush['room']= item.invroom.rname;
                                         itemListPush['zuordnen']= 1;
                                         // itemList[item.invnr]=itemListPush;
-                                        // itemList[item.invnr]={invnr:item.invnr,gname:item.gname};  <-----maman Kunem
+                                        // itemList[item.invnr]={invnr:item.invnr,gname:item.gname};  <-----Ajax can't read Array inside array
+                                                                                                        // it should be Object inside array, or Array inside object :(
                                         itemList.push({ invnr:item.invnr,
                                                         gname:item.gname,
                                                         place:item.invroom.location.place.pnname,
@@ -211,27 +212,33 @@ $( document ).on( "change","#room_id_inventur",function() {
 });
 
 let itemList = new Array();
+// if($('body #inventur_check_input').val().length = 9){
 $( document ).on( "change keyup","body #inventur_check_input",function() {
-    $.each(itemList, function(index, item) {
-        if(item.invnr == $('body #inventur_check_input').val())
-        {
-            item.zuordnen=0;
-            $('body #table_inventur tbody #'+$('body #inventur_check_input').val()).hide();
-            $('body #inventur_check_input').val('');
-            $( "body #inventur_check_input" ).focus();
-
-        }
+        $.each(itemList, function(index, item) {
+            if(item.invnr == $('body #inventur_check_input').val())
+            {
+                item.zuordnen=0;
+                $('body #table_inventur tbody #'+$('body #inventur_check_input').val()).hide();
+                $('body #inventur_check_input').val('');
+                $( "body #inventur_check_input" ).focus();
+            }
+           // else{
+           //     if(item.invnr !== $('body #inventur_check_input').val()){
+           //         $('body #inventur_check_input').val('');
+           //         $( "body #inventur_check_input" ).focus();
+           //     }
+           // }
+        });
     });
-});
+// }
 
 $( document ).on( "click","body #inventur_submit",function() {
-    console.log(itemList)
     $.ajax({
         type:'post',
         url:"{{ route('inventurStoreFinal') }}",
         data:{'itemList':itemList},
         success:function(resp){
-            console.log(resp);
+
         },error:function(){
             alert("Error");
         }
@@ -398,12 +405,11 @@ Dropzone.options.dropzoneForm = {
     init:function(){
       var submitButton = document.querySelector(".submit_form_ajax");
       myDropzone = this;
-
       submitButton.addEventListener('click', function(){
         myDropzone.processQueue();
       });
-
       this.on("addedfile", function(data){
+          console.log('file.selected');
             $('.submit_form_ajax').css('visibility','visible');
             $('.submit_form').css('visibility','hidden');
       });
@@ -430,7 +436,6 @@ Dropzone.options.dropzoneForm = {
       }
     })
   }
-
   $(document).on('click', '.remove_pdf', function(){
     var name = $(this).attr('id');
     $.ajax({
@@ -514,9 +519,11 @@ $(document).on('keyup change', '#search_edit', function(){
                         url:"{{ route('search_edit') }}",
                         data:{search_edit:search_edit},
                         success:function(resp){
+                            console.log(resp);
                             $('body .item_edit_form .invnr_edit').val(resp.items.invnr)
                             $('body .item_edit_form .andat_edit').val(resp.items.andat)
                             $('body .item_edit_form .kp_edit').val(resp.items.kp)
+                            $('body .item_edit_form .pdf_edit').val(resp.items.path_to_rg)
                             $('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
                             $('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
                             $('body .item_edit_form .gart_edit').val(resp.items.garts.name)
