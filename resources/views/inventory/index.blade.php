@@ -174,7 +174,7 @@ $( document ).on( "change", "#location_id_inventur", function() {
         }
     }
 });
-
+let globalIndex = 0;
 $( document ).on( "change","#room_id_inventur",function() {
     $( "body #inventur_check_input" ).focus();
     $.ajax({
@@ -186,24 +186,15 @@ $( document ).on( "change","#room_id_inventur",function() {
             $('body #table_inventur tbody').empty();
             itemList = new Array();
                 $.each(resp, function(index, item) {
+                    globalIndex = index;
                     $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td></tr>')
-                    let itemListPush = new Array();
-                                        itemListPush['invnr']= item.invnr;
-                                        itemListPush['gname']= item.gname;
-                                        itemListPush['place']= item.invroom.location.place.pnname;
-                                        itemListPush['address']= item.invroom.location.address;
-                                        itemListPush['room']= item.invroom.rname;
-                                        itemListPush['zuordnen']= 1;
-                                        // itemList[item.invnr]=itemListPush;
-                                        // itemList[item.invnr]={invnr:item.invnr,gname:item.gname};  <-----maman Kunem
-                                        itemList.push({ invnr:item.invnr,
-                                                        gname:item.gname,
-                                                        place:item.invroom.location.place.pnname,
-                                                        address:item.invroom.location.address,
-                                                        room:item.invroom.rname,
-                                                        zuordnen:1});
-
-                });
+                    itemList.push({ invnr:item.invnr,
+                                    gname:item.gname,
+                                    place:item.invroom.location.place.pnname,
+                                    address:item.invroom.location.address,
+                                    room:item.invroom.rname,
+                                    zuordnen:0});
+            });
         },error:function(){
             alert("Error");
         }
@@ -211,18 +202,36 @@ $( document ).on( "change","#room_id_inventur",function() {
 });
 
 let itemList = new Array();
-$( document ).on( "change keyup","body #inventur_check_input",function() {
+$( document ).on( "change","body #inventur_check_input",function() {
+    let found = false;
     $.each(itemList, function(index, item) {
         if(item.invnr == $('body #inventur_check_input').val())
         {
-            item.zuordnen=0;
+            item.zuordnen=null;
             $('body #table_inventur tbody #'+$('body #inventur_check_input').val()).hide();
             $('body #inventur_check_input').val('');
             $( "body #inventur_check_input" ).focus();
-
+            found = true;
         }
     });
-});
+    if (found == false){
+            $.ajax({
+                type: "get",
+                url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
+                }).done(function(item) {
+                console.log(item);
+                $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td></tr>')
+                    itemList.push({ invnr:item.invnr,
+                                    gname:item.gname,
+                                    place:item.invroom.location.place.pnname,
+                                    address:item.invroom.location.address,
+                                    room:item.invroom.rname,
+                                    zuordnen:1});
+                    $('body #inventur_check_input').val('');
+                    $("body #inventur_check_input" ).focus();
+                });
+            }
+    });
 
 $( document ).on( "click","body #inventur_submit",function() {
     console.log(itemList)
@@ -231,7 +240,7 @@ $( document ).on( "click","body #inventur_submit",function() {
         url:"{{ route('inventurStoreFinal') }}",
         data:{'itemList':itemList},
         success:function(resp){
-            console.log(resp);
+
         },error:function(){
             alert("Error");
         }

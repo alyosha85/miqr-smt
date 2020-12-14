@@ -60,6 +60,7 @@ Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->nam
 Route::get('/item_change','InvAbItemController@itemchange')->name('item_change');
 Route::get('/item/move','InvAbItemController@move')->name('item.move');
 Route::get('/item/inventur','InvAbItemController@inventur')->name('item.inventur'); //Item Inventur
+Route::get('room/inventur/{invnr?}','InvAbItemController@getinvnr')->name('getinvnr'); //Item add item in Inventur room listlist
 
 
 // pdf upload

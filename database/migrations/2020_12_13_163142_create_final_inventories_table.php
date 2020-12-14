@@ -20,7 +20,7 @@ class CreateFinalInventoriesTable extends Migration
             $table->string('place')->nullable();
             $table->string('address')->nullable();
             $table->string('room')->nullable();
-            $table->boolean('zuordnen')->default(1);
+            $table->boolean('zuordnen')->nullable()->default(0);
             $table->timestamps();
         });
     }

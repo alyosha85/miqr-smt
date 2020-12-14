@@ -69,6 +69,12 @@ class InvAbItemController extends Controller
         return $roomInventur;
 
     }
+
+    public function getinvnr ($invnr)
+    {
+        return InvItems::with('invroom.location.place')->where('invnr',$invnr)->first();
+
+    }
     public function inventurStoreFinal(Request $request)
     {
         return $request->all();
