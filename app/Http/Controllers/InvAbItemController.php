@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\InvAbItem;
 use App\Gart;
 use App\Amg;
+use App\FinalInventory;
 use App\Place;
 use App\Location;
 use App\InvLastNumber;
@@ -78,7 +79,15 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-        $request->all();
+        return $request->all();
+        $inventur = New FinalInventory();
+        $inventur ->invnr = $request ->invnr;
+        $inventur ->gname = $request ->gname;
+        $inventur ->place = $request ->place;
+        $inventur ->room = $request ->room;
+        $inventur->zuordnen = $request ->zuordnen;
+        $inventur->save();
+
         $sucMsg = array(
             'message' => 'Erfolgreich bearbeitet',
             'alert-type' => 'success'
@@ -229,11 +238,9 @@ class InvAbItemController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
+    /**********************************************************{{ Upload PDF }}******************************************************************************
+     * upload Pdf and store
      */
-
-
     public function upload_pdf(Request $request)
     {
 
@@ -261,6 +268,43 @@ class InvAbItemController extends Controller
     }
 
     function delete_pdf(Request $request)
+    {
+     if($request->get('name'))
+     {
+      \File::delete(public_path('/inventar/rechnungen/'.date('Y').'/' . $request->get('name')));
+     }
+    }
+
+    /**********************************************************{{ Upload PDF Man}}******************************************************************************
+     * upload Pdf and store Man
+     */
+    public function upload_pdf_man(Request $request)
+    {
+
+    $pdf = $request->file('file');
+
+     $pdfName = time() . '.' . $pdf->extension();
+     $pdf->move(public_path('/inventar/rechnungen/'.date('Y')), $pdfName);
+     return date('Y').'/'.$pdfName;
+
+    }
+
+    function fetch_pdf_man()
+    {
+     $pdfs = \File::allFiles(public_path('/inventar/rechnungen/'.date('Y')));
+     $output = '<div class="row">';
+     foreach($pdfs as $pdf)
+     {
+      $output .= '<div class="col-md-2">
+                <img src="'.asset('inventar/rechnungen/pdfIcon.png').'" class="img-thumbnail" width="150" height="150"/>
+                <button type="button" class="btn btn-link remove_pdf_man" id="'.$pdf->getFilename().'">Remove</button>
+            </div>';
+     }
+     $output .= '</div>';
+     echo $output;
+    }
+
+    function delete_pdf_man(Request $request)
     {
      if($request->get('name'))
      {

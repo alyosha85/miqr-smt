@@ -15,7 +15,7 @@ class CreateFinalInventoriesTable extends Migration
     {
         Schema::create('final_inventories', function (Blueprint $table) {
             $table->id();
-            $table->string('invr')->nullable();
+            $table->string('invnr')->nullable();
             $table->string('gname')->nullable();
             $table->string('place')->nullable();
             $table->string('address')->nullable();

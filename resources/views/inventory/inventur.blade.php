@@ -27,6 +27,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Inventarnummer</th>
                         <th scope="col">Gerätename</th>
+                        <th scope="col">Zuordnen</th>
                       </tr>
                     </thead>
                     <tbody>

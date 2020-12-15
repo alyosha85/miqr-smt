@@ -15,6 +15,7 @@
                         <div class="input-group-append">
                             <button type="button" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                         </div>
+                        <div id="suggesstion-box"></div>
                     </div>
                     <span id="chksrchedit" class="ml-3"></span>
                 </div>

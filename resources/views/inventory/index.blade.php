@@ -142,7 +142,7 @@ $(document).on("click", "#inventur_modal", function() {
     $('#inventur').modal('show');
     $('#location_id_inventur').find('option').remove();
     $('#location_id_inventur').find('optgroup').remove();
-    $('#location_id_inventur').append(new Option("Standort...",0));
+    $('#location_id_inventur').append(new Option("Standort...",''));
     $('#rooms_id_inventur').find('option').remove();
     $("#rooms_id_inventur").append(new Option("Raum...",''));
     selectAddressInventur = new Array();
@@ -150,7 +150,6 @@ $(document).on("click", "#inventur_modal", function() {
         type: "get",
         url: "{{route('item.inventur')}}",
     }).done(function(data) {
-        console.log(data);
         $.each(data['places'], function(index, item) {
             $("body #location_id_inventur").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
         });
@@ -164,7 +163,6 @@ $(document).on("click", "#inventur_modal", function() {
 $( document ).on( "change", "#location_id_inventur", function() {
     $('#room_id_inventur').find('option').remove();
     $("#room_id_inventur").append(new Option("Raum...",''));
-    $("#room_id_inventur").append(new Option("N/A",0));
     for(let i = 0; i<selectAddressInventur.length ; i++){
         if(selectAddressInventur[i].id == $( this ).val()){
             $.each(selectAddressInventur[i].invrooms, function(index, item) {
@@ -187,7 +185,7 @@ $( document ).on( "change","#room_id_inventur",function() {
             itemList = new Array();
                 $.each(resp, function(index, item) {
                     globalIndex = index;
-                    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td></tr>')
+                    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>Ja oder Nein</td></tr>')
                     itemList.push({ invnr:item.invnr,
                                     gname:item.gname,
                                     place:item.invroom.location.place.pnname,
@@ -220,8 +218,7 @@ $( document ).on( "change","body #inventur_check_input",function() {
                 type: "get",
                 url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
                 }).done(function(item) {
-                console.log(item);
-                $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td></tr>')
+                $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>Ja oder Nein</td></tr>')
                     itemList.push({ invnr:item.invnr,
                                     gname:item.gname,
                                     place:item.invroom.location.place.pnname,
@@ -240,7 +237,6 @@ $( document ).on( "click","body #inventur_submit",function() {
         url:"{{ route('inventurStoreFinal') }}",
         data:{'itemList':itemList},
         success:function(resp){
-
         },error:function(){
             alert("Error");
         }
@@ -300,7 +296,6 @@ $( document ).on( "click","body #inventur_submit",function() {
 $( document ).on( "change", "#location_id_move", function() {
     $('#room_id_move').find('option').remove();
     $("#room_id_move").append(new Option("Raum...",''));
-    $("#room_id_move").append(new Option("N/A",0));
     for(let i = 0; i<selectAddress.length ; i++){
         if(selectAddress[i].id == $( this ).val()){
             $.each(selectAddress[i].invrooms, function(index, item) {
@@ -346,10 +341,9 @@ $( document ).on( "click", "#add_modal", function() {
     $('#location_id').find('option').remove();
     $('#location_id').find('optgroup').remove();
     $('#gart_id').find('option').remove();
-    $('#location_id').append(new Option("Standort...",0));
-    $('#gart_id').append(new Option("Bitte Wählen...",0));
+    $('#location_id').append(new Option("Standort...",''));
+    $('#gart_id').append(new Option("Bitte Wählen...",''));
     $('#rooms').find('option').remove();
-    $("#rooms").append(new Option("Raum...",0));
     $('.invnr').val('');
     locationData = new Array();
     $.ajax({
@@ -372,7 +366,6 @@ $( document ).on( "click", "#add_modal", function() {
 $( document ).on( "change", "#location_id", function() {
     $('#rooms').find('option').remove();
     $("#rooms").append(new Option("Bitte Wählen...",''));
-    $("#rooms").append(new Option("N/A",0));
     for(let i = 0; i<locationData.length ; i++){
         if(locationData[i].location_id == $( this ).val()){
             texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
@@ -399,55 +392,7 @@ $(function() {
   });
 });
 
-// drop zone
-Dropzone.options.dropzoneForm = {
-    autoProcessQueue : false,
-    acceptedFiles : ".pdf",
-    maxFiles:1,
-    init:function(){
-      var submitButton = document.querySelector(".submit_form_ajax");
-      myDropzone = this;
-      submitButton.addEventListener('click', function(){
-        myDropzone.processQueue();
-      });
-      this.on("addedfile", function(data){
-          console.log('file.selected');
-            $('.submit_form_ajax').css('visibility','visible');
-            $('.submit_form').css('visibility','hidden');
-      });
-      this.on("complete", function(data){
-        // if(this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0)
-        // {
-        //   var _this = this;
-        //   _this.removeAllFiles();
-        // }
-        $('.path_to_rg').val(data.xhr.response);
-        // load_images();
-        $('#item_form').submit();
-      });
-    }
-  };
-//   load_images();
-  function load_images()
-  {
-    $.ajax({
-      url:"{{ route('dropzone.fetch_pdf') }}",
-      success:function(data)
-      {
-        $('#uploaded_pdf').html(data);
-      }
-    })
-  }
-  $(document).on('click', '.remove_pdf', function(){
-    var name = $(this).attr('id');
-    $.ajax({
-      url:"{{ route('dropzone.delete_pdf') }}",
-      data:{name : name},
-      success:function(data){
-        load_images();
-      }
-    })
-  });
+
 
 //************************************************************* Ausmuster ****************************************************
 $(document).ready(function(){
@@ -503,7 +448,6 @@ $(document).on('keyup change', '#search_amg', function(){
 
 $(document).on( "click", "#edit_modal", function() {
 $('#edit').modal('show');
-// $(document).ready(function(){
 $(document).on('keyup change', '#search_edit', function(){
     let search_edit = $(this).val();
     $.ajax({
@@ -521,7 +465,6 @@ $(document).on('keyup change', '#search_edit', function(){
                         url:"{{ route('search_edit') }}",
                         data:{search_edit:search_edit},
                         success:function(resp){
-                            console.log(resp);
                             $('body .item_edit_form .invnr_edit').val(resp.items.invnr)
                             $('body .item_edit_form .andat_edit').val(resp.items.andat)
                             $('body .item_edit_form .kp_edit').val(resp.items.kp)
@@ -543,7 +486,6 @@ $(document).on('keyup change', '#search_edit', function(){
         }
     });
 });
-// });
 });
 
 function printfunction() {
@@ -591,7 +533,6 @@ $( document ).on( "change", "#location_id_man", function() {
     $("#rooms_id_man").append(new Option("Bitte Wählen...",''));
     $("#rooms_id_man").append(new Option("N/A",0));
     for(let i = 0; i<locationSelect.length ; i++){
-        console.log(locationSelect[i]);
         if(locationSelect[i].id == $( this ).val()){
             $.each(locationSelect[i].invrooms, function(index, item) {
                     let name = item.altrname;
@@ -621,19 +562,19 @@ Dropzone.options.dropzoneForm = {
     acceptedFiles : ".pdf",
     maxFiles:1,
     init:function(){
-      var submitButton = document.querySelector(".submit_form_ajax_man");
+      var submitButton = document.querySelector(".submit_form_ajax");
       myDropzone = this;
       submitButton.addEventListener('click', function(){
         myDropzone.processQueue();
       });
-    //   this.on("addedfile", function(data){
-    //         $('.submit_form_ajax').css('visibility','visible');
-    //         $('.submit_form').css('visibility','hidden');
-    //   });
+      this.on("addedfile", function(data){
+            $('.submit_form_ajax').css('visibility','visible');
+            $('.submit_form').css('visibility','hidden');
+      });
       this.on("complete", function(data){
-        $('.path_to_rg_man').val(data.xhr.response);
+        $('.path_to_rg').val(data.xhr.response);
         // load_images();
-        $('#item_form_man').submit();
+        $('#item_form').submit();
       });
     }
   };
@@ -644,7 +585,7 @@ Dropzone.options.dropzoneForm = {
       url:"{{ route('dropzone.fetch_pdf') }}",
       success:function(data)
       {
-        $('#uploaded_pdf_man').html(data);
+        $('#uploaded_pdf').html(data);
       }
     })
   }
@@ -659,6 +600,53 @@ Dropzone.options.dropzoneForm = {
     })
   });
 
+
+// drop zone man
+Dropzone.options.dropzoneForm_man = {
+    autoProcessQueue : false,
+    acceptedFiles : ".pdf",
+    maxFiles:1,
+    init:function(){
+      var submitButton = document.querySelector(".submit_form_ajax_man");
+      myDropzone = this;
+      submitButton.addEventListener('click', function(){
+        myDropzone.processQueue();
+      });
+      this.on("addedfile", function(data){
+          $('.submit_form_ajax_man').css('visibility','visible');
+          $('.submit_form_man').css('visibility','hidden');
+    });
+    this.on("complete", function(data){
+      $('.path_to_rg_man').val(data.xhr.response);
+      // load_images();
+      $('#item_form_man').submit();
+    });
+  }
+};
+//   load_images();
+  function load_images()
+  {
+    $.ajax({
+      url:"{{ route('dropzone.fetch_pdf_man') }}",
+      success:function(data)
+      {
+        $('#uploaded_pdf_man').html(data);
+      }
+    })
+  }
+  $(document).on('click', '.remove_pdf', function(){
+    var name = $(this).attr('id');
+    $.ajax({
+      url:"{{ route('dropzone.delete_pdf_man') }}",
+      data:{name : name},
+      success:function(data){
+        load_images();
+      }
+    })
+  });
+
+
+
 //************************************************************* Dropzone ***********************************
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
   Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
@@ -668,8 +656,6 @@ Dropzone.options.dropzoneForm = {
   Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "null";
   Dropzone.prototype.defaultOptions.dictRemoveFile = "Datei entfernen";
   Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Sie können keine weiteren Dateien mehr hochladen.";
-
-
 
 
 </script>
