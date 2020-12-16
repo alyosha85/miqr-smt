@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\InvAbItem;
 use App\Gart;
 use App\Amg;
+use App\FinalInventory;
 use App\Place;
 use App\Location;
 use App\InvLastNumber;
@@ -50,6 +51,24 @@ class InvAbItemController extends Controller
         $garts = Gart::get()->toArray();
         return ['locations'=>$locations,'garts'=>$garts,'places'=>$places];
     }
+    /*************************************************************{{ Listen }}******************************************************************************
+     * Search Method listen
+     */
+    public function listen(Request $request)
+    {
+        $places = Place::pluck('id','pnname')->toArray();
+        $locations = Location::with('invrooms')->get()->toArray();
+        return ['locations'=>$locations,'places'=>$places];
+    }
+
+    public function items_in_room_listen(Request $request)
+    {
+        $roomInventur = InvItems::with('invroom.location.place')->with('garts')->where('room_id',$request->room_id)->whereHas('invroom', function ($query) use ($request) {
+            return $query->where('location_id', '=', $request->location_id);
+            })->get()->toArray();
+        return $roomInventur;
+
+    }
 
 
     /*************************************************************{{ Inventur }}******************************************************************************
@@ -57,7 +76,6 @@ class InvAbItemController extends Controller
      */
     public function inventur(Request $request)
     {
-
         $places = Place::pluck('id','pnname')->toArray();
         $locations = Location::with('invrooms')->get()->toArray();
         return ['locations'=>$locations,'places'=>$places];
@@ -78,6 +96,23 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
+<<<<<<< HEAD
+=======
+        return $request->all();
+        $inventur = New FinalInventory();
+        $inventur ->invnr = $request ->invnr;
+        $inventur ->gname = $request ->gname;
+        $inventur ->place = $request ->place;
+        $inventur ->room = $request ->room;
+        $inventur->zuordnen = $request ->zuordnen;
+        $inventur->save();
+
+        $sucMsg = array(
+            'message' => 'Erfolgreich bearbeitet',
+            'alert-type' => 'success'
+        );
+        return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
+>>>>>>> c4c17c8bce7fcc63f1ae87aab69f41edde4495c7
 
         return $request->all();
     }
@@ -224,11 +259,9 @@ class InvAbItemController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
+    /**********************************************************{{ Upload PDF }}******************************************************************************
+     * upload Pdf and store
      */
-
-
     public function upload_pdf(Request $request)
     {
 
@@ -256,6 +289,43 @@ class InvAbItemController extends Controller
     }
 
     function delete_pdf(Request $request)
+    {
+     if($request->get('name'))
+     {
+      \File::delete(public_path('/inventar/rechnungen/'.date('Y').'/' . $request->get('name')));
+     }
+    }
+
+    /**********************************************************{{ Upload PDF Man}}******************************************************************************
+     * upload Pdf and store Man
+     */
+    public function upload_pdf_man(Request $request)
+    {
+
+    $pdf = $request->file('file');
+
+     $pdfName = time() . '.' . $pdf->extension();
+     $pdf->move(public_path('/inventar/rechnungen/'.date('Y')), $pdfName);
+     return date('Y').'/'.$pdfName;
+
+    }
+
+    function fetch_pdf_man()
+    {
+     $pdfs = \File::allFiles(public_path('/inventar/rechnungen/'.date('Y')));
+     $output = '<div class="row">';
+     foreach($pdfs as $pdf)
+     {
+      $output .= '<div class="col-md-2">
+                <img src="'.asset('inventar/rechnungen/pdfIcon.png').'" class="img-thumbnail" width="150" height="150"/>
+                <button type="button" class="btn btn-link remove_pdf_man" id="'.$pdf->getFilename().'">Remove</button>
+            </div>';
+     }
+     $output .= '</div>';
+     echo $output;
+    }
+
+    function delete_pdf_man(Request $request)
     {
      if($request->get('name'))
      {

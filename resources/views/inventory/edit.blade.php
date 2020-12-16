@@ -15,6 +15,7 @@
                         <div class="input-group-append">
                             <button type="button" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                         </div>
+                        <div id="suggesstion-box"></div>
                     </div>
                     <span id="chksrchedit" class="ml-3"></span>
                 </div>
@@ -76,7 +77,7 @@
             </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button type="submit" id="submit_form_edit" class="btn btn-primary submit_form">Ändern</button>
+                    <button type="submit" id="submit_form_edit" class="btn btn-primary submit_form_edit">Ändern</button>
                 </div>
             </form>
         </div>

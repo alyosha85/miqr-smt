@@ -19,14 +19,14 @@
                         </select>
                     </div>
                 </div>
-                    <input type="text" id="inventur_check_input">
-
+                    <input type="text" id="inventur_check_input" onblur="this.focus()" autofocus>  <!-- Input Hidden -->
                 <table class="table" id="table_inventur" style="display: none;">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
                         <th scope="col">Inventarnummer</th>
                         <th scope="col">Gerätename</th>
+                        <th scope="col">Zuordnen</th>
                       </tr>
                     </thead>
                     <tbody>
