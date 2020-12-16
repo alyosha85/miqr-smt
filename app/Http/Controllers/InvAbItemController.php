@@ -96,9 +96,7 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-<<<<<<< HEAD
-=======
-        return $request->all();
+
         $inventur = New FinalInventory();
         $inventur ->invnr = $request ->invnr;
         $inventur ->gname = $request ->gname;
@@ -112,9 +110,8 @@ class InvAbItemController extends Controller
             'alert-type' => 'success'
         );
         return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
->>>>>>> c4c17c8bce7fcc63f1ae87aab69f41edde4495c7
 
-        return $request->all();
+
     }
 
 
@@ -171,8 +168,15 @@ class InvAbItemController extends Controller
     public function search_edit(Request $request)
     {
         $search_text = strtoupper($_GET['search_edit']);
-        $items = InvAbItem::with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+        $items = InvAbItem::with('garts')->Where(function ($query) use ($search_text) {
+                                                $query->whereNull('ausdat')->where('invnr',$search_text);
+                                                })->
+                                                orWhere(function ($query) use ($search_text) {
+                                                    $query->whereNull('ausdat')->where('gname',strtoupper($search_text));
+                                                })->first();
         $room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
+
+
         return ['items'=>$items,'room'=>$room];
     }
     /**

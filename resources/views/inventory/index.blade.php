@@ -166,7 +166,7 @@ $( document ).on( "change", "#location_id_listen", function() {
 	for(let i = 0; i<selectAddresslisten.length ; i++){
 		if(selectAddresslisten[i].id == $( this ).val()){
 			$.each(selectAddresslisten[i].invrooms, function(index, item) {
-				$("body #room_id_listen").append(new Option(item.rname,item.id));
+				$("body #room_id_listen").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 				roomlisten.push(item);
 			});
 		}
@@ -177,14 +177,15 @@ $( document ).on( "change","#room_id_listen",function() {
 	$.ajax({
 		type:'post',
 		url:"{{ route('items_in_room_listen') }}",
-		data:{room_id:$( this ).val(),location_id:$('#location_id_listen').val()}, //patsadroutyun
+		data:{room_id:$( this ).val(),location_id:$('#location_id_listen').val()},
 		success:function(resp){
 			$('body #table_listen').show();
             $('body #table_listen tbody').empty();
             $('body #altrname_listen').append()
 				$.each(resp, function(index, item) {
+                    let gtyp = item.gtyp ? item.gtyp : '-';
                     $('body #table_listen tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+
-                        '</td><td>'+item.garts.name+'</td><td>'+item.gtyp+'</td></tr>')
+                        '</td><td>'+item.garts.name+'</td><td>'+gtyp+'</td></tr>')
 			    });
 		},error:function(){
 			alert("Error");
@@ -248,7 +249,9 @@ $( document ).on( "change","#room_id_inventur",function() {
 			itemList = new Array();
 				$.each(resp, function(index, item) {
 					globalIndex = index;
-					$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>Ja oder Nein</td></tr>')
+                    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
+                        '<div class="input-group-text">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" selected="selected">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
+                        +'</td></tr>')
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
 									place:item.invroom.location.place.pnname,
@@ -281,7 +284,9 @@ $( document ).on( "change","body #inventur_check_input",function() {
 				type: "get",
 				url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
 				}).done(function(item) {
-				$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>Ja oder Nein</td></tr>')
+                $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td>'+
+                    '<div class="input-group">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" selected="selected">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
+                    +'<td></td></tr>')
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
 									place:item.invroom.location.place.pnname,
@@ -405,7 +410,6 @@ $( document ).on( "change", "#address", function() {
 
 //************************************************************* Create ************************************************************
 $( document ).on( "click", "#add_modal", function() {
-<<<<<<< HEAD
     $('#add').modal('show');
     $('#location_id').find('option').remove();
     $('#location_id').find('optgroup').remove();
@@ -431,32 +435,6 @@ $( document ).on( "click", "#add_modal", function() {
                 $("#gart_id").append(new Option(item.name,item.id));
             });
     });
-=======
-	$('#add').modal('show');
-	$('#location_id').find('option').remove();
-	$('#location_id').find('optgroup').remove();
-	$('#gart_id').find('option').remove();
-	$('#location_id').append(new Option("Standort...",''));
-	$('#gart_id').append(new Option("Bitte Wählen...",''));
-	$('#rooms').find('option').remove();
-	$('.invnr').val('');
-	locationData = new Array();
-	$.ajax({
-		type: "GET",
-		url: "{{ route('item.create') }}",
-		}).done(function( data ) {
-			$.each(data['places'], function(index, item) {
-				$("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-			});
-			$.each(data['invnr'], function(index, item) {
-				$("#location_id #"+item.location.place_id).append(new Option(item.location.address,item.location_id));
-				locationData.push(item);
-			});
-			$.each(data['garts'], function(index, item) {
-				$("#gart_id").append(new Option(item.name,item.id));
-			});
-	});
->>>>>>> c4c17c8bce7fcc63f1ae87aab69f41edde4495c7
 });
 
 $( document ).on( "change", "#location_id", function() {
@@ -555,16 +533,23 @@ $(document).on('keyup change', '#search_edit', function(){
 				$("body #chksrchedit").html("<font color=red>Gerätename ist nicht vorhanden</font>");
 			}else{
 				if(resp =="true") {
-				$("body #chksrchedit").html("<font color=green>Gerätename ist korrekt</font>");
+                $("body #chksrchedit").html("<font color=green>Gerätename ist korrekt</font>");
+                $("body .pdf_edit_green").hide();
+                $("body .pdf_edit_red").show();
 					$.ajax({
 						type:'get',
 						url:"{{ route('search_edit') }}",
 						data:{search_edit:search_edit},
 						success:function(resp){
+                            if(resp.items.path_to_rg) {
+                                console.log('dfadsf');
+                                $("body .pdf_edit_green").show();
+                                $("body .pdf_edit_red").hide();
+                                $("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
+                            }
 							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
 							$('body .item_edit_form .andat_edit').val(resp.items.andat)
 							$('body .item_edit_form .kp_edit').val(resp.items.kp)
-							$('body .item_edit_form .pdf_edit').val(resp.items.path_to_rg)
 							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
 							$('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
 							$('body .item_edit_form .gart_edit').val(resp.items.garts.name)
@@ -652,9 +637,6 @@ $(function() {
   });
 });
 
-<<<<<<< HEAD
-
-=======
 // drop zone
 Dropzone.options.dropzoneForm = {
 	autoProcessQueue : false,
@@ -743,7 +725,6 @@ Dropzone.options.dropzoneForm_man = {
 	  }
 	})
   });
->>>>>>> c4c17c8bce7fcc63f1ae87aab69f41edde4495c7
 
 
 
