@@ -196,6 +196,7 @@ $( document ).on( "change","#room_id_listen",function() {
 
 
 
+
 //************************************************************* Inventur ************************************************************
 
 let selectAddressInventur = new Array();

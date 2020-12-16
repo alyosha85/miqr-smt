@@ -37,7 +37,7 @@
 				</div>
 				<div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button type="submit" id="print_list" class="btn btn-primary">Drucken</button>
+                    <button onclick="printfunctionlist()" id="print_list" class="btn btn-primary">Drucken</button>
 				</div>
 		</div>
 	</div>
