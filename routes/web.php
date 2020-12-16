@@ -26,7 +26,7 @@ Route::get('/inventory','InvAbItemController@index')->name('inventory');
 // create Address and room lists
 Route::get('/item/create','InvAbItemController@create')->name('item.create');
 Route::post('/item','InvAbItemController@store')->name('item.store');
-//*******  PDF Upload Inventory  ***********/
+//*********  PDF Upload Inventory  ***********/
 Route::post('dropzone/upload_pdf', 'InvAbItemController@upload_pdf')->name('dropzone.upload_pdf');
 Route::get('dropzone/fetch_pdf', 'InvAbItemController@fetch_pdf')->name('dropzone.fetch_pdf');
 Route::get('dropzone/delete_pdf', 'InvAbItemController@delete_pdf')->name('dropzone.delete_pdf');
@@ -60,7 +60,11 @@ Route::post('/invalid','InvAbItemController@invalid')->name('invalid');
 //*****************************  PrintLabel  ****************************************/
 Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->name('printlabel');
 
-//*********************  Invalidation Items Inventory  ******************************/
+//*****************************  Print Listen  **************************************/
+Route::get('/item/listen','InvAbItemController@listen')->name('item.listen');
+Route::post('/room_listen','InvAbItemController@items_in_room_listen')->name('items_in_room_listen');
+
+//********************************    Items Inventory  ******************************/
 Route::get('/item/inventur','InvAbItemController@inventur')->name('item.inventur');     //Item Inventur
 Route::post('/room_inventur','InvAbItemController@roomInventur')->name('roomInventur'); //room Inventur
 Route::get('room/inventur/{invnr?}','InvAbItemController@getinvnr')->name('getinvnr');  //list add item in Inventur room listlist

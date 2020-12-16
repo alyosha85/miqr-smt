@@ -19,8 +19,7 @@
                         </select>
                     </div>
                 </div>
-                    <input type="text" id="inventur_check_input">
-
+                    <input type="text" id="inventur_check_input" onblur="this.focus()" autofocus>  <!-- Input Hidden -->
                 <table class="table" id="table_inventur" style="display: none;">
                     <thead>
                       <tr>

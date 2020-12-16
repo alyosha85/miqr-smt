@@ -51,6 +51,24 @@ class InvAbItemController extends Controller
         $garts = Gart::get()->toArray();
         return ['locations'=>$locations,'garts'=>$garts,'places'=>$places];
     }
+    /*************************************************************{{ Listen }}******************************************************************************
+     * Search Method listen
+     */
+    public function listen(Request $request)
+    {
+        $places = Place::pluck('id','pnname')->toArray();
+        $locations = Location::with('invrooms')->get()->toArray();
+        return ['locations'=>$locations,'places'=>$places];
+    }
+
+    public function items_in_room_listen(Request $request)
+    {
+        $roomInventur = InvItems::with('invroom.location.place')->with('garts')->where('room_id',$request->room_id)->whereHas('invroom', function ($query) use ($request) {
+            return $query->where('location_id', '=', $request->location_id);
+            })->get()->toArray();
+        return $roomInventur;
+
+    }
 
 
     /*************************************************************{{ Inventur }}******************************************************************************
@@ -58,7 +76,6 @@ class InvAbItemController extends Controller
      */
     public function inventur(Request $request)
     {
-
         $places = Place::pluck('id','pnname')->toArray();
         $locations = Location::with('invrooms')->get()->toArray();
         return ['locations'=>$locations,'places'=>$places];
