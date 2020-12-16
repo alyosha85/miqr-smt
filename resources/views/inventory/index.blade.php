@@ -240,7 +240,12 @@ $( document ).on( "click","body #inventur_submit",function() {
         url:"{{ route('inventurStoreFinal') }}",
         data:{'itemList':itemList},
         success:function(resp){
-
+            console.log(resp);
+            // let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+            // WinPrint.document.close();
+            // WinPrint.focus();
+            // WinPrint.print();
+            // setInterval(function(){ WinPrint.close()}, 3000);
         },error:function(){
             alert("Error");
         }
@@ -346,7 +351,7 @@ $( document ).on( "click", "#add_modal", function() {
     $('#location_id').find('option').remove();
     $('#location_id').find('optgroup').remove();
     $('#gart_id').find('option').remove();
-    $('#location_id').append(new Option("Standort...",0));
+    $('#location_id').append(new Option("Standort...",''));
     $('#gart_id').append(new Option("Bitte Wählen...",0));
     $('#rooms').find('option').remove();
     $("#rooms").append(new Option("Raum...",0));
@@ -615,49 +620,7 @@ $(function() {
   });
 });
 
-// drop zone
-Dropzone.options.dropzoneForm = {
-    autoProcessQueue : false,
-    acceptedFiles : ".pdf",
-    maxFiles:1,
-    init:function(){
-      var submitButton = document.querySelector(".submit_form_ajax_man");
-      myDropzone = this;
-      submitButton.addEventListener('click', function(){
-        myDropzone.processQueue();
-      });
-    //   this.on("addedfile", function(data){
-    //         $('.submit_form_ajax').css('visibility','visible');
-    //         $('.submit_form').css('visibility','hidden');
-    //   });
-      this.on("complete", function(data){
-        $('.path_to_rg_man').val(data.xhr.response);
-        // load_images();
-        $('#item_form_man').submit();
-      });
-    }
-  };
-//   load_images();
-  function load_images()
-  {
-    $.ajax({
-      url:"{{ route('dropzone.fetch_pdf') }}",
-      success:function(data)
-      {
-        $('#uploaded_pdf_man').html(data);
-      }
-    })
-  }
-  $(document).on('click', '.remove_pdf', function(){
-    var name = $(this).attr('id');
-    $.ajax({
-      url:"{{ route('dropzone.delete_pdf') }}",
-      data:{name : name},
-      success:function(data){
-        load_images();
-      }
-    })
-  });
+
 
 //************************************************************* Dropzone ***********************************
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";

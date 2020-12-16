@@ -78,13 +78,8 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-        $request->all();
-        $sucMsg = array(
-            'message' => 'Erfolgreich bearbeitet',
-            'alert-type' => 'success'
-        );
-        return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
 
+        return $request->all();
     }
 
 
