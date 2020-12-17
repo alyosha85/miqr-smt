@@ -165,6 +165,7 @@ class InvAbItemController extends Controller
      /**********************************************************{{ EDIT }}******************************************************************************
      * Search Method Edit
      */
+
     public function search_edit(Request $request)
     {
         $search_text = strtoupper($_GET['search_edit']);
@@ -185,8 +186,14 @@ class InvAbItemController extends Controller
     public function searchCheckEdit(Request $request)
     {
         $data = $request->all();
-        $check = InvAbItem::where('invnr',$data['search_edit'])->orwhere('gname',$data['search_edit'])->first();
-        if ($check && $data['search_edit']!="") {
+				$check = InvAbItem::where('invnr',$data['search_edit'])->orwhere('gname',$data['search_edit'])->first();
+				$check = InvAbItem::Where(function ($query) use ($data) {
+																	$query->whereNull('ausdat')->where('invnr',strtoupper($data['search_edit']));
+																	})->
+																	orWhere(function ($query) use ($data) {
+																			$query->whereNull('ausdat')->where('gname',strtoupper($data['search_edit']));
+																	})->first();
+				if ($check && $data['search_edit']!="") {
             echo "true";
         }else{
             echo "false";

@@ -521,6 +521,10 @@ $(document).on('keyup change', '#search_amg', function(){
 //************************************************************* Edit ************************************************************
 
 $(document).on( "click", "#edit_modal", function() {
+// Empty Values
+$('#search_edit').val('');
+$('body .item_edit_form').trigger('reset')
+
 $('#edit').modal('show');
 $(document).on('keyup change', '#search_edit', function(){
 	let search_edit = $(this).val();
@@ -541,13 +545,13 @@ $(document).on('keyup change', '#search_edit', function(){
 						url:"{{ route('search_edit') }}",
 						data:{search_edit:search_edit},
 						success:function(resp){
-                            if(resp.items.path_to_rg) {
-                                console.log('dfadsf');
-                                $("body .pdf_edit_green").show();
-                                $("body .pdf_edit_red").hide();
-                                $("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
-                            }
+							if(resp.items.path_to_rg) {
+									$("body .pdf_edit_green").show();
+									$("body .pdf_edit_red").hide();
+									$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
+							}
 							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
+							$('body .item_edit_form .gname_edit').val(resp.items.gname)
 							$('body .item_edit_form .andat_edit').val(resp.items.andat)
 							$('body .item_edit_form .kp_edit').val(resp.items.kp)
 							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)

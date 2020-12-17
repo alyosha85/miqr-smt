@@ -11,7 +11,8 @@
             <!-- Search -->
                 <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                     <div class="input-group">
-                        <input type="search" name="search_edit" placeholder="Suchen" id="search_edit" aria-describedby="button-addon1" class="form-control border-0 bg-light sform" value="{{ request()->input('search') }}">
+												<input type="text" name="search_edit" placeholder="Suchen" id="search_edit" aria-describedby="button-addon1" 
+												class="form-control border-0 bg-light sform chksrchedit" value="{{ request()->input('search') }}">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
                         </div>
@@ -25,22 +26,25 @@
                 <!-- First row -->
                 <div class="form-row mb-3">
                     <div class="form-group col-md-4">
-                        <input type="text" class="form-control invnr_edit" name="invnr" placeholder="Inventarnummer" readonly>
+                        <input type="text" class="form-control invnr_edit" name="invnr" placeholder="Inventarnummer" data-toggle="tooltip" data-placement="top" title="Inventarnummer" readonly>
                     </div>
                     <div class="form-group col-md-4">
-                        <input type="text" class="form-control andat_edit" name="andat" value=""  placeholder="Anschffungsdatum" readonly>
+                        <input type="text" class="form-control andat_edit" name="andat" value=""  placeholder="Anschffungsdatum" data-toggle="tooltip" data-placement="top" title="Anschffungsdatum" readonly>
                     </div>
                     <div class="form-group col-md-4">
-                        <input type="text" class="form-control kp_edit"  name="kp" placeholder="Kaufpreis" readonly>
+                        <input type="text" class="form-control gname_edit"  name="gname" placeholder="Gerätename" data-toggle="tooltip" data-placement="top" title="Gerätename" readonly>
                     </div>
                 </div>
                 <!-- Second row-->
                 <div class="form-row mb-3">
                     <div class="form-group col-md-4">
-                        <input type="text" class="form-control standort_edit"  name="location_id" placeholder="Standort" readonly>
+                        <input type="text" class="form-control standort_edit"  name="location_id" placeholder="Standort" data-toggle="tooltip" data-placement="top" title="Standort" readonly>
                     </div>
                     <div class="form-group col-md-4">
-                        <input type="text" class="form-control raum_edit"  name="room_id" placeholder="Raum" readonly>
+                        <input type="text" class="form-control raum_edit"  name="room_id" placeholder="Raum" data-toggle="tooltip" data-placement="top" title="Raum" readonly>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control kp_edit"  name="kp" placeholder="Kaufpreis" data-toggle="tooltip" data-placement="top" title="Kaufpreis" readonly>
                     </div>
                     <div class="form-group col-md-2">
                         <div class="ml-5">
@@ -54,20 +58,20 @@
                 <!-- Third row-->
                 <div class="form-row mb-3">
                     <div class="form-group col-md-3">
-                        <input type="text" class="form-control gart_edit"  name="gart_id" placeholder="Geräteart" readonly>
+                        <input type="text" class="form-control gart_edit"  name="gart_id" placeholder="Geräteart" data-toggle="tooltip" data-placement="top" title="Geräteart" readonly>
                     </div>
                     <div class="form-group col-md-3">
-                            <input type="text" class="form-control gtyp_edit" name="gtyp" placeholder="Gerätetyp" readonly>
+                            <input type="text" class="form-control gtyp_edit" name="gtyp" placeholder="Gerätetyp" data-toggle="tooltip" data-placement="top" title="Gerätetyp" readonly>
                     </div>
                         <input type="hidden" class="form-control path_to_rg" name="path_to_rg">
                     <div class="form-group col-md-3">
-                        <input type="text" class="form-control sn_edit" name="sn" placeholder="Seriennummer" readonly>
+                        <input type="text" class="form-control sn_edit" name="sn" placeholder="Seriennummer" data-toggle="tooltip" data-placement="top" title="Seriennummer" readonly>
                     </div>
                 </div>
                 <!-- Forth row -->
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <textarea class="form-control notes_edit" name="notes" rows="3" placeholder="Notizen" required></textarea>
+                        <textarea class="form-control notes_edit" name="notes" rows="3" placeholder="Notizen" data-toggle="tooltip" data-placement="top" title="Notizen"></textarea required>
                     </div>
                 </div>
                 <!-- End of Forth row -->
