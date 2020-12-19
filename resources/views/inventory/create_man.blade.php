@@ -66,7 +66,7 @@
         </div>
     </form>
            <div class="panel-body">
-            <form id="dropzoneForm_man" class="dropzone" action="{{ route('dropzone.upload_pdf_man') }}">
+            <form id="dropzoneFormMan" class="dropzone" action="{{ route('dropzone.upload_pdf_man') }}">
               @csrf
             </form>
           </div>

@@ -34,7 +34,7 @@ class InvAbItemController extends Controller
      */
     public function create()
     {
-			$invnr = InvLastNumber::with('location')->with('room')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
+			$invnr = InvLastNumber::with('location')->with('room')->orderBy('last_inv_num','desc')->get()->unique('location_id')->toArray();
 			$garts = Gart::get()->toArray();
 			$places = Place::pluck('id','pnname')->toArray();
 			return ['invnr'=>$invnr,'garts'=>$garts,'places'=>$places];
@@ -90,19 +90,30 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-			$inventur = New FinalInventory();
-			$inventur ->invnr = $request ->invnr;
-			$inventur ->gname = $request ->gname;
-			$inventur ->place = $request ->place;
-			$inventur ->room = $request ->room;
-			$inventur->zuordnen = $request ->zuordnen;
-			$inventur->save();
+            // foreach($request->itemList as $item){
+            //     $inventur = New FinalInventory();
+            //     $inventur ->invnr = $item ->invnr;
+            //     $inventur ->gname = $item ->gname;
+            //     $inventur ->place = $item ->place;
+            //     $inventur ->room = $item ->room;
+            //     $inventur->zuordnen = $item ->zuordnen;
+            //     $inventur->save();
+            // }
+			// $sucMsg = array(
+			// 		'message' => 'Erfolgreich bearbeitet',
+			// 		'alert-type' => 'success'
+			// );
+            return $request->itemList;
+            //view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
+    }
 
-			$sucMsg = array(
-					'message' => 'Erfolgreich bearbeitet',
-					'alert-type' => 'success'
-			);
-			return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
+    public function printinventur ()
+    {
+        $val_request = json_decode(request('val'), TRUE);
+        $filteredArray = array_filter($val_request, function($value){
+            return ($value['zuordnen'] == "0" || $value['zuordnen'] == "1");
+            });
+        return view ('inventory.print_inventur',['val'=>$filteredArray]);
     }
 
 

@@ -73,11 +73,13 @@
         </tr>
     </thead>
     <tbody>
+        @foreach($val as $item)
         <tr>
-            <td style="width: 33.3333%;"><br>{{$request->invnr}}</td>
-            <td style="width: 33.3333%;"><br>{{$request->gname}}</td>
-            <td style="width: 33.3333%;"><br>{{$request->zu}}</td>
+            <td style="width: 33.3333%;"><br>{{$item['invnr']}}</td>
+            <td style="width: 33.3333%;"><br>Hardcode</td>
+            <td style="width: 33.3333%;"><br>Hardcode</td>
         </tr>
+        @endforeach
     </tbody>
 </table>
 <p><strong>Neues Inventar</strong></p>

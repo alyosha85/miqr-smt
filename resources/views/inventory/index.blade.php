@@ -245,9 +245,9 @@ $( document ).on( "change","#room_id_inventur",function() {
 					globalIndex = index;
                     $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
 												//'<div class="input-group-text">Ja<input type="radio" name="zuordnen'+item.invnr+'"value="yes" checked="checked">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
-												
+
 									// '<div class="switch-field"><input type="radio" name="zuordnen'+item.invnr+'" value="yes" checked/><label for="zuordnen'+item.invnr+'">Ja</label><input type="radio" name="szuordnen'+item.invnr+'" value="no" /><label for="zuordnen'+item.invnr+'">No</label></div>'
-												
+
                         +'</td></tr>')
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
@@ -284,7 +284,7 @@ $( document ).on( "change","body #inventur_check_input",function() {
 								$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td>'+
                    // '<div class="input-group">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" checked="checked">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
 										+'<td></td></tr>')
-										
+
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
 									place:item.invroom.location.place.pnname,
@@ -304,11 +304,11 @@ $( document ).on( "click","body #inventur_submit",function() {
         data:{'itemList':itemList},
         success:function(resp){
             console.log(resp);
-            // let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-            // WinPrint.document.close();
-            // WinPrint.focus();
-            // WinPrint.print();
-            // setInterval(function(){ WinPrint.close()}, 3000);
+            let WinPrint = window.open('/print_inventur?val='+JSON.stringify(resp),'', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+            WinPrint.document.close();
+            WinPrint.focus();
+            WinPrint.print();
+            setInterval(function(){ WinPrint.close()}, 3000);
         },error:function(){
             alert("Error");
         }
@@ -426,7 +426,7 @@ $( document ).on( "click", "#add_modal", function() {
 		$('#gart_id').append(new Option("Geräteart...",''));
 		$("#rooms").append(new Option("Raum...",''));
 		$('.invnr').val('');
-	locationData = new Array(); //********  save the City name, to sort the addresses below each city.  ********// 
+	locationData = new Array(); //********  save the City name, to sort the addresses below each city.  ********//
 	$.ajax({
 		type: "GET",
 		url: "{{ route('item.create') }}",
@@ -684,17 +684,18 @@ Dropzone.options.dropzoneForm = {
 
 
 // drop zone man
-Dropzone.options.dropzoneForm_man = {
+Dropzone.options.dropzoneFormMan = {
 	autoProcessQueue : false,
 	acceptedFiles : ".pdf",
 	maxFiles:1,
 	init:function(){
 	  var submitButton = document.querySelector(".submit_form_ajax_man");
-	  myDropzone = this;
+	  myDropzoneMan = this;
 	  submitButton.addEventListener('click', function(){
-		myDropzone.processQueue();
+		myDropzoneMan.processQueue();
 	  });
 	  this.on("addedfile", function(data){
+          console.log('sdklfjösdalkjf');
 		  $('.submit_form_ajax_man').css('visibility','visible');
 		  $('.submit_form_man').css('visibility','hidden');
 	});
