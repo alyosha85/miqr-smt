@@ -34,84 +34,75 @@ class InvAbItemController extends Controller
      */
     public function create()
     {
-        $invnr = InvLastNumber::with('location')->with('room')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
-        $garts = Gart::get()->toArray();
-        $places = Place::pluck('id','pnname')->toArray();
-        return ['invnr'=>$invnr,'garts'=>$garts,'places'=>$places];
+			$invnr = InvLastNumber::with('location')->with('room')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
+			$garts = Gart::get()->toArray();
+			$places = Place::pluck('id','pnname')->toArray();
+			return ['invnr'=>$invnr,'garts'=>$garts,'places'=>$places];
     }
-
-
     /**
      * Show the form for creating a new resource (Manuell).
      */
     public function create_man()
     {
-        $places = Place::pluck('id','pnname')->toArray();
-        $locations = Location::with('invrooms')->get()->toArray();
-        $garts = Gart::get()->toArray();
-        return ['locations'=>$locations,'garts'=>$garts,'places'=>$places];
+			$places = Place::pluck('id','pnname')->toArray();
+			$locations = Location::with('invrooms')->get()->toArray();
+			$garts = Gart::get()->toArray();
+			return ['locations'=>$locations,'garts'=>$garts,'places'=>$places];
     }
     /*************************************************************{{ Listen }}******************************************************************************
      * Search Method listen
      */
     public function listen(Request $request)
     {
-        $places = Place::pluck('id','pnname')->toArray();
-        $locations = Location::with('invrooms')->get()->toArray();
-        return ['locations'=>$locations,'places'=>$places];
+			$places = Place::pluck('id','pnname')->toArray();
+			$locations = Location::with('invrooms')->get()->toArray();
+			return ['locations'=>$locations,'places'=>$places];
     }
-
     public function items_in_room_listen(Request $request)
     {
-        $roomInventur = InvItems::with('invroom.location.place')->with('garts')->where('room_id',$request->room_id)->whereHas('invroom', function ($query) use ($request) {
-            return $query->where('location_id', '=', $request->location_id);
-            })->get()->toArray();
-        return $roomInventur;
-
-    }
-
-
+			$roomInventur = InvItems::with('invroom.location.place')->with('garts')->where('room_id',$request->room_id)
+																->whereHas('invroom', function ($query) use ($request) {
+																	return $query->where('location_id', '=', $request->location_id);
+																	})->get()->toArray();
+			return $roomInventur;
+		}
     /*************************************************************{{ Inventur }}******************************************************************************
      * Search Method Inventur
      */
     public function inventur(Request $request)
     {
-        $places = Place::pluck('id','pnname')->toArray();
-        $locations = Location::with('invrooms')->get()->toArray();
-        return ['locations'=>$locations,'places'=>$places];
+			$places = Place::pluck('id','pnname')->toArray();
+			$locations = Location::with('invrooms')->get()->toArray();
+			return ['locations'=>$locations,'places'=>$places];
     }
     public function roomInventur(Request $request)
     {
-        $roomInventur = InvItems::with('invroom.location.place')->where('room_id',$request->room_id)->whereHas('invroom', function ($query) use ($request) {
-            return $query->where('location_id', '=', $request->location_id);
-            })->get()->toArray();
-        return $roomInventur;
-
+			$roomInventur = InvItems::with('invroom.location.place')->where('room_id',$request->room_id)
+																->whereHas('invroom', function ($query) use ($request) {
+																return $query->where('location_id', '=', $request->location_id);
+																})->get()->toArray();
+			return $roomInventur;
     }
 
     public function getinvnr ($invnr)
     {
-        return InvItems::with('invroom.location.place')->where('invnr',$invnr)->first();
-
+      return InvItems::with('invroom.location.place')->where('invnr',$invnr)->first();
     }
     public function inventurStoreFinal(Request $request)
     {
+			$inventur = New FinalInventory();
+			$inventur ->invnr = $request ->invnr;
+			$inventur ->gname = $request ->gname;
+			$inventur ->place = $request ->place;
+			$inventur ->room = $request ->room;
+			$inventur->zuordnen = $request ->zuordnen;
+			$inventur->save();
 
-        $inventur = New FinalInventory();
-        $inventur ->invnr = $request ->invnr;
-        $inventur ->gname = $request ->gname;
-        $inventur ->place = $request ->place;
-        $inventur ->room = $request ->room;
-        $inventur->zuordnen = $request ->zuordnen;
-        $inventur->save();
-
-        $sucMsg = array(
-            'message' => 'Erfolgreich bearbeitet',
-            'alert-type' => 'success'
-        );
-        return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
-
-
+			$sucMsg = array(
+					'message' => 'Erfolgreich bearbeitet',
+					'alert-type' => 'success'
+			);
+			return view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
     }
 
 
@@ -120,140 +111,136 @@ class InvAbItemController extends Controller
      */
     public function search(Request $request)
     {
-        $search_text = strtoupper($_GET['search']);
-        $items = InvAbItem::with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
-        $room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
-        $amgs = Amg::all();
-        return ['items'=>$items,'room'=>$room,'amgs'=>$amgs];
+			$search_text = strtoupper($_GET['search']);
+			$items = InvAbItem::with('garts')->where('invnr',$search_text)->orWhere('gname',strtoupper($search_text))->first();
+			$room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
+			$amgs = Amg::all();
+			return ['items'=>$items,'room'=>$room,'amgs'=>$amgs];
     }
     /**
      * Searchcheck Method Ausmustern
      */
     public function searchCheck(Request $request)
     {
-        $data = $request->all();
-        $check = InvAbItem::where('invnr',$data['search'])->orwhere('gname',$data['search'])->first();
-        if ($check && $data['search']!="") {
-            echo "true";
-        }else{
-            echo "false";
-        }
+			$data = $request->all();
+			$check = InvAbItem::where('invnr',$data['search'])->orwhere('gname',$data['search'])->first();
+			if ($check && $data['search']!="") {
+					echo "true";
+			}else{
+					echo "false";
+			}
     }
     /**
      *  Store Method Ausmustern
      */
     public function invalid(Request $request)
     {
-        $items = InvAbItem::where('invnr',$request->invnr)->with('garts')->first();
-        $items->notes = $request->notes;
-        $items->amg_id = $request->grund;
-        $items->ausdat = date('Y-m-d');
-        $items->save();
+			$items = InvAbItem::where('invnr',$request->invnr)->with('garts')->first();
+			$items->notes = $request->notes;
+			$items->amg_id = $request->grund;
+			$items->ausdat = date('Y-m-d');
+			$items->save();
 
-        $delItem = InvItems::where('invnr',$request->invnr)->with('invroom')->first();
-        $room = $delItem->invroom->rname;
-        $delItem->delete();
+			$delItem = InvItems::where('invnr',$request->invnr)->with('invroom')->first();
+			$room = $delItem->invroom->rname;
+			$delItem->delete();
 
-        $sucMsg = array(
-            'message' => 'Erfolgreich bearbeitet',
-            'alert-type' => 'success'
-        );
+			$sucMsg = array(
+					'message' => 'Erfolgreich bearbeitet',
+					'alert-type' => 'success'
+			);
 
-        return view('inventory.print_invalid',compact('items','room'))->with($sucMsg);
+			return view('inventory.print_invalid',compact('items','room'))->with($sucMsg);
     }
 
      /**********************************************************{{ EDIT }}******************************************************************************
      * Search Method Edit
      */
-
     public function search_edit(Request $request)
     {
-        $search_text = strtoupper($_GET['search_edit']);
-        $items = InvAbItem::with('garts')->Where(function ($query) use ($search_text) {
-                                                $query->whereNull('ausdat')->where('invnr',$search_text);
-                                                })->
-                                                orWhere(function ($query) use ($search_text) {
-                                                    $query->whereNull('ausdat')->where('gname',strtoupper($search_text));
-                                                })->first();
-        $room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
-
-
-        return ['items'=>$items,'room'=>$room];
+			$search_text = strtoupper($_GET['search_edit']);
+			$items = InvAbItem::with('garts')->Where(function ($query) use ($search_text) {
+																							$query->whereNull('ausdat')->where('invnr',$search_text);
+																							})->
+																							orWhere(function ($query) use ($search_text) {
+																									$query->whereNull('ausdat')->where('gname',strtoupper($search_text));
+																							})->first();
+			$room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
+			return ['items'=>$items,'room'=>$room];
     }
     /**
      * Search Method Edit Search_Check
      */
     public function searchCheckEdit(Request $request)
     {
-        $data = $request->all();
-				$check = InvAbItem::where('invnr',$data['search_edit'])->orwhere('gname',$data['search_edit'])->first();
-				$check = InvAbItem::Where(function ($query) use ($data) {
-																	$query->whereNull('ausdat')->where('invnr',strtoupper($data['search_edit']));
-																	})->
-																	orWhere(function ($query) use ($data) {
-																			$query->whereNull('ausdat')->where('gname',strtoupper($data['search_edit']));
-																	})->first();
-				if ($check && $data['search_edit']!="") {
-            echo "true";
-        }else{
-            echo "false";
-        }
+			$data = $request->all();
+			$check = InvAbItem::where('invnr',$data['search_edit'])->orwhere('gname',$data['search_edit'])->first();
+			$check = InvAbItem::Where(function ($query) use ($data) {
+																$query->whereNull('ausdat')->where('invnr',strtoupper($data['search_edit']));
+																})->
+																orWhere(function ($query) use ($data) {
+																		$query->whereNull('ausdat')->where('gname',strtoupper($data['search_edit']));
+																})->first();
+			if ($check && $data['search_edit']!="") {
+					echo "true";
+			}else{
+					echo "false";
+			}
     }
     /**
      * Method Edit update
      */
     public function update(Request $request)
     {
-        $items = InvAbItem::where('invnr',$request->invnr)->first();
-        $items->notes = $request->notes;
-        $items->save();
-        $sucMsg = array(
-            'message' => 'Erfolgreich bearbeitet',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($sucMsg);
+			$items = InvAbItem::where('invnr',$request->invnr)->first();
+			$items->notes = $request->notes;
+			$items->save();
+			$sucMsg = array(
+					'message' => 'Erfolgreich bearbeitet',
+					'alert-type' => 'success'
+			);
+			return redirect()->back()->with($sucMsg);
     }
-
     /**********************************************************{{ MOVE }}******************************************************************************
      * Search Method Move
      */
     public function search_move(Request $request)
     {
-        $search_text = strtoupper($_GET['search_move']);
-        $items = InvItems::with('invroom.location')->Where('gname',strtoupper($search_text))->first();
-        $locations = Location::with('invrooms')->get()->toArray();
-        $places = Place::pluck('id','pnname')->toArray();
-        return ['items'=>$items,'locations'=>$locations,'places'=>$places];
+			$search_text = strtoupper($_GET['search_move']);
+			$items = InvItems::with('invroom.location')->Where('gname',strtoupper($search_text))->first();
+			$locations = Location::with('invrooms')->get()->toArray();
+			$places = Place::pluck('id','pnname')->toArray();
+			return ['items'=>$items,'locations'=>$locations,'places'=>$places];
     }
 
     public function searchCheckMove(Request $request)
     {
-        $data = $request->all();
-        $check = InvItems::where('gname',$data['search_move'])->first();
-        if ($check && $data['search_move']!="") {
-            echo "true";
-        }else{
-            echo "false";
-        }
+			$data = $request->all();
+			$check = InvItems::where('gname',$data['search_move'])->first();
+			if ($check && $data['search_move']!="") {
+					echo "true";
+			}else{
+					echo "false";
+			}
     }
     public function movestore(Request $request)
     {
 
-        $move = New InvMoveItem;
-        $move -> gname = $request->gname_move;
-        $move -> room_id = $request->room_id;
-        $move->save();
+			$move = New InvMoveItem;
+			$move -> gname = $request->gname_move;
+			$move -> room_id = $request->room_id;
+			$move->save();
 
-        $move = InvItems::Where('gname',$request->gname_move)->first();
-        $move->room_id = $request->room_id;
-        $move->save();
+			$move = InvItems::Where('gname',$request->gname_move)->first();
+			$move->room_id = $request->room_id;
+			$move->save();
 
-         $sucMsg = array(
-            'message' => 'Standort wurde erfolgreich geändert.',
-            'alert-type' => 'success'
-        );
+				$sucMsg = array(
+					'message' => 'Standort wurde erfolgreich geändert.',
+					'alert-type' => 'success'
+			);
 
-        return redirect()->back()->with($sucMsg);
+			return redirect()->back()->with($sucMsg);
     }
 
 
@@ -262,40 +249,35 @@ class InvAbItemController extends Controller
      */
     public function printlabel($printinvnr, $anzahl)
     {
-        $explode = explode('-',$printinvnr);
-        $anzahlnew = InvLastNumber::where('last_inv_num',($explode[1])-1)->first();
-        $anzahlnew->last_inv_num += $anzahl;
-        $anzahlnew->save();
-        return view ('inventory.print',compact('explode','anzahl'));
+			$explode = explode('-',$printinvnr);
+			$anzahlnew = InvLastNumber::where('last_inv_num',($explode[1])-1)->first();
+			$anzahlnew->last_inv_num += $anzahl;
+			$anzahlnew->save();
+			return view ('inventory.print',compact('explode','anzahl'));
     }
-
-
     /**********************************************************{{ Upload PDF }}******************************************************************************
      * upload Pdf and store
      */
     public function upload_pdf(Request $request)
     {
-
-    $pdf = $request->file('file');
-
-     $pdfName = time() . '.' . $pdf->extension();
-     $pdf->move(public_path('/inventar/rechnungen/'.date('Y')), $pdfName);
-     return date('Y').'/'.$pdfName;
-
+    	$pdf = $request->file('file');
+			$pdfName = time() . '.' . $pdf->extension();
+			$pdf->move(public_path('/inventar/rechnungen/'.date('Y')), $pdfName);
+			return date('Y').'/'.$pdfName;
     }
 
     function fetch_pdf()
     {
      $pdfs = \File::allFiles(public_path('/inventar/rechnungen/'.date('Y')));
      $output = '<div class="row">';
-     foreach($pdfs as $pdf)
-     {
-      $output .= '<div class="col-md-2">
-                <img src="'.asset('inventar/rechnungen/pdfIcon.png').'" class="img-thumbnail" width="150" height="150"/>
-                <button type="button" class="btn btn-link remove_pdf" id="'.$pdf->getFilename().'">Remove</button>
-            </div>';
-     }
-     $output .= '</div>';
+			foreach($pdfs as $pdf)
+			{
+				$output .= '<div class="col-md-2">
+									<img src="'.asset('inventar/rechnungen/pdfIcon.png').'" class="img-thumbnail" width="150" height="150"/>
+									<button type="button" class="btn btn-link remove_pdf" id="'.$pdf->getFilename().'">Remove</button>
+							</div>';
+			}
+			$output .= '</div>';
      echo $output;
     }
 
@@ -325,13 +307,12 @@ class InvAbItemController extends Controller
     {
      $pdfs = \File::allFiles(public_path('/inventar/rechnungen/'.date('Y')));
      $output = '<div class="row">';
-     foreach($pdfs as $pdf)
-     {
-      $output .= '<div class="col-md-2">
-                <img src="'.asset('inventar/rechnungen/pdfIcon.png').'" class="img-thumbnail" width="150" height="150"/>
-                <button type="button" class="btn btn-link remove_pdf_man" id="'.$pdf->getFilename().'">Remove</button>
-            </div>';
-     }
+			foreach($pdfs as $pdf) {
+				$output .= '<div class="col-md-2">
+									<img src="'.asset('inventar/rechnungen/pdfIcon.png').'" class="img-thumbnail" width="150" height="150"/>
+									<button type="button" class="btn btn-link remove_pdf_man" id="'.$pdf->getFilename().'">Remove</button>
+							</div>';
+			}
      $output .= '</div>';
      echo $output;
     }
@@ -357,73 +338,68 @@ class InvAbItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = New InvAbItem;
-        $item -> invnr = $request-> invnr;
-        $item -> andat = $request-> andat;
-        $item -> location_id = $request-> location_id;
-        $item -> kp = str_replace(',','.',$request -> kp);
-        $item -> gart_id = $request-> gart_id;
-        $item -> gname = $request-> gname;
-        $item -> gtyp = $request-> gtyp;
-        $item -> sn = $request-> sn;
-        $item -> notes = $request-> notes;
-        $item -> path_to_rg = $request-> path_to_rg;
-        $item->save();
+			$item = New InvAbItem;
+			$item -> invnr = $request-> invnr;
+			$item -> andat = $request-> andat;
+			$item -> location_id = $request-> location_id;
+			$item -> kp = str_replace(',','.',$request -> kp);
+			$item -> gart_id = $request-> gart_id;
+			$item -> gname = $request-> gname;
+			$item -> gtyp = $request-> gtyp;
+			$item -> sn = $request-> sn;
+			$item -> notes = $request-> notes;
+			$item -> path_to_rg = $request-> path_to_rg;
+			$item->save();
 
-        $item = InvItems::Where('invnr',$request->invnr)->first();
-        $item->room_id = $request->room_id;
-        $item->save();
+			$item = InvItems::Where('invnr',$request->invnr)->first();
+			$item->room_id = $request->room_id;
+			$item->save();
 
-        $item = New InvLastNumber;
-        $split = explode('-',$request->invnr);
-        $item->location_id = $split[0];
-        $item->last_inv_num = $split[1];
-        $item -> save();
+			$item = New InvLastNumber;
+			$split = explode('-',$request->invnr);
+			$item->location_id = $split[0];
+			$item->last_inv_num = $split[1];
+			$item -> save();
 
-        $sucMsg = array(
-            'message' => 'Erfolgreich hinzugefügt ',
-            'alert-type' => 'success'
-        );
-
-        return redirect()->back()->with($sucMsg);
-
+			$sucMsg = array(
+					'message' => 'Erfolgreich hinzugefügt ',
+					'alert-type' => 'success'
+			);
+			return redirect()->back()->with($sucMsg);
     }
-
-
     /**
      * Manuell Creation invnr
      */
     public function storeMan(Request $request)
     {
-        $item = New InvAbItem;
-        $invnr = $request->location_id.'-'.$request->invnr.'-IT';
-        $item -> invnr = $invnr;
-        $item -> andat = $request-> andat;
-        $item -> location_id = $request-> location_id;
-        $item -> kp = str_replace(',','.',$request -> kp);
-        $item -> gart_id = $request-> gart_id;
-        $item -> gname = $request-> gname;
-        $item -> gtyp = $request-> gtyp;
-        $item -> sn = $request-> sn;
-        $item -> notes = $request-> notes;
-        $item -> path_to_rg = $request-> path_to_rg;
-        $item->save();
+			$item = New InvAbItem;
+			$invnr = $request->location_id.'-'.$request->invnr.'-IT';
+			$item -> invnr = $invnr;
+			$item -> andat = $request-> andat;
+			$item -> location_id = $request-> location_id;
+			$item -> kp = str_replace(',','.',$request -> kp);
+			$item -> gart_id = $request-> gart_id;
+			$item -> gname = $request-> gname;
+			$item -> gtyp = $request-> gtyp;
+			$item -> sn = $request-> sn;
+			$item -> notes = $request-> notes;
+			$item -> path_to_rg = $request-> path_to_rg;
+			$item->save();
 
-        $invitems = InvItems::Where('invnr',$invnr)->first();
-        $invitems->room_id = $request->room_id;
-        $invitems->save();
+			$invitems = InvItems::Where('invnr',$invnr)->first();
+			$invitems->room_id = $request->room_id;
+			$invitems->save();
 
-        $item = New InvLastNumber;
-        $item->location_id = $request->location_id;
-        $item->last_inv_num = $request->invnr;
-        $item -> save();
+			$item = New InvLastNumber;
+			$item->location_id = $request->location_id;
+			$item->last_inv_num = $request->invnr;
+			$item -> save();
 
-        $sucMsg = array(
-            'message' => 'Erfolgreich hinzugefügt ',
-            'alert-type' => 'success'
-        );
-        return redirect()->back()->with($sucMsg);
-
+			$sucMsg = array(
+					'message' => 'Erfolgreich hinzugefügt ',
+					'alert-type' => 'success'
+			);
+			return redirect()->back()->with($sucMsg);
     }
 
     /**

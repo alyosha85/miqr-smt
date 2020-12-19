@@ -139,26 +139,26 @@
 let selectAddresslisten = new Array();
 let roomlisten = new Array();
 $(document).on("click", "#list_modal", function() {
-    $('#listen').modal('show');
-    $('#location_id_listen').find('option').remove();
-    $('#location_id_listen').find('optgroup').remove();
-    $('#location_id_listen').append(new Option("Standort...",''));
-    $('#rooms_id_listen').find('option').remove();
-    $("#rooms_id_listen").append(new Option("Raum...",''));
-    $.ajax({
-        type: "get",
-        url: "{{route('item.listen')}}",
-        }).done(function(data) {
-            selectAddresslisten = new Array();
-                $.each(data['places'], function(index, item) {
-                    $("body #location_id_listen").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-                });
-                $.each(data['locations'], function(index, item) {
-                $("#location_id_listen #"+item.place_id).append(new Option(item.address,item.id));
-                selectAddresslisten.push(item);
-            });
-        });
-    });
+	$('#listen').modal('show');
+	$('#location_id_listen').find('option').remove();
+	$('#location_id_listen').find('optgroup').remove();
+	$('#location_id_listen').append(new Option("Standort...",''));
+	$('#rooms_id_listen').find('option').remove();
+	$("#rooms_id_listen").append(new Option("Raum...",''));
+	$.ajax({
+		type: "get",
+		url: "{{route('item.listen')}}",
+		}).done(function(data) {
+			selectAddresslisten = new Array();
+			$.each(data['places'], function(index, item) {
+					$("body #location_id_listen").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+			});
+			$.each(data['locations'], function(index, item) {
+			$("#location_id_listen #"+item.place_id).append(new Option(item.address,item.id));
+			selectAddresslisten.push(item);
+			});
+		});
+});
 
 $( document ).on( "change", "#location_id_listen", function() {
 	$('#room_id_listen').find('option').remove();
@@ -193,13 +193,7 @@ $( document ).on( "change","#room_id_listen",function() {
 	});
 });
 
-
-
-
-
-
-//************************************************************* Inventur ************************************************************
-
+//************************************************************* Inventur ************************************************************//
 let selectAddressInventur = new Array();
 let roomInventur = new Array();
 $(document).on("click", "#inventur_modal", function() {
@@ -250,7 +244,10 @@ $( document ).on( "change","#room_id_inventur",function() {
 				$.each(resp, function(index, item) {
 					globalIndex = index;
                     $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
-                        '<div class="input-group-text">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" selected="selected">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
+												//'<div class="input-group-text">Ja<input type="radio" name="zuordnen'+item.invnr+'"value="yes" checked="checked">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
+												
+									// '<div class="switch-field"><input type="radio" name="zuordnen'+item.invnr+'" value="yes" checked/><label for="zuordnen'+item.invnr+'">Ja</label><input type="radio" name="szuordnen'+item.invnr+'" value="no" /><label for="zuordnen'+item.invnr+'">No</label></div>'
+												
                         +'</td></tr>')
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
@@ -284,9 +281,10 @@ $( document ).on( "change","body #inventur_check_input",function() {
 				type: "get",
 				url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
 				}).done(function(item) {
-                $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td>'+
-                    '<div class="input-group">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" selected="selected">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
-                    +'<td></td></tr>')
+								$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td>'+
+                   // '<div class="input-group">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" checked="checked">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
+										+'<td></td></tr>')
+										
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
 									place:item.invroom.location.place.pnname,
@@ -317,12 +315,15 @@ $( document ).on( "click","body #inventur_submit",function() {
     });
 });
 
-
-
-//************************************************************* Bewegen ************************************************************
+//************************************************************* Bewegen ************************************************************//
 	let selectAddress = new Array();
 	$( document ).on( "click", "#move_modal", function() {
 	$('#move').modal('show');
+	// Empty Values
+		$('#search_move').val('');
+		$('body .move_form').trigger('reset')
+
+
 	$(document).on('keyup change', '#search_move', function(){
 		let search_move = $(this).val();
 		$.ajax({
@@ -341,7 +342,6 @@ $( document ).on( "click","body #inventur_submit",function() {
 						data: {search_move:search_move},
 						success:function(resp){
 							selectAddress = new Array();
-							$('#location_id_move').find('option').remove();
 							$('#location_id_move').find('optgroup').remove();
 							$('#location_id_move').find('option').remove();
 							$('#location_id_move').append(new Option("Standort...",0));
@@ -372,13 +372,13 @@ $( document ).on( "change", "#location_id_move", function() {
 	for(let i = 0; i<selectAddress.length ; i++){
 		if(selectAddress[i].id == $( this ).val()){
 			$.each(selectAddress[i].invrooms, function(index, item) {
-				$("body #room_id_move").append(new Option(item.rname,item.id));
+				$("body #room_id_move").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 			});
 		}
 	}
 });
 
-//************************************************************* Print Label ************************************************************
+//************************************************************* Print Label ************************************************************//
 let locationData = new Array();
 let text = '';
 $( document ).on( "click", "#etiketten_modal", function() {
@@ -408,33 +408,40 @@ $( document ).on( "change", "#address", function() {
 	$('.inventNumber').val(texty);
 });
 
-//************************************************************* Create ************************************************************
+//************************************************************* Create ************************************************************//
 $( document ).on( "click", "#add_modal", function() {
-    $('#add').modal('show');
-    $('#location_id').find('option').remove();
-    $('#location_id').find('optgroup').remove();
-    $('#gart_id').find('option').remove();
-    $('#location_id').append(new Option("Standort...",''));
-    $('#gart_id').append(new Option("Bitte Wählen...",0));
-    $('#rooms').find('option').remove();
-    $("#rooms").append(new Option("Raum...",0));
-    $('.invnr').val('');
-    locationData = new Array();
-    $.ajax({
-        type: "GET",
-        url: "{{ route('item.create') }}",
-        }).done(function( data ) {
-            $.each(data['places'], function(index, item) {
-                $("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-            });
-            $.each(data['invnr'], function(index, item) {
-                $("#location_id #"+item.location.place_id).append(new Option(item.location.address,item.location_id));
-                locationData.push(item);
-            });
-            $.each(data['garts'], function(index, item) {
-                $("#gart_id").append(new Option(item.name,item.id));
-            });
-    });
+	$('#add').modal('show');
+		//empty form on open
+		$('body .kaufpreis').val('');
+		$('body .gname').val('');
+		myDropzone.removeAllFiles();
+		$('body .gtyp').val('');
+		$('body .sn').val('');
+		$('body .notes').val('');
+		$('#location_id').find('option').remove();
+		$('#location_id').find('optgroup').remove();
+		$('#gart_id').find('option').remove();
+		$('#rooms').find('option').remove();
+		$('#location_id').append(new Option("Standort...",''));
+		$('#gart_id').append(new Option("Geräteart...",''));
+		$("#rooms").append(new Option("Raum...",''));
+		$('.invnr').val('');
+	locationData = new Array(); //********  save the City name, to sort the addresses below each city.  ********// 
+	$.ajax({
+		type: "GET",
+		url: "{{ route('item.create') }}",
+		}).done(function( data ) {
+			$.each(data['places'], function(index, item) {
+					$("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+			});
+			$.each(data['invnr'], function(index, item) {
+					$("#location_id #"+item.location.place_id).append(new Option(item.location.address,item.location_id));
+					locationData.push(item);
+			});
+			$.each(data['garts'], function(index, item) {
+					$("#gart_id").append(new Option(item.name,item.id));
+			});
+		});
 });
 
 $( document ).on( "change", "#location_id", function() {
@@ -444,10 +451,7 @@ $( document ).on( "change", "#location_id", function() {
 		if(locationData[i].location_id == $( this ).val()){
 			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
 			$.each(locationData[i].room, function(index, item) {
-			   let name = item.altrname;
-			   if(item.rname != '')
-					name = item.rname;
-				$("#rooms").append(new Option(name,item.id));
+				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 			});
 		}
 	}
@@ -456,19 +460,17 @@ $( document ).on( "change", "#location_id", function() {
 
 $(function() {
   $('.date').daterangepicker({
-	singleDatePicker: true,
-	showDropdowns: true,
-	minYear: parseInt(moment().format('YYYY'))-1,
-	maxYear: parseInt(moment().format('YYYY'))+1,
-	locale: {
-	  format: 'YYYY-MM-DD'
-	}
+		singleDatePicker: true,
+		showDropdowns: true,
+		minYear: parseInt(moment().format('YYYY'))-1,
+		maxYear: parseInt(moment().format('YYYY'))+1,
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
   });
 });
 
-
-
-//************************************************************* Ausmuster ****************************************************
+//************************************************************* Ausmuster ****************************************************//
 $(document).ready(function(){
 $(document).on( "click", "#invalid_modal", function() {
 $('#invalid').modal('show');
@@ -518,8 +520,7 @@ $(document).on('keyup change', '#search_amg', function(){
 });
 });
 
-//************************************************************* Edit ************************************************************
-
+//************************************************************* Edit ************************************************************//
 $(document).on( "click", "#edit_modal", function() {
 // Empty Values
 $('#search_edit').val('');
@@ -546,9 +547,9 @@ $(document).on('keyup change', '#search_edit', function(){
 						data:{search_edit:search_edit},
 						success:function(resp){
 							if(resp.items.path_to_rg) {
-									$("body .pdf_edit_green").show();
-									$("body .pdf_edit_red").hide();
-									$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
+								$("body .pdf_edit_green").show();
+								$("body .pdf_edit_red").hide();
+								$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
 							}
 							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
 							$('body .item_edit_form .gname_edit').val(resp.items.gname)
@@ -583,11 +584,10 @@ function printfunction() {
 	WinPrint.print();
 	setInterval(function(){ WinPrint.close()}, 3000);
 	}
-
-//************************************************************* Man. Create **************************************
-
-	let locationSelect = new Array();
-	$(document).on( "click", "#add_modal_man", function() {
+//************************************************************* Man. Create *****************************************************//
+let locationSelect = new Array();
+$(document).on( "click", "#add_modal_man", function() {
+	// empty form on open function
 	$('#add_man').modal('show');
 	$('#location_id_man').find('option').remove();
 	$('#location_id_man').find('optgroup').remove();
@@ -597,40 +597,37 @@ function printfunction() {
 	$('#location_id_man').append(new Option("Standort...",0));
 	$('#rooms_id_man').find('option').remove();
 	$("#rooms_id_man").append(new Option("Raum...",''));
-	$.ajax({
-		type: "GET",
-		url: "{{ route('item.create_man') }}",
-		}).done(function(data) {
-			$.each(data['places'], function(index, item) {
-				$("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-			});
-			$.each(data['locations'], function(index, item){
-				$("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
-				locationSelect.push(item);
-			});
-			$.each(data['garts'], function(idex,item){
-				$("#gart_id_man").append(new Option(item.name,item.id));
-			})
+$.ajax({
+	type: "GET",
+	url: "{{ route('item.create_man') }}",
+	}).done(function(data) {
+		$.each(data['places'], function(index, item) {
+			$("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
 		});
+		$.each(data['locations'], function(index, item){
+			$("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
+			locationSelect.push(item);
+		});
+		$.each(data['garts'], function(idex,item){
+			$("#gart_id_man").append(new Option(item.name,item.id));
+		})
+	});
 });
+
 $( document ).on( "change", "#location_id_man", function() {
-	$('#rooms_id_man').find('option').remove();
-	$("#rooms_id_man").append(new Option("Bitte Wählen...",''));
-	$("#rooms_id_man").append(new Option("N/A",0));
+	$('#rooms_man').find('option').remove();
+	$("#rooms_man").append(new Option("Raum...",''));
 	for(let i = 0; i<locationSelect.length ; i++){
 		if(locationSelect[i].id == $( this ).val()){
 			$.each(locationSelect[i].invrooms, function(index, item) {
-					let name = item.altrname;
-					if(item.rname != '')
-						name = item.rname;
-					$("#rooms_id_man").append(new Option(name,item.id));
+					$("#rooms_man").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 				});
 			}
 		}
 	});
 
 $(function() {
-  $('.andat_man').daterangepicker({
+  $('.date_man').daterangepicker({
 	singleDatePicker: true,
 	showDropdowns: true,
 	minYear: parseInt(moment().format('YYYY'))-1,

@@ -17,9 +17,6 @@
 							<select id="room_id_listen" name="room_id" class="form-control" required>
 							</select>
 						</div>
-						<div class="form-group col-md-4">
-                            <input type="text" id="altrname_listen" class="form-control" muted readonly>
-						</div>
 					</div>
 						<table class="table" id="table_listen" style="display: none;">
 							<thead>
@@ -36,8 +33,11 @@
 						</table>
 				</div>
 				<div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button onclick="printfunctionlist()" id="print_list" class="btn btn-primary">Drucken</button>
+					<form action="{{ route('listenprint') }}" method="POST">
+						@csrf
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+						<button button="submit" id="print_list" class="btn btn-primary">Drucken</button>
+					</form>
 				</div>
 		</div>
 	</div>

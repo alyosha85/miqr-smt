@@ -19,7 +19,7 @@
                         <input type="text" class="form-control date" name="andat"  placeholder="Anschffungsdatum" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control"  name="kp" placeholder="Kaufpreis" required>
+                    <input type="text" class="form-control kaufpreis"  name="kp" placeholder="Kaufpreis" required>
                 </div>
             </div>
             <!-- End of First row-->
@@ -43,21 +43,21 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                        <input type="text" class="form-control" id="gtyp" name="gtyp" placeholder="Gerätetyp" required>
+                        <input type="text" class="form-control gtyp" id="gtyp" name="gtyp" placeholder="Gerätetyp" required>
                 </div>
                 <input type="hidden" class="form-control path_to_rg" id="path_to_rg" name="path_to_rg">
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="gname" name="gname" placeholder="Gerätename" required>
+                    <input type="text" class="form-control gname" id="gname" name="gname" placeholder="Gerätename" required>
                 </div>
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="sn" name="sn" placeholder="Seriennummer" required>
+                    <input type="text" class="form-control sn" id="sn" name="sn" placeholder="Seriennummer" required>
                 </div>
             </div>
             <!-- End of Third row-->
             <!-- Forth row -->
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Notizen"></textarea>
+                    <textarea class="form-control notes" id="notes" name="notes" rows="3" placeholder="Notizen"></textarea>
                 </div>
             </div>
             <!-- End of Forth row -->

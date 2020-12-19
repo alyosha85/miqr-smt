@@ -13,16 +13,15 @@
             <!-- First row -->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control invnr_man" name="invnr" placeholder="Inventarnummer" readonly required>
+                    <input type="text" class="form-control invnr_man" name="invnr" placeholder="Inventarnummer" required>
                 </div>
                 <div class="form-group col-md-4">
                         <input type="text" class="form-control date_man" name="andat"  placeholder="Anschffungsdatum" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control"  name="kp_man" placeholder="Kaufpreis" required>
+                    <input type="text" class="form-control kp_man"  name="kp" placeholder="Kaufpreis" required>
                 </div>
             </div>
-            <!-- End of First row-->
             <!-- Second row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
@@ -34,7 +33,6 @@
                     </select>
                 </div>
             </div>
-            <!-- End of Second row-->
             <!-- Third row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
@@ -53,7 +51,6 @@
                     <input type="text" class="form-control" id="sn_man" name="sn" placeholder="Seriennummer" required>
                 </div>
             </div>
-            <!-- End of Third row-->
             <!-- Forth row -->
             <div class="form-row">
                 <div class="form-group col-md-12">

@@ -63,6 +63,7 @@ Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->nam
 //*****************************  Print Listen  **************************************/
 Route::get('/item/listen','InvAbItemController@listen')->name('item.listen');
 Route::post('/room_listen','InvAbItemController@items_in_room_listen')->name('items_in_room_listen');
+Route::post('/listen','InvAbItemController@listenprint')->name('listenprint');
 
 //********************************    Items Inventory  ******************************/
 Route::get('/item/inventur','InvAbItemController@inventur')->name('item.inventur');     //Item Inventur

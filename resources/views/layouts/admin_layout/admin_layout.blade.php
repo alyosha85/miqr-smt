@@ -34,6 +34,7 @@
     .swal2-container {
         z-index: X;
       }
+
       /* right bounce */
 @-webkit-keyframes bounceRight {
     0%,
