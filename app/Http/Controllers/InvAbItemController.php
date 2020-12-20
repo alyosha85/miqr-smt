@@ -65,7 +65,7 @@ class InvAbItemController extends Controller
 																	return $query->where('location_id', '=', $request->location_id);
 																	})->get()->toArray();
 			return $roomInventur;
-		}
+    }
     /*************************************************************{{ Inventur }}******************************************************************************
      * Search Method Inventur
      */
@@ -90,20 +90,20 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-            // foreach($request->itemList as $item){
-            //     $inventur = New FinalInventory();
-            //     $inventur ->invnr = $item ->invnr;
-            //     $inventur ->gname = $item ->gname;
-            //     $inventur ->place = $item ->place;
-            //     $inventur ->room = $item ->room;
-            //     $inventur->zuordnen = $item ->zuordnen;
-            //     $inventur->save();
-            // }
-			// $sucMsg = array(
-			// 		'message' => 'Erfolgreich bearbeitet',
-			// 		'alert-type' => 'success'
-			// );
+        foreach($request->itemList as $item){
+            if($item['zuordnen'] == '1') {
+            $move = New InvMoveItem;
+			$move -> gname = $item['gname'];
+			$move -> room_id = $item['room_id'];
+			$move->save();
+
+			$move = InvItems::Where('gname',$item['gname'])->first();
+			$move->room_id = $item['room_id'];
+            $move->save();
+            }
+        }
             return $request->itemList;
+
             //view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
     }
 

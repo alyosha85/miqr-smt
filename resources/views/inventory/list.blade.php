@@ -8,36 +8,51 @@
 					</button>
 			</div>
 				<div class="modal-body">
+                    <style>
+                        @media print {
+                            .table td{
+                            border: solid thin black;
+                            padding: 5px 10px;
+                            text-align: center;
+                            }
+                            .print_div {
+                                visibility: visible !important;
+                            }
+                            .non_print {
+                                visibility: hidden;
+                            }
+                        }
+                    </style>
 					<div class="form-row mb-3">
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-4 non_print">
 							<select id="location_id_listen" name="location_id" class="form-control" required>
-							</select>
+                            </select>
 						</div>
-						<div class="form-group col-md-4">
+						<div class="form-group col-md-4 non_print">
 							<select id="room_id_listen" name="room_id" class="form-control" required>
-							</select>
+                            </select>
 						</div>
 					</div>
-						<table class="table" id="table_listen" style="display: none;">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Inventarnummer</th>
-									<th scope="col">Gerätename</th>
-									<th scope="col">Geräteart</th>
-									<th scope="col">Gerätetyp</th>
-								</tr>
-							</thead>
-							<tbody>
-							</tbody>
-						</table>
+                        <div class="print_div" style="visibility: hidden;">
+
+                        </div>
+                            <table class="table" id="table_listen" style="display: none;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Inventarnummer</th>
+                                        <th scope="col">Gerätename</th>
+                                        <th scope="col">Geräteart</th>
+                                        <th scope="col">Gerätetyp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
 				</div>
 				<div class="modal-footer">
-					<form action="{{ route('listenprint') }}" method="POST">
-						@csrf
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-						<button button="submit" id="print_list" class="btn btn-primary">Drucken</button>
-					</form>
+						<button button="button" id="print_list" class="btn btn-primary">Drucken</button>
 				</div>
 		</div>
 	</div>

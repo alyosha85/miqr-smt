@@ -193,6 +193,25 @@ $( document ).on( "change","#room_id_listen",function() {
 	});
 });
 
+$(document).on("click","#print_list",function(){
+    $("body .print_div").text($("body #room_id_listen :selected").text()+' '+$("body #location_id_listen :selected").text());
+    $('body #listen .modal-body').print();
+});
+
+$.fn.extend({
+	print: function() {
+		var frameName = 'printIframe';
+		var doc = window.frames[frameName];
+		if (!doc) {
+			$('<iframe>').hide().attr('name', frameName).appendTo(document.body);
+			doc = window.frames[frameName];
+		}
+		doc.document.body.innerHTML = this.html();
+		doc.window.print();
+		return this;
+	}
+});
+
 //************************************************************* Inventur ************************************************************//
 let selectAddressInventur = new Array();
 let roomInventur = new Array();
@@ -224,7 +243,7 @@ $( document ).on( "change", "#location_id_inventur", function() {
 	for(let i = 0; i<selectAddressInventur.length ; i++){
 		if(selectAddressInventur[i].id == $( this ).val()){
 			$.each(selectAddressInventur[i].invrooms, function(index, item) {
-				$("body #room_id_inventur").append(new Option(item.rname,item.id));
+				$("body #room_id_inventur").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 				roomInventur.push(item);
 			});
 		}
@@ -242,17 +261,17 @@ $( document ).on( "change","#room_id_inventur",function() {
 			$('body #table_inventur tbody').empty();
 			itemList = new Array();
 				$.each(resp, function(index, item) {
+                    console.log(resp);
 					globalIndex = index;
                     $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
-												//'<div class="input-group-text">Ja<input type="radio" name="zuordnen'+item.invnr+'"value="yes" checked="checked">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
-
-									// '<div class="switch-field"><input type="radio" name="zuordnen'+item.invnr+'" value="yes" checked/><label for="zuordnen'+item.invnr+'">Ja</label><input type="radio" name="szuordnen'+item.invnr+'" value="no" /><label for="zuordnen'+item.invnr+'">No</label></div>'
-
+                        '<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
                         +'</td></tr>')
 					itemList.push({ invnr:item.invnr,
 									gname:item.gname,
 									place:item.invroom.location.place.pnname,
 									address:item.invroom.location.address,
+									location_id:item.invroom.location.id,
+                                    room_id:item.invroom.id,
 									room:item.invroom.rname,
 									zuordnen:0});
 			});
@@ -281,14 +300,15 @@ $( document ).on( "change","body #inventur_check_input",function() {
 				type: "get",
 				url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
 				}).done(function(item) {
-								$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td>'+
-                   // '<div class="input-group">Ja<input type="radio" name="zuordnen'+item.invnr+'" value="yes" checked="checked">Nein<input type="radio" name="zuordnen'+item.invnr+'" value="no"></div>'
-										+'<td></td></tr>')
-
-					itemList.push({ invnr:item.invnr,
+				    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
+                        '<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox" checked="checked"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
+						+'</td></tr>')
+                        itemList.push({ invnr:item.invnr,
 									gname:item.gname,
 									place:item.invroom.location.place.pnname,
 									address:item.invroom.location.address,
+									location_id:item.invroom.location.id,
+                                    room_id:$("#room_id_inventur").val(),
 									room:item.invroom.rname,
 									zuordnen:1});
 					$('body #inventur_check_input').val('');
