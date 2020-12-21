@@ -266,14 +266,16 @@ $( document ).on( "change","#room_id_inventur",function() {
                     $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
                         '<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
                         +'</td></tr>')
-					itemList.push({ invnr:item.invnr,
-									gname:item.gname,
-									place:item.invroom.location.place.pnname,
-									address:item.invroom.location.address,
-									location_id:item.invroom.location.id,
-                                    room_id:item.invroom.id,
-									room:item.invroom.rname,
-									zuordnen:0});
+					itemList.push({
+												invnr:item.invnr,
+												gname:item.gname,
+												place:item.invroom.location.place.pnname,
+												address:item.invroom.location.address,
+												location_id:item.invroom.location.id,
+												room_id:item.invroom.id,
+												room:item.invroom.rname,
+												zuordnen:0
+					});
 			});
 
 		},error:function(){
@@ -296,42 +298,45 @@ $( document ).on( "change","body #inventur_check_input",function() {
 		}
 	});
 	if (found == false){
-			$.ajax({
-				type: "get",
-				url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
-				}).done(function(item) {
-				    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
-                        '<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox" checked="checked"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
-						+'</td></tr>')
-                        itemList.push({ invnr:item.invnr,
-									gname:item.gname,
-									place:item.invroom.location.place.pnname,
-									address:item.invroom.location.address,
-									location_id:item.invroom.location.id,
-                                    room_id:$("#room_id_inventur").val(),
-									room:item.invroom.rname,
-									zuordnen:1});
-					$('body #inventur_check_input').val('');
-					$("body #inventur_check_input" ).focus();
-				});
-			}
+		$.ajax({
+			type: "get",
+			url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
+			}).done(function(item) {
+					$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
+					'<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox" checked="checked"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
+					+'</td></tr>')
+					itemList.push({ 
+												invnr:item.invnr,
+												gname:item.gname,
+												place:item.invroom.location.place.pnname,
+												address:item.invroom.location.address,
+												location_id:item.invroom.location.id,
+												room_id_old:item.invroom.rname,
+												room_id_new:$("#room_id_inventur").val(),
+												room:item.invroom.rname,
+												zuordnen:1
+					});
+				$('body #inventur_check_input').val('');
+				$("body #inventur_check_input" ).focus();
+			});
+		}
 	});
 
 $( document ).on( "click","body #inventur_submit",function() {
     $.ajax({
-        type:'post',
-        url:"{{ route('inventurStoreFinal') }}",
-        data:{'itemList':itemList},
-        success:function(resp){
-            console.log(resp);
-            let WinPrint = window.open('/print_inventur?val='+JSON.stringify(resp),'', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-            WinPrint.document.close();
-            WinPrint.focus();
-            WinPrint.print();
-            setInterval(function(){ WinPrint.close()}, 3000);
-        },error:function(){
-            alert("Error");
-        }
+			type:'post',
+			url:"{{ route('inventurStoreFinal') }}",
+			data:{'itemList':itemList},
+			success:function(resp){
+					console.log(resp);
+					let WinPrint = window.open('/print_inventur?val='+JSON.stringify(resp),'', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+					WinPrint.document.close();
+					WinPrint.focus();
+					WinPrint.print();
+					setInterval(function(){ WinPrint.close()}, 3000);
+			},error:function(){
+					alert("Error");
+			}
     });
 });
 

@@ -48,94 +48,103 @@
                 background: initial;
                 page-break-after: always;
             }
+						table tr th, table tr td {
+							width: 33.3333%;
+							vertical-align: middle;
+							text-align: center;
+							border: 1px solid black;
+						}
+
         }
     </style>
 </head>
 <body>
-    <div class="book">
-        <div class="page">
-            <p><span style='color: rgb(0, 0, 0); font-family: "Times New Roman"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;'>Inventarliste </span>&nbsp;</p>
-<p><br></p>
-<p style="text-align: right;">Stand:Date<strong></strong></p>
-<p><strong>Inventar-Soll / Ist</strong>:</p>
-<table style="width: 100%;">
-    <thead>
-        <tr>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Inventarnummer</div>
-            </td>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Gerätename</div>
-            </td>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Vorhanden</div>
-            </td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($val as $item)
-        <tr>
-            <td style="width: 33.3333%;"><br>{{$item['invnr']}}</td>
-            <td style="width: 33.3333%;"><br>Hardcode</td>
-            <td style="width: 33.3333%;"><br>Hardcode</td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
-<p><strong>Neues Inventar</strong></p>
-<table style="width: 100%;">
-    <tbody>
-        <tr>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Inventarnummer</div>
-            </td>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Gerätename</div>
-            </td>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Bisheriger Standort</div>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 33.3333%;"><br></td>
-            <td style="width: 33.3333%;"><br></td>
-            <td style="width: 33.3333%;"><br></td>
-        </tr>
-    </tbody>
-</table>
-<p><strong>Fehlendes Inventar</strong></p>
-<table style="width: 100%;">
-    <tbody>
-        <tr>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Inventarnummer</div>
-            </td>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Gerätename</div>
-            </td>
-            <td style="width: 33.3333%;">
-                <div style="text-align: center;">Abgang (Grund)</div>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 33.3333%;"><br></td>
-            <td style="width: 33.3333%;"><br></td>
-            <td style="width: 33.3333%;"><br></td>
-        </tr>
-    </tbody>
-</table>
-<p><br></p>
-<p>Unterschrift</p>
-<p><br></p>
-<hr>
-<p><br></p>
-<p><br></p>
-<p><br></p>
-<p><br></p>
-
-
-        </div>
-    </div>
+	<div class="book">
+		<div class="page">
+			<p><strong><span style="font-size: 24px;">Inventur-Ergebnis-Liste:</span></strong></p>
+			<hr>
+			<p><br></p>
+			<p>Inventarliste <strong>Standt&nbsp;</strong>, <strong>Locations&nbsp;</strong>, <strong>Raum</strong></p>
+			<p style="text-align: right;">Stand:<strong>&nbsp;Datum</strong></p>
+			<p style="text-align: left;"><br></p>
+			<p style="text-align: left;"><br></p>
+			<p style="text-align: left;"><strong>Inventar-Soll/Ist:</strong></p>
+			<table style="width: 100%; border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th>Inventarnummer:</th>
+						<th>Ger&auml;tenname:</th>
+						<th>Vorhanden:</th>
+					</tr>
+				</thead>
+				<tbody>
+						@foreach($val as $item)
+						@if (is_null($item['zuordnen']))
+						<tr>
+							<td>{{$item['invnr']}}</td>
+							<td>{{$item['gname']}}</td>
+							<td>OK</td>
+						</tr>
+						@endif
+						@endforeach
+				</tbody>
+			</table>
+			<p style="text-align: left;"><br></p>
+			<p style="text-align: left;"><strong>Neues Inventar:</strong></p>
+			<table style="width: 100%; border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th>Inventarnummer:</th>
+						<th>Ger&auml;tenname:</th>
+						<th>Bisheriger Standort:</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($val as $item)
+					@if ($item['zuordnen'] == '1')
+					<tr>
+						<td>{{$item['invnr']}}</td>
+						<td>{{$item['gname']}}</td>
+						<td>{{$item['room_id_old']}}, &nbsp;{{$item['address']}} </td>
+					</tr>
+					@endif
+					@endforeach
+				</tbody>
+			</table>
+			<p style="text-align: left;"><br></p>
+			<p style="text-align: left;"><strong>Fehlendes Inventar:</strong></p>
+			<table style="width: 100%; border-collapse: collapse;">
+				<thead>
+					<tr>
+						<th style="width: 23.8928%;">Inventarnummer:</th>
+						<th style="width: 25.4079%;">Ger&auml;tenname:</th>
+						<th style="width: 50.3497%;">Abgang (Grund)</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach($val as $item)
+					@if ($item['zuordnen'] == '0')
+					<tr>
+						<td style="width: 23.8928%;">{{$item['invnr']}}</td>
+						<td style="width: 25.4079%;">{{$item['gname']}}</td>
+						<td style="width: 50.3497%;"></td>
+					</tr>
+					@endif
+					@endforeach
+				</tbody>
+			</table>
+			<br>
+			<br>
+			<br>
+			<br>
+			<p style="text-align: left;">Unterschrift</p>
+			<p style="text-align: left;"><br></p>
+			<hr>
+			<p><br></p>
+			<p style="text-align: left;"><br></p>
+								
+		</div>
+	</div>
 <script>
     print();
     setTimeout("closePrintView()", 3000);
@@ -145,3 +154,5 @@
 </script>
 </body>
 </html>
+
+

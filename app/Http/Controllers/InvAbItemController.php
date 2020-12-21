@@ -91,28 +91,26 @@ class InvAbItemController extends Controller
     public function inventurStoreFinal(Request $request)
     {
         foreach($request->itemList as $item){
-            if($item['zuordnen'] == '1') {
-            $move = New InvMoveItem;
-			$move -> gname = $item['gname'];
-			$move -> room_id = $item['room_id'];
-			$move->save();
+				if($item['zuordnen'] == '1') {
+				$move = New InvMoveItem;
+				$move -> gname = $item['gname'];
+				$move -> room_id = $item['room_id_new'];
+				$move->save();
 
-			$move = InvItems::Where('gname',$item['gname'])->first();
-			$move->room_id = $item['room_id'];
-            $move->save();
-            }
+				$move = InvItems::Where('gname',$item['gname'])->first();
+				$move->room_id = $item['room_id_new'];
+				$move->save();
+					}
         }
             return $request->itemList;
-
-            //view('inventory.print_inventur',compact('request'))->with($sucMsg)->render();
     }
 
     public function printinventur ()
     {
         $val_request = json_decode(request('val'), TRUE);
         $filteredArray = array_filter($val_request, function($value){
-            return ($value['zuordnen'] == "0" || $value['zuordnen'] == "1");
-            });
+            return ($value['zuordnen'] == "0" || $value['zuordnen'] == "1" || is_null($value['zuordnen']));
+						});
         return view ('inventory.print_inventur',['val'=>$filteredArray]);
     }
 
