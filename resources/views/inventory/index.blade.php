@@ -194,7 +194,7 @@ $( document ).on( "change","#room_id_listen",function() {
 });
 
 $(document).on("click","#print_list",function(){
-    $("body .print_div").text($("body #room_id_listen :selected").text()+' '+$("body #location_id_listen :selected").text());
+		$("body .print_div").text("Raum:" +$("body #room_id_listen :selected").text()+' '+'Address: '+$("body #location_id_listen :selected").text());
     $('body #listen .modal-body').print();
 });
 
@@ -219,6 +219,8 @@ $(document).on("click", "#inventur_modal", function() {
 	$('#inventur').modal('show');
 	$('#location_id_inventur').find('option').remove();
 	$('#location_id_inventur').find('optgroup').remove();
+	$('#room_id_inventur').find('option').remove();
+	$('body #table_inventur').hide();
 	$('#location_id_inventur').append(new Option("Standort...",''));
 	$('#rooms_id_inventur').find('option').remove();
 	$("#rooms_id_inventur").append(new Option("Raum...",''));
