@@ -19,7 +19,7 @@
                         </select>
 										</div>
 										<div class="form-group col-md-4">
-											<input type="text" id="inventur_check_input" class="form-control" onblur="this.focus()" style="opacity: 0;" autofocus>  <!-- Input Hidden -->
+											<input type="text" id="inventur_check_input" class="form-control" onblur="this.focus()" style="opacity: 0;" autofocus>  
 										</div>
 									</div>
                 <table class="table" id="table_inventur" style="display: none;">

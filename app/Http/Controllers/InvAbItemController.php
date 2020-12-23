@@ -16,6 +16,7 @@ use App\InvRoom;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
 use Carbon\Carbon;
+use DB;
 
 
 
@@ -195,7 +196,23 @@ class InvAbItemController extends Controller
 			}else{
 					echo "false";
 			}
-    }
+		}
+		
+		public function autocompleteEdit(Request $request)
+		{
+			if($request->get('search_edit'))
+			{
+				$search_edit = $request->get('search_edit');
+				$data = InvAbItem::orderby('gname','asc')->select('gname')->where('gname', 'like', '%' .$search_edit . '%')->limit(5)->get();
+				$output ='<ul class="dropdown-menu" style="display:block; position:relative">';
+				foreach($data as $row)
+				{
+					$output .= '<li><a href="#">'.$row->gname.'</a></li>';
+				}
+				$output .= '</ul>';
+				echo $output;
+			}
+		}
     /**
      * Method Edit update
      */

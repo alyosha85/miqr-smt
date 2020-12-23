@@ -43,6 +43,7 @@ Route::get('dropzone/delete_pdf_man', 'InvAbItemController@delete_pdf_man')->nam
 Route::get('/search_edit','InvAbItemController@search_edit')->name('search_edit');
 Route::post('search_check_edit','InvAbItemController@searchCheckEdit')->name('search_check_edit');
 Route::patch('/item/update','InvAbItemController@update')->name('item.update');
+Route::post('autocompleteedit','InvAbItemController@autocompleteEdit')->name('autocompleteEdit');
 
 //*********************  Move Items   **************************************/
 Route::get('/search_move','InvAbItemController@search_move')->name('search_move');
@@ -72,3 +73,7 @@ Route::post('/inventur_store_final','InvAbItemController@inventurStoreFinal')->n
 Route::get('/print_inventur','InvAbItemController@printinventur')->name('printinventur');
 
 
+
+
+/******************************************  Settings  ******************************************************/
+Route::get('/settings','SettingController@index')->name('setting_index');

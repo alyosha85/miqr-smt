@@ -8,16 +8,21 @@
             </button>
             </div>
             <div class="modal-body">
-                <!-- Search -->
-                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
-                    <div class="input-group">
-                        <input type="search" name="search" placeholder="Suchen" id="search_amg" aria-describedby="button-addon1" class="form-control border-0 bg-light sform" value="{{ request()->input('search') }}">
-                        <div class="input-group-append">
-                            <button id="srch_button" type="button" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                    <span id="chksrch" class="ml-3"></span>
-                </div>
+                <!-- Search -->						
+								<div class="row mb-4 ">
+									<div class="col-md-6 offset-3">
+										<div class="input-group">
+												<span class="input-group-prepend">
+													<div class="input-group-text bg-transparent border-right-0"><i class="fa fa-search" style="color: #0275d8;"></i></div>
+												</span>
+												<input type="search" name="search_edit" placeholder="Suchen" id="search_amg" class="form-control py-2 border-left-0 border-right-0 border rounded"
+																value="{{ request()->input('search') }}">
+												<span class="input-group-append">
+													<div class="input-group-text bg-transparent border-left-0"><i class="fas fa-ellipsis-h" style="color: #0275d8;" id="chksrch"></i></div>
+											</span>
+										</div>
+									</div>
+								</div>
                 <div class="container">
                     <!-- Main row -->
                     <div class="row">

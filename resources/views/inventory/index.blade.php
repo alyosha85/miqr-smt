@@ -359,33 +359,33 @@ $( document ).on( "click","body #inventur_submit",function() {
 			data:{search_move:search_move},
 			success:function(resp){
 				if(resp=="false"){
-					$("body #chksrchmove").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+					$("body #chksrchmove").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
 				}else{
 					if(resp =="true") {
-					$("body #chksrchmove").html("<i class='fas fa-check' style='color:green;'></i>");
-					$.ajax({
-						type: 'get',
-						url:"{{ route('search_move') }}",
-						data: {search_move:search_move},
-						success:function(resp){
-							selectAddress = new Array();
-							$('#location_id_move').find('optgroup').remove();
-							$('#location_id_move').find('option').remove();
-							$('#location_id_move').append(new Option("Standort...",0));
-							$('body .move_form .move_address').val(resp.items.invroom.location.address)
-							$('body .move_form .move_raum').val(resp.items.invroom.rname)
-							$('body .move_form .gname_move').val(resp.items.gname)
-							$.each(resp['places'], function(index, item) {
-							$("body #location_id_move").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-							});
-							$.each(resp['locations'], function(index, item) {
-							$("#location_id_move #"+item.place_id).append(new Option(item.address,item.id));
-							selectAddress.push(item);
-							});
-						},error:function(){
-							alert("Error");
-						}
-					});
+						$("body #chksrchmove").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
+						$.ajax({
+							type: 'get',
+							url:"{{ route('search_move') }}",
+							data: {search_move:search_move},
+							success:function(resp){
+								selectAddress = new Array();
+								$('#location_id_move').find('optgroup').remove();
+								$('#location_id_move').find('option').remove();
+								$('#location_id_move').append(new Option("Standort...",0));
+								$('body .move_form .move_address').val(resp.items.invroom.location.address)
+								$('body .move_form .move_raum').val(resp.items.invroom.rname)
+								$('body .move_form .gname_move').val(resp.items.gname)
+								$.each(resp['places'], function(index, item) {
+								$("body #location_id_move").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+								});
+								$.each(resp['locations'], function(index, item) {
+								$("#location_id_move #"+item.place_id).append(new Option(item.address,item.id));
+								selectAddress.push(item);
+								});
+							},error:function(){
+								alert("Error");
+							}
+						});
 					}
 				}
 			}
@@ -510,10 +510,10 @@ $(document).on('keyup change', '#search_amg', function(){
 		data:{search:search},
 		success:function(resp){
 			if(resp=="false"){
-				$("body #chksrch").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+				$("body #chksrch").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
 			}else{
 				if(resp =="true") {
-				$("body #chksrch").html("<font color=green>Gerätename ist korrekt</font>");
+					$("body #chksrch").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
 					$.ajax({
 						type:'get',
 						url:"{{ route('search') }}",
@@ -530,7 +530,7 @@ $(document).on('keyup change', '#search_amg', function(){
 							$('body .amg_form .sn_amg').val(resp.items.sn)
 							$('body .amg_form .notes_amg').val(resp.items.notes)
 							$('body #grund').find('option').remove();
-							$('body #grund').append(new Option("Grund...",0));
+							$('body #grund').append(new Option("Grund...",''));
 							$.each(resp.amgs, function(index, item){
 								$("body #grund").append(new Option(item.name,item.id));
 							});
@@ -552,20 +552,31 @@ $(document).on( "click", "#edit_modal", function() {
 // Empty Values
 $('#search_edit').val('');
 $('body .item_edit_form').trigger('reset')
-
 $('#edit').modal('show');
 $(document).on('keyup change', '#search_edit', function(){
 	let search_edit = $(this).val();
+	if( search_edit != '' ){
+		let _token = $('input[name="_token"]').val();
+		$.ajax({
+			type: 'post',
+			url:" {{ route('autocompleteEdit') }}",
+			data: {search_edit:search_edit,_token:_token},
+			success:function(data){
+				$('body #theList').fadeIn();
+				$('body #theList').html(data);
+			}
+		});
+	}
 	$.ajax({
 		type:'post',
 		url:"{{ route('search_check_edit') }}",
 		data:{search_edit:search_edit},
 		success:function(resp){
 			if(resp=="false"){
-				$("body #chksrchedit").html("<font color=red>Gerätename ist nicht vorhanden</font>");
+				$("body #chksrchedit").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
 			}else{
 				if(resp =="true") {
-                $("body #chksrchedit").html("<font color=green>Gerätename ist korrekt</font>");
+                $("body #chksrchedit").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
                 $("body .pdf_edit_green").hide();
                 $("body .pdf_edit_red").show();
 					$.ajax({
@@ -600,6 +611,8 @@ $(document).on('keyup change', '#search_edit', function(){
 	});
 });
 });
+
+$(document).('click','li',function)
 
 function printfunction() {
 	$('#printpage').modal('show');

@@ -24,14 +24,24 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <li class="nav-header">Einstellungen</li>
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/settings') }}" class="nav-link">
+							<i class="nav-icon fas fa-cogs" style="color: #5bc0de"></i>
+              <p>
+                Einstellungen
+              </p>
+						</a>
+					</li>
           <li class="nav-header">Inventar</li>
           <li class="nav-item has-treeview">
             <a href="{{ url('/inventory') }}" class="nav-link">
-              <i class="nav-icon fas fa-boxes" style="color:yellow;"></i>
+              <i class="nav-icon fas fa-boxes" style="color:#f0ad4e;"></i>
               <p>
                 Inventar
               </p>
-            </a>
+						</a>
+					</li>
           <li class="nav-header">Matrix</li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
