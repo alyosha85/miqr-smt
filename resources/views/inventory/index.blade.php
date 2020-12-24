@@ -612,8 +612,6 @@ $(document).on('keyup change', '#search_edit', function(){
 });
 });
 
-$(document).('click','li',function)
-
 function printfunction() {
 	$('#printpage').modal('show');
 	let printinvnr = $('#prntinvnr').val();
