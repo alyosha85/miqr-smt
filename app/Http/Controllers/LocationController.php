@@ -3,10 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Location;
+use App\Place;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+		// Settings city list //
+		public function cityList()
+		{
+			$cities = Place::all();
+			return ['cities' => $cities];
+		}
+
+		// Settings new location store //
+		public function addLocation(Request $request)
+		{
+			return $request->all();
+		}
+
     /**
      * Display a listing of the resource.
      *

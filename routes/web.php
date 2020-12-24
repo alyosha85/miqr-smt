@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InvAbItemController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -77,3 +78,8 @@ Route::get('/print_inventur','InvAbItemController@printinventur')->name('printin
 
 /******************************************  Settings  ******************************************************/
 Route::get('/settings','SettingController@index')->name('setting_index');
+/* Add City */
+Route::post('/create_city','PlaceController@addCity')->name('addCity');
+/* Add Location City list *AJAX* */
+Route::get('/settings/cityList','LocationController@cityList')->name('settings.cityList');
+Route::post('/create_address','LocationController@addLocation')->name('addLocation');

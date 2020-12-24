@@ -7,6 +7,23 @@ use Illuminate\Http\Request;
 
 class PlaceController extends Controller
 {
+		//**   Add City  **//
+		public function addCity(Request $request)
+		{
+			$city = new Place;
+			$city -> pnname = $request -> pnname;
+			$city->save();
+			
+			$sucMsg = array(
+				'message' => 'Standort wurde erfolgreich eingefügt.',
+				'alert-type' => 'success'
+		);
+
+		return redirect()->back()->with($sucMsg);
+
+		}
+
+
     /**
      * Display a listing of the resource.
      *

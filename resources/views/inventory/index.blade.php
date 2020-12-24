@@ -253,6 +253,10 @@ $( document ).on( "change", "#location_id_inventur", function() {
 });
 let globalIndex = 0;
 $( document ).on( "change","#room_id_inventur",function() {
+	Swal.fire({
+  icon: 'info',
+  title: 'Bitte klicken Sie auf Einreichen, nachdem das Inventar abgeschlossen ist',
+})
 	$( "body #inventur_check_input" ).focus();
 	$.ajax({
 		type:'post',
@@ -345,7 +349,12 @@ $( document ).on( "click","body #inventur_submit",function() {
 //************************************************************* Bewegen ************************************************************//
 	let selectAddress = new Array();
 	$( document ).on( "click", "#move_modal", function() {
-	$('#move').modal('show');
+	Swal.fire({
+		icon: 'info',
+		title: 'Die Änderung kann bis zu 4 Stunden dauern',
+		text: '',
+	})
+		$('#move').modal('show');
 	// Empty Values
 		$('#search_move').val('');
 		$('body .move_form').trigger('reset')

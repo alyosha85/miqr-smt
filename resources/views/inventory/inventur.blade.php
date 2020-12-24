@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="inventur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="inventur" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="max-width: 1080px!important;"  role="document">
       <div class="modal-content">
         <div class="modal-header">

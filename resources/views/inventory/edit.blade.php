@@ -1,4 +1,4 @@
-<div class="modal fade" id="edit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit" role="dialog" data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="max-width: 1080px!important;"  role="document">
 		<div class="modal-content">
 				<div class="modal-header">

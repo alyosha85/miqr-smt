@@ -1,5 +1,5 @@
 
-<div class="modal fade" id="move" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="move" tabindex="-1" data-keyboard="false" data-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" style="max-width: 1080px!important;"  role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -40,7 +40,6 @@
 			<input type="hidden" name="gname_move" class="gname_move">
 			</div>
 			<div class="modal-footer">
-					<p class="text-left"> IT May Take from 2 to 4 Hours to take affect </p>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
 					<button type="submit" class="btn btn-primary submit_form_move">Bewegen</button>
 			</div>

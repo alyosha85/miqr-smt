@@ -27,10 +27,10 @@
 						<h5 class="card-title mb-3"><strong>Inventur Einstellungen</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Stadt hinzufügen
+								<a href="javascript:" id="addCity_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Stadt hinzufügen
 									 &nbsp; <i class="fas fa-map-marker-alt"></i>
 								</a>
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Adresse hinzufügen
+								<a href="javascript:" id="addLocation_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Adresse hinzufügen
 									 &nbsp; <i class="fas fa-building"></i>
 								</a>
 								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Neuen Raum hinzufügen
@@ -87,4 +87,64 @@
 		</div>
 	</div>
 </section>
+
+@include('settings.modal_settings.add_city')
+@include('settings.modal_settings.add_location')
+
+
+@endsection
+
+@section('script')
+<script>
+$(document).ready(function(){
+	//**** Add City ****//
+	$(document).on('click','#addCity_modal',function(){
+		$('#addCity').modal('show');
+	});
+
+	//**** Add Location ****//
+	// 1 **** Add Location ****// 
+		$(document).on('click','#addLocation_modal',function(){
+			$('#addLocation').modal('show');
+			$('#settings_cityList').find('option').remove();
+			$('#settings_cityList').append(new Option("Standort...",''));
+			$('#settings_address_input').prop('readonly',true);
+			$.ajax({
+				type: 'get',
+				url: '{{route("settings.cityList")}}',
+				}).done(function (data){
+					$.each(data['cities'],function(index,item){
+						console.log(item);
+						$('#settings_cityList').append(new Option(item.pnname,item.id));
+					});
+				});
+		});
+
+		// 2 **** Add Location ****// 
+		$(document).on('change','#settings_cityList',function(){
+			$('#settings_address_input').prop('readonly',false);
+		});
+
+		$(document).on('click','body #addLocationButton',function(){
+			console.log('DSfasda');
+			$.ajax({
+				type:'post',
+				url: '{{route("addLocation")}}',
+				data:{addLocation:addLocation},
+				success:function(resp){
+					console.log(resp);
+				},error:function(){
+					alert("Error");
+				}
+			});
+		});
+
+
+
+
+
+
+});
+
+</script>
 @endsection
