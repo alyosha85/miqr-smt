@@ -15,7 +15,7 @@
           <!-- <img src="{{ url('images/admin_images/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
-          <a href="#" class="d-block">logged in user name</a>
+          <a href="#" class="d-block"><i class="fas fa-user-circle fa-2x">&nbsp;</i>logged in user name</a>
         </div>
       </div>
 
@@ -62,7 +62,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>B-Trachenberg93</p>
                     </a>

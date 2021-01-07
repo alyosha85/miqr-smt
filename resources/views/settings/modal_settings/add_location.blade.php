@@ -8,9 +8,10 @@
         </button>
 			</div>
       <div class="modal-body">
-
+      <from action="/create_location" method="POST">
+        @csrf
 				<div class="form-group">
-					<label for="exampleInputEmail1">Städte</label>
+					<label for="pnname">Städte</label>
 					<select class="form-control" id="settings_cityList" name="pnname"></select>
 					<small class="form-text text-muted">Bitte wählen Sie eine Stadt aus, um eine Adresse hinzuzufügen.</small>
 				</div>
@@ -21,8 +22,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-        <button type="button" id="#addLocationButton" class="btn btn-primary">Einreichen</button>
-			</div>
+        <button type="submit" id="addLocationButton" class="btn btn-primary">Einreichen</button>
+      </div>
+      </form>
     </div>
   </div>
 </div>

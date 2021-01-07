@@ -44,7 +44,7 @@ Route::get('dropzone/delete_pdf_man', 'InvAbItemController@delete_pdf_man')->nam
 Route::get('/search_edit','InvAbItemController@search_edit')->name('search_edit');
 Route::post('search_check_edit','InvAbItemController@searchCheckEdit')->name('search_check_edit');
 Route::patch('/item/update','InvAbItemController@update')->name('item.update');
-Route::post('autocompleteedit','InvAbItemController@autocompleteEdit')->name('autocompleteEdit');
+// Route::post('autocompleteedit','InvAbItemController@autocompleteEdit')->name('autocompleteEdit');
 
 //*********************  Move Items   **************************************/
 Route::get('/search_move','InvAbItemController@search_move')->name('search_move');
@@ -83,3 +83,14 @@ Route::post('/create_city','PlaceController@addCity')->name('addCity');
 /* Add Location City list *AJAX* */
 Route::get('/settings/cityList','LocationController@cityList')->name('settings.cityList');
 Route::post('/create_address','LocationController@addLocation')->name('addLocation');
+
+
+
+/******************************************  Profile  ******************************************************/
+Route::get('/profile',function(){
+  return view('user.profile');
+});
+
+
+/******************************************  Matrix  ******************************************************/
+Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berlin');

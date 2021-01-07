@@ -38,6 +38,7 @@
 				</select>
 			</div>
 			<input type="hidden" name="gname_move" class="gname_move">
+			<input type="hidden" name="ad_ou" class="ad_ou">
 			</div>
 			<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>

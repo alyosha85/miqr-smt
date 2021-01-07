@@ -27,7 +27,8 @@ class InvAbItemController extends Controller
      */
     public function index()
     {
-        return view('inventory.index');
+        $computer = InvItems::where('gart_id','2')->orwhere('gart_id','3')->count();
+        return view('inventory.index',compact('computer'));
     }
 
     /**
@@ -198,21 +199,21 @@ class InvAbItemController extends Controller
 			}
 		}
 		
-		public function autocompleteEdit(Request $request)
-		{
-			if($request->get('search_edit'))
-			{
-				$search_edit = $request->get('search_edit');
-				$data = InvAbItem::orderby('gname','asc')->select('gname')->where('gname', 'like', '%' .$search_edit . '%')->limit(5)->get();
-				$output ='<ul class="dropdown-menu" style="display:block; position:relative">';
-				foreach($data as $row)
-				{
-					$output .= '<li><a href="#">'.$row->gname.'</a></li>';
-				}
-				$output .= '</ul>';
-				echo $output;
-			}
-		}
+		// public function autocompleteEdit(Request $request)
+		// {
+		// 	if($request->get('search_edit'))
+		// 	{
+		// 		$search_edit = $request->get('search_edit');
+		// 		$data = InvAbItem::orderby('gname','asc')->select('gname')->where('gname', 'like', '%' .$search_edit . '%')->limit(5)->get();
+		// 		$output ='<ul class="dropdown-menu" style="display:block; position:relative">';
+		// 		foreach($data as $row)
+		// 		{
+		// 			$output .= '<li><a href="#">'.$row->gname.'</a></li>';
+		// 		}
+		// 		$output .= '</ul>';
+		// 		echo $output;
+		// 	}
+		// }
     /**
      * Method Edit update
      */
@@ -251,14 +252,13 @@ class InvAbItemController extends Controller
     }
     public function movestore(Request $request)
     {
-
 			$move = New InvMoveItem;
-			$move -> gname = $request->gname_move;
-			$move -> room_id = $request->room_id;
+      $move -> gname = $request->gname_move;
+      $move->ad_ou = $request->ad_ou;
 			$move->save();
 
 			$move = InvItems::Where('gname',$request->gname_move)->first();
-			$move->room_id = $request->room_id;
+			$move -> room_id = $request->room_id;
 			$move->save();
 
 				$sucMsg = array(

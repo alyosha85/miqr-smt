@@ -54,13 +54,12 @@
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
-						<h3>1000</h3>
+						<h3>{{$computer}}</h3>
 						<p>Total Rechner & Laptops</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-tv"></i>
 					</div>
-					<a href="#" class="small-box-footer">Mehr Info<i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -75,7 +74,6 @@
 				<div class="icon">
 					<i class="ion ion-stats-bars"></i>
 				</div>
-				<a href="#" class="small-box-footer">Mehr Info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -90,7 +88,6 @@
 				<div class="icon">
 					<i class="ion ion-person-add"></i>
 				</div>
-				<a href="#" class="small-box-footer">Mehr Info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -100,13 +97,11 @@
 				<div class="small-box bg-danger">
 				<div class="inner">
 					<h3>65</h3>
-
 					<p>Hard Code</p>
 				</div>
 				<div class="icon">
 					<i class="ion ion-pie-graph"></i>
 				</div>
-				<a href="#" class="small-box-footer">Mehr Info <i class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- ./col -->
@@ -349,6 +344,7 @@ $( document ).on( "click","body #inventur_submit",function() {
 //************************************************************* Bewegen ************************************************************//
 	let selectAddress = new Array();
 	$( document ).on( "click", "#move_modal", function() {
+    $('body .submit_form_move').attr('disabled', true)
 	Swal.fire({
 		icon: 'info',
 		title: 'Die Änderung kann bis zu 4 Stunden dauern',
@@ -384,6 +380,7 @@ $( document ).on( "click","body #inventur_submit",function() {
 								$('body .move_form .move_address').val(resp.items.invroom.location.address)
 								$('body .move_form .move_raum').val(resp.items.invroom.rname)
 								$('body .move_form .gname_move').val(resp.items.gname)
+								$('body .move_form .ad_ou').val(resp.items.invroom.ad_ou)
 								$.each(resp['places'], function(index, item) {
 								$("body #location_id_move").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
 								});
@@ -408,11 +405,18 @@ $( document ).on( "change", "#location_id_move", function() {
 	for(let i = 0; i<selectAddress.length ; i++){
 		if(selectAddress[i].id == $( this ).val()){
 			$.each(selectAddress[i].invrooms, function(index, item) {
+        console.log(item);
 				$("body #room_id_move").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 			});
 		}
-	}
+  }
 });
+
+
+$( document ).on("change","#room_id_move", function(){
+  $('body .submit_form_move').attr('disabled', false)
+});
+
 
 //************************************************************* Print Label ************************************************************//
 let locationData = new Array();
@@ -564,18 +568,6 @@ $('body .item_edit_form').trigger('reset')
 $('#edit').modal('show');
 $(document).on('keyup change', '#search_edit', function(){
 	let search_edit = $(this).val();
-	if( search_edit != '' ){
-		let _token = $('input[name="_token"]').val();
-		$.ajax({
-			type: 'post',
-			url:" {{ route('autocompleteEdit') }}",
-			data: {search_edit:search_edit,_token:_token},
-			success:function(data){
-				$('body #theList').fadeIn();
-				$('body #theList').html(data);
-			}
-		});
-	}
 	$.ajax({
 		type:'post',
 		url:"{{ route('search_check_edit') }}",

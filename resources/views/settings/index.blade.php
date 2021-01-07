@@ -114,7 +114,6 @@ $(document).ready(function(){
 				url: '{{route("settings.cityList")}}',
 				}).done(function (data){
 					$.each(data['cities'],function(index,item){
-						console.log(item);
 						$('#settings_cityList').append(new Option(item.pnname,item.id));
 					});
 				});
@@ -123,27 +122,8 @@ $(document).ready(function(){
 		// 2 **** Add Location ****// 
 		$(document).on('change','#settings_cityList',function(){
 			$('#settings_address_input').prop('readonly',false);
+			$('#settings_address_input').val('');
 		});
-
-		$(document).on('click','body #addLocationButton',function(){
-			console.log('DSfasda');
-			$.ajax({
-				type:'post',
-				url: '{{route("addLocation")}}',
-				data:{addLocation:addLocation},
-				success:function(resp){
-					console.log(resp);
-				},error:function(){
-					alert("Error");
-				}
-			});
-		});
-
-
-
-
-
-
 });
 
 </script>
