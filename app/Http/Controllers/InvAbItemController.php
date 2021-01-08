@@ -180,6 +180,8 @@ class InvAbItemController extends Controller
 			return ['items'=>$items,'room'=>$room];
     }
     /**
+     * 
+     * 
      * Search Method Edit Search_Check
      */
     public function searchCheckEdit(Request $request)
@@ -259,14 +261,14 @@ class InvAbItemController extends Controller
 
 			$move = InvItems::Where('gname',$request->gname_move)->first();
 			$move -> room_id = $request->room_id;
-			$move->save();
+      $move->save();
+      
+        $infoMsg = array(
+          'message' => 'Die Änderung kann bis zu 4 Stunden dauern',
+          'alert-type' => 'info'
+        );
 
-				$sucMsg = array(
-					'message' => 'Standort wurde erfolgreich geändert.',
-					'alert-type' => 'success'
-			);
-
-			return redirect()->back()->with($sucMsg);
+			return redirect()->back()->with($infoMsg);
     }
 
 

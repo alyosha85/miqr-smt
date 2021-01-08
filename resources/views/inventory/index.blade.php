@@ -345,11 +345,6 @@ $( document ).on( "click","body #inventur_submit",function() {
 	let selectAddress = new Array();
 	$( document ).on( "click", "#move_modal", function() {
     $('body .submit_form_move').attr('disabled', true)
-	Swal.fire({
-		icon: 'info',
-		title: 'Die Änderung kann bis zu 4 Stunden dauern',
-		text: '',
-	})
 		$('#move').modal('show');
 	// Empty Values
 		$('#search_move').val('');
@@ -513,20 +508,24 @@ $(function() {
 //************************************************************* Ausmuster ****************************************************//
 $(document).ready(function(){
 $(document).on( "click", "#invalid_modal", function() {
+  // Empty Values
+$('#search_amg').val('');
+$('body .amg_form').trigger('reset')
+$("body #chksrch").removeClass().addClass('fas fa-ellipsis-h').css('color', '#0275d8');
 $('#invalid').modal('show');
 });
 $(document).on('keyup change', '#search_amg', function(){
-	let search = $(this).val();
+  let search = $(this).val();
 	$.ajax({
 		type:'post',
 		url:"{{ route('search_check') }}",
 		data:{search:search},
 		success:function(resp){
 			if(resp=="false"){
-				$("body #chksrch").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
+				$("body #chksrch").removeClass().addClass('fas fa-times-circle').css('color', '#d9534f');
 			}else{
 				if(resp =="true") {
-					$("body #chksrch").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
+					$("body #chksrch").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
 					$.ajax({
 						type:'get',
 						url:"{{ route('search') }}",
@@ -556,7 +555,7 @@ $(document).on('keyup change', '#search_amg', function(){
 		},error:function(){
 			alert("Error");
 		}
-	});
+  });
 });
 });
 

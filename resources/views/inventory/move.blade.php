@@ -43,7 +43,7 @@
 			<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
 					<button type="submit" class="btn btn-primary submit_form_move">Bewegen</button>
-			</div>
+      </div>
 			</form>
 		</div>
 	</div>
