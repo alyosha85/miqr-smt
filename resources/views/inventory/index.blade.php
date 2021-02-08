@@ -1,52 +1,44 @@
 @extends('layouts.admin_layout.admin_layout')
 
+
 @section('content')
 
 <!-- Main content -->
 <section class="content">
 	<div class="container-fluid">
 		<!-- SubNav Bar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="Javascript:">Inventar</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			  <ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
-				</li>
-				<li class="nav-item dropdown">
-				  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  Erfassen <i class="fas fa-plus" style="color:#5bc0de;"></i></a>
-				  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="javascript:" id="add_modal">Erfassen</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="Javascript:" id="add_modal_man">Manuell Erfassen</a>
-				  </div>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						Drucken <i class="fas fa-print" style="color:#007bff;"></i></a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					  <a class="dropdown-item" href="javascript:" id="list_modal">Listen</a>
-					  <div class="dropdown-divider"></div>
-					  <a class="dropdown-item" href="javascript:" id="etiketten_modal">Etiketten</a>
-					</div>
-				  </li>
-				  <li class="nav-item">
-					<a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
-				</li>
-			  </ul>
-			</div>
-		  </nav>
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Erfassen <i class="fas fa-plus" style="color:#5bc0de;"></i></a>
+        <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="javascript:" id="add_modal">Erfassen</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="Javascript:" id="add_modal_man">Manuell Erfassen</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Drucken <i class="fas fa-print" style="color:#007bff;"></i></a>
+        <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="javascript:" id="list_modal">Listen</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:" id="etiketten_modal">Etiketten</a>
+        </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
+        </li>
+    </ul>
 
 		<!-- Small boxes (Stat box) -->
 		<div class="row mt-5">

@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
 use Carbon\Carbon;
 use DB;
+use App\Exports\RoomExport;
+use App\Imports\RoomImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -257,11 +260,24 @@ class InvAbItemController extends Controller
 			$move = New InvMoveItem;
       $move -> gname = $request->gname_move;
       $move->ad_ou = $request->ad_ou;
-			$move->save();
+      $move->save();
+
+      $importRoom = [[$request->gname_move,$request->ad_ou]];
+      try {
+        $importRoom = Excel::toArray(new RoomImport, 'bewegungRaum.csv');
+        $importRoom = $importRoom[0];
+        $importRoom[] = [$request->gname_move,$request->ad_ou];
+      }
+      catch (\Exception $e) {
+        ;
+      }
+      Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv');
 
 			$move = InvItems::Where('gname',$request->gname_move)->first();
 			$move -> room_id = $request->room_id;
       $move->save();
+
+
       
         $infoMsg = array(
           'message' => 'Die Änderung kann bis zu 4 Stunden dauern',
