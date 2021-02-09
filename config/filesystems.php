@@ -64,6 +64,17 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
+        'sftp' => [
+            'driver' => 'sftp',
+            'host' => '192.168.62.107',
+            'username' => 'ara',
+            'password' => '123qwe!bGt',
+            
+            // Optional SFTP Settings...
+            'port' => 22,
+            'root' => 'D:\EDV\SMTRaumBewegung',
+            'timeout' => 30,
+            ],
 
     ],
 

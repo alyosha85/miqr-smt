@@ -264,14 +264,14 @@ class InvAbItemController extends Controller
 
       $importRoom = [[$request->gname_move,$request->ad_ou]];
       try {
-        $importRoom = Excel::toArray(new RoomImport, 'bewegungRaum.csv');
+        $importRoom = Excel::toArray(new RoomImport, 'bewegungRaum.csv','sftp');
         $importRoom = $importRoom[0];
         $importRoom[] = [$request->gname_move,$request->ad_ou];
       }
       catch (\Exception $e) {
         ;
       }
-      Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv');
+      Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv','sftp');
 
 			$move = InvItems::Where('gname',$request->gname_move)->first();
 			$move -> room_id = $request->room_id;
