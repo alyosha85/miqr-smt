@@ -66,15 +66,27 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
+      'users' => [
+        'driver' => 'ldap',
+        'model' => LdapRecord\Models\ActiveDirectory\User::class,
+        'rules' => [
+          App\Ldap\Rules\OnlyAdministrators::class,
+      ],
+        'database' => [
             'model' => App\User::class,
+            'password_column' => false,
+            'sync_passwords' => false,
+            'sync_attributes' => [
+                'name' => 'cn',
+                'email' => 'mail',
+                \App\Ldap\MyFirstAttributeHandler::class,
+                \App\Ldap\MySecondAttributeHandler::class,
+            ],
+            'sync_existing' => [
+              'email' => 'mail',
+          ],
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+    ],
     ],
 
     /*
