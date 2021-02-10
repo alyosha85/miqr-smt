@@ -8,22 +8,22 @@
         </button>
 			</div>
       <div class="modal-body">
-      <from action="/create_location" method="POST">
+      <form action="{{ route('addLocation')}}" method="POST">
         @csrf
-				<div class="form-group">
-					<label for="pnname">Städte</label>
-					<select class="form-control" id="settings_cityList" name="pnname"></select>
-					<small class="form-text text-muted">Bitte wählen Sie eine Stadt aus, um eine Adresse hinzuzufügen.</small>
-				</div>
-				<div class="form-group">
-					<label for="exampleInputPassword1">Adresse</label>
-					<input type="text" class="form-control" id="settings_address_input" placeholder="Adresse">
-				</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-        <button type="submit" id="addLocationButton" class="btn btn-primary">Einreichen</button>
-      </div>
+          <div class="form-group">
+            <label for="pnname">Städte</label>
+            <select class="form-control" id="settings_cityList" name="pnname"></select>
+            <small class="form-text text-muted">Bitte wählen Sie eine Stadt aus, um eine Adresse hinzuzufügen.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Adresse</label>
+            <input type="text" class="form-control" name="address" id="settings_address_input" placeholder="Adresse">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+          <button type="submit" class="btn btn-primary">Einreichen</button>
+        </div>
       </form>
     </div>
   </div>

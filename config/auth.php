@@ -79,8 +79,7 @@ return [
             'sync_attributes' => [
                 'name' => 'cn',
                 'email' => 'mail',
-                \App\Ldap\MyFirstAttributeHandler::class,
-                \App\Ldap\MySecondAttributeHandler::class,
+                'sync_attributes' => \App\Ldap\AttributeHandler::class,
             ],
             'sync_existing' => [
               'email' => 'mail',

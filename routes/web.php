@@ -8,12 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/home',function(){
-    return view('admin.admin_dashboard')->name('home');
-});
-Route::get('/',function(){
-    return view('admin/admin_dashboard');
-});
+Route::get('/', 'HomeController@index');
+
 
 // one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
@@ -82,7 +78,10 @@ Route::get('/settings','SettingController@index')->name('setting_index');
 Route::post('/create_city','PlaceController@addCity')->name('addCity');
 /* Add Location City list *AJAX* */
 Route::get('/settings/cityList','LocationController@cityList')->name('settings.cityList');
+Route::get('/settings/cityAddressList','InvRoomController@cityAddressList')->name('settings.cityAddressList');
+/* Add Location City ROOM  (Add - Save )*/
 Route::post('/create_address','LocationController@addLocation')->name('addLocation');
+Route::post('/create_room','InvRoomController@addRoom')->name('addRoom');
 
 
 

@@ -33,7 +33,7 @@
 								<a href="javascript:" id="addLocation_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Adresse hinzufügen
 									 &nbsp; <i class="fas fa-building"></i>
 								</a>
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Neuen Raum hinzufügen
+								<a href="javascript:" id="addRoom_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neuen Raum hinzufügen
 									&nbsp; <i class="fas fa-chalkboard-teacher"></i>
 								</a>
 							</div><!-- End Linst Group -->
@@ -46,10 +46,10 @@
 				<!-- Card  -->
 				<div class="card card-info card-outline">
 					<div class="card-body">
-						<h5 class="card-title mb-3"><strong>Hard Code</strong></h5>
+						<h5 class="card-title mb-3"><strong>Benutzereinstellungen</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
+								<a href="javascript:" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung</a>
 								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
@@ -90,6 +90,7 @@
 
 @include('settings.modal_settings.add_city')
 @include('settings.modal_settings.add_location')
+@include('settings.modal_settings.add_room')
 
 
 @endsection
@@ -103,27 +104,59 @@ $(document).ready(function(){
 	});
 
 	//**** Add Location ****//
-	// 1 **** Add Location ****// 
-		$(document).on('click','#addLocation_modal',function(){
-			$('#addLocation').modal('show');
-			$('#settings_cityList').find('option').remove();
-			$('#settings_cityList').append(new Option("Standort...",''));
-			$('#settings_address_input').prop('readonly',true);
-			$.ajax({
-				type: 'get',
-				url: '{{route("settings.cityList")}}',
-				}).done(function (data){
-					$.each(data['cities'],function(index,item){
-						$('#settings_cityList').append(new Option(item.pnname,item.id));
-					});
-				});
-		});
+    // 1 **** Add Location ****// 
+      $(document).on('click','#addLocation_modal',function(){
+        $('#addLocation').modal('show');
+        $('#settings_cityList').find('option').remove();
+        $('#settings_cityList').append(new Option("Standort...",''));
+        $('#settings_address_input').prop('readonly',true);
+        $.ajax({
+          type: 'get',
+          url: '{{route("settings.cityList")}}',
+          }).done(function (data){
+            $.each(data['cities'],function(index,item){
+              $('#settings_cityList').append(new Option(item.pnname,item.id));
+            });
+          });
+      });
 
-		// 2 **** Add Location ****// 
-		$(document).on('change','#settings_cityList',function(){
-			$('#settings_address_input').prop('readonly',false);
-			$('#settings_address_input').val('');
-		});
+      // 2 **** Add Address remove Grayed out input ****// 
+      $(document).on('change','#settings_cityList',function(){
+        $('#settings_address_input').prop('readonly',false);
+        $('#settings_address_input').val('');
+        $('#settings_cityList').find('option').get(0).remove();
+      });
+    
+  //**** Add Room ****//
+    // 1 **** Add Room **** //
+      $(document).on('click','#addRoom_modal',function(){
+        $('#addRoom').modal('show');
+        $('#settings_AddressCityList').find('option').remove();
+        $('#settings_AddressCityList').find('optgroup').remove();
+        $('#settings_AddressCityList').append(new Option("Standort...",''));
+        $('#settings_rname').prop('readonly',true);
+        $('#settings_etage').prop('readonly',true);
+        $('#settings_altrname').prop('readonly',true);
+        $.ajax({
+          type:'get',
+          url:'{{route("settings.cityAddressList")}}',
+        }).done(function(data){
+          $.each(data['places'], function(index,item){
+            $("body #settings_AddressCityList").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+          });
+          $.each(data['locations'], function(index,item){
+            $('body #settings_AddressCityList #'+item.place_id).append(new Option(item.address,item.id));
+          });
+        })
+      });
+
+      // 2 **** Add room remove Grayed out input ****// 
+      $(document).on('change','#settings_AddressCityList',function(){
+        $('#settings_AddressCityList').find('option').get(0).remove();
+        $('#settings_rname').prop('readonly',false);
+        $('#settings_etage').prop('readonly',false);
+        $('#settings_altrname').prop('readonly',false);
+      });
 });
 
 </script>

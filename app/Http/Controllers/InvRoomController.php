@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use App\InvRoom;
 use Illuminate\Http\Request;
+use App\Place;
+use App\Location;
 
 class InvRoomController extends Controller
 {
+  public function cityAddressList()
+  {
+    $places = Place::pluck('id','pnname')->toArray();
+		$locations = Location::with('invrooms')->get()->toArray();
+		return ['locations'=>$locations,'places'=>$places];
+  }
+
+
+  public function addRoom(Request $request)
+  {
+    return  $request;
+  }
     /**
      * Display a listing of the resource.
      *

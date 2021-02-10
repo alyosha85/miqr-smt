@@ -8,19 +8,28 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
-		// Settings city list //
-		public function cityList()
-		{
-			$cities = Place::all();
-			return ['cities' => $cities];
-		}
+    // Settings city list //
+    public function cityList()
+    {
+      $cities = Place::all();
+      return ['cities' => $cities];
+    }
 
-		// Settings new location store //
-		public function addLocation(Request $request)
-		{
-			return $request->all();
-		}
+    // Settings new location store //
+    public function addLocation(Request $request)
+    {
+      $address = New Location;
+      $address->place_id = $request->pnname;
+      $address->address = $request->address;
+      $address->save();
 
+      $sucMsg = array(
+        'message' => 'Erfolgreich hinzugefügt ',
+        'alert-type' => 'success'
+    );
+    return redirect()->back()->with($sucMsg);
+      
+    }
     /**
      * Display a listing of the resource.
      *

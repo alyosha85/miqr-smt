@@ -6,7 +6,15 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Home</a>
+        <a class="nav-link float-right" href="{{ route('logout') }}"
+        onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+         {{ __('Logout') }}
+     </a>
+
+     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+         @csrf
+     </form>
       </li>
     </ul>
   </nav>

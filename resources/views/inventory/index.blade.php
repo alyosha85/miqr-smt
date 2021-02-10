@@ -222,6 +222,7 @@ $(document).on("click", "#inventur_modal", function() {
 		$.each(data['locations'], function(index, item) {
 		$("#location_id_inventur #"+item.place_id).append(new Option(item.address,item.id));
 		selectAddressInventur.push(item);
+    console.log(selectAddressInventur);
 		});
 	});
 });
