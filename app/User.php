@@ -12,7 +12,6 @@ class User extends Authenticatable implements LdapAuthenticatable
 {
     use Notifiable, AuthenticatesWithLdap;
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -39,14 +38,4 @@ class User extends Authenticatable implements LdapAuthenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getLdapDomainColumn()
-    {
-        return 'domain';
-    }
-  
-    public function getLdapGuidColumn()
-    {
-        return 'guid';
-    }
 }

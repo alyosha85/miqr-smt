@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+use LdapRecord\Laravel\Middleware\WindowsAuthenticate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        WindowsAuthenticate::rememberAuthenticatedUsers();
+        WindowsAuthenticate::serverKey('REMOTE_USER');
+        WindowsAuthenticate::logoutUnauthenticatedUsers();
         //
     }
+    
 }

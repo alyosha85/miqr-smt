@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use LdapRecord\Laravel\Auth\ListensForLdapBindFailure;
 
 class LoginController extends Controller
 {
@@ -21,7 +22,8 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+
+    use AuthenticatesUsers, ListensForLdapBindFailure;
 
     /**
      * Where to redirect users after login.
@@ -40,11 +42,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+ 
+
     protected function credentials(Request $request)
-{
-    return [
-        'mail' => $request->email,
-        'password' => $request->password,
-    ];
-}
+    {
+        return [
+            'mail' => $request->email,
+            'password' => $request->password,
+        ];
+    }
+        
 }
