@@ -74,8 +74,8 @@ return [
             'model' => App\User::class,
             'sync_passwords' => true,
             'sync_attributes' => [
-                'name' => 'samaccountname',
-                'email' => 'mail',
+                'name' => 'cn',
+                'username' => 'samaccountname',
             ],
         ],
     ],

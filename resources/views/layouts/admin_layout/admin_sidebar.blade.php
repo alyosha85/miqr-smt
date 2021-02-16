@@ -12,10 +12,10 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <!-- <img src="{{ url('images/admin_images/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image"> -->
+          <img src="{{ url('images/admin_images/avatar2.png') }}" class="img-circle elevation-2" alt="User Image"> 
         </div>
         <div class="info">
-          <a href="#" class="d-block"><i class="fas fa-user-circle fa-2x">&nbsp;</i>logged in user name</a>
+          <a href="#" class="d-block">{{Auth::user()->name}}</a>
         </div>
       </div>
 
