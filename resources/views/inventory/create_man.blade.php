@@ -60,9 +60,9 @@
             <!-- End of Forth row -->
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-            <button type="button" class="btn btn-primary submit_form_ajax_man" style="visibility:hidden;">Einfügen</button>
-            <button type="submit" class="btn btn-primary submit_form_man">Einfügen</button>
+          <button type="button" class="btn btn-success submit_form_ajax_man" style="visibility:hidden;">Einfügen</button>
+          <button type="submit" class="btn btn-success submit_form_man">Einfügen</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
         </div>
     </form>
            <div class="panel-body">

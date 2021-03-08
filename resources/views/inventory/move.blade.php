@@ -27,8 +27,8 @@
 			<form action=" {{route('item_move_store')}} " method="POST" class="move_form">
 			@csrf
 			<div class="col-md-12 form-inline">
-				<input type="text" name="address" class="form-control mr-sm-1 col-md-3 move_address" placeholder="Address" readonly>
-				<input type="text" name="raum" class="form-control col-md-2 move_raum" placeholder="Address" readonly>
+				<input type="text" name="address" class="form-control mr-sm-1 col-md-3 move_address" placeholder="Adresse" readonly>
+				<input type="text" name="raum" class="form-control col-md-2 move_raum" placeholder="Raum" readonly>
 				<div class="form-check col-md-1">
 						<i class="fa fa-arrow-right form_control" style="color: #5cb85c;"></i>
 				</div>
@@ -41,8 +41,8 @@
 			<input type="hidden" name="ad_ou" class="ad_ou">
 			</div>
 			<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-					<button type="submit" class="btn btn-primary submit_form_move">Bewegen</button>
+        <button type="submit" class="btn btn-success submit_form_move">Bewegen</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
       </div>
 			</form>
 		</div>

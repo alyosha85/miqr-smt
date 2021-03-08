@@ -40,8 +40,7 @@
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                        <input type="date" class="form-control andat_amg" placeholder="Anschaffungsdatum" readonly
-                                        data-toggle="tooltip" data-placement="top" title="Anschaffungsdatum">
+                                        <input type="text" class="form-control andat_amg" name="andat" value="" placeholder="Anschaffungsdatum" data-toggle="tooltip" data-placement="top" title="Anschaffungsdatum" readonly>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <input type="text" class="form-control kp_amg" placeholder="Kaufpreis" readonly
@@ -57,7 +56,7 @@
                                     <input type="text" class="form-control raum_amg" placeholder="Raum" data-toggle="tooltip" data-placement="top" title="Raum" readonly>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <select id="grund" name="grund" class="form-control" required>
+                                    <select id="grund" name="grund" class="form-control" data-toggle="tooltip" data-placement="top" title="Grund" required>
                                     </select>
                                 </div>
                             </div>
@@ -85,8 +84,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">verwerfen</button>
-                <button type="submit" class="btn btn-primary">Ausmustern</button>
+              <button type="submit" class="btn btn-success">Ausmustern</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
             </div>
         </form>
         </div>

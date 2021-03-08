@@ -66,8 +66,8 @@
                         </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                    <button button="button" id="print_list" class="btn btn-primary">Drucken</button>
+                  <button button="button" id="print_list" class="btn btn-success">Drucken</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
                 </div>
         </div>
     </div>

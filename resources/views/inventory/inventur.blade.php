@@ -37,8 +37,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                <button type="submit" id="inventur_submit" class="btn btn-primary">Einfugen</button>
+              <button type="submit" id="inventur_submit" class="btn btn-success">Einfugen</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
             </div>
         </div>
     </div>

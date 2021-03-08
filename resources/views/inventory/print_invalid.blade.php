@@ -54,19 +54,19 @@
 <body>
     <div class="book">
         <div class="page">
-            <p style="text-align: center;"><span style="font-size: 20px;">Gerät Ausmustern</span></p>
+            <p style="text-align: center;"><span style="font-size: 20px;">Verschrottungsprotokoll</span></p>
             <p style="text-align: center;"><br></p>
             <p style="text-align: center;"><br></p>
             <p style="text-align: center;"><br></p>
-            <p style="text-align: right;">Datum: {{ $items->ausdat }}</p>
+            <p style="text-align: right;">Datum:{{ \Carbon\Carbon::parse($items->ausdat)->format('d-m-Y')}}</p>
             <p style="text-align: right;"><br></p>
             <p style="text-align: right;"><br></p>
             <ul>
-                <li style="text-align: left; line-height: 1.5;"><strong>Inv.-Nummer:&nbsp;</strong>{{ $items->invnr }}</li>
-                <li style="text-align: left; line-height: 1.5;"><strong>Geräteart:</strong> {{$items->garts->name}}</li>
-                <li style="text-align: left; line-height: 1.5;"><strong>Gerätename:</strong> {{$items->gname}}</li>
-                <li style="text-align: left; line-height: 1.5;"><strong>Seriennummer:&nbsp;</strong>{{$items->sn}}</li>
-                <li style="text-align: left; line-height: 1.5;"><strong>Letzter Standort:</strong> {{$items->location->address}}, &nbsp;<strong>Raum</strong>: {{$room}} </li>
+              <li style="text-align: left; line-height: 1.5;"><strong>Inv.-Nummer:&nbsp;</strong>{{ $items->invnr }}</li>
+              <li style="text-align: left; line-height: 1.5;"><strong>Geräteart:</strong> {{$items->garts->name}}</li>
+              <li style="text-align: left; line-height: 1.5;"><strong>Gerätename:</strong> {{$items->gname}}</li>
+              <li style="text-align: left; line-height: 1.5;"><strong>Seriennummer:&nbsp;</strong>{{$items->sn}}</li>
+              <li style="text-align: left; line-height: 1.5;"><strong>Letzter Standort:</strong> {{$items->location->address}}, &nbsp;<strong>Raum</strong>: {{$room}} </li>
             </ul>
             <hr>
             <p style="margin-left: 20px;"><br></p>

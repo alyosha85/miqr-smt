@@ -23,7 +23,6 @@ class CreateInvItemsTable extends Migration
             $table->foreignId('gart_id')->nullable();
             $table->string('gtyp',50)->nullable();
             $table->timestamps();
-
             $table->foreign('room_id')->references('id')->on('inv_rooms');
             $table->foreign('gart_id')->references('id')->on('garts');
         });

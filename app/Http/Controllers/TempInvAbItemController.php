@@ -27,7 +27,7 @@ class TempInvAbItemController extends Controller
         $reads = TempInvAbItem::get()->toArray();
         if ($reads) {
             foreach ($reads as $read) {
-                $member = InvAbItem::where('invnr',$read['invnr'])->orWhere('gname',strtoupper($read['gname']))->first();
+                $member = InvAbItem::where('invnr',$read['invnr'])->first();
                 if ($member) {
                     \Log::channel('doublelog')->error($read);
                 } else {
@@ -36,6 +36,8 @@ class TempInvAbItemController extends Controller
                     'location_id' => $read['location_id'],
                     'gname' => strtoupper($read['gname']),
                     'gart_id' => $read['gart_id'],
+                    'gtyp' => $read['gtyp'],
+                    'sn' => $read['sn'],
                     'andat' => date('Y-m-d') // current date
                 ]);
                 }

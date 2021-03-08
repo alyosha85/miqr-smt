@@ -171,6 +171,12 @@
     display:block;
   }
 
+  /* required place holders */
+  .req::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #d9534f;
+}
+
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

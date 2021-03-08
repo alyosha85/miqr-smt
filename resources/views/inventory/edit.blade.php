@@ -54,9 +54,9 @@
 							<div class="form-group col-md-2">
 									<div class="ml-5">
 											<a href="" target="_blank" class="pdf_edit_green" style="display: none;">
-													<i class="fas fa-file-pdf fa-4x" style="color:green" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
+													<i class="far fa-file-pdf fa-4x" style="color:#F40F02" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
 											</a>
-											<i class="far fa-file-pdf fa-4x pdf_edit_red" style="color:#d9534f" data-toggle="tooltip" data-placement="top" title="Keine Rechnung"></i>
+											<i class="far fa-file-pdf fa-4x pdf_edit_red" style="color:gray" data-toggle="tooltip" data-placement="top" title="Keine Rechnung"></i>
 									</div>
 							</div>
 					</div>
@@ -82,8 +82,8 @@
 					<!-- End of Forth row -->
 					</div>
 					<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-							<button type="submit" id="submit_form_edit" class="btn btn-primary submit_form_edit">Ändern</button>
+            <button type="submit" id="submit_form_edit" class="btn btn-success submit_form_edit">Ändern</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
 					</div>
 				</form>
 		</div>

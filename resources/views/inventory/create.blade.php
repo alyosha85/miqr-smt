@@ -19,7 +19,7 @@
                         <input type="text" class="form-control date" name="andat"  placeholder="Anschffungsdatum" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control kaufpreis"  name="kp" placeholder="Kaufpreis" required>
+                    <input type="text" class="form-control kaufpreis req"  name="kp" placeholder="Kaufpreis" required>
                 </div>
             </div>
             <!-- End of First row-->
@@ -39,7 +39,6 @@
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
                     <select id="gart_id" name="gart_id" class="form-control" required>
-                        <option  selected="true" disabled="disabled" value=''>Bitte wählen...</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
@@ -63,9 +62,9 @@
             <!-- End of Forth row -->
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-            <button type="button" class="btn btn-primary submit_form_ajax" style="visibility:hidden;">Einfügen</button>
-            <button type="submit" class="btn btn-primary submit_form">Einfügen</button>
+          <button type="button" class="btn btn-success submit_form_ajax" style="visibility:hidden;">Einfügen</button>
+          <button type="submit" class="btn btn-success submit_form">Einfügen</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Verwerfen</button>
         </div>
     </form>
            <div class="panel-body">

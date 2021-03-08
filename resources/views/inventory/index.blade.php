@@ -8,6 +8,15 @@
 	<div class="container-fluid">
 		<!-- SubNav Bar -->
     <ul class="nav nav-pills nav-fill">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Geräte <i class="fas fa-desktop" style="color:#F08080;"></i></a>
+        <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="javascript:" id="actual_list_modal">Aktuell</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="Javascript:" id="all_list_modal">Aktuell + Ausgemustert</a>
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
       </li>
@@ -446,13 +455,13 @@ $( document ).on( "click", "#add_modal", function() {
 		$('body .gtyp').val('');
 		$('body .sn').val('');
 		$('body .notes').val('');
-		$('#location_id').find('option').remove();
 		$('#location_id').find('optgroup').remove();
+		$('#location_id').find('option').remove();
 		$('#gart_id').find('option').remove();
 		$('#rooms').find('option').remove();
-		$('#location_id').append(new Option("Standort...",''));
-		$('#gart_id').append(new Option("Geräteart...",''));
-		$("#rooms").append(new Option("Raum...",''));
+		$('#location_id').append(new Option("Standort...",'')).css('color', '#d9534f');
+		$('#gart_id').append(new Option("Geräteart...",'')).css('color', '#d9534f');
+		$("#rooms").append(new Option("Raum...",'')).css('color', '#d9534f');
 		$('.invnr').val('');
 	locationData = new Array(); //********  save the City name, to sort the addresses below each city.  ********//
 	$.ajax({
@@ -463,23 +472,24 @@ $( document ).on( "click", "#add_modal", function() {
 					$("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
 			});
 			$.each(data['invnr'], function(index, item) {
-					$("#location_id #"+item.location.place_id).append(new Option(item.location.address,item.location_id));
+					$("#location_id #"+item.location.place_id).append(new Option(item.location.address, item.location_id)).css('color', '#292b2c');
 					locationData.push(item);
 			});
 			$.each(data['garts'], function(index, item) {
-					$("#gart_id").append(new Option(item.name,item.id));
+					$("#gart_id").append(new Option(item.name, item.id)).css('color', '#292b2c');
 			});
 		});
 });
 
 $( document ).on( "change", "#location_id", function() {
+  $('#location_id').append(new Option("Standort...",'')).css('color', '#292b2c');
 	$('#rooms').find('option').remove();
-	$("#rooms").append(new Option("Bitte Wählen...",''));
+	$("#rooms").append(new Option("Raum Wählen...",''));
 	for(let i = 0; i<locationData.length ; i++){
 		if(locationData[i].location_id == $( this ).val()){
 			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
 			$.each(locationData[i].room, function(index, item) {
-				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id)).css('color', '#292b2c');
 			});
 		}
 	}
@@ -493,7 +503,7 @@ $(function() {
 		minYear: parseInt(moment().format('YYYY'))-1,
 		maxYear: parseInt(moment().format('YYYY'))+1,
 		locale: {
-			format: 'YYYY-MM-DD'
+			format: 'DD-MM-YYYY'
 		}
   });
 });

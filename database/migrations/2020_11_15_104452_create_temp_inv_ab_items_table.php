@@ -20,6 +20,8 @@ class CreateTempInvAbItemsTable extends Migration
             $table->string('invnr',50)->nullable();
             $table->foreignId('room_id')->nullable();
             $table->string('gname',50)->nullable();
+            $table->string('gtyp',50)->nullable();
+            $table->string('sn',50)->nullable();
             $table->foreignId('gart_id')->nullable();
             $table->timestamps();
 
