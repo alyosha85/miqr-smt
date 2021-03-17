@@ -51,12 +51,12 @@
 
 		<!-- Small boxes (Stat box) -->
 		<div class="row mt-5">
-			<div class="col-lg-3 col-6">
+			<div class="col-lg-1 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3>{{$computer}}</h3>
-						<p>Total Rechner & Laptops</p>
+						<p>Total Rechner</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-tv"></i>
@@ -64,45 +64,144 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-3 col-6">
+			<div class="col-lg-1 col-6">
 				<!-- small box -->
-				<div class="small-box bg-success">
-				<div class="inner">
-					<h3>53<sup style="font-size: 20px">%</sup></h3>
-
-					<p>Hard Code</p>
-				</div>
-				<div class="icon">
-					<i class="ion ion-stats-bars"></i>
-				</div>
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$server}}</h3>
+						<p>Server</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-server"></i>
+					</div>
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-3 col-6">
+			<div class="col-lg-1 col-6">
 				<!-- small box -->
-				<div class="small-box bg-warning">
-				<div class="inner">
-					<h3>00</h3>
-
-					<p>Hard Code</p>
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$tablet}}</h3>
+						<p>Total Tabletten</p>
+					</div>
+					<div class="icon">
+						<i class="fas fa-tablet-alt"></i>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-person-add"></i>
-				</div>
+			</div>
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$printer}}</h3>
+						<p>Drucker / MFC</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-print"></i>
+					</div>
 				</div>
 			</div>
 			<!-- ./col -->
-			<!-- ./col -->
-			<div class="col-lg-3 col-6">
+			<div class="col-lg-1 col-6">
 				<!-- small box -->
-				<div class="small-box bg-danger">
-				<div class="inner">
-					<h3>65</h3>
-					<p>Hard Code</p>
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$monitor}}</h3>
+						<p>Monitore</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-desktop"></i>
+					</div>
 				</div>
-				<div class="icon">
-					<i class="ion ion-pie-graph"></i>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$switch}}</h3>
+						<p>Switch</p>
+					</div>
+					<div class="icon">
+            <i class="far fa-hdd"></i>
+					</div>
 				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$router}}</h3>
+						<p>Router</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-hdd"></i>
+					</div>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$nas}}</h3>
+						<p>NAS</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-pause"></i>
+					</div>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$projector}}</h3>
+						<p>Beamer</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-film"></i>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$tkanlage}}</h3>
+						<p>TK-anlage</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-tty"></i>
+					</div>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$telefon}}</h3>
+						<p>Telefon</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-phone"></i>
+					</div>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-1 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{$scanner}}</h3>
+						<p>Scanner</p>
+					</div>
+					<div class="icon">
+            <i class="fas fa-qrcode"></i>
+					</div>
 				</div>
 			</div>
 			<!-- ./col -->

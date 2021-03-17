@@ -32,7 +32,18 @@ class InvAbItemController extends Controller
     public function index()
     {
         $computer = InvItems::where('gart_id','2')->orwhere('gart_id','3')->count();
-        return view('inventory.index',compact('computer'));
+        $server = InvItems::where('gart_id','1')->count();
+        $tablet = InvItems::where('gart_id','4')->count();
+        $printer = InvItems::where('gart_id','5')->count();
+        $monitor = InvItems::where('gart_id','6')->count();
+        $switch = InvItems::where('gart_id','7')->orwhere('gart_id','8')->orwhere('gart_id','9')->count();
+        $router = InvItems::where('gart_id','10')->orwhere('gart_id','11')->count();
+        $nas = InvItems::where('gart_id','12')->count();
+        $projector = InvItems::where('gart_id','13')->count();
+        $tkanlage = InvItems::where('gart_id','14')->count();
+        $telefon = InvItems::where('gart_id','15')->orwhere('gart_id','16')->count();
+        $scanner = InvItems::where('gart_id','18')->count();
+        return view('inventory.index',compact('computer','server','tablet','printer','monitor','switch','router','nas','projector','tkanlage','telefon','scanner'));
     }
 
     /**

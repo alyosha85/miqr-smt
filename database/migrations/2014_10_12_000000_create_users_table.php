@@ -24,11 +24,15 @@ class CreateUsersTable extends Migration
             $table->string('straße')->nullable(); 
             $table->string('tel')->nullable(); 
             $table->string('email')->unique();
-
+            $table->string('guid')->unique()->nullable();
+            $table->string('domain')->nullable();
+            $table->foreignId('role_id')->nullable()->default('7');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-        });
+
+            $table->foreign('role_id')->references('id')->on('roles');
+          });
     }
 
     /**
