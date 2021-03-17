@@ -19,7 +19,7 @@
                         </select>
 										</div>
 										<div class="form-group col-md-4">
-											<input type="text" id="inventur_check_input" class="form-control" onblur="this.focus()" style="opacity: 0;" autofocus>  
+											<input type="text" id="inventur_check_input" class="form-control" onblur="this.focus()" style="opacity: 1;" autofocus>  
 										</div>
 									</div>
                 <table class="table" id="table_inventur" style="display: none;">
@@ -28,7 +28,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Inventarnummer</th>
                         <th scope="col">Gerätename</th>
-                        <th scope="col">Zuordnen</th>
+                        <th scope="col">Zuordnen <i class="far fa-question-circle" style="color:#467fd0" data-toggle="tooltip" data-placement="right" title="beschreibung" ></i></th>
                       </tr>
                     </thead>
                     <tbody>

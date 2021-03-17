@@ -67,6 +67,8 @@ Route::get('/item/inventur','InvAbItemController@inventur')->name('item.inventur
 Route::post('/room_inventur','InvAbItemController@roomInventur')->name('roomInventur'); //room Inventur
 Route::get('room/inventur/{invnr?}','InvAbItemController@getinvnr')->name('getinvnr');  //list add item in Inventur room listlist
 Route::post('/inventur_store_final','InvAbItemController@inventurStoreFinal')->name('inventurStoreFinal'); //store
+Route::post('/auto_change_location','InvAbItemController@autoChangeLocation')->name('autoChangeLocation'); //auto change room
+Route::post('/send_unordered_computers','InvAbItemController@sendUnorderedComputers')->name('sendUnorderedComputers'); //send unordered computers
 Route::get('/print_inventur','InvAbItemController@printinventur')->name('printinventur');
 
 

@@ -231,7 +231,6 @@ $(document).on("click", "#inventur_modal", function() {
 		$.each(data['locations'], function(index, item) {
 		$("#location_id_inventur #"+item.place_id).append(new Option(item.address,item.id));
 		selectAddressInventur.push(item);
-    console.log(selectAddressInventur);
 		});
 	});
 });
@@ -250,10 +249,10 @@ $( document ).on( "change", "#location_id_inventur", function() {
 });
 let globalIndex = 0;
 $( document ).on( "change","#room_id_inventur",function() {
-	Swal.fire({
-  icon: 'info',
-  title: 'Bitte klicken Sie auf Einreichen, nachdem das Inventar abgeschlossen ist',
-})
+	// Swal.fire({
+  // icon: 'info',
+  // title: 'Bitte klicken Sie auf Einreichen, nachdem das Inventar abgeschlossen ist',
+  // })
 	$( "body #inventur_check_input" ).focus();
 	$.ajax({
 		type:'post',
@@ -264,20 +263,19 @@ $( document ).on( "change","#room_id_inventur",function() {
 			$('body #table_inventur tbody').empty();
 			itemList = new Array();
 				$.each(resp, function(index, item) {
-                    console.log(resp);
 					globalIndex = index;
-                    $('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+(index+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
-                        '<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
-                        +'</td></tr>')
+                    $('body #table_inventur tbody').append(`<tr id="${item.invnr}"><td>${index+1}</td><td>${item.invnr}</td><td>${item.gname}</td><td> <button type="button" class="btn btn-warning btn-circle ${item.invnr}" onclick="sendInfo('${item.invroom.id}','${item.invroom.ad_ou}','${item.gname}','${item.invnr}')">JA</button></td></tr>`)
 					itemList.push({
 												invnr:item.invnr,
+                        gart_id:item.gart_id,
 												gname:item.gname,
 												place:item.invroom.location.place.pnname,
 												address:item.invroom.location.address,
 												location_id:item.invroom.location.id,
 												room_id:item.invroom.id,
 												room:item.invroom.rname,
-												zuordnen:0
+                        ad_ou:item.invroom.ad_ou,
+												zuordnen:0  //default
 					});
 			});
 
@@ -287,13 +285,27 @@ $( document ).on( "change","#room_id_inventur",function() {
 	});
 });
 
+function sendInfo(room_id,ad_ou,gname,invnr){
+  $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type:'post',
+            url:"{{ route('sendUnorderedComputers') }}",
+            data:{'room_id':room_id,'ad_ou':ad_ou,'gname':gname,'invnr':invnr},
+            success:function(resp){
+               $('body .'+invnr).hide();
+            },error:function(){
+                alert("Error");
+            }
+          });
+}
+
 let itemList = new Array();
 $( document ).on( "change","body #inventur_check_input",function() {
 	let found = false;
 	$.each(itemList, function(index, item) {
 		if(item.invnr == $('body #inventur_check_input').val())
 		{
-			item.zuordnen=null;
+			item.zuordnen=null;  //found
 			$('body #table_inventur tbody #'+$('body #inventur_check_input').val()).hide();
 			$('body #inventur_check_input').val('');
 			$( "body #inventur_check_input" ).focus();
@@ -306,20 +318,32 @@ $( document ).on( "change","body #inventur_check_input",function() {
 			url: "{!! route('getinvnr') !!}/"+$('body #inventur_check_input').val(),
 			}).done(function(item) {
 					$('body #table_inventur tbody').append('<tr id="'+item.invnr+'"><td>'+((++globalIndex)+1)+'</td><td>'+item.invnr+'</td><td>'+item.gname+'</td><td>'+
-					'<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox" checked="checked"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
-					+'</td></tr>')
+					// '<label class="toggle"><input class="toggle-checkbox" name="zuordnen'+item.invnr+'" value="yes" type="checkbox" checked="checked"><div class="toggle-switch"></div><span class="toggle-label"></span></label>'
+					'</td></tr>')
 					itemList.push({ 
 												invnr:item.invnr,
 												gname:item.gname,
+                        gart_id:item.gart_id,
 												place:item.invroom.location.place.pnname,
 												address:item.invroom.location.address,
 												location_id:item.invroom.location.id,
 												room_id_old:item.invroom.rname,
 												room_id_new:$("#room_id_inventur").val(),
 												room:item.invroom.rname,
-												zuordnen:1
+												ad_ou:item.invroom.ad_ou,
+												zuordnen:1 //add 
 					});
 				$('body #inventur_check_input').val('');
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type:'post',
+            url:"{{ route('autoChangeLocation') }}",
+            data:itemList[itemList.length-1],
+            success:function(resp){
+            },error:function(){
+                alert("Error");
+            }
+          });
 				$("body #inventur_check_input" ).focus();
 			});
 		}
@@ -331,7 +355,6 @@ $( document ).on( "click","body #inventur_submit",function() {
 			url:"{{ route('inventurStoreFinal') }}",
 			data:{'itemList':itemList},
 			success:function(resp){
-					console.log(resp);
 					let WinPrint = window.open('/print_inventur?val='+JSON.stringify(resp),'', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
 					WinPrint.document.close();
 					WinPrint.focus();
@@ -402,7 +425,6 @@ $( document ).on( "change", "#location_id_move", function() {
 	for(let i = 0; i<selectAddress.length ; i++){
 		if(selectAddress[i].id == $( this ).val()){
 			$.each(selectAddress[i].invrooms, function(index, item) {
-        console.log(item);
 				$("body #room_id_move").append(new Option(item.rname+' ('+item.altrname+')',item.id));
 			});
 		}
@@ -503,7 +525,7 @@ $(function() {
 		minYear: parseInt(moment().format('YYYY'))-1,
 		maxYear: parseInt(moment().format('YYYY'))+1,
 		locale: {
-			format: 'DD-MM-YYYY'
+			format: 'YYYY-MM-DD'
 		}
   });
 });
@@ -736,7 +758,7 @@ Dropzone.options.dropzoneFormMan = {
 		myDropzoneMan.processQueue();
 	  });
 	  this.on("addedfile", function(data){
-          console.log('sdklfjösdalkjf');
+//          console.log('sdklfjösdalkjf');
 		  $('.submit_form_ajax_man').css('visibility','visible');
 		  $('.submit_form_man').css('visibility','hidden');
 	});

@@ -46,7 +46,7 @@
                 </div>
                 <input type="hidden" class="form-control path_to_rg" id="path_to_rg" name="path_to_rg">
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control gname" id="gname" name="gname" placeholder="Gerätename" required>
+                    <input type="text" class="form-control gname req" id="gname" name="gname" placeholder="Gerätename" required>
                 </div>
                 <div class="form-group col-md-3">
                     <input type="text" class="form-control sn" id="sn" name="sn" placeholder="Seriennummer" required>

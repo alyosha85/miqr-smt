@@ -11,6 +11,7 @@ use App\Location;
 use App\InvLastNumber;
 use App\TempInvAbItem;
 use App\InvItems;
+use App\UnorderedComputer;
 use App\InvMoveItem;
 use App\InvRoom;
 use Illuminate\Http\Request;
@@ -95,19 +96,55 @@ class InvAbItemController extends Controller
     }
     public function inventurStoreFinal(Request $request)
     {
-        foreach($request->itemList as $item){
-				if($item['zuordnen'] == '1') {
-				$move = New InvMoveItem;
-				$move -> gname = $item['gname'];
-				$move -> room_id = $item['room_id_new'];
-				$move->save();
+        // foreach($request->itemList as $item){
+				// if($item['zuordnen'] == '1') {
+				// $move = New InvMoveItem;
+				// $move -> gname = $item['gname'];
+				// $move -> room_id = $item['room_id_new'];
+				// $move->save();
 
-				$move = InvItems::Where('gname',$item['gname'])->first();
-				$move->room_id = $item['room_id_new'];
-				$move->save();
-					}
-        }
+				// $move = InvItems::Where('gname',$item['gname'])->first();
+				// $move->room_id = $item['room_id_new'];
+				// $move->save();
+				// 	}
+        // }
             return $request->itemList;
+    }
+    public function autoChangeLocation(Request $request)
+    {
+      if($request->gart_id == '2' || $request->gart_id == '3'){
+        UnorderedComputer::where('gname',$request->gname)->delete();
+
+        $importRoom = [[$request->gname,$request->ad_ou]];
+        try {
+          $importRoom = Excel::toArray(new RoomImport, 'bewegungRaum.csv','local');
+          $importRoom = $importRoom[0];
+          $importRoom[] = [$request->gname,$request->ad_ou];
+        }
+        catch (\Exception $e) {
+          ;
+        }
+        Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv','local');
+
+        $move = New InvMoveItem;
+        $move -> gname = $request->gname;
+        $move -> ad_ou = $request->ad_ou;
+        $move->save();
+      }
+
+      $move = InvItems::Where('gname',$request->gname)->first();
+      $move->room_id = $request->room_id_new;
+      $move->save();
+      return $move->room_id;
+    }
+
+    public function sendUnorderedComputers(Request $request)
+    {
+      $item = new UnorderedComputer;
+      $item -> gname = $request -> gname;
+      $item -> ad_ou = $request -> ad_ou;
+      $item -> room_id = $request -> room_id;
+      $item -> save();
     }
 
     public function printinventur ()
@@ -264,14 +301,14 @@ class InvAbItemController extends Controller
 
       $importRoom = [[$request->gname_move,$request->ad_ou]];
       try {
-        $importRoom = Excel::toArray(new RoomImport, 'bewegungRaum.csv','sftp');
+        $importRoom = Excel::toArray(new RoomImport, 'bewegungRaum.csv','local');
         $importRoom = $importRoom[0];
         $importRoom[] = [$request->gname_move,$request->ad_ou];
       }
       catch (\Exception $e) {
         ;
       }
-      Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv','sftp');
+      Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv','local');
 
 			$move = InvItems::Where('gname',$request->gname_move)->first();
 			$move -> room_id = $request->room_id;

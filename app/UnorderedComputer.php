@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FinalInventory extends Model
+class UnorderedComputer extends Model
 {
     //
 }

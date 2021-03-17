@@ -16,8 +16,11 @@ class CreateInvMoveItemsTable extends Migration
         Schema::create('inv_move_items', function (Blueprint $table) {
             $table->id();
             $table->string('gname',50)->nullable();
+            $table->foreignId('room_id')->nullable();
             $table->string('ad_ou')->nullable();
             $table->timestamps();
+
+            $table->foreign('room_id')->references('id')->on('inv_rooms');
 
         });
     }
