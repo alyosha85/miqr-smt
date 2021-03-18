@@ -49,8 +49,8 @@
 						<h5 class="card-title mb-3"><strong>Benutzereinstellungen</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="javascript:" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung</a>
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
+								<a href="" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung</a>
+								<a href="{{ route('settings.roleList')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen</a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->
@@ -88,9 +88,9 @@
 	</div>
 </section>
 
-@include('settings.modal_settings.add_city')
-@include('settings.modal_settings.add_location')
-@include('settings.modal_settings.add_room')
+@include('settings.modal_settings.inventory.add_city')
+@include('settings.modal_settings.inventory.add_location')
+@include('settings.modal_settings.inventory.add_room')
 
 
 @endsection
@@ -157,6 +157,7 @@ $(document).ready(function(){
         $('#settings_etage').prop('readonly',false);
         $('#settings_altrname').prop('readonly',false);
       });
+
 });
 
 </script>

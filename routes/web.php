@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvAbItemController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -84,7 +85,8 @@ Route::get('/settings/cityAddressList','InvRoomController@cityAddressList')->nam
 /* Add Location City ROOM  (Add - Save )*/
 Route::post('/create_address','LocationController@addLocation')->name('addLocation');
 Route::post('/create_room','InvRoomController@addRoom')->name('addRoom');
-
+/* Role index */
+Route::get('/settings/roleList','RoleController@index')->name('settings.roleList');
 
 
 /******************************************  Profile  ******************************************************/
