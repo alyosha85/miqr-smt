@@ -97,3 +97,5 @@ Route::get('/profile',function(){
 
 /******************************************  Matrix  ******************************************************/
 Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berlin');
+
+

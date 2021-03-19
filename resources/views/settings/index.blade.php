@@ -28,14 +28,11 @@
 						<div class="card-text">
 							<div class="list-group">
 								<a href="javascript:" id="addCity_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Stadt hinzufügen
-									 &nbsp; <i class="fas fa-map-marker-alt"></i>
-								</a>
+									 &nbsp; <i class="fas fa-map-marker-alt"></i></a>
 								<a href="javascript:" id="addLocation_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Adresse hinzufügen
-									 &nbsp; <i class="fas fa-building"></i>
-								</a>
+									 &nbsp; <i class="fas fa-building"></i></a>
 								<a href="javascript:" id="addRoom_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neuen Raum hinzufügen
-									&nbsp; <i class="fas fa-chalkboard-teacher"></i>
-								</a>
+									&nbsp; <i class="fas fa-chalkboard-teacher"></i></a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->
@@ -49,8 +46,11 @@
 						<h5 class="card-title mb-3"><strong>Benutzereinstellungen</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung</a>
-								<a href="{{ route('settings.roleList')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen</a>
+								<a href="" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung
+                &nbsp; <i class="fas fa-users"></i></a>
+								<a href="{{ route('settings.roleList')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen & Berechtigungen
+                  &nbsp; <i class="fas fa-user-tag"></i></a>
+                </a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->

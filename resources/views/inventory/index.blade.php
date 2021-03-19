@@ -51,12 +51,12 @@
 
 		<!-- Small boxes (Stat box) -->
 		<div class="row mt-5">
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3>{{$computer}}</h3>
-						<p>Total Rechner</p>
+						<p>Total Rechner & Laptops</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-tv"></i>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -77,7 +77,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -89,7 +89,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -102,7 +102,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -128,7 +128,11 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+		</div>
+    <!-- End of First Line-->
+    <!-- Second Line -->
+    <div class="row mt-2">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -141,7 +145,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -154,7 +158,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -166,7 +170,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -179,7 +183,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
@@ -192,7 +196,7 @@
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-1 col-6">
+			<div class="col-lg-2 col-6">
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
