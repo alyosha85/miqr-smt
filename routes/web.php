@@ -73,8 +73,6 @@ Route::post('/send_unordered_computers','InvAbItemController@sendUnorderedComput
 Route::get('/print_inventur','InvAbItemController@printinventur')->name('printinventur');
 
 
-
-
 /******************************************  Settings  ******************************************************/
 Route::get('/settings','SettingController@index')->name('setting_index');
 /* Add City */
@@ -87,6 +85,8 @@ Route::post('/create_address','LocationController@addLocation')->name('addLocati
 Route::post('/create_room','InvRoomController@addRoom')->name('addRoom');
 /* Role index */
 Route::get('/settings/roleList','RoleController@index')->name('settings.roleList');
+/* users index */
+Route::get('/settings/usersList','UserController@index')->name('settings.usersList');
 
 
 /******************************************  Profile  ******************************************************/
