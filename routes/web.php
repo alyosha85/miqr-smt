@@ -85,6 +85,7 @@ Route::post('/create_address','LocationController@addLocation')->name('addLocati
 Route::post('/create_room','InvRoomController@addRoom')->name('addRoom');
 /* Role index */
 Route::get('/settings/roleList','RoleController@index')->name('settings.roleList');
+Route::resource('/role','RoleController');
 /* users index */
 Route::get('/settings/usersList','UserController@index')->name('settings.usersList');
 

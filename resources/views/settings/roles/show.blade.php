@@ -21,7 +21,8 @@
             <th scope="row">{{$role->id}}</th>
             <td>{{$role->name}}</td>
             <td class="text-right">
-              <a href="{{url ('/role/'.$role->id.'/edit')}}" class="btn btn-outline-primary"><i class="fas fa-pen-alt"></i></a>
+              <a href="{{url ('/role/'.$role->id)}}" class="btn btn-outline-success"><i class="far fa-eye"></i></a>
+              <button class="btn btn-outline-primary"><i class="fas fa-pen-alt"></i></button>
               <button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
@@ -33,6 +34,8 @@
 	</div>
 </section>
 
+
+@include('settings.modal_settings.roles.roles_view')
 @endsection
 
 @section('script')
