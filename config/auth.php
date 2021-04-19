@@ -68,11 +68,11 @@ return [
     'providers' => [
       'ldap' => [
         'driver' => 'ldap',
-        'model' => App\Ldap\Verwaltung::class,  //uses builtin Model <-- Your custom LdapRecord model
+        'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
         'rules' => [],
         'database' => [
-            'model' => App\User::class,         // <-- Your Laravel Eloquent database model
-            'sync_passwords' => true, 
+            'model' => App\User::class,
+            'sync_passwords' => true,
             'sync_attributes' => [
               'name' => 'cn',
               'username' => 'samaccountname',

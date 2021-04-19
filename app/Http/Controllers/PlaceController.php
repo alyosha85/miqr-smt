@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class PlaceController extends Controller
 {
-      public function __construct()
-    {
-        $this->middleware('auth');
-    }
 		//**   Add City  **//
 		public function addCity(Request $request)
 		{

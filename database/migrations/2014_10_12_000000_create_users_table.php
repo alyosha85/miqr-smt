@@ -26,12 +26,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('guid')->unique()->nullable();
             $table->string('domain')->nullable();
-            $table->foreignId('role_id')->nullable()->default('7');
             $table->string('password');
+            $table->text('roles_name')->default('Verwaltung');
+            $table->string('status',9)->default('Active');
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('role_id')->references('id')->on('roles');
           });
     }
 
