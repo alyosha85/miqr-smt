@@ -48,7 +48,8 @@ class InvAbItemController extends Controller
         $tkanlage = InvItems::where('gart_id','14')->count();
         $telefon = InvItems::where('gart_id','15')->orwhere('gart_id','16')->count();
         $scanner = InvItems::where('gart_id','18')->count();
-        return view('inventory.index',compact('computer','server','tablet','printer','monitor','switch','router','nas','projector','tkanlage','telefon','scanner'));
+        $ausgemusterd = InvAbItem::whereNotNull('ausdat')->get();
+        return view('inventory.index',compact('computer','server','tablet','printer','monitor','switch','router','nas','projector','tkanlage','telefon','scanner','ausgemusterd'));
     }
 
     /**

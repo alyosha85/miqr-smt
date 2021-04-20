@@ -1,6 +1,12 @@
 @extends('layouts.admin_layout.admin_layout')
 
-
+<style>
+  /* scroll problem  -> click wasn't working if the modal body was larger than screen  */
+  .modal-body{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+</style>
 @section('content')
 
 <!-- Main content -->
