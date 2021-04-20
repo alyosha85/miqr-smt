@@ -7,14 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
     use Notifiable, AuthenticatesWithLdap;
-    use HasRoles;
-
-    protected $guard_name = 'web';
 
     /**
      * The attributes that are mass assignable.
@@ -22,7 +18,7 @@ class User extends Authenticatable implements LdapAuthenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','roles_name','status',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -41,6 +37,5 @@ class User extends Authenticatable implements LdapAuthenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'roles_name' => 'array',
     ];
 }

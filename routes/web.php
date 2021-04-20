@@ -12,14 +12,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 
-
-
-
-Route::group(['middleware' => ['auth']], function() {
-  Route::resource('roles','RoleController');
-  Route::resource('users','UserController'); //add to User Modal protected $guard_name = 'web';
-
-  // one time query from temp to inv_ab_item table
+// one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
 // query last InvNumber
 Route::get('/auto','InvLastNumberController@index')->name('auto');
@@ -90,6 +83,13 @@ Route::get('/settings/cityAddressList','InvRoomController@cityAddressList')->nam
 /* Add Location City ROOM  (Add - Save )*/
 Route::post('/create_address','LocationController@addLocation')->name('addLocation');
 Route::post('/create_room','InvRoomController@addRoom')->name('addRoom');
+/* Role index */
+Route::get('/settings/roleList','RoleController@index')->name('settings.roleList');
+Route::resource('/role','RoleController');
+/* users index */
+Route::get('/settings/usersList','UserController@index')->name('settings.usersList');
+
+
 /******************************************  Profile  ******************************************************/
 Route::get('/profile',function(){
   return view('user.profile');
@@ -99,4 +99,4 @@ Route::get('/profile',function(){
 /******************************************  Matrix  ******************************************************/
 Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berlin');
 
-  }); //end Auth group
+
