@@ -240,6 +240,223 @@
 
 <script>
 
+  //************************************************************* Edit ************************************************************//
+$(document).on( "click", "#edit_modal", function() {
+// Empty Values
+$('#search_edit').val('');
+$('body .item_edit_form').trigger('reset')
+$('#edit').modal('show');
+$(document).on('keyup change', '#search_edit', function(){
+	let search_edit = $(this).val();
+	$.ajax({
+		type:'post',
+		url:"{{ route('search_check_edit') }}",
+		data:{search_edit:search_edit},
+		success:function(resp){
+			if(resp=="false"){
+				$("body #chksrchedit").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
+			}else{
+				if(resp =="true") {
+                $("body #chksrchedit").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
+                $("body .pdf_edit_green").hide();
+                $("body .pdf_edit_red").show();
+					$.ajax({
+						type:'get',
+						url:"{{ route('search_edit') }}",
+						data:{search_edit:search_edit},
+						success:function(resp){
+							if(resp.items.path_to_rg) {
+								$("body .pdf_edit_green").show();
+								$("body .pdf_edit_red").hide();
+								$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
+							}
+							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
+							$('body .item_edit_form .gname_edit').val(resp.items.gname)
+							$('body .item_edit_form .andat_edit').val(resp.items.andat)
+							$('body .item_edit_form .kp_edit').val(resp.items.kp)
+							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
+							$('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
+							$('body .item_edit_form .gart_edit').val(resp.items.garts.name)
+							$('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
+							$('body .item_edit_form .sn_edit').val(resp.items.sn)
+							$('body .item_edit_form .notes_edit').val(resp.items.notes)
+						},error:function(){
+							alert("Error");
+						}
+					});
+				}
+			}
+		},error:function(){
+			alert("Error");
+		}
+	});
+});
+});
+
+
+  //************************************************************* Create ************************************************************//
+$( document ).on( "click", "#add_modal", function() {
+	$('#add').modal('show');
+  //empty form on open
+  $('body .kaufpreis').val('');
+  $('body .gname').val('');
+  myDropzone.removeAllFiles();
+  $('body .gtyp').val('');
+  $('body .sn').val('');
+  $('body .notes').val('');
+  $('#location_id').find('optgroup').remove();
+  $('#location_id').find('option').remove();
+  $('#rooms').find('option').remove();
+  $('#gart_id').find('option').remove();
+  $('#location_id').append(new Option("Standort...",''));
+  $('#rooms').append(new Option("Raum...",''));
+  $('#gart_id').append(new Option("Geräteart...",''));
+  $('.invnr').val('');
+  //end empty form //
+  //*******  save the City name, to sort the addresses below each city.  ********//
+  locationData = new Array();
+  $.ajax({
+    type: "GET",
+    url: "{{ route('item.create') }}",
+    }).done(function( data ) {
+      $.each(data['places'], function(index, item) {
+          $("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+      });
+      $.each(data['invnr'], function(index, item) {
+          $("#location_id #"+item.location.place_id).append(new Option(item.location.address, item.location_id));
+          locationData.push(item);
+      });
+      $.each(data['garts'], function(index, item) {
+          $("#gart_id").append(new Option(item.name, item.id));
+      });
+    });
+});
+
+$( document ).on( "change", "#location_id", function() {
+  $('#location_id').append(new Option("Standort...",''));
+	$('#rooms').find('option').remove();
+	$("#rooms").append(new Option("Raum Wählen...",''));
+	for(let i = 0; i<locationData.length ; i++){
+		if(locationData[i].location_id == $( this ).val()){
+			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
+			$.each(locationData[i].room, function(index, item) {
+				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+			});
+		}
+	}
+	$('.invnr').val(texty);
+});
+
+$(function() {
+  $('.date').daterangepicker({
+		singleDatePicker: true,
+		showDropdowns: true,
+		minYear: parseInt(moment().format('YYYY'))-1,
+		maxYear: parseInt(moment().format('YYYY'))+1,
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
+  });
+});
+
+
+//************************************************************* Man. Create *****************************************************//
+let locationSelect = new Array();
+$(document).on( "click", "#add_modal_man", function() {
+	// empty form on open function
+	$('#add_man').modal('show');
+	$('#location_id_man').find('option').remove();
+	$('#location_id_man').find('optgroup').remove();
+	locationSelect = new Array();
+	$('#gart_id_man').find('option').remove();
+	$('#gart_id_man').append(new Option("Geräteart...",0));
+	$('#location_id_man').append(new Option("Standort...",0));
+	$('#rooms_id_man').find('option').remove();
+	$("#rooms_id_man").append(new Option("Raum...",''));
+$.ajax({
+	type: "GET",
+	url: "{{ route('item.create_man') }}",
+	}).done(function(data) {
+		$.each(data['places'], function(index, item) {
+			$("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+		});
+		$.each(data['locations'], function(index, item){
+			$("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
+			locationSelect.push(item);
+		});
+		$.each(data['garts'], function(idex,item){
+			$("#gart_id_man").append(new Option(item.name,item.id));
+		})
+	});
+});
+
+$( document ).on( "change", "#location_id_man", function() {
+	$('#rooms_man').find('option').remove();
+	$("#rooms_man").append(new Option("Raum...",''));
+	for(let i = 0; i<locationSelect.length ; i++){
+		if(locationSelect[i].id == $( this ).val()){
+			$.each(locationSelect[i].invrooms, function(index, item) {
+					$("#rooms_man").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+				});
+			}
+		}
+	});
+
+$(function() {
+  $('.date_man').daterangepicker({
+	singleDatePicker: true,
+	showDropdowns: true,
+	minYear: parseInt(moment().format('YYYY'))-1,
+	maxYear: parseInt(moment().format('YYYY'))+1,
+	locale: {
+	  format: 'YYYY-MM-DD'
+	}
+  });
+});
+
+
+  //************************************************************* Print Label ************************************************************//
+  let locationData = new Array();
+  let text = '';
+  $( document ).on( "click", "#etiketten_modal", function() {
+    $('#printpage').modal('show');
+    $('#anzahl').val(1);
+    $('#address').find('option').remove();
+    $("#address").append(new Option("Bitte Wählen...",0));
+    $('.inventNumber').val('');
+    locationData = new Array();
+    $.ajax({
+      type: "GET",
+      url: "{{ route('auto') }}", //Route NAME USED
+      }).done(function( data ) {
+        $.each(data, function(index, item) {
+        $("#address").append(new Option(item.location.address,item.location_id));
+        locationData.push(item);
+      });
+    });
+  });
+
+  $( document ).on( "change", "#address", function() {
+    for(let i = 0; i<locationData.length ; i++){
+      if(locationData[i].location_id == $( this ).val()){
+        texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
+      }
+    }
+    $('.inventNumber').val(texty);
+  });
+
+    //********************************************************** Print Etiketten ***************************************************//
+  function printfunction() {
+    $('#printpage').modal('show');
+    let printinvnr = $('#prntinvnr').val();
+    let anzahl = $('#anzahl').val();
+    let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    setInterval(function(){ WinPrint.close()}, 3000);
+	}
+
 //************************************************************* List Print **********************************************************
 let selectAddresslisten = new Array();
 let roomlisten = new Array();
@@ -546,98 +763,9 @@ $( document ).on("change","#room_id_move", function(){
 });
 
 
-//************************************************************* Print Label ************************************************************//
-let locationData = new Array();
-let text = '';
-$( document ).on( "click", "#etiketten_modal", function() {
-	$('#printpage').modal('show');
-	$('#anzahl').val(1);
-	$('#address').find('option').remove();
-	$("#address").append(new Option("Bitte Wählen...",0));
-	$('.inventNumber').val('');
-	locationData = new Array();
-	$.ajax({
-		type: "GET",
-		url: "{{ route('auto') }}", //Route NAME USED
-		}).done(function( data ) {
-			$.each(data, function(index, item) {
-			$("#address").append(new Option(item.location.address,item.location_id));
-			locationData.push(item);
-		});
-	});
-});
 
-$( document ).on( "change", "#address", function() {
-	for(let i = 0; i<locationData.length ; i++){
-		if(locationData[i].location_id == $( this ).val()){
-			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
-		}
-	}
-	$('.inventNumber').val(texty);
-});
 
-//************************************************************* Create ************************************************************//
-$( document ).on( "click", "#add_modal", function() {
-	$('#add').modal('show');
-		//empty form on open
-		$('body .kaufpreis').val('');
-		$('body .gname').val('');
-		myDropzone.removeAllFiles();
-		$('body .gtyp').val('');
-		$('body .sn').val('');
-		$('body .notes').val('');
-		$('#location_id').find('optgroup').remove();
-		$('#location_id').find('option').remove();
-		$('#gart_id').find('option').remove();
-		$('#rooms').find('option').remove();
-		$('#location_id').append(new Option("Standort...",'')).css('color', '#d9534f');
-		$('#gart_id').append(new Option("Geräteart...",'')).css('color', '#d9534f');
-		$("#rooms").append(new Option("Raum...",'')).css('color', '#d9534f');
-		$('.invnr').val('');
-	locationData = new Array(); //********  save the City name, to sort the addresses below each city.  ********//
-	$.ajax({
-		type: "GET",
-		url: "{{ route('item.create') }}",
-		}).done(function( data ) {
-			$.each(data['places'], function(index, item) {
-					$("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-			});
-			$.each(data['invnr'], function(index, item) {
-					$("#location_id #"+item.location.place_id).append(new Option(item.location.address, item.location_id)).css('color', '#292b2c');
-					locationData.push(item);
-			});
-			$.each(data['garts'], function(index, item) {
-					$("#gart_id").append(new Option(item.name, item.id)).css('color', '#292b2c');
-			});
-		});
-});
 
-$( document ).on( "change", "#location_id", function() {
-  $('#location_id').append(new Option("Standort...",'')).css('color', '#292b2c');
-	$('#rooms').find('option').remove();
-	$("#rooms").append(new Option("Raum Wählen...",''));
-	for(let i = 0; i<locationData.length ; i++){
-		if(locationData[i].location_id == $( this ).val()){
-			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
-			$.each(locationData[i].room, function(index, item) {
-				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id)).css('color', '#292b2c');
-			});
-		}
-	}
-	$('.invnr').val(texty);
-});
-
-$(function() {
-  $('.date').daterangepicker({
-		singleDatePicker: true,
-		showDropdowns: true,
-		minYear: parseInt(moment().format('YYYY'))-1,
-		maxYear: parseInt(moment().format('YYYY'))+1,
-		locale: {
-			format: 'YYYY-MM-DD'
-		}
-  });
-});
 
 //************************************************************* Ausmuster ****************************************************//
 $(document).ready(function(){
@@ -693,122 +821,6 @@ $(document).on('keyup change', '#search_amg', function(){
 });
 });
 
-//************************************************************* Edit ************************************************************//
-$(document).on( "click", "#edit_modal", function() {
-// Empty Values
-$('#search_edit').val('');
-$('body .item_edit_form').trigger('reset')
-$('#edit').modal('show');
-$(document).on('keyup change', '#search_edit', function(){
-	let search_edit = $(this).val();
-	$.ajax({
-		type:'post',
-		url:"{{ route('search_check_edit') }}",
-		data:{search_edit:search_edit},
-		success:function(resp){
-			if(resp=="false"){
-				$("body #chksrchedit").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
-			}else{
-				if(resp =="true") {
-                $("body #chksrchedit").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
-                $("body .pdf_edit_green").hide();
-                $("body .pdf_edit_red").show();
-					$.ajax({
-						type:'get',
-						url:"{{ route('search_edit') }}",
-						data:{search_edit:search_edit},
-						success:function(resp){
-							if(resp.items.path_to_rg) {
-								$("body .pdf_edit_green").show();
-								$("body .pdf_edit_red").hide();
-								$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
-							}
-							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
-							$('body .item_edit_form .gname_edit').val(resp.items.gname)
-							$('body .item_edit_form .andat_edit').val(resp.items.andat)
-							$('body .item_edit_form .kp_edit').val(resp.items.kp)
-							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
-							$('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
-							$('body .item_edit_form .gart_edit').val(resp.items.garts.name)
-							$('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
-							$('body .item_edit_form .sn_edit').val(resp.items.sn)
-							$('body .item_edit_form .notes_edit').val(resp.items.notes)
-						},error:function(){
-							alert("Error");
-						}
-					});
-				}
-			}
-		},error:function(){
-			alert("Error");
-		}
-	});
-});
-});
-
-function printfunction() {
-	$('#printpage').modal('show');
-	let printinvnr = $('#prntinvnr').val();
-	let anzahl = $('#anzahl').val();
-	let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-	WinPrint.document.close();
-	WinPrint.focus();
-	WinPrint.print();
-	setInterval(function(){ WinPrint.close()}, 3000);
-	}
-//************************************************************* Man. Create *****************************************************//
-let locationSelect = new Array();
-$(document).on( "click", "#add_modal_man", function() {
-	// empty form on open function
-	$('#add_man').modal('show');
-	$('#location_id_man').find('option').remove();
-	$('#location_id_man').find('optgroup').remove();
-	locationSelect = new Array();
-	$('#gart_id_man').find('option').remove();
-	$('#gart_id_man').append(new Option("Geräteart...",0));
-	$('#location_id_man').append(new Option("Standort...",0));
-	$('#rooms_id_man').find('option').remove();
-	$("#rooms_id_man").append(new Option("Raum...",''));
-$.ajax({
-	type: "GET",
-	url: "{{ route('item.create_man') }}",
-	}).done(function(data) {
-		$.each(data['places'], function(index, item) {
-			$("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-		});
-		$.each(data['locations'], function(index, item){
-			$("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
-			locationSelect.push(item);
-		});
-		$.each(data['garts'], function(idex,item){
-			$("#gart_id_man").append(new Option(item.name,item.id));
-		})
-	});
-});
-
-$( document ).on( "change", "#location_id_man", function() {
-	$('#rooms_man').find('option').remove();
-	$("#rooms_man").append(new Option("Raum...",''));
-	for(let i = 0; i<locationSelect.length ; i++){
-		if(locationSelect[i].id == $( this ).val()){
-			$.each(locationSelect[i].invrooms, function(index, item) {
-					$("#rooms_man").append(new Option(item.rname+' ('+item.altrname+')',item.id));
-				});
-			}
-		}
-	});
-
-$(function() {
-  $('.date_man').daterangepicker({
-	singleDatePicker: true,
-	showDropdowns: true,
-	minYear: parseInt(moment().format('YYYY'))-1,
-	maxYear: parseInt(moment().format('YYYY'))+1,
-	locale: {
-	  format: 'YYYY-MM-DD'
-	}
-  });
-});
 
 // drop zone
 Dropzone.options.dropzoneForm = {

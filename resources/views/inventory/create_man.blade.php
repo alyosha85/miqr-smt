@@ -12,49 +12,73 @@
             @csrf
             <!-- First row -->
             <div class="form-row mb-3">
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control invnr_man" name="invnr" placeholder="Inventarnummer" required>
-                </div>
-                <div class="form-group col-md-4">
-                        <input type="text" class="form-control date_man" name="andat"  placeholder="Anschffungsdatum" required>
-                </div>
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control kp_man"  name="kp" placeholder="Kaufpreis" required>
-                </div>
+              <div class="form-group col-md-4">
+                <label for="invnr" data-toggle="tooltip" data-placement="top" title="Erforderlich" >Inventarnummer
+                  <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                </label>
+                <input type="text" class="form-control invnr_man" name="invnr" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="andat" data-toggle="tooltip" data-placement="top" title="Erforderlich">Anschffungsdatum
+                  <i class="fas fa-asterisk"style="color:#d9534f;"></i>
+                </label>
+                <input type="text" class="form-control date_man" name="andat" required>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="kp" data-toggle="tooltip" data-placement="top" title="Erforderlich">Kaufpreis
+                  <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                </label>
+                <input type="text" class="form-control kp_man" name="kp" required>
+              </div>
             </div>
             <!-- Second row-->
             <div class="form-row mb-3">
-                <div class="form-group col-md-4">
-                    <select id="location_id_man" name="location_id" class="form-control" required>
-                    </select>
-                </div>
-                <div class="form-group col-md-4">
-                    <select id="rooms_man" name="room_id" class="form-control" required>
-                    </select>
-                </div>
+              <div class="form-group col-md-4">
+                <label for="location_id" data-toggle="tooltip" data-placement="top" title="Erforderlich">Standort
+                  <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                </label>
+                <select id="location_id_man" name="location_id" class="form-control" required>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="room_id" data-toggle="tooltip" data-placement="top" title="Erforderlich">Raum
+                  <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                </label>
+                <select id="rooms_man" name="room_id" class="form-control" required>
+                </select>
+              </div>
             </div>
             <!-- Third row-->
             <div class="form-row mb-3">
-                <div class="form-group col-md-3">
-                    <select id="gart_id_man" name="gart_id" class="form-control" required>
-                        <option  selected="true" disabled="disabled" value=''>Bitte wählen...</option>
-                    </select>
-                </div>
-                <div class="form-group col-md-3">
-                        <input type="text" class="form-control" id="gtyp_man" name="gtyp" placeholder="Gerätetyp" required>
-                </div>
-                <input type="hidden" class="form-control path_to_rg_man" id="path_to_rg_man" name="path_to_rg">
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="gname_man" name="gname" placeholder="Gerätename" required>
-                </div>
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="sn_man" name="sn" placeholder="Seriennummer" required>
-                </div>
+              <div class="form-group col-md-3">
+                <label for="gname" data-toggle="tooltip" data-placement="top" title="Erforderlich">Gerätename
+                  <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                </label>
+                <input type="text" class="form-control" id="gname_man" name="gname" required>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="gart_id" data-toggle="tooltip" data-placement="top" title="Erforderlich">Geräteart
+                  <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                </label>
+                <select id="gart_id_man" name="gart_id" class="form-control" required></select>
+              </div>
+              <div class="form-group col-md-3">
+                <label for="gtyp" data-toggle="tooltip" data-placement="top" title="Modell z.B HP, Samsung usw">Gerätetyp
+                  <i class="fas fa-info-circle" style="color:dodgerblue"></i>
+                </label>
+                <input type="text" class="form-control" id="gtyp_man" name="gtyp" required>
+              </div>
+              <input type="hidden" class="form-control path_to_rg_man" id="path_to_rg_man" name="path_to_rg">
+              <div class="form-group col-md-3">
+                <label for="gtyp">Seriennummer</label>
+                <input type="text" class="form-control" id="sn_man" name="sn" required>
+              </div>
             </div>
             <!-- Forth row -->
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <textarea class="form-control" id="notes_man" name="notes" rows="3" placeholder="Notizen"></textarea>
+                  <label for="notes">Notizen</label>
+                  <textarea class="form-control" id="notes_man" name="notes" rows="3"></textarea>
                 </div>
             </div>
             <!-- End of Forth row -->

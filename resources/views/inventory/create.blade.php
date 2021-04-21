@@ -13,51 +13,74 @@
             <!-- First row -->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control invnr" name="invnr" placeholder="Inventarnummer" readonly required>
+                  <label for="invnr" data-toggle="tooltip" data-placement="top" title="Erforderlich" >Inventarnummer
+                    <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                  </label>
+                  <input type="text" class="form-control invnr" name="invnr" readonly required>
                 </div>
                 <div class="form-group col-md-4">
-                        <input type="text" class="form-control date" name="andat"  placeholder="Anschffungsdatum" required>
+                  <label for="andat" data-toggle="tooltip" data-placement="top" title="Erforderlich">Anschffungsdatum
+                    <i class="fas fa-asterisk"style="color:#d9534f;"></i>
+                  </label>
+                  <input type="text" class="form-control date" name="andat" required>
                 </div>
                 <div class="form-group col-md-4">
-                    <input type="text" class="form-control kaufpreis req"  name="kp" placeholder="Kaufpreis" required>
+                  <label for="kp" data-toggle="tooltip" data-placement="top" title="Erforderlich">Kaufpreis
+                    <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                  </label>
+                  <input type="text" class="form-control kaufpreis"  name="kp" required>
                 </div>
             </div>
             <!-- End of First row-->
             <!-- Second row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-4">
-                    <select id="location_id" name="location_id" class="form-control" required>
-                    </select>
+                  <label for="location_id" data-toggle="tooltip" data-placement="top" title="Erforderlich">Standort
+                    <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                  </label>
+                  <select id="location_id" name="location_id" class="form-control" required></select>
                 </div>
                 <div class="form-group col-md-4">
-                    <select id="rooms" name="room_id" class="form-control" required>
-                    </select>
+                  <label for="room_id" data-toggle="tooltip" data-placement="top" title="Erforderlich">Raum
+                    <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                  </label>
+                  <select id="rooms" name="room_id" class="form-control" required></select>
                 </div>
             </div>
             <!-- End of Second row-->
             <!-- Third row-->
             <div class="form-row mb-3">
                 <div class="form-group col-md-3">
-                    <select id="gart_id" name="gart_id" class="form-control" required>
-                    </select>
+                  <label for="gname" data-toggle="tooltip" data-placement="top" title="Erforderlich">Gerätename
+                    <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                  </label>
+                  <input type="text" class="form-control gname req" id="gname" name="gname" required>
                 </div>
                 <div class="form-group col-md-3">
-                        <input type="text" class="form-control gtyp" id="gtyp" name="gtyp" placeholder="Gerätetyp" required>
+                  <label for="gart_id" data-toggle="tooltip" data-placement="top" title="Erforderlich">Geräteart
+                    <i class="fas fa-asterisk" style="color:#d9534f;"></i>
+                  </label>
+                  <select id="gart_id" name="gart_id" class="form-control" required></select>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="gtyp" data-toggle="tooltip" data-placement="top" title="Modell z.B HP, Samsung usw">Gerätetyp
+                    <i class="fas fa-info-circle" style="color:dodgerblue"></i>
+                  </label>
+                  <input type="text" class="form-control gtyp" id="gtyp" name="gtyp" required>
                 </div>
                 <input type="hidden" class="form-control path_to_rg" id="path_to_rg" name="path_to_rg">
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control gname req" id="gname" name="gname" placeholder="Gerätename" required>
-                </div>
-                <div class="form-group col-md-3">
-                    <input type="text" class="form-control sn" id="sn" name="sn" placeholder="Seriennummer" required>
+                  <label for="gtyp">Seriennummer</label>
+                  <input type="text" class="form-control sn" id="sn" name="sn">
                 </div>
             </div>
             <!-- End of Third row-->
             <!-- Forth row -->
             <div class="form-row">
-                <div class="form-group col-md-12">
-                    <textarea class="form-control notes" id="notes" name="notes" rows="3" placeholder="Notizen"></textarea>
-                </div>
+              <div class="form-group col-md-12">
+                <label for="notes">Notizen</label>
+                <textarea class="form-control notes" id="notes" name="notes" rows="3"></textarea>
+              </div>
             </div>
             <!-- End of Forth row -->
         </div>
