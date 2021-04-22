@@ -245,6 +245,9 @@ $(document).on( "click", "#edit_modal", function() {
 // Empty Values
 $('#search_edit').val('');
 $('body .item_edit_form').trigger('reset')
+$("body .pdf_edit_red").hide();								
+$("body .pdf_edit_green").hide();
+$("body #chksrchedit").removeClass().addClass('fas fa-ellipsis-h').css('color','#0275d8');
 $('#edit').modal('show');
 $(document).on('keyup change', '#search_edit', function(){
 	let search_edit = $(this).val();
@@ -254,10 +257,13 @@ $(document).on('keyup change', '#search_edit', function(){
 		data:{search_edit:search_edit},
 		success:function(resp){
 			if(resp=="false"){
-				$("body #chksrchedit").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
+				$("body #chksrchedit").removeClass().addClass('fas fa-times-circle').css('color', '#d9534f');
+        $('body .item_edit_form').trigger('reset')
+        $("body .pdf_edit_red").hide();								
+        $("body .pdf_edit_green").hide();
 			}else{
 				if(resp =="true") {
-                $("body #chksrchedit").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
+                $("body #chksrchedit").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
                 $("body .pdf_edit_green").hide();
                 $("body .pdf_edit_red").show();
 					$.ajax({

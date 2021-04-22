@@ -66,7 +66,7 @@
                   <label for="gtyp" data-toggle="tooltip" data-placement="top" title="Modell z.B HP, Samsung usw">Gerätetyp
                     <i class="fas fa-info-circle" style="color:dodgerblue"></i>
                   </label>
-                  <input type="text" class="form-control gtyp" id="gtyp" name="gtyp" required>
+                  <input type="text" class="form-control gtyp" id="gtyp" name="gtyp">
                 </div>
                 <input type="hidden" class="form-control path_to_rg" id="path_to_rg" name="path_to_rg">
                 <div class="form-group col-md-3">

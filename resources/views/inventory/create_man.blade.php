@@ -66,12 +66,12 @@
                 <label for="gtyp" data-toggle="tooltip" data-placement="top" title="Modell z.B HP, Samsung usw">Gerätetyp
                   <i class="fas fa-info-circle" style="color:dodgerblue"></i>
                 </label>
-                <input type="text" class="form-control" id="gtyp_man" name="gtyp" required>
+                <input type="text" class="form-control" id="gtyp_man" name="gtyp">
               </div>
               <input type="hidden" class="form-control path_to_rg_man" id="path_to_rg_man" name="path_to_rg">
               <div class="form-group col-md-3">
                 <label for="gtyp">Seriennummer</label>
-                <input type="text" class="form-control" id="sn_man" name="sn" required>
+                <input type="text" class="form-control" id="sn_man" name="sn">
               </div>
             </div>
             <!-- Forth row -->
