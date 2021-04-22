@@ -20,6 +20,10 @@ Route::get('/auto','InvLastNumberController@index')->name('auto');
 //*************************************************   Inventory Index  *********************************************************************/
 Route::get('/inventory','InvAbItemController@index')->name('inventory');
 
+//***********************  machinelist Items   *********************************/
+Route::get('/machinelist','InvAbItemController@machinelist')->name('machine_list');
+Route::get('/machinelistall','InvAbItemController@machinelistall')->name('machine_list_all');
+
 //***********************  Create Items   *********************************/
 // create Address and room lists
 Route::get('/item/create','InvAbItemController@create')->name('item.create');

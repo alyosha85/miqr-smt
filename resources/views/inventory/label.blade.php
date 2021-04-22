@@ -18,7 +18,7 @@
                     <input type="text" class="form-control inventNumber" id="prntinvnr" placeholder="Inventarnummer" readonly>
                 </div>
                 <div class="form-group col-md-2">
-                    <input type="text" class="form-control" id="anzahl" placeholder="Anzahl" value="1" required>
+                    <input type="text" class="form-control" id="anzahl" placeholder="Anzahl" required>
                 </div>
             </div>
 

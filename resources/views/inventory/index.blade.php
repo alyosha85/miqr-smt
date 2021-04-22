@@ -18,9 +18,9 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Geräte <i class="fas fa-desktop" style="color:#F08080;"></i></a>
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="javascript:" id="actual_list_modal">Aktuell</a>
+        <a class="dropdown-item" href="{{route ('machine_list')}}" id="actual_list_modal">Aktuell</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="Javascript:" id="all_list_modal">Aktuell + Ausgemustert</a>
+        <a class="dropdown-item" href="{{route ('machine_list_all')}}" id="all_list_modal">Ausgemustert</a>
         </div>
       </li>
       <li class="nav-item">
@@ -422,6 +422,7 @@ $(function() {
     $('#printpage').modal('show');
     $('#anzahl').val(1);
     $('#address').find('option').remove();
+    $('#address').find('optgroup').remove();
     $("#address").append(new Option("Bitte Wählen...",0));
     $('.inventNumber').val('');
     locationData = new Array();
@@ -429,10 +430,13 @@ $(function() {
       type: "GET",
       url: "{{ route('auto') }}", //Route NAME USED
       }).done(function( data ) {
-        $.each(data, function(index, item) {
-        $("#address").append(new Option(item.location.address,item.location_id));
-        locationData.push(item);
-      });
+        $.each(data['places'], function(index, item) {
+					$("body #address").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+			});
+      $.each(data['lastNumber'], function(index, item) {
+			$("#address #"+item.location.place_id).append(new Option(item.location.address,item.location.id));
+			locationData.push(item);
+			});
     });
   });
 
@@ -471,6 +475,7 @@ $(document).on("click", "#list_modal", function() {
 		type: "get",
 		url: "{{route('item.listen')}}",
 		}).done(function(data) {
+      console.log(data);
 			selectAddresslisten = new Array();
 			$.each(data['places'], function(index, item) {
 					$("body #location_id_listen").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
