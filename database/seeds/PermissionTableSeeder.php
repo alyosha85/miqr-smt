@@ -13,15 +13,21 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         Permission::insert([
-          ["id"=>1,"name"=>"view_machines_actuall","guard_name"=>"web"],
-          ["id"=>2,"name"=>"view_all_machines","guard_name"=>"web"],
-          ["id"=>3,"name"=>"add_machine","guard_name"=>"web"],
-          ["id"=>4,"name"=>"add_machine_manually","guard_name"=>"web"],
-          ["id"=>5,"name"=>"print_list","guard_name"=>"web"],
-          ["id"=>6,"name"=>"print_ticket","guard_name"=>"web"],
-          ["id"=>7,"name"=>"move_machine","guard_name"=>"web"],
-          ["id"=>8,"name"=>"delete_machine","guard_name"=>"web"],
-          ["id"=>9,"name"=>"access_inventory","guard_name"=>"web"],
+          ["id"=>1,"name"=>"Aktuell","guard_name"=>"web","category_id"=>1],
+          ["id"=>2,"name"=>"Ausgemustert","guard_name"=>"web","category_id"=>1],
+          ["id"=>3,"name"=>"Ändern","guard_name"=>"web","category_id"=>null],
+          ["id"=>4,"name"=>"Erfassen_Auto","guard_name"=>"web","category_id"=>2],
+          ["id"=>5,"name"=>"Erfassen_Manuell","guard_name"=>"web","category_id"=>2],
+          ["id"=>6,"name"=>"Bewegen","guard_name"=>"web","category_id"=>null],
+          ["id"=>7,"name"=>"Ausmustern","guard_name"=>"web","category_id"=>null],
+          ["id"=>8,"name"=>"Drucken_list","guard_name"=>"web","category_id"=>3],
+          ["id"=>9,"name"=>"Drucken_ticket","guard_name"=>"web","category_id"=>3],
+          ["id"=>10,"name"=>"Inventur","guard_name"=>"web","category_id"=>null],
+          ["id"=>11,"name"=>"role-list","guard_name"=>"web","category_id"=>5],
+          ["id"=>12,"name"=>"role-create","guard_name"=>"web","category_id"=>5],
+          ["id"=>13,"name"=>"role-edit","guard_name"=>"web","category_id"=>5],
+          ["id"=>14,"name"=>"role-delete","guard_name"=>"web","category_id"=>5],
+          ["id"=>15,"name"=>"information","guard_name"=>"web","category_id"=>null],
         ]);
     }
 }

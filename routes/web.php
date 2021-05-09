@@ -11,13 +11,12 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index');
 
-
-
-
-
 Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles','RoleController');
   Route::resource('users','UserController'); //add to User Modal protected $guard_name = 'web';
+  Route::resource('permissions','PermissionController');
+
+
 
   // one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
@@ -90,15 +89,15 @@ Route::get('/settings/cityAddressList','InvRoomController@cityAddressList')->nam
 /* Add Location City ROOM  (Add - Save )*/
 Route::post('/create_address','LocationController@addLocation')->name('addLocation');
 Route::post('/create_room','InvRoomController@addRoom')->name('addRoom');
-<<<<<<< HEAD
-=======
+
 /* Role index */
 Route::get('/settings/roleList','RoleController@index')->name('settings.roleList');
 /* users index */
 Route::get('/settings/usersList','UserController@index')->name('settings.usersList');
+/* first page */
+Route::get('/settings/firstpage/{id}/edit','SettingController@firstpage')->name('settings.firstpage'); 
+Route::patch('/settings/firstpage/{id}','SettingController@firstupdate')->name('settings.firstupdate'); 
 
-
->>>>>>> parent of eee8cf2... before spaite
 /******************************************  Profile  ******************************************************/
 Route::get('/profile',function(){
   return view('user.profile');

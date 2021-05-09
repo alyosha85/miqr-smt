@@ -7,4 +7,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+//custom
+.btn-outline-back {
+  color: #671926;
+  border-color: #671926;
+}
 
+.btn-outline-back:hover {
+  color: #fff;
+  background-color: #671926;
+  border-color: #671926;
+}

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use LdapRecord\Laravel\Auth\ListensForLdapBindFailure;
+use App\User;
+
 
 class LoginController extends Controller
 {
@@ -45,6 +47,17 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if (is_null($user->lastlogin)) {
+          $id = $user->id;
+          
+          return redirect()->route('settings.firstpage',compact('id'));
+             // and laravel will then handle the redirect
+        }
+       
     }
 
  

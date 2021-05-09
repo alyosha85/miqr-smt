@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\Permission\Models\Permission;
+use App\Permissioncategory;
 use Illuminate\Http\Request;
 
-class PermissionController extends Controller
+class PermissioncategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +24,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-      return view('permissions.create');
+        //
     }
 
     /**
@@ -39,25 +35,16 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-      $this->validate($request, [
-        'name' => 'required|unique:permissions,name',
-        ]);
-        Permission::create(['name' => $request->input('name')]);
-        
-        $sucMsg = array(
-          'message' => 'Rolle erfolgreich hinzugefügt',
-          'alert-type' => 'success'
-        );
-        return redirect()->route('roles.index')->with($sucMsg);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Permission  $permission
+     * @param  \App\Permissioncategory  $permissioncategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show(Permissioncategory $permissioncategory)
     {
         //
     }
@@ -65,10 +52,10 @@ class PermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Permission  $permission
+     * @param  \App\Permissioncategory  $permissioncategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permission $permission)
+    public function edit(Permissioncategory $permissioncategory)
     {
         //
     }
@@ -77,10 +64,10 @@ class PermissionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Permission  $permission
+     * @param  \App\Permissioncategory  $permissioncategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, Permissioncategory $permissioncategory)
     {
         //
     }
@@ -88,10 +75,10 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Permission  $permission
+     * @param  \App\Permissioncategory  $permissioncategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function destroy(Permissioncategory $permissioncategory)
     {
         //
     }

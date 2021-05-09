@@ -1,6 +1,10 @@
 @extends('layouts.admin_layout.admin_layout')
 
-
+<style>
+  .found {
+    background-color: #5cb85c;
+  }
+</style>
 @section('content')
 
 <!-- Main content -->
@@ -10,45 +14,67 @@
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Geräte <i class="fas fa-desktop" style="color:#F08080;"></i></a>
+        Geräte <i class="fas fa-desktop" style="color:#F08080;"></i></a>
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="javascript:" id="actual_list_modal">Aktuell</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="Javascript:" id="all_list_modal">Aktuell + Ausgemustert</a>
+      @can('Aktuell')
+          <a class="dropdown-item" href="javascript:" id="actual_list_modal">Aktuell</a>
+      @endcan
+      @can('Ausgemustert')
+          <a class="dropdown-item" href="Javascript:" id="all_list_modal">Aktuell + Ausgemustert</a>
+      @endcan
         </div>
       </li>
+      @can('Ändern')
       <li class="nav-item">
         <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
       </li>
+      @endcan
+      @can('Erfassen')
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Erfassen <i class="fas fa-plus" style="color:#5bc0de;"></i></a>
+      @endcan 
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
+      @can('Erfassen_Auto')
         <a class="dropdown-item" href="javascript:" id="add_modal">Erfassen</a>
-        <div class="dropdown-divider"></div>
+      @endcan
+      @can('Erfassen_Manuell')
         <a class="dropdown-item" href="Javascript:" id="add_modal_man">Manuell Erfassen</a>
+      @endcan
         </div>
       </li>
+      @can('Bewegen')
       <li class="nav-item">
         <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
       </li>
+      @endcan
+      @can('Ausmustern')
       <li class="nav-item">
         <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
       </li>
+      @endcan
+      @can('Drucken')
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Drucken <i class="fas fa-print" style="color:#007bff;"></i></a>
+      @endcan
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="javascript:" id="list_modal">Listen</a>
-          <div class="dropdown-divider"></div>
+      @can('Drucken_list')
+        <a class="dropdown-item" href="javascript:" id="list_modal">Listen</a>
+        <div class="dropdown-divider"></div>
+      @endcan
+      @can('Drucken_ticket')
           <a class="dropdown-item" href="javascript:" id="etiketten_modal">Etiketten</a>
         </div>
+        @endcan
         </li>
+      @can('Inventur')
         <li class="nav-item">
           <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
         </li>
+      @endcan
     </ul>
-
+    @can('information')
 		<!-- Small boxes (Stat box) -->
 		<div class="row mt-5">
 			<div class="col-lg-2 col-6">
@@ -210,6 +236,7 @@
 			</div>
 			<!-- ./col -->
 		</div>
+    @endcan
 	</div>
 </section>
 
@@ -234,11 +261,234 @@
 
 <script>
 
+ //************************************************************* Edit ************************************************************//
+ $(document).on( "click", "#edit_modal", function() {
+// Empty Values
+$('#search_edit').val('');
+$('body .item_edit_form').trigger('reset')
+$("body .pdf_edit_red").hide();								
+$("body .pdf_edit_green").hide();
+$("body #chksrchedit").removeClass().addClass('fas fa-ellipsis-h').css('color','#0275d8');
+$(".modal-header").removeClass('found');
+$('#edit').modal('show');
+$(document).on('keyup change', '#search_edit', function(){
+	let search_edit = $(this).val();
+	$.ajax({
+		type:'post',
+		url:"{{ route('search_check_edit') }}",
+		data:{search_edit:search_edit},
+		success:function(resp){
+			if(resp=="false"){
+				$("body #chksrchedit").removeClass().addClass('fas fa-times-circle').css('color', '#d9534f');
+        $('body .item_edit_form').trigger('reset');
+        $(".modal-header").removeClass('found');
+        $("body .pdf_edit_red").hide();								
+        $("body .pdf_edit_green").hide();
+			}else{
+				if(resp =="true") {
+                $("body #chksrchedit").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
+                $(".modal-header").addClass('found')
+                $("body .pdf_edit_green").hide();
+                $("body .pdf_edit_red").show();
+					$.ajax({
+						type:'get',
+						url:"{{ route('search_edit') }}",
+						data:{search_edit:search_edit},
+						success:function(resp){
+							if(resp.items.path_to_rg) {
+								$("body .pdf_edit_green").show();
+								$("body .pdf_edit_red").hide();
+								$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
+							}
+							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
+							$('body .item_edit_form .gname_edit').val(resp.items.gname)
+							$('body .item_edit_form .andat_edit').val(resp.items.andat)
+							$('body .item_edit_form .kp_edit').val(resp.items.kp)
+							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
+							$('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
+							$('body .item_edit_form .gart_edit').val(resp.items.garts.name)
+							$('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
+							$('body .item_edit_form .sn_edit').val(resp.items.sn)
+							$('body .item_edit_form .notes_edit').val(resp.items.notes)
+						},error:function(){
+							alert("Error");
+						}
+					});
+				}
+			}
+		},error:function(){
+			alert("Error");
+		}
+	});
+});
+});
+
+  //************************************************************* Create ************************************************************//
+$( document ).on( "click", "#add_modal", function() {
+	$('#add').modal('show');
+  //empty form on open
+  $('.modal-header').removeClass('found');
+  $('body .kaufpreis').val('');
+  $('body .gname').val('');
+  myDropzone.removeAllFiles();
+  $('body .gtyp').val('');
+  $('body .sn').val('');
+  $('body .notes').val('');
+  $('#location_id').find('optgroup').remove();
+  $('#location_id').find('option').remove();
+  $('#rooms').find('option').remove();
+  $('#gart_id').find('option').remove();
+  $('#location_id').append(new Option("Standort...",''));
+  $('#rooms').append(new Option("Raum...",''));
+  $('#gart_id').append(new Option("Geräteart...",''));
+  $('.invnr').val('');
+  //end empty form //
+  //*******  save the City name, to sort the addresses below each city.  ********//
+  locationData = new Array();
+  $.ajax({
+    type: "GET",
+    url: "{{ route('item.create') }}",
+    }).done(function( data ) {
+      $.each(data['places'], function(index, item) {
+          $("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+      });
+      $.each(data['invnr'], function(index, item) {
+          $("#location_id #"+item.location.place_id).append(new Option(item.location.address, item.location_id));
+          locationData.push(item);
+      });
+      $.each(data['garts'], function(index, item) {
+          $("#gart_id").append(new Option(item.name, item.id));
+      });
+    });
+});
+$( document ).on( "change", "#location_id", function() {
+  $('#location_id').append(new Option("Standort...",''));
+	$('#rooms').find('option').remove();
+	$("#rooms").append(new Option("Raum Wählen...",''));
+	for(let i = 0; i<locationData.length ; i++){
+		if(locationData[i].location_id == $( this ).val()){
+			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
+			$.each(locationData[i].room, function(index, item) {
+				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+			});
+		}
+	}
+	$('.invnr').val(texty);
+});
+$(function() {
+  $('.date').daterangepicker({
+		singleDatePicker: true,
+		showDropdowns: true,
+		minYear: parseInt(moment().format('YYYY'))-1,
+		maxYear: parseInt(moment().format('YYYY'))+1,
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
+  });
+});
+//************************************************************* Man. Create *****************************************************//
+let locationSelect = new Array();
+$(document).on( "click", "#add_modal_man", function() {
+	// empty form on open function
+	$('#add_man').modal('show');
+  $('.modal-header').removeClass('found');
+	$('#location_id_man').find('option').remove();
+	$('#location_id_man').find('optgroup').remove();
+	locationSelect = new Array();
+	$('#gart_id_man').find('option').remove();
+	$('#gart_id_man').append(new Option("Geräteart...",0));
+	$('#location_id_man').append(new Option("Standort...",0));
+	$('#rooms_id_man').find('option').remove();
+	$("#rooms_id_man").append(new Option("Raum...",''));
+$.ajax({
+	type: "GET",
+	url: "{{ route('item.create_man') }}",
+	}).done(function(data) {
+		$.each(data['places'], function(index, item) {
+			$("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+		});
+		$.each(data['locations'], function(index, item){
+			$("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
+			locationSelect.push(item);
+		});
+		$.each(data['garts'], function(idex,item){
+			$("#gart_id_man").append(new Option(item.name,item.id));
+		})
+	});
+});
+$( document ).on( "change", "#location_id_man", function() {
+	$('#rooms_man').find('option').remove();
+	$("#rooms_man").append(new Option("Raum...",''));
+	for(let i = 0; i<locationSelect.length ; i++){
+		if(locationSelect[i].id == $( this ).val()){
+			$.each(locationSelect[i].invrooms, function(index, item) {
+					$("#rooms_man").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+				});
+			}
+		}
+	});
+$(function() {
+  $('.date_man').daterangepicker({
+	singleDatePicker: true,
+	showDropdowns: true,
+	minYear: parseInt(moment().format('YYYY'))-1,
+	maxYear: parseInt(moment().format('YYYY'))+1,
+	locale: {
+	  format: 'YYYY-MM-DD'
+	}
+  });
+});
+  //************************************************************* Print Label ************************************************************//
+  let locationData = new Array();
+  let text = '';
+  $( document ).on( "click", "#etiketten_modal", function() {
+    $('.modal-header').removeClass('found');
+    $('#printpage').modal('show');
+    $('#anzahl').val(1);
+    $('#address').find('option').remove();
+    $('#address').find('optgroup').remove();
+    $("#address").append(new Option("Bitte Wählen...",0));
+    $('.inventNumber').val('');
+    locationData = new Array();
+    $.ajax({
+      type: "GET",
+      url: "{{ route('auto') }}", //Route NAME USED
+      }).done(function( data ) {
+        $.each(data['places'], function(index, item) {
+					$("body #address").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+			});
+      $.each(data['lastNumber'], function(index, item) {
+			$("#address #"+item.location.place_id).append(new Option(item.location.address,item.location.id));
+			locationData.push(item);
+			});
+    });
+  });
+  $( document ).on( "change", "#address", function() {
+    for(let i = 0; i<locationData.length ; i++){
+      if(locationData[i].location_id == $( this ).val()){
+        texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
+      }
+    }
+    $('.inventNumber').val(texty);
+  });
+  //********************************************************** Print Etiketten ***************************************************//
+  function printfunction() {
+    $('#printpage').modal('show');
+    $('.modal-header').removeClass('found');
+    let printinvnr = $('#prntinvnr').val();
+    let anzahl = $('#anzahl').val();
+    let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    setInterval(function(){ WinPrint.close()}, 3000);
+	}
 //************************************************************* List Print **********************************************************
 let selectAddresslisten = new Array();
 let roomlisten = new Array();
 $(document).on("click", "#list_modal", function() {
 	$('#listen').modal('show');
+  $('.modal-header').removeClass('found');
 	$('#location_id_listen').find('option').remove();
 	$('#location_id_listen').find('optgroup').remove();
 	$('#location_id_listen').append(new Option("Standort...",''));
@@ -248,6 +498,7 @@ $(document).on("click", "#list_modal", function() {
 		type: "get",
 		url: "{{route('item.listen')}}",
 		}).done(function(data) {
+      console.log(data);
 			selectAddresslisten = new Array();
 			$.each(data['places'], function(index, item) {
 					$("body #location_id_listen").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
@@ -258,7 +509,6 @@ $(document).on("click", "#list_modal", function() {
 			});
 		});
 });
-
 $( document ).on( "change", "#location_id_listen", function() {
 	$('#room_id_listen').find('option').remove();
 	$("#room_id_listen").append(new Option("Raum...",''));
@@ -271,7 +521,6 @@ $( document ).on( "change", "#location_id_listen", function() {
 		}
 	}
 });
-
 $( document ).on( "change","#room_id_listen",function() {
 	$.ajax({
 		type:'post',
@@ -291,12 +540,11 @@ $( document ).on( "change","#room_id_listen",function() {
 		}
 	});
 });
-
 $(document).on("click","#print_list",function(){
+  $('.modal-header').removeClass('found');
 		$("body .print_div").text("Raum:" +$("body #room_id_listen :selected").text()+' '+'Address: '+$("body #location_id_listen :selected").text());
     $('body #listen .modal-body').print();
 });
-
 $.fn.extend({
 	print: function() {
 		var frameName = 'printIframe';
@@ -310,12 +558,12 @@ $.fn.extend({
 		return this;
 	}
 });
-
 //************************************************************* Inventur ************************************************************//
 let selectAddressInventur = new Array();
 let roomInventur = new Array();
 $(document).on("click", "#inventur_modal", function() {
 	$('#inventur').modal('show');
+  $('.modal-header').removeClass('found');
 	$('#location_id_inventur').find('option').remove();
 	$('#location_id_inventur').find('optgroup').remove();
 	$('#room_id_inventur').find('option').remove();
@@ -337,7 +585,6 @@ $(document).on("click", "#inventur_modal", function() {
 		});
 	});
 });
-
 $( document ).on( "change", "#location_id_inventur", function() {
 	$('#room_id_inventur').find('option').remove();
 	$("#room_id_inventur").append(new Option("Raum...",''));
@@ -381,13 +628,11 @@ $( document ).on( "change","#room_id_inventur",function() {
 												zuordnen:0  //default
 					});
 			});
-
 		},error:function(){
 			alert("Error");
 		}
 	});
 });
-
 function sendInfo(room_id,ad_ou,gname,invnr){
   $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -401,7 +646,6 @@ function sendInfo(room_id,ad_ou,gname,invnr){
             }
           });
 }
-
 let itemList = new Array();
 $( document ).on( "change","body #inventur_check_input",function() {
 	let found = false;
@@ -451,7 +695,6 @@ $( document ).on( "change","body #inventur_check_input",function() {
 			});
 		}
 	});
-
 $( document ).on( "click","body #inventur_submit",function() {
     $.ajax({
 			type:'post',
@@ -468,7 +711,6 @@ $( document ).on( "click","body #inventur_submit",function() {
 			}
     });
 });
-
 //************************************************************* Bewegen ************************************************************//
 	let selectAddress = new Array();
 	$( document ).on( "click", "#move_modal", function() {
@@ -477,8 +719,7 @@ $( document ).on( "click","body #inventur_submit",function() {
 	// Empty Values
 		$('#search_move').val('');
 		$('body .move_form').trigger('reset')
-
-
+    $(".modal-header").removeClass('found');
 	$(document).on('keyup change', '#search_move', function(){
 		let search_move = $(this).val();
 		$.ajax({
@@ -488,9 +729,12 @@ $( document ).on( "click","body #inventur_submit",function() {
 			success:function(resp){
 				if(resp=="false"){
 					$("body #chksrchmove").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
+          $('body .move_form').trigger('reset')
+          $(".modal-header").removeClass('found');
 				}else{
 					if(resp =="true") {
 						$("body #chksrchmove").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
+            $(".modal-header").addClass('found');
 						$.ajax({
 							type: 'get',
 							url:"{{ route('search_move') }}",
@@ -521,7 +765,6 @@ $( document ).on( "click","body #inventur_submit",function() {
 		});
 	});
 });
-
 $( document ).on( "change", "#location_id_move", function() {
 	$('#room_id_move').find('option').remove();
 	$("#room_id_move").append(new Option("Raum...",''));
@@ -533,112 +776,16 @@ $( document ).on( "change", "#location_id_move", function() {
 		}
   }
 });
-
-
 $( document ).on("change","#room_id_move", function(){
   $('body .submit_form_move').attr('disabled', false)
 });
-
-
-//************************************************************* Print Label ************************************************************//
-let locationData = new Array();
-let text = '';
-$( document ).on( "click", "#etiketten_modal", function() {
-	$('#printpage').modal('show');
-	$('#anzahl').val(1);
-	$('#address').find('option').remove();
-	$("#address").append(new Option("Bitte Wählen...",0));
-	$('.inventNumber').val('');
-	locationData = new Array();
-	$.ajax({
-		type: "GET",
-		url: "{{ route('auto') }}", //Route NAME USED
-		}).done(function( data ) {
-			$.each(data, function(index, item) {
-			$("#address").append(new Option(item.location.address,item.location_id));
-			locationData.push(item);
-		});
-	});
-});
-
-$( document ).on( "change", "#address", function() {
-	for(let i = 0; i<locationData.length ; i++){
-		if(locationData[i].location_id == $( this ).val()){
-			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
-		}
-	}
-	$('.inventNumber').val(texty);
-});
-
-//************************************************************* Create ************************************************************//
-$( document ).on( "click", "#add_modal", function() {
-	$('#add').modal('show');
-		//empty form on open
-		$('body .kaufpreis').val('');
-		$('body .gname').val('');
-		myDropzone.removeAllFiles();
-		$('body .gtyp').val('');
-		$('body .sn').val('');
-		$('body .notes').val('');
-		$('#location_id').find('optgroup').remove();
-		$('#location_id').find('option').remove();
-		$('#gart_id').find('option').remove();
-		$('#rooms').find('option').remove();
-		$('#location_id').append(new Option("Standort...",'')).css('color', '#d9534f');
-		$('#gart_id').append(new Option("Geräteart...",'')).css('color', '#d9534f');
-		$("#rooms").append(new Option("Raum...",'')).css('color', '#d9534f');
-		$('.invnr').val('');
-	locationData = new Array(); //********  save the City name, to sort the addresses below each city.  ********//
-	$.ajax({
-		type: "GET",
-		url: "{{ route('item.create') }}",
-		}).done(function( data ) {
-			$.each(data['places'], function(index, item) {
-					$("#location_id").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-			});
-			$.each(data['invnr'], function(index, item) {
-					$("#location_id #"+item.location.place_id).append(new Option(item.location.address, item.location_id)).css('color', '#292b2c');
-					locationData.push(item);
-			});
-			$.each(data['garts'], function(index, item) {
-					$("#gart_id").append(new Option(item.name, item.id)).css('color', '#292b2c');
-			});
-		});
-});
-
-$( document ).on( "change", "#location_id", function() {
-  $('#location_id').append(new Option("Standort...",'')).css('color', '#292b2c');
-	$('#rooms').find('option').remove();
-	$("#rooms").append(new Option("Raum Wählen...",''));
-	for(let i = 0; i<locationData.length ; i++){
-		if(locationData[i].location_id == $( this ).val()){
-			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
-			$.each(locationData[i].room, function(index, item) {
-				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id)).css('color', '#292b2c');
-			});
-		}
-	}
-	$('.invnr').val(texty);
-});
-
-$(function() {
-  $('.date').daterangepicker({
-		singleDatePicker: true,
-		showDropdowns: true,
-		minYear: parseInt(moment().format('YYYY'))-1,
-		maxYear: parseInt(moment().format('YYYY'))+1,
-		locale: {
-			format: 'YYYY-MM-DD'
-		}
-  });
-});
-
 //************************************************************* Ausmuster ****************************************************//
 $(document).ready(function(){
 $(document).on( "click", "#invalid_modal", function() {
   // Empty Values
 $('#search_amg').val('');
-$('body .amg_form').trigger('reset')
+$('body .amg_form').trigger('reset');
+$('.modal-header').removeClass('found');
 $("body #chksrch").removeClass().addClass('fas fa-ellipsis-h').css('color', '#0275d8');
 $('#invalid').modal('show');
 });
@@ -651,9 +798,12 @@ $(document).on('keyup change', '#search_amg', function(){
 		success:function(resp){
 			if(resp=="false"){
 				$("body #chksrch").removeClass().addClass('fas fa-times-circle').css('color', '#d9534f');
+        $('.modal-header').removeClass('found');
+        $('body .amg_form').trigger('reset')
 			}else{
 				if(resp =="true") {
 					$("body #chksrch").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
+          $('.modal-header').addClass('found');
 					$.ajax({
 						type:'get',
 						url:"{{ route('search') }}",
@@ -686,124 +836,6 @@ $(document).on('keyup change', '#search_amg', function(){
   });
 });
 });
-
-//************************************************************* Edit ************************************************************//
-$(document).on( "click", "#edit_modal", function() {
-// Empty Values
-$('#search_edit').val('');
-$('body .item_edit_form').trigger('reset')
-$('#edit').modal('show');
-$(document).on('keyup change', '#search_edit', function(){
-	let search_edit = $(this).val();
-	$.ajax({
-		type:'post',
-		url:"{{ route('search_check_edit') }}",
-		data:{search_edit:search_edit},
-		success:function(resp){
-			if(resp=="false"){
-				$("body #chksrchedit").removeClass('fas fa-ellipsis-h').addClass('fas fa-times-circle').css('color', '#d9534f');
-			}else{
-				if(resp =="true") {
-                $("body #chksrchedit").removeClass('fas fa-times-circle').addClass('fas fa-check').css('color', '#5cb85c');
-                $("body .pdf_edit_green").hide();
-                $("body .pdf_edit_red").show();
-					$.ajax({
-						type:'get',
-						url:"{{ route('search_edit') }}",
-						data:{search_edit:search_edit},
-						success:function(resp){
-							if(resp.items.path_to_rg) {
-								$("body .pdf_edit_green").show();
-								$("body .pdf_edit_red").hide();
-								$("body .pdf_edit_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
-							}
-							$('body .item_edit_form .invnr_edit').val(resp.items.invnr)
-							$('body .item_edit_form .gname_edit').val(resp.items.gname)
-							$('body .item_edit_form .andat_edit').val(resp.items.andat)
-							$('body .item_edit_form .kp_edit').val(resp.items.kp)
-							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
-							$('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
-							$('body .item_edit_form .gart_edit').val(resp.items.garts.name)
-							$('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
-							$('body .item_edit_form .sn_edit').val(resp.items.sn)
-							$('body .item_edit_form .notes_edit').val(resp.items.notes)
-						},error:function(){
-							alert("Error");
-						}
-					});
-				}
-			}
-		},error:function(){
-			alert("Error");
-		}
-	});
-});
-});
-
-function printfunction() {
-	$('#printpage').modal('show');
-	let printinvnr = $('#prntinvnr').val();
-	let anzahl = $('#anzahl').val();
-	let WinPrint = window.open('/print/'+printinvnr+'/'+anzahl, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-	WinPrint.document.close();
-	WinPrint.focus();
-	WinPrint.print();
-	setInterval(function(){ WinPrint.close()}, 3000);
-	}
-//************************************************************* Man. Create *****************************************************//
-let locationSelect = new Array();
-$(document).on( "click", "#add_modal_man", function() {
-	// empty form on open function
-	$('#add_man').modal('show');
-	$('#location_id_man').find('option').remove();
-	$('#location_id_man').find('optgroup').remove();
-	locationSelect = new Array();
-	$('#gart_id_man').find('option').remove();
-	$('#gart_id_man').append(new Option("Geräteart...",0));
-	$('#location_id_man').append(new Option("Standort...",0));
-	$('#rooms_id_man').find('option').remove();
-	$("#rooms_id_man").append(new Option("Raum...",''));
-$.ajax({
-	type: "GET",
-	url: "{{ route('item.create_man') }}",
-	}).done(function(data) {
-		$.each(data['places'], function(index, item) {
-			$("#location_id_man").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-		});
-		$.each(data['locations'], function(index, item){
-			$("#location_id_man #"+item.place_id).append(new Option(item.address,item.id));
-			locationSelect.push(item);
-		});
-		$.each(data['garts'], function(idex,item){
-			$("#gart_id_man").append(new Option(item.name,item.id));
-		})
-	});
-});
-
-$( document ).on( "change", "#location_id_man", function() {
-	$('#rooms_man').find('option').remove();
-	$("#rooms_man").append(new Option("Raum...",''));
-	for(let i = 0; i<locationSelect.length ; i++){
-		if(locationSelect[i].id == $( this ).val()){
-			$.each(locationSelect[i].invrooms, function(index, item) {
-					$("#rooms_man").append(new Option(item.rname+' ('+item.altrname+')',item.id));
-				});
-			}
-		}
-	});
-
-$(function() {
-  $('.date_man').daterangepicker({
-	singleDatePicker: true,
-	showDropdowns: true,
-	minYear: parseInt(moment().format('YYYY'))-1,
-	maxYear: parseInt(moment().format('YYYY'))+1,
-	locale: {
-	  format: 'YYYY-MM-DD'
-	}
-  });
-});
-
 // drop zone
 Dropzone.options.dropzoneForm = {
 	autoProcessQueue : false,
@@ -847,8 +879,6 @@ Dropzone.options.dropzoneForm = {
 	  }
 	})
   });
-
-
 // drop zone man
 Dropzone.options.dropzoneFormMan = {
 	autoProcessQueue : false,
@@ -893,9 +923,6 @@ Dropzone.options.dropzoneFormMan = {
 	  }
 	})
   });
-
-
-
 //************************************************************* Dropzone ***********************************
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
   Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
@@ -905,8 +932,6 @@ Dropzone.options.dropzoneFormMan = {
   Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "null";
   Dropzone.prototype.defaultOptions.dictRemoveFile = "Datei entfernen";
   Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Sie können keine weiteren Dateien mehr hochladen.";
-
-
 </script>
 @endsection
 

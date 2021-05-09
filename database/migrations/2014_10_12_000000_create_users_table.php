@@ -23,12 +23,15 @@ class CreateUsersTable extends Migration
             $table->string('bundesland')->nullable(); 
             $table->string('straße')->nullable(); 
             $table->string('tel')->nullable(); 
+            $table->string('mobil')->nullable(); 
             $table->string('email')->unique();
             $table->string('guid')->unique()->nullable();
             $table->string('domain')->nullable();
             $table->string('password');
             $table->text('roles_name')->default('Verwaltung');
-            $table->string('status',9)->default('Active');
+            $table->string('status',9)->default('Inactive');
+            $table->tinyInteger('replikation')->default(0);
+            $table->date('lastlogin')->nullable();
             $table->rememberToken();
             $table->timestamps();
           });

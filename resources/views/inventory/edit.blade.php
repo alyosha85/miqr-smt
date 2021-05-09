@@ -54,7 +54,7 @@
 							<div class="form-group col-md-2">
 									<div class="ml-5">
 											<a href="" target="_blank" class="pdf_edit_green" style="display: none;">
-													<i class="far fa-file-pdf fa-4x" style="color:#F40F02" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
+												<i class="far fa-file-pdf fa-4x" style="color:#F40F02" data-toggle="tooltip" data-placement="top" title="Rechnung ansehen"></i>
 											</a>
 											<i class="far fa-file-pdf fa-4x pdf_edit_red" style="color:gray" data-toggle="tooltip" data-placement="top" title="Keine Rechnung"></i>
 									</div>

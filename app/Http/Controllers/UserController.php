@@ -16,7 +16,8 @@ class UserController extends Controller
 public function index(Request $request)
 {
 $data = User::orderBy('id','DESC')->paginate(5);
-return view('users.index',compact('data'))
+$collectionOfRoles = Role::pluck('name')->toArray();
+return view('users.index',compact('data','collectionOfRoles'))
 ->with('i', ($request->input('page', 1) - 1) * 5);
 }
 /**
@@ -84,8 +85,6 @@ return view('users.edit',compact('user','roles','userRole'));
 public function update(Request $request, $id)
 {
 $this->validate($request, [
-'name' => 'required',
-'email' => 'required|email|unique:users,email,'.$id,
 'roles' => 'required'
 ]);
 $input = $request->all();
@@ -93,8 +92,13 @@ $user = User::find($id);
 $user->update($input);
 DB::table('model_has_roles')->where('model_id',$id)->delete();
 $user->assignRole($request->input('roles'));
-return redirect()->route('users.index')
-->with('success','User updated successfully');
+
+$sucMsg = array(
+  'message' => 'Erfolgreich bearbeitet',
+  'alert-type' => 'success'
+);
+
+return redirect()->route('users.index')->with($sucMsg);
 }
 /**
 * Remove the specified resource from storage.
@@ -105,7 +109,12 @@ return redirect()->route('users.index')
 public function destroy($id)
 {
 User::find($id)->delete();
+
+$sucMsg = array(
+  'message' => 'Erfolgreich bearbeitet',
+  'alert-type' => 'success'
+);
 return redirect()->route('users.index')
-->with('success','User deleted successfully');
+->with($sucMsg);
 }
 }

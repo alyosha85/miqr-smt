@@ -1,5 +1,8 @@
 @extends('layouts.admin_layout.admin_layout')
 <link rel="stylesheet" href="{{ url ('bootstrap_modal/bootstrap-side-modals.css') }}">
+<style>
+
+</style>
 @section('content')
 <!-- Main Content -->
 <section class="content">
@@ -11,12 +14,13 @@
         </div>
         <div class="float-right">
           <a href="{{ route('roles.create') }}" class="btn btn-outline-success"><i class="fas fa-plus"></i> Neue Rolle</a>
+          <a href="{{ route('permissions.create') }}" class="btn btn-outline-success"><i class="fas fa-plus"></i> Neue Permission</a>
         </div>
       </div>
     </div>
 		<div class="row">
       <div class="col-6 mx-auto">
-      <table class="table table-hover">
+      <table class="table table-sm">
         <thead>
           <tr>
             <th scope="col">#</th>

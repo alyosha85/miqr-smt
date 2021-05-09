@@ -48,6 +48,9 @@
 							<div class="list-group">
 								<a href="{{ route('users.index')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung
                 &nbsp; <i class="fas fa-users"></i></a>
+								<a href="{{ route ('roles.index')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen & Berechtigungen
+                  &nbsp; <i class="fas fa-user-tag"></i></a>
+                </a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->
