@@ -1,11 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\User;
-use Spatie\Permission\Models\Role;
-use DB;
-use Hash;
+Use App\User;
+
 class UserController extends Controller
 {
 /**
@@ -116,5 +115,4 @@ $sucMsg = array(
 );
 return redirect()->route('users.index')
 ->with($sucMsg);
-}
 }

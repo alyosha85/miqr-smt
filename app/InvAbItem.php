@@ -11,7 +11,7 @@ class InvAbItem extends Model
 
     public function location()
     {
-        return $this->belongsTO(Location::class);
+        return $this->belongsTo(Location::class);
     }
     public function garts()
     {

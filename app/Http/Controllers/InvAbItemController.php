@@ -21,6 +21,7 @@ use DB;
 use App\Exports\RoomExport;
 use App\Imports\RoomImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\User;
 
 
 
@@ -51,7 +52,23 @@ class InvAbItemController extends Controller
         $tkanlage = InvItems::where('gart_id','14')->count();
         $telefon = InvItems::where('gart_id','15')->orwhere('gart_id','16')->count();
         $scanner = InvItems::where('gart_id','18')->count();
-        return view('inventory.index',compact('computer','server','tablet','printer','monitor','switch','router','nas','projector','tkanlage','telefon','scanner'));
+        $ausgemusterd = InvAbItem::whereNotNull('ausdat')->get();
+        return view('inventory.index',compact('computer','server','tablet','printer','monitor','switch','router','nas','projector','tkanlage','telefon','scanner','ausgemusterd'));
+    }
+
+      /*************************************************************{{ Machine list  }}******************************************************************************
+     * Search Method listen
+     */
+    public function machinelist() 
+    {
+      $machines = InvItems::all();
+      return view ('inventory.computerlist',compact('machines'));
+    }
+
+    public function machinelistAll() 
+    {
+      $machines = InvAbItem::whereNotNull('ausdat')->get();
+      return view ('inventory.computerlistAll',compact('machines'));
     }
 
     /**
@@ -83,6 +100,8 @@ class InvAbItemController extends Controller
 			$locations = Location::with('invrooms')->get()->toArray();
 			return ['locations'=>$locations,'places'=>$places];
     }
+
+    
     public function items_in_room_listen(Request $request)
     {
 			$roomInventur = InvItems::with('invroom.location.place')->with('garts')->where('room_id',$request->room_id)
@@ -343,10 +362,8 @@ class InvAbItemController extends Controller
 			return redirect()->back()->with($infoMsg);
     }
 
+    /**********************************************************{{ Print label Methoad }}******************************************************************************/
 
-    /**
-     * Print Label Method
-     */
     public function printlabel($printinvnr, $anzahl)
     {
 			$explode = explode('-',$printinvnr);

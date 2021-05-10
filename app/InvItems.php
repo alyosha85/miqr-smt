@@ -8,7 +8,7 @@ class InvItems extends Model
 {
     protected $guarded = [];
 
-    public function invroom ()
+    public function invroom()
     {
         return $this->belongsTo(InvRoom::class,'room_id','id');
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\InvLastNumber;
 use Illuminate\Http\Request;
+use App\Place;
 
 class InvLastNumberController extends Controller
 {
@@ -14,8 +15,9 @@ class InvLastNumberController extends Controller
      */
     public function index()
     {
-        $lastNumber = InvLastNumber::with('location')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
-        return $lastNumber;
+      $places = Place::pluck('id','pnname')->toArray();
+      $lastNumber = InvLastNumber::with('location')->orderBy('created_at','desc')->get()->unique('location_id')->toArray();
+      return ['lastNumber' => $lastNumber,'places' => $places];
     }
 
     /**

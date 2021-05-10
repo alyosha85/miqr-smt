@@ -31,13 +31,6 @@ class AuthServiceProvider extends ServiceProvider
         WindowsAuthenticate::serverKey('REMOTE_USER');
         WindowsAuthenticate::logoutUnauthenticatedUsers();
         //
-
-       // Implicitly grant "Super Admin" role all permission checks using can()
-        Gate::before(function ($user, $ability) {
-        if ($user->hasRole('Super-Admin')) {
-        return true;
-        }
-     });
     }
     
 }
