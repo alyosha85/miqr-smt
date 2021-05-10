@@ -15,6 +15,7 @@ Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles','RoleController');
   Route::resource('users','UserController'); //add to User Modal protected $guard_name = 'web';
   Route::resource('permissions','PermissionController');
+});
 
 
 

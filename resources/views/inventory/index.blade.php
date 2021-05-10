@@ -13,9 +13,11 @@
 		<!-- SubNav Bar -->
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item dropdown">
+        @if(auth()->user()->can('Aktuell') || auth()->user()->can('Ausgemustert'))
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         Geräte <i class="fas fa-desktop" style="color:#F08080;"></i></a>
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
+        @endif
       @can('Aktuell')
           <a class="dropdown-item" href="javascript:" id="actual_list_modal">Aktuell</a>
       @endcan
@@ -29,11 +31,11 @@
         <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
       </li>
       @endcan
-      @can('Erfassen')
+      @if(auth()->user()->can('Aktuell') || auth()->user()->can('Ausgemustert'))
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Erfassen <i class="fas fa-plus" style="color:#5bc0de;"></i></a>
-      @endcan 
+      @endif 
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
       @can('Erfassen_Auto')
         <a class="dropdown-item" href="javascript:" id="add_modal">Erfassen</a>
@@ -53,11 +55,11 @@
         <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
       </li>
       @endcan
-      @can('Drucken')
+      @if(auth()->user()->can('Drucken_list') || auth()->user()->can('Drucken_ticket'))
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Drucken <i class="fas fa-print" style="color:#007bff;"></i></a>
-      @endcan
+      @endif
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
       @can('Drucken_list')
         <a class="dropdown-item" href="javascript:" id="list_modal">Listen</a>

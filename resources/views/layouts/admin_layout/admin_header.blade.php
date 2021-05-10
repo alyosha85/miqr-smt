@@ -5,6 +5,8 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars fa-lg"></i></a>
       </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link float-right" href="{{ route('logout') }}"
         onclick="event.preventDefault();
@@ -15,6 +17,7 @@
         @csrf
     </form>
       </li>
+
     </ul>
   </nav>
   <!-- /.navbar -->

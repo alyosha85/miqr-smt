@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 Use App\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
 
 class UserController extends Controller
 {
@@ -39,8 +42,6 @@ public function store(Request $request)
 {
 $this->validate($request, [
 'name' => 'required',
-'email' => 'required|email|unique:users,email',
-'password' => 'required|same:confirm-password',
 'roles' => 'required'
 ]);
 $input = $request->all();
@@ -106,6 +107,7 @@ return redirect()->route('users.index')->with($sucMsg);
 * @return \Illuminate\Http\Response
 */
 public function destroy($id)
+
 {
 User::find($id)->delete();
 
@@ -115,4 +117,6 @@ $sucMsg = array(
 );
 return redirect()->route('users.index')
 ->with($sucMsg);
+}
+
 }

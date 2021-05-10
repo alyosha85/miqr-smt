@@ -41,7 +41,7 @@
                 </li>
                   <li class="list-group-item">
                     {!! Form::select('roles[]', $roles,$userRole, array('class' => 'col-md-9 select2','multiple')) !!}
-                  <button type="submit" class="btn btn-outline-success col-md-2 float-right">Submit</button>
+                  <button type="submit" class="btn btn-outline-success col-md-2 float-right">Einreichen</button>
                 </li>
               </ul>
               <!-- /.card-body -->
