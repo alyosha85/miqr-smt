@@ -1,22 +1,11 @@
 @extends('layouts.admin_layout.admin_layout')
-
 @section('content')
 <!-- Main Content -->
 <div class="card mx-auto" style="width: 80%">
   {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
-  <div class="card-header"><h2>Berechtigungen{!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!} </h2></div>
+  <div class="card-header"><h2>Berechtigungen{!! Form::text('name', null, array('placeholder' => 'Rolle','class' => 'form-control mt-2')) !!} </h2></div>
   <div class="card-body">
     <div class="row">
-	@if (count($errors) > 0)
-<div class="alert alert-danger">
-  <strong>Whoops!</strong> There were some problems with your input.<br><br>
-<ul>
-@foreach ($errors->all() as $error)
-<li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif
       <div class="col-md-12">
         <h5><i class="fas fa-arrow-alt-circle-right" style="color:#5bc0de;"></i> &nbsp;<em><u>Einstellungen</u></em></h5>
       </div><!--end first row-->
@@ -38,17 +27,21 @@
         </div>
       </div> <!-- col-4 -->
       <div class="col-4">
-        <h5>Rollen</h5>
-        @foreach($permission as $per)
-          @if($per['category']['name'] == 'Rollen')
-          <div class="custom-control custom-checkbox">
-          <!-- {{ Form::checkbox('permission[]', $per->id, in_array($per->id, $rolePermissions) ? true : false, array('class' => ['form-check-input'])) }}
-          {{ $per->name }} -->
-          <input class="form-check-input" type="checkbox" name="permission[]" value="{{ $per->id }}" {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
-            {{$per->name}}
-          </div>
-        @endif
-        @endforeach
+        <li class="custom-control custom-checkbox">
+          <input type="checkbox" name="geräte" class="custom-control-input" id="Rollen">
+          <label for="Rollen" class="custom-control-label" style="color:#F08080;"><h5>Rollen</h5></label>
+          <ul>
+            @foreach($permission as $per)
+              @if($per['category']['name'] == 'Rollen')
+                <li class="custom-control custom-checkbox">
+                <input type="checkbox" name="permission[]" class="custom-control-input" id="{{ $per->id }}"  value="{{ $per->id }}"
+                {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
+                <label for="{{ $per->id }}" class="custom-control-label">{{$per->name}}</label>
+                </li>
+              @endif
+            @endforeach
+          </ul>
+        </li>
       </div> <!-- col-4 -->
       <div class="col-4">
         <h5>Benutzereinstellungen</h5>
@@ -61,49 +54,70 @@
       </div><!--end third row-->
     </div>
     <div class="row mt-1">
-      <div class="col-3">
-        <h5 class="lead" style="color: #F08080;">Geräte</h5>
-        @foreach($permission as $per)
-          @if($per['category']['name'] == 'Geräte')
-          <div class="custom-control custom-checkbox">
-          {{ Form::checkbox('permission[]', $per->id, in_array($per->id, $rolePermissions) ? true : false, array('class' => [''])) }}
-          {{ $per->name }}
-          </div>
-        @endif
-        @endforeach
-      </div> <!-- col-2 -->
-      <div class="col-3">
-        <h5 class="lead" style="color:  #5bc0de;">Erfassen</h5>
+    <div class="col-3">
+      <li class="custom-control custom-checkbox">
+        <input type="checkbox" name="geräte" class="custom-control-input" id="geräte">
+        <label for="geräte" class="custom-control-label" style="color:#5bc0de;"><h5>Geräte</h5></label>
+        <ul>
           @foreach($permission as $per)
-            @if($per['category']['name'] == 'Erfassen')
-        <div class="custom-control custom-checkbox">
-          {{ Form::checkbox('permission[]', $per->id, in_array($per->id, $rolePermissions) ? true : false, array('class' => [''])) }}
-          {{ $per->name }}
-        </div>
+          @if($per['category']['name'] == 'Geräte')
+        <li class="custom-control custom-checkbox">
+          <input type="checkbox" name="permission[]" class="custom-control-input" id="{{ $per->id }}"  value="{{ $per->id }}"
+          {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
+          <label for="{{ $per->id }}" class="custom-control-label">{{$per->name}}</label>
+          </li>
+            @endif
+            @endforeach
+        </ul>
+      </li>
+    </div> <!-- col-3 -->
+    <div class="col-3">
+    <li class="custom-control custom-checkbox">
+      <input type="checkbox" name="geräte" class="custom-control-input" id="Erfassen">
+      <label for="Erfassen" class="custom-control-label" style="color:#5bc0de;"><h5>Erfassen</h5></label>
+      <ul>
+        @foreach($permission as $per)
+          @if($per['category']['name'] == 'Erfassen')
+            <li class="custom-control custom-checkbox">
+            <input type="checkbox" name="permission[]" class="custom-control-input" id="{{ $per->id }}"  value="{{ $per->id }}"
+            {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
+            <label for="{{ $per->id }}" class="custom-control-label">{{$per->name}}</label>
+            </li>
+          @endif
+        @endforeach
+      </ul>
+    </li>
+    </div> <!-- col-3 -->
+    <div class="col-3">
+      <li class="custom-control custom-checkbox">
+        <input type="checkbox" name="geräte" class="custom-control-input" id="Drucken">
+        <label for="Drucken" class="custom-control-label" style="color:#007bff;"><h5>Drucken</h5></label>
+        <ul>
+          @foreach($permission as $per)
+            @if($per['category']['name'] == 'Drucken')
+              <li class="custom-control custom-checkbox">
+              <input type="checkbox" name="permission[]" class="custom-control-input" id="{{ $per->id }}"  value="{{ $per->id }}"
+              {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
+              <label for="{{ $per->id }}" class="custom-control-label">{{$per->name}}</label>
+              </li>
             @endif
           @endforeach
-      </div> <!-- col-2 -->
-      <div class="col-3">
-        <h5 class="lead" style="color: #007bff;">Drucken</h5>
-        @foreach($permission as $per)
-         @if($per['category']['name'] == 'Drucken')
-          <div class="custom-control custom-checkbox">
-          {{ Form::checkbox('permission[]', $per->id, in_array($per->id, $rolePermissions) ? true : false, array('class' => [''])) }}
-          {{ $per->name }}
-         </div>
-          @endif
-        @endforeach
-      </div> <!-- col-2 -->
-      <div class="col-3">
-        @foreach($permission as $per)
-          @if($per['category']['name'] == '')
-          <div class="custom-control custom-checkbox">
-          {{ Form::checkbox('permission[]', $per->id, in_array($per->id, $rolePermissions) ? true : false, array('class' => [''])) }}
-          {{ $per->name }}
-          </div>
-          @endif
-       @endforeach
-      </div> <!-- col-2 -->
+        </ul>
+      </li>
+    </div> <!-- col-3 -->
+    <div class="col-3">
+      <li class="custom-control custom-checkbox">
+          @foreach($permission as $per)
+            @if($per['category']['name'] == '')
+              <li class="custom-control custom-checkbox">
+              <input type="checkbox" name="permission[]" class="custom-control-input" id="{{ $per->id }}"  value="{{ $per->id }}"
+              {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
+              <label for="{{ $per->id }}" class="custom-control-label">{{$per->name}}</label>
+              </li>
+            @endif
+          @endforeach
+      </li>
+    </div> <!-- col-3 -->
   </div> <!-- /.row -->
   <hr>
   <div class="row mt-3">
@@ -209,5 +223,98 @@
     <a href="{{ route('roles.index') }}" class="btn btn-danger">Verwerfen</a>
   </div>
 </div>
+
+
 {!! Form::close() !!}
+@endsection
+
+@section('script')
+<script>
+
+$(document).ready(function(){
+        $('input[type="checkbox"]').ready(function(){
+            if($(this).prop("checked") == true){
+                console.log("Checkbox is checked.");
+            }
+            else if($(this).prop("checked") == false){
+                console.log("Checkbox is unchecked.");
+            }
+        });
+    });
+
+$(function() {
+
+$('input[type="checkbox"]').change(checkboxChanged);
+
+function checkboxChanged() {
+  var $this = $(this), // The clicked upon checkbox
+      checked = $this.prop("checked"), // The new state of the checbox (true or false)
+      container = $this.parent(); // The li container of the checkbox
+
+  container.find('input[type="checkbox"]') // 1. Get all the child checkboxes of the container
+  .prop({                                  // 2. Change the properties of all such checkboxes
+      indeterminate: false,
+      checked: checked
+  })
+  .siblings('label')                       // 3. Get their corresponding labels
+  .removeClass('custom-checked custom-unchecked custom-indeterminate') // 4. Change their CSS classes
+  .addClass(checked ? 'custom-checked' : 'custom-unchecked');
+
+  checkSiblings(container, checked);       // Check the siblings of the container
+}
+
+function checkSiblings($el, checked) { // $el is a li
+  var parent = $el.parent().parent(),  // parent is the containing li element
+      all = true,
+      indeterminate = false;
+
+  $el.siblings().each(function() { // for each li sibling of the current element
+    all = all && ($(this).children('input[type="checkbox"]').prop("checked") === checked); 
+  });
+  
+  if (all && checked) {
+    parent.children('input[type="checkbox"]')
+    .prop({
+        indeterminate: false,
+        checked: checked
+    })
+    .siblings('label')
+    .removeClass('custom-checked custom-unchecked custom-indeterminate')
+    .addClass(checked ? 'custom-checked' : 'custom-unchecked');
+
+    checkSiblings(parent, checked);
+  } 
+  else if (all && !checked) {
+    
+    numChecked = parent.children('ul').find('input[type="checkbox"]:checked').length;
+    
+    indeterminate = numChecked > 0;
+
+    parent.children('input[type="checkbox"]')
+    .prop("checked", checked)
+    .prop("indeterminate", indeterminate)
+    .siblings('label')
+    .removeClass('custom-checked custom-unchecked custom-indeterminate')
+    .addClass(indeterminate ? 'custom-indeterminate' : (checked ? 'custom-checked' : 'custom-unchecked'));
+
+    checkSiblings(parent, checked);
+  } 
+  else {
+    $el.parents("li").children('input[type="checkbox"]')
+    .prop({
+        indeterminate: true,
+        checked: false
+    })
+    .siblings('label')
+    .removeClass('custom-checked custom-unchecked custom-indeterminate')
+    .addClass('custom-indeterminate');
+  }
+}
+});
+
+
+
+
+
+</script>
 @endsection

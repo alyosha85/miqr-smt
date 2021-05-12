@@ -1,43 +1,62 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Role;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use DB;
 class RoleController extends Controller
 {
-      public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $roles = Role::all();
-        return view('settings.roles.index',compact('roles'));
-    }
+/**
+* Display a listing of the resource.
+*
+* @return \Illuminate\Http\Response
+*/
+function __construct()
+{
+$this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+$this->middleware('permission:role-create', ['only' => ['create','store']]);
+$this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+$this->middleware('permission:role-delete', ['only' => ['destroy']]);
+}
 
-    public function role_permissions($id)
-    {
-      return $id;
-      // $permissions = Role::with('permissions')->first();
-      // return response()->json($permissions);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+/**
+* Display a listing of the resource.
+*
+* @return \Illuminate\Http\Response
+*/
+public function index(Request $request)
+{
+$roles = Role::orderBy('id','DESC')->paginate(10);
+return view('roles.index',compact('roles'))
+->with('i', ($request->input('page', 1) - 1) * 5);
+}
+/**
+* Show the form for creating a new resource.
+*
+* @return \Illuminate\Http\Response
+*/
+public function create()
+{
+  $permission = Permission::with('category')->get();
+return view('roles.create',compact('permission'));
+}
+/**
+* Store a newly created resource in storage.
+*
+* @param  \Illuminate\Http\Request  $request
+* @return \Illuminate\Http\Response
+*/
+public function store(Request $request)
+{
+$this->validate($request, [
+'name' => 'required|unique:roles,name',
+'permission' => 'required',
+]);
+
+$role = Role::create(['name' => $request->input('name')]);
+$role->syncPermissions($request->input('permission'));
 
 $sucMsg = array(
   'message' => 'Rolle erfolgreich hinzugefügt',

@@ -9,22 +9,22 @@
 				</div>
 				<div class="modal-body">
 				<!-- Search -->
-					<div class="row mb-4 ">
-						<div class="col-md-6 offset-3">
-							<div class="input-group">
-									<span class="input-group-prepend">
-										<div class="input-group-text bg-transparent border-right-0"><i class="fa fa-search" style="color: #0275d8;"></i></div>
-									</span>
-									<input type="search" name="search_edit" placeholder="Suchen" id="search_edit" class="form-control py-2 border-left-0 border-right-0 border rounded"
-													value="{{ request()->input('search') }}">
-									<div id="theList"></div>
-									@csrf
-									<span class="input-group-append">
-										<div class="input-group-text bg-transparent border-left-0"><i class="fas fa-ellipsis-h" style="color: #0275d8;" id="chksrchedit"></i></div>
-								</span>
-							</div>
-						</div>
-					</div>
+        <div class="row mb-4 ">
+          <div class="col-md-6 offset-3">
+            <div class="input-group">
+                <span class="input-group-prepend">
+                  <div class="input-group-text bg-transparent border-right-0"><i class="fa fa-search" style="color: #0275d8;"></i></div>
+                </span>
+                <input type="search" name="search_edit" placeholder="Suchen" id="search_edit" class="form-control py-2 border-left-0 border-right-0 border rounded"
+                        value="{{ request()->input('search') }}">
+                <div id="theList"></div>
+                @csrf
+                <span class="input-group-append">
+                  <div class="input-group-text bg-transparent border-left-0"><i class="fas fa-ellipsis-h" style="color: #0275d8;" id="chksrchedit"></i></div>
+              </span>
+            </div>
+          </div>
+        </div>
 					<form action="{{ route('item.update') }}" method="POST" class="item_edit_form">
 					@csrf
 					@method('PATCH')

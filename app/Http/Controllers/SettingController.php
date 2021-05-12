@@ -15,6 +15,8 @@ class SettingController extends Controller
       return view ('settings.firstpage',compact('user'));
     }
 
+    
+
   public function firstupdate(Request $request,$id) 
     {
       $this->validate($request, [
@@ -31,7 +33,7 @@ class SettingController extends Controller
           'alert-type' => 'success'
         );
         
-        return redirect()->route('users.index')->with($sucMsg);
+        return redirect()->route('users.thankyou')->with($sucMsg);
     }
 		//** Settings index **//
 		public function index()

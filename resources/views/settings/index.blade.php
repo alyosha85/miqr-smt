@@ -48,7 +48,7 @@
 							<div class="list-group">
 								<a href="{{ route('settings.usersList')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung
                 &nbsp; <i class="fas fa-users"></i></a>
-								<a href="{{ url ('/role')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen & Berechtigungen
+								<a href="{{ url ('/roles')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen & Berechtigungen
                   &nbsp; <i class="fas fa-user-tag"></i></a>
                 </a>
 							</div><!-- End Linst Group -->

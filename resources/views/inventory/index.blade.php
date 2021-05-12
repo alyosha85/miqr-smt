@@ -325,6 +325,42 @@ $(document).on('keyup change', '#search_edit', function(){
 });
 });
 
+
+// $(document).on( "click", "#edit_modal", function() {
+// $('#edit').modal('show');
+// $("#search_edit" ).autocomplete({
+//             source: function(request, response) {
+//                 $.ajax({
+//                   url:"{{ route('search_edit') }}",
+//                     data: {
+//                         term : request.term
+//                     },
+//                     success: function(data){
+//                         var resp = $.map(data,function(obj){
+//                           console.log(data);
+//                             return {
+//                             value:obj.gname,
+//                             label:obj.id,
+//                             invnr:obj.invnr,
+//                             gname:obj.gname,
+//                             andat:obj.andat,
+//                             }
+//                         });
+//                         response($.ui.autocomplete.filter(resp,request.term));
+//                     }
+//                 });
+//             },
+//             minLength: 1,
+//               select:function(event,ui){
+//                 $('body .item_edit_form .invnr_edit').val(ui.item.invnr)
+//                 $('body .item_edit_form .gname_edit').val(ui.item.gname)
+//                 $('body .item_edit_form .andat_edit').val(ui.item.andat)
+//               }
+
+//         });
+// });
+
+
   //************************************************************* Create ************************************************************//
 $( document ).on( "click", "#add_modal", function() {
 	$('#add').modal('show');

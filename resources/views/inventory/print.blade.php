@@ -11,7 +11,7 @@
         }
         @media print {
             html, body {
-                height: 50%;
+                height: 100%;
             }
         }
         @font-face {

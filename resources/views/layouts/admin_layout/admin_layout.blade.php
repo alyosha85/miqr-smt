@@ -208,15 +208,15 @@
 @endif
 
 @if(count($errors) > 0)
-    <!-- @foreach($errors->all() as $error) -->
+    @foreach($errors->all() as $error)
     <script>
-        $('#add').modal('show');
-        // toastr.error("{{ $error }}");
-        // toastr.options = {
-        //   "preventDuplicates": true
-        //}
+       //$('#add').modal('show');
+        toastr.error("{{ $error }}");
+        toastr.options = {
+          "preventDuplicates": true
+        }
     </script>
-    <!-- @endforeach -->
+    @endforeach
 @endif
 
 

@@ -17,7 +17,6 @@ use App\InvRoom;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
 use Carbon\Carbon;
-use DB;
 use App\Exports\RoomExport;
 use App\Imports\RoomImport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -27,13 +26,10 @@ use App\User;
 
 class InvAbItemController extends Controller
 {
-    // function __construct()
-    // {
-    //   $this->middleware('permission: view_machines_actuall|view_all_machines|add_machine|add_machine_manually|print_list|print_ticket|move_machine|delete_machine|access_inventory', ['only' => ['index','store']]);
-    //   $this->middleware('permission:add_machine', ['only' => ['create_man','index']]);
-    //   $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    //   $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
 
     /**
      * Display a listing of the resource.
