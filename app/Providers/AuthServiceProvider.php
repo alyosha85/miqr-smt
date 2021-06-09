@@ -28,7 +28,6 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         WindowsAuthenticate::rememberAuthenticatedUsers();
-        WindowsAuthenticate::serverKey('REMOTE_USER');
         WindowsAuthenticate::logoutUnauthenticatedUsers();
         //
     }
