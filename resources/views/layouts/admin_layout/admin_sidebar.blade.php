@@ -42,6 +42,16 @@
               </p>
 						</a>
 					</li>
+          @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('Super_Admin')) 
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/contacts') }}" class="nav-link">
+              <i class="nav-icon fas fa-address-book" style="color:#6969B3;"></i>
+              <p>
+                Kontakte
+              </p>
+						</a>
+					</li>
+          @endif
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-sitemap" style="color:green;"></i>

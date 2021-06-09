@@ -74,15 +74,24 @@ return [
             'model' => App\User::class,
             'sync_passwords' => true,
             'sync_attributes' => [
-              'name' => 'cn',
+              'vorname' => 'givenName',   //first name 
+              'name' => 'sn',             //last name
+              'anrede' => 'personalTitle',
               'username' => 'samaccountname',
-              'position' => 'title',
+              'position' => 'title',      
               'abteilung' => 'department',
               'plz' => 'postalCode',
               'bundesland' => 'st',
               'straße' => 'streetAddress',
+              'ort' => 'l',
               'tel' => 'telephoneNumber',
+              'privat' => 'otherHomePhone',
+              'mobil' => 'mobile',
               'email' => 'mail',
+              'beschreibung' => 'description',
+              'office' => 'physicalDeliveryOfficeName', //büro
+              'Abschluss' => 'info',
+              
             ],
         ],
     ],
