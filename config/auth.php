@@ -68,7 +68,8 @@ return [
     'providers' => [
       'ldap' => [
         'driver' => 'ldap',
-        'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
+        //'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
+        'model' => App\Ldap\User::class,  //uses builtin Model
         'rules' => [],
         'database' => [
             'model' => App\User::class,

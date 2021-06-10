@@ -38,7 +38,6 @@
   <!-- toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
-
   <style>
     /* swal */
     .swal2-container {
@@ -149,7 +148,6 @@
 </div>
 
 @include('layouts.admin_layout.admin_footer')
-
 <!-- jQuery -->
 <script src="{{ url ('plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
