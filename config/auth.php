@@ -68,13 +68,9 @@ return [
     'providers' => [
       'ldap' => [
         'driver' => 'ldap',
-<<<<<<< HEAD
-        'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
-        //'model' => App\Ldap\User::class,  //uses builtin Model
-=======
         //'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
         'model' => App\Ldap\User::class,  //uses builtin Model
->>>>>>> 78d19087394ffb5d2d13ae4ee41eb126ae5fd839
+
         'rules' => [],
         'database' => [
             'model' => App\User::class,
@@ -97,10 +93,6 @@ return [
               'beschreibung' => 'description',
               'office' => 'physicalDeliveryOfficeName', //büro
               'Abschluss' => 'info',
-<<<<<<< HEAD
-=======
-              
->>>>>>> 78d19087394ffb5d2d13ae4ee41eb126ae5fd839
             ],
         ],
     ],

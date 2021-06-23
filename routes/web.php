@@ -119,12 +119,6 @@ Route::get('/profile',function(){
 /******************************************  Matrix  ******************************************************/
 Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berlin');
 
-<<<<<<< HEAD
 /******************************************  Contact  ******************************************************/
-=======
-
-
-/******************************************  Matrix  ******************************************************/
->>>>>>> 78d19087394ffb5d2d13ae4ee41eb126ae5fd839
 Route::get('/contacts','ContactController@index')->name('contact.index');
 
