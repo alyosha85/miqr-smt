@@ -11,30 +11,30 @@
 <section class="content">
 	<div class="container-fluid">
 		<!-- SubNav Bar -->
-    <ul class="nav nav-pills nav-fill">
+    <ul class="nav nav-pills nav-fill text-uppercase font-weight-bold">
       <li class="nav-item dropdown">
         @if(auth()->user()->can('Aktuell') || auth()->user()->can('Ausgemustert'))
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        Geräte <i class="fas fa-desktop" style="color:#F08080;"></i></a>
+        Geräte <i class="fas fa-desktop fa-lg" style="color:#F08080;"></i></a>
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
         @endif
       @can('Aktuell')
           <a class="dropdown-item" href="javascript:" id="actual_list_modal">Aktuell</a>
       @endcan
       @can('Ausgemustert')
-          <a class="dropdown-item" href="Javascript:" id="all_list_modal">Aktuell + Ausgemustert</a>
+          <a class="dropdown-item" href="Javascript:" id="all_list_modal">Ausgemustert</a>
       @endcan
         </div>
       </li>
       @can('Ändern')
       <li class="nav-item">
-        <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy" style="color: #0275d8;"></i></a>
+        <a class="nav-link" href="#" id="edit_modal">Ändern <i class="fas fa-pen-fancy fa-lg" style="color: #0275d8;"></i></a>
       </li>
       @endcan
       @if(auth()->user()->can('Aktuell') || auth()->user()->can('Ausgemustert'))
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Erfassen <i class="fas fa-plus" style="color:#5bc0de;"></i></a>
+          Erfassen <i class="fas fa-plus fa-lg" style="color:#5bc0de;"></i></a>
       @endif 
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
       @can('Erfassen_Auto')
@@ -47,18 +47,18 @@
       </li>
       @can('Bewegen')
       <li class="nav-item">
-        <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
+        <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt fa-lg" style="color: #5cb85c;"></i></a>
       </li>
       @endcan
       @can('Ausmustern')
       <li class="nav-item">
-        <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
+        <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle fa-lg"></i></a>
       </li>
       @endcan
       @if(auth()->user()->can('Drucken_list') || auth()->user()->can('Drucken_ticket'))
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Drucken <i class="fas fa-print" style="color:#007bff;"></i></a>
+          Drucken <i class="fas fa-print fa-lg" style="color:#007bff;"></i></a>
       @endif
         <div class="dropdown-menu w-100" aria-labelledby="navbarDropdown">
       @can('Drucken_list')
@@ -72,7 +72,12 @@
         </li>
       @can('Inventur')
         <li class="nav-item">
-          <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
+          <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed fa-lg" style="color: orange;"></i></a>
+        </li>
+      @endcan
+      @can('umbenennen')
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:" id="rename_modal">Umbenennen <i class="fas fa-file-signature fa-lg" style="color: red;"></i></a>
         </li>
       @endcan
     </ul>
@@ -84,7 +89,7 @@
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3>{{$computer}}</h3>
-						<p>Total Rechner & Laptops</p>
+						<p>Rechner & Laptops</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-tv"></i>
@@ -110,7 +115,7 @@
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3>{{$tablet}}</h3>
-						<p>Total Tabletten</p>
+						<p>Tablets</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-tablet-alt"></i>
@@ -203,7 +208,7 @@
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3>{{$tkanlage}}</h3>
-						<p>TK-anlage</p>
+						<p>TK-Anlagen</p>
 					</div>
 					<div class="icon">
             <i class="fas fa-tty"></i>
@@ -251,6 +256,7 @@
 @include('inventory.move')
 @include('inventory.inventur')
 @include('inventory.list')
+@include('inventory.rename')
 <!-- Print modal -->
 @include('inventory.label')
 
@@ -263,8 +269,73 @@
 
 <script>
 
- //************************************************************* Edit ************************************************************//
- $(document).on( "click", "#edit_modal", function() {
+//************************************************************* Rename *************************************************************//
+$(document).on( "click", "#rename_modal", function() {
+// Empty Values
+$('#search_rename').val('');
+$('body .submit_form_rename').attr('disabled', true)
+$('body .item_rename_form').trigger('reset')
+$("body .pdf_rename_red").hide();								
+$("body .pdf_rename_green").hide();
+$("body #chksrchrename").removeClass().addClass('fas fa-ellipsis-h').css('color','#0275d8');
+$(".modal-header").removeClass('found');
+$('#rename').modal('show');
+$(document).on('keyup change', '#search_rename', function(){
+let search_rename = $(this).val();
+$.ajax({
+  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+  type:'post',
+  url:"{{ route('search_check_rename') }}",
+  data:{search_rename:search_rename},
+  success:function(resp){
+    if(resp=="false"){
+      $("body #chksrchrename").removeClass().addClass('fas fa-times-circle').css('color', '#d9534f');
+      $('body .submit_form_rename').attr('disabled', true)
+      $('body .item_rename_form').trigger('reset');
+      $(".modal-header").removeClass('found');
+      $("body .pdf_rename_red").hide();								
+      $("body .pdf_rename_green").hide();
+    }else{
+      if(resp =="true") {
+              $("body #chksrchrename").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
+              $('body .submit_form_rename').attr('disabled', false)
+              $(".modal-header").addClass('found')
+              $("body .pdf_rename_green").hide();
+              $("body .pdf_rename_red").show();
+        $.ajax({
+          type:'get',
+          url:"{{ route('search_rename') }}",
+          data:{search_rename:search_rename},
+          success:function(resp){
+            if(resp.items.path_to_rg) {
+              $("body .pdf_rename_green").show();
+              $("body .pdf_rename_red").hide();
+              $("body .pdf_rename_green").attr("href", "/inventar/rechnungen/"+resp.items.path_to_rg);
+            }
+            $('body .item_rename_form .invnr_rename').val(resp.items.invnr)
+            $('body .item_rename_form .gname_rename').val(resp.items.gname)
+            $('body .item_rename_form .andat_rename').val(resp.items.andat)
+            $('body .item_rename_form .kp_rename').val(resp.items.kp)
+            $('body .item_rename_form .standort_rename').val(resp.room.invroom.location.address)
+            $('body .item_rename_form .raum_rename').val(resp.room.invroom.rname)
+            $('body .item_rename_form .gart_rename').val(resp.items.garts.name)
+            $('body .item_rename_form .gtyp_rename').val(resp.items.gtyp)
+            $('body .item_rename_form .sn_rename').val(resp.items.sn)
+            $('body .item_rename_form .notes_rename').val(resp.items.notes)
+          },error:function(){
+            alert("Error");
+          }
+        });
+      }
+    }
+  },error:function(){
+    alert("Error");
+  }
+});
+});
+});
+//************************************************************* Edit ***************************************************************//
+$(document).on( "click", "#edit_modal", function() {
 // Empty Values
 $('#search_edit').val('');
 $('body .item_edit_form').trigger('reset')
@@ -325,45 +396,9 @@ $(document).on('keyup change', '#search_edit', function(){
 });
 });
 
-
-// $(document).on( "click", "#edit_modal", function() {
-// $('#edit').modal('show');
-// $("#search_edit" ).autocomplete({
-//             source: function(request, response) {
-//                 $.ajax({
-//                   url:"{{ route('search_edit') }}",
-//                     data: {
-//                         term : request.term
-//                     },
-//                     success: function(data){
-//                         var resp = $.map(data,function(obj){
-//                           console.log(data);
-//                             return {
-//                             value:obj.gname,
-//                             label:obj.id,
-//                             invnr:obj.invnr,
-//                             gname:obj.gname,
-//                             andat:obj.andat,
-//                             }
-//                         });
-//                         response($.ui.autocomplete.filter(resp,request.term));
-//                     }
-//                 });
-//             },
-//             minLength: 1,
-//               select:function(event,ui){
-//                 $('body .item_edit_form .invnr_edit').val(ui.item.invnr)
-//                 $('body .item_edit_form .gname_edit').val(ui.item.gname)
-//                 $('body .item_edit_form .andat_edit').val(ui.item.andat)
-//               }
-
-//         });
-// });
-
-
-  //************************************************************* Create ************************************************************//
+//************************************************************* Create *************************************************************//
 $( document ).on( "click", "#add_modal", function() {
-	$('#add').modal('show');
+  $('#add').modal('show');
   //empty form on open
   $('.modal-header').removeClass('found');
   $('body .kaufpreis').val('');
@@ -401,17 +436,17 @@ $( document ).on( "click", "#add_modal", function() {
 });
 $( document ).on( "change", "#location_id", function() {
   $('#location_id').append(new Option("Standort...",''));
-	$('#rooms').find('option').remove();
-	$("#rooms").append(new Option("Raum Wählen...",''));
-	for(let i = 0; i<locationData.length ; i++){
-		if(locationData[i].location_id == $( this ).val()){
-			texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
-			$.each(locationData[i].room, function(index, item) {
-				$("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id));
-			});
-		}
-	}
-	$('.invnr').val(texty);
+  $('#rooms').find('option').remove();
+  $("#rooms").append(new Option("Raum Wählen...",''));
+  for(let i = 0; i<locationData.length ; i++){
+    if(locationData[i].location_id == $( this ).val()){
+      texty = locationData[i].location_id + '-' + (parseInt(locationData[i].last_inv_num) + 1) + '-' + locationData[i].suffix;
+      $.each(locationData[i].room, function(index, item) {
+        $("#rooms").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+      });
+    }
+  }
+  $('.invnr').val(texty);
 });
 $(function() {
   $('.date').daterangepicker({
@@ -424,7 +459,7 @@ $(function() {
 		}
   });
 });
-//************************************************************* Man. Create *****************************************************//
+//************************************************************* Man. Create ********************************************************//
 let locationSelect = new Array();
 $(document).on( "click", "#add_modal_man", function() {
 	// empty form on open function
@@ -476,7 +511,7 @@ $(function() {
 	}
   });
 });
-  //************************************************************* Print Label ************************************************************//
+  //************************************************************* Print Label ******************************************************//
   let locationData = new Array();
   let text = '';
   $( document ).on( "click", "#etiketten_modal", function() {
@@ -509,7 +544,7 @@ $(function() {
     }
     $('.inventNumber').val(texty);
   });
-  //********************************************************** Print Etiketten ***************************************************//
+  //********************************************************** Print Etiketten ******************************************************//
   function printfunction() {
     $('#printpage').modal('show');
     $('.modal-header').removeClass('found');
@@ -521,7 +556,7 @@ $(function() {
     WinPrint.print();
     setInterval(function(){ WinPrint.close()}, 3000);
 	}
-//************************************************************* List Print **********************************************************
+//************************************************************* List Print **********************************************************//
 let selectAddresslisten = new Array();
 let roomlisten = new Array();
 $(document).on("click", "#list_modal", function() {
@@ -817,7 +852,7 @@ $( document ).on( "change", "#location_id_move", function() {
 $( document ).on("change","#room_id_move", function(){
   $('body .submit_form_move').attr('disabled', false)
 });
-//************************************************************* Ausmuster ****************************************************//
+//************************************************************* Ausmuster **********************************************************//
 $(document).ready(function(){
 $(document).on( "click", "#invalid_modal", function() {
   // Empty Values
@@ -961,7 +996,7 @@ Dropzone.options.dropzoneFormMan = {
 	  }
 	})
   });
-//************************************************************* Dropzone ***********************************
+//************************************************************* Dropzone ************************************************************//
   Dropzone.prototype.defaultOptions.dictDefaultMessage = "Legen Sie die PDF-Datei hier ab, um sie hochzuladen";
   Dropzone.prototype.defaultOptions.dictFallbackMessage = "Ihr Browser unterstützt Drag&Drop Dateiuploads nicht";
   Dropzone.prototype.defaultOptions.dictFallbackText = "Benutzen Sie das Formular um Ihre Dateien hochzuladen";

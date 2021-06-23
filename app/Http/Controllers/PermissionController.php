@@ -45,7 +45,7 @@ class PermissionController extends Controller
         Permission::create(['name' => $request->input('name')]);
         
         $sucMsg = array(
-          'message' => 'Rolle erfolgreich hinzugefügt',
+          'message' => 'Permission erfolgreich hinzugefügt',
           'alert-type' => 'success'
         );
         return redirect()->route('roles.index')->with($sucMsg);

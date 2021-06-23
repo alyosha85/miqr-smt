@@ -7,7 +7,8 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item d-none d-sm-inline-block">
+      <!-- Disable Logout for SSO (windows Authentication) -->
+      <!-- <li class="nav-item d-none d-sm-inline-block">
         <a class="nav-link float-right" href="{{ route('logout') }}"
         onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
@@ -16,7 +17,7 @@
       <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>
-      </li>
+      </li> -->
 
     </ul>
   </nav>

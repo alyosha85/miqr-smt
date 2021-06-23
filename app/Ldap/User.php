@@ -2,14 +2,14 @@
 
 namespace App\Ldap;
 
+use App\Ldap\Scopes\ImportFilter;
 use LdapRecord\Models\Model;
 
 class User extends Model
 {
-    public static $objectClasses = [
-        'top',
-        'person',
-        'organizationalperson',
-        'user',
-    ];
-}
+  protected static function boot()
+  {
+      parent::boot();
+      static::addGlobalScope(new ImportFilter);
+  }
+}#

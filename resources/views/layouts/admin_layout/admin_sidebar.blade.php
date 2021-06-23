@@ -12,7 +12,8 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ url('images/admin_images/avatar2.png') }}" class="img-circle elevation-2" alt="User Image"> 
+          <img src="{{ url('images/admin_images/mitarbeiter/'.auth()->user()->username).'.jpg'}}" class="img-circle elevation-2 img-size-small" alt="User Image"
+          onerror="this.onerror=null;this.src='images/admin_images/mitarbeiter/nopic.jpg';"> 
         </div>
         <div class="info">
           <a href="#" class="d-block">{{Auth::user()->name}}</a>
@@ -21,7 +22,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column text-uppercase" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('Super_Admin')) 
@@ -30,6 +31,16 @@
 							<i class="nav-icon fas fa-cogs" style="color: #5bc0de"></i>
               <p>
                 Einstellungen
+              </p>
+						</a>
+					</li>
+          @endif
+          @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('Super_Admin')) 
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/contacts') }}" class="nav-link">
+              <i class="nav-icon fas fa-id-card-alt" style="color: #6969B3"></i>
+              <p>
+                Kontakte
               </p>
 						</a>
 					</li>
@@ -50,7 +61,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview text-capitalize">
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-circle"></i>
@@ -59,7 +70,7 @@
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
                     <a href="{{ url('/matrix/berlin') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
@@ -76,20 +87,20 @@
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Barbarossa2</p>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Park28</p>
-                    </a>
-                    </li>
-                </ul>
+                  <ul class="nav nav-treeview font-weight-light">
+                      <li class="nav-item">
+                      <a href="#" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Barbarossa2</p>
+                      </a>
+                      </li>
+                      <li class="nav-item">
+                      <a href="#" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Park28</p>
+                      </a>
+                      </li>
+                  </ul>
                 </li>
                 <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
@@ -99,7 +110,7 @@
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
@@ -134,7 +145,7 @@
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
@@ -187,7 +198,7 @@
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
@@ -216,7 +227,7 @@
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
+                <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>

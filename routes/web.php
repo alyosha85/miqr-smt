@@ -43,7 +43,7 @@ Route::get('dropzone/delete_pdf', 'InvAbItemController@delete_pdf')->name('dropz
 ///***********************  Create Items Manuall   *************************/
 Route::get('/item/create_man','InvAbItemController@create_man')->name('item.create_man');
 Route::post('/item_man','InvAbItemController@storeMan')->name('item.storeMan');
-//**********  PDF Upload Man  ********************/
+//*******************  PDF Upload Man  ********************/
 Route::post('dropzone/upload_pdf_man', 'InvAbItemController@upload_pdf_man')->name('dropzone.upload_pdf_man');
 Route::get('dropzone/fetch_pdf_man', 'InvAbItemController@fetch_pdf_man')->name('dropzone.fetch_pdf_man');
 Route::get('dropzone/delete_pdf_man', 'InvAbItemController@delete_pdf_man')->name('dropzone.delete_pdf_man');
@@ -52,7 +52,14 @@ Route::get('dropzone/delete_pdf_man', 'InvAbItemController@delete_pdf_man')->nam
 Route::get('/search_edit','InvAbItemController@search_edit')->name('search_edit');
 Route::post('search_check_edit','InvAbItemController@searchCheckEdit')->name('search_check_edit');
 Route::patch('/item/update','InvAbItemController@update')->name('item.update');
-// Route::post('autocompleteedit','InvAbItemController@autocompleteEdit')->name('autocompleteEdit');
+
+//*********************  Rename Items   **************************************/
+Route::get('/search_rename','InvAbItemController@search_rename')->name('search_rename');
+Route::post('search_check_rename','InvAbItemController@searchCheckrename')->name('search_check_rename');
+Route::patch('/item/updaterename','InvAbItemController@updateRename')->name('item.updaterename');
+
+
+//Route::post('autocompleterename','InvAbItemController@autocompleteRename')->name('autocompleteRename');
 
 //*********************  Move Items   **************************************/
 Route::get('/search_move','InvAbItemController@search_move')->name('search_move');
@@ -111,4 +118,7 @@ Route::get('/profile',function(){
 
 /******************************************  Matrix  ******************************************************/
 Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berlin');
+
+/******************************************  Contact  ******************************************************/
+Route::get('/contacts','ContactController@index')->name('contact.index');
 

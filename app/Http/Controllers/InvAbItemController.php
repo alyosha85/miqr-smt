@@ -31,6 +31,57 @@ class InvAbItemController extends Controller
       $this->middleware('auth');
   }
 
+
+/*************************************************************{{ Rename   }}******************************************************************************/
+public function search_rename(Request $request)
+{
+  $search_text = strtoupper($_GET['search_rename']);
+  $items = InvAbItem::with('garts')->Where(function ($query) use ($search_text) {
+                                          $query->whereNull('ausdat')->where('invnr',$search_text);
+                                          })->
+                                          orWhere(function ($query) use ($search_text) {
+                                              $query->whereNull('ausdat')->where('gname',strtoupper($search_text));
+                                          })->first();
+  $room = InvItems::with('invroom.location')->where('invnr',$items->invnr)->first();
+  return ['items'=>$items,'room'=>$room];
+}
+
+public function searchCheckRename(Request $request)
+{
+  $data = $request->all();
+  $check = InvAbItem::where('invnr',$data['search_rename'])->orwhere('gname',$data['search_rename'])->first();
+  $check = InvAbItem::Where(function ($query) use ($data) {
+                            $query->whereNull('ausdat')->where('invnr',strtoupper($data['search_rename']));
+                            })->
+                            orWhere(function ($query) use ($data) {
+                                $query->whereNull('ausdat')->where('gname',strtoupper($data['search_rename']));
+                            })->first();
+  if ($check && $data['search_rename']!="") {
+      echo "true";
+  }else{
+      echo "false";
+  }
+}
+
+/**
+ * Method rename update
+ */
+public function updateRename(Request $request)
+{
+  $items = InvAbItem::where('invnr',$request->invnr)->first();
+  $items->gname = $request->gname;
+  $items->save();
+  $items2 = InvItems::where('invnr',$request->invnr)->first();
+  $items2->gname = $request->gname;
+  $items2->save();
+  $sucMsg = array(
+      'message' => 'Erfolgreich bearbeitet',
+      'alert-type' => 'success'
+  );
+  return redirect()->back()->with($sucMsg);
+
+}
+
     /**
      * Display a listing of the resource.
      */
@@ -52,7 +103,7 @@ class InvAbItemController extends Controller
         return view('inventory.index',compact('computer','server','tablet','printer','monitor','switch','router','nas','projector','tkanlage','telefon','scanner','ausgemusterd'));
     }
 
-      /*************************************************************{{ Machine list  }}******************************************************************************
+/*************************************************************{{ Machine list  }}******************************************************************************
      * Search Method listen
      */
     public function machinelist() 
@@ -238,7 +289,7 @@ class InvAbItemController extends Controller
 			return view('inventory.print_invalid',compact('items','room'))->with($sucMsg);
     }
 
-     /**********************************************************{{ EDIT }}******************************************************************************
+     /**********************************************************{{ Edit }}******************************************************************************
      * Search Method Edit
      */
     public function search_edit(Request $request)
@@ -274,22 +325,7 @@ class InvAbItemController extends Controller
 					echo "false";
 			}
 		}
-		
-		// public function autocompleteEdit(Request $request)
-		// {
-		// 	if($request->get('search_edit'))
-		// 	{
-		// 		$search_edit = $request->get('search_edit');
-		// 		$data = InvAbItem::orderby('gname','asc')->select('gname')->where('gname', 'like', '%' .$search_edit . '%')->limit(5)->get();
-		// 		$output ='<ul class="dropdown-menu" style="display:block; position:relative">';
-		// 		foreach($data as $row)
-		// 		{
-		// 			$output .= '<li><a href="#">'.$row->gname.'</a></li>';
-		// 		}
-		// 		$output .= '</ul>';
-		// 		echo $output;
-		// 	}
-		// }
+
     /**
      * Method Edit update
      */
@@ -358,7 +394,7 @@ class InvAbItemController extends Controller
 			return redirect()->back()->with($infoMsg);
     }
 
-    /**********************************************************{{ Print label Methoad }}******************************************************************************/
+/**********************************************************{{ Print label Methoad }}******************************************************************************/
 
     public function printlabel($printinvnr, $anzahl)
     {
@@ -368,9 +404,10 @@ class InvAbItemController extends Controller
 			$anzahlnew->save();
 			return view ('inventory.print',compact('explode','anzahl'));
     }
-    /**********************************************************{{ Upload PDF }}******************************************************************************
-     * upload Pdf and store
-     */
+/************************************************************** {{ Upload PDF }} ********************************************************************************/
+    /*
+    * upload Pdf and store
+    */
     public function upload_pdf(Request $request)
     {
     	$pdf = $request->file('file');

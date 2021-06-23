@@ -37,6 +37,9 @@
   <!-- toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
+  <link rel="stylesheet" href="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/css/animatecss/animate.min.css">
+  <link rel="stylesheet" href="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/js/slidernav/slidernav.css">
+
   <style>
     /* swal */
     .swal2-container {
@@ -115,6 +118,18 @@
       animation: bounceDown 2s infinite;
       text-align:center;
       display:block;
+    }
+
+    .img-circle{
+    border:0px solid;
+    border-radius:50%;
+    width:200px;
+    height:200px;
+    }
+
+    .img-size-small {
+      width: 33.9px !important;
+      height: 33.9px !important;
     }
 
 

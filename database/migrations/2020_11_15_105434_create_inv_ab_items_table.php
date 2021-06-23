@@ -24,7 +24,7 @@ class CreateInvAbItemsTable extends Migration
             $table->string('gname',50)->nullable();
             $table->string('sn',50)->nullable();
             $table->mediumText('notes')->nullable();
-            $table->string('path_to_rg',100)->nullable();
+            $table->string('path_to_rg',50)->nullable();
             $table->date('ausdat')->nullable();
             $table->foreignId('amg_id')->nullable();
             $table->timestamps();

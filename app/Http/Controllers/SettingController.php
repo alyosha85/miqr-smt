@@ -33,7 +33,7 @@ class SettingController extends Controller
           'alert-type' => 'success'
         );
         
-        return redirect()->route('users.thankyou')->with($sucMsg);
+        return redirect()->route('inventory')->with($sucMsg);
     }
 		//** Settings index **//
 		public function index()
