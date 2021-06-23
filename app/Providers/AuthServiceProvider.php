@@ -28,9 +28,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         WindowsAuthenticate::rememberAuthenticatedUsers();
+<<<<<<< HEAD
         //WindowsAuthenticate::logoutUnauthenticatedUsers();
         //WindowsAuthenticate::bypassDomainVerification();
 
+=======
+        WindowsAuthenticate::logoutUnauthenticatedUsers();
+>>>>>>> 78d19087394ffb5d2d13ae4ee41eb126ae5fd839
         //
     }
     

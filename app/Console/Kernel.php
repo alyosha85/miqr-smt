@@ -24,7 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+      // Import LDAP users hourly.
+        $schedule->command('ldap:import ldap', [
+          '--no-interaction',
+          '--restore',
+          '--delete'
+      ])->hourly();
     }
 
     /**

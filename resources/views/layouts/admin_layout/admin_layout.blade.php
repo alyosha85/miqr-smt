@@ -32,6 +32,7 @@
   <!-- Datatables Css -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.8/css/responsive.dataTables.min.css">
   <!-- app.css -->
   <link rel="stylesheet" href="{{mix('css/app.css')}}">
   <!-- toastr -->
@@ -162,7 +163,6 @@
 </div>
 
 @include('layouts.admin_layout.admin_footer')
-
 <!-- jQuery -->
 <script src="{{ url ('plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -238,6 +238,10 @@
 <!-- Datatables script-->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>
+
+
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
