@@ -122,3 +122,6 @@ Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berli
 /******************************************  Contact  ******************************************************/
 Route::get('/contacts','ContactController@index')->name('contact.index');
 
+Route::post('/address', 'ContactController@dynamicAddresses')->name('address');
+Route::post('/rooms', 'ContactController@dynamicrooms')->name('rooms');
+

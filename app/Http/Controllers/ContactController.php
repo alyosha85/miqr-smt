@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Contact;
-use APP\User;
-use Auth;
 use Illuminate\Http\Request;
+
+use App\Place;
+use App\Contact;
+use App\InvRoom;
+use App\User;
+use App\Location;
+use Auth;
 
 class ContactController extends Controller
 {
@@ -17,7 +20,22 @@ class ContactController extends Controller
     public function index()
     {
       $users = User::all();
-      return view('contacts.index',compact('users'));
+      $cities = Place::all();
+      return view('contacts.index',compact('users','cities'));
+    }
+
+    public function dynamicAddresses(Request $request)
+    {
+      $place_id = $request->place_id;
+      $address = Location::where('place_id',$place_id)->get();
+      return response()->json(['address'=>$address]);
+    }
+
+    public function dynamicrooms(Request $request)
+    {
+      $address_id = $request->address_id;
+      $rooms = InvRoom::where('location_id',$address_id)->get();
+      return response()->json(['rooms'=>$rooms]);
     }
 
     /**

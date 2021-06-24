@@ -4,86 +4,34 @@
     width:128px !important;
     height: 128px !important;
   }
-
-
-  .box.border.green {
-    border: 1px solid #661421;
-}
-.box.border.green > .box-title {
-    color: #FFFFFF !important;
-    background-color: #661421;
-    border-bottom: 1px solid #661421;
-}
-.box.border > .box-title, .box.solid > .box-title {
-    padding: 8px 10px 2px;
-    border-bottom: 1px solid #c4c4c4;
-    min-height: 30px;
-    background-color: #dbdbdb;
-    border-radius: 4px 4px 0 0;
-    margin-bottom: 0;
-}
-.box .box-title {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #c4c4c4;
-    min-height: 30px;
-}
-.box.border .box-body, .box.solid .box-body {
-    border-radius: 0 0 4px 4px;
-    padding: 10px;
-    background-color: #FFFFFF;
-}
-.box.border, .box.solid {
-    border: 1px solid #c4c4c4;
-    border-radius: 4px;
-}
-.box {
-    clear: both;
-    margin-top: 0px;
-    margin-bottom: 25px;
-    padding: 0px;
-}
-* {
-    outline: medium none !important;
-}
-*, *::before, *::after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 </style>
 
 @section('content')
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
-
-  <ul class="nav nav-pills nav-fill mb-3 text-uppercase font-weight-bold">
-    <li class="nav-item dropdown">
-      <select class="custom-select">
-        <option selected>Please Choose a City</option>
-        <option value="1">Erfurt</option>
-        <option value="2">Berlin</option>
-        <option value="3">Suhl</option>
+  <ul class="nav nav-pills nav-justified mb-3">
+    <li class="nav-item dropdown col-md-4">
+      <select class="custom-select nav-link" name="cities" id="cities">
+        <option selected class="dropdown-menu">Please Choose a City</option>
+        @foreach($cities as $city)
+        <option value="{{$city->id}}">{{$city->pnname}}</option>
+        @endforeach
       </select>
     </li>
-    <li class="nav-item dropdown">
-      <select class="custom-select">
-        <option selected>Please Choose a City</option>
-        <option value="1">Erfurt</option>
-        <option value="2">Berlin</option>
-        <option value="3">Suhl</option>
+    <li class="nav-item dropdown col-md-4">
+      <select class="custom-select nav-link" name="address" id="address">
       </select>
     </li>
-    @can('Bewegen')
-    <li class="nav-item">
-      <a class="nav-link" href="javascript:" id="move_modal">Bewegen <i class="fas fa-expand-arrows-alt" style="color: #5cb85c;"></i></a>
+    <li class="nav-item dropdown col-md-4">
+      <select class="custom-select nav-link" name="address" id="address">
+      </select>
     </li>
-    @endcan
-    @can('Ausmustern')
-    <li class="nav-item">
-      <a class="nav-link" href="javascript:" id="invalid_modal" >Ausmustern <i class="far fa-times-circle"></i></a>
+    <li class="nav-item dropdown col-md-4">
+      <select class="custom-select nav-link" name="raum" id="raum">
+      </select>
     </li>
-    @endcan
+    <!-- 
     @if(auth()->user()->can('Drucken_list') || auth()->user()->can('Drucken_ticket'))
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="javascript:" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,12 +51,12 @@
       <li class="nav-item">
         <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed" style="color: orange;"></i></a>
       </li>
-    @endcan
+    @endcan -->
   </ul>
   <!-- Default box -->
   <div class="card card-solid">
     <div class="card-body pb-0">
-      <!-- <div class="row d-flex align-items-stretch">
+      <div class="row d-flex align-items-stretch">
         @foreach($users as $user)
         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
           <div class="card bg-light">
@@ -145,80 +93,7 @@
         </div>
         @endforeach
 
-      </div> -->
-      <div class="col-md-12">
-        <!-- BOX -->
-        <div class="box border green">
-           <div class="box-title">
-              <h4><i class="fa fa-book"></i> Address Book</h4>
-           </div>
-           <div class="box-body">
-              <div class="row">
-                 <div class="col-md-4">
-                    <div id="address-book">
-                       <div class="slider-content">
-                          <ul>
-                             <li id="a">
-                                <a name="a" class="title">A</a>
-                                <ul>
-                                   <li><a href="/">Adam</a></li>
-                                </ul>
-                             </li>
-                             <li id="b">
-                                <a name="b" class="title">B</a>
-                                <ul>
-                                   <li><a href="/">Barry</a></li>
-                                </ul>
-                             </li>
-                          </ul>
-                       </div>
-                    </div>
-                 </div>
-                 <div class="col-md-8">
-                    <div id="contact-card" class="panel panel-default">
-                       <div class="panel-heading">
-                          <h2 class="panel-title">John Doe</h2>
-                       </div>
-                       <div class="panel-body">
-                          <div id="card" class="row">
-                             <div class="col-md-4 headshot">
-                                <img src="{{ url('images/admin_images/mitarbeiter/'.$user->username).'.jpg'}}" alt="" height="200" width="200">
-                             </div>
-                             <div class="col-md-8">
-                                <table class="table table-hover">
-                                   <tbody>
-                                      <tr>
-                                         <td><i class="fa fa-font"></i> Name</td>
-                                         <td id="card-name">John Doe</td>
-                                      </tr>
-                                      <tr>
-                                         <td><i class="fa fa-home"></i> Address</td>
-                                         <td>795 Folsom Ave, Suite 600
-                                            San Francisco, CA 94107
-                                            P: (123) 456-7890 
-                                         </td>
-                                      </tr>
-                                      <tr>
-                                         <td><i class="fa fa-phone"></i> Phone</td>
-                                         <td>+001 8753-3648-002</td>
-                                      </tr>
-                                      <tr>
-                                         <td><i class="fa fa-envelope"></i> Email</td>
-                                         <td>sampleemail@gmail.com</td>
-                                      </tr>
-                                   </tbody>
-                                </table>
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-        <!-- /BOX -->
-     </div>
-
+      </div>
     </div>
     <!-- /.card-body -->
     <div class="card-footer">
@@ -247,33 +122,56 @@
 
 @section('script')
 <script>
-  jQuery(document).ready(function() {	
-		handleSliderNav();	
-		
-		});
-			var handleSliderNav = function () {
-		$('#address-book').sliderNav();
-		
-		$('#address-book .slider-content ul li ul li a').click(function(e){
-			e.preventDefault();
-			var contact_card = $('#contact-card');
-			//Get the name clicked on
-			var name = $(this).text();
-			//Set the name
-			$('#contact-card .panel-title').html(name);
-			$('#contact-card #card-name').html(name);
-			//Randomize the image
-			var img_id = Math.floor(Math.random() * (5 - 1 + 1)) + 1;
-			//Set the image
-			$('#contact-card .headshot img').attr('src', 'img/addressbook/'+img_id+'.jpg');
-			contact_card.removeClass('animated fadeInUp').addClass('animated fadeInUp');
-			var wait = window.setTimeout( function(){
-				contact_card.removeClass('animated fadeInUp')},
-				1300
-			);
-		});
-	}
+
+$.ajaxSetup({
+headers: {
+'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+$(document).ready(function () {
+ // $('#address').append(new Option("Raum...",''));
+ $('#address').append('<option value="">'+"Adresse..."+'</option>');
+  $('#cities').on('change',function(e) {
+  $('#raum').find('option').remove();
+  $('#raum').append('<option value="">'+"raum..."+'</option>');
+  var cat_id = e.target.value;
+    $.ajax({
+    url:"{{ route('address') }}",
+    type:"POST",
+      data: {
+      place_id: cat_id
+      },
+      success:function (data) {
+        console.log(data);
+      $('#address').empty();
+      $.each(data['address'],function(index,address){
+        $('#address').append('<option value="'+address.id+'">'+address.address+'</option>');
+        })
+      }
+    })
+  });
+
+ $('#raum').append('<option value="">'+"raum..."+'</option>');
+  $('#address').on('change',function(e) {
+  var address = e.target.value;
+    $.ajax({
+    url:"{{ route('rooms') }}",
+    type:"POST",
+      data: {
+      address_id: address
+      },
+      success:function (data) {
+        console.log(data);
+      $('#raum').empty();
+      console.log(data);
+      $.each(data['rooms'],function(index,item){
+        $('#raum').append('<option value="'+item.id+'">'+item.rname+' '+item.altrname+'</option>');
+        })
+      }
+    })
+  });
+});
+
 
 </script>
-<script src="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/js/slidernav/slidernav.js"></script>
 @endsection
