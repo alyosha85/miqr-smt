@@ -20,7 +20,7 @@
               <input type="text" class="form-control invnr_man" name="invnr" required>
             </div>
             <div class="form-group col-md-4">
-              <label for="andat" data-toggle="tooltip" data-placement="top" title="Pflichtfeld">Anschffungsdatum
+              <label for="andat" data-toggle="tooltip" data-placement="top" title="Pflichtfeld">Anschaffungsdatum
                 <i class="fas fa-asterisk"style="color:#d9534f;"></i>
               </label>
               <input type="text" class="form-control date_man" name="andat" required>

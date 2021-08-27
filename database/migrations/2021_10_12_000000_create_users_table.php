@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
           $table->id();
           $table->string('name')->nullable(); //last name
           $table->string('vorname')->nullable();
-          $table->string('anrede')->nullable();
+          $table->string('title')->nullable();
           $table->string('username')->unique(); 
           $table->string('position')->nullable(); 
           $table->string('beschreibung')->nullable(); 
@@ -29,8 +29,10 @@ class CreateUsersTable extends Migration
           $table->string('straße')->nullable(); 
           $table->string('ort')->nullable(); 
           $table->string('tel')->nullable(); 
+          $table->string('fax')->nullable(); 
           $table->string('privat')->nullable(); 
           $table->string('mobil')->nullable(); 
+          $table->string('email_privat')->nullable();
           $table->string('email')->unique();
           $table->string('guid')->unique()->nullable();
           $table->string('domain')->nullable();

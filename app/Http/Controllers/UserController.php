@@ -10,6 +10,14 @@ use Hash;
 
 class UserController extends Controller
 {
+
+  public function profile()
+  {
+      $hour = date('H');
+      $dayTerm = ($hour > 17) ? "Guten Abend" : (($hour > 12) ? "Guten Tag" : "Guten Morgen");
+      $user = Auth()->user();
+      return view('user.profile',compact('user','dayTerm'));
+  }
   /**
   * Display a listing of the resource.
   *
@@ -17,10 +25,10 @@ class UserController extends Controller
   */
   public function index(Request $request)
   {
-  $data = User::orderBy('id','DESC')->paginate(5);
+  $data = User::all();
   $collectionOfRoles = Role::pluck('name')->toArray();
   return view('users.index',compact('data','collectionOfRoles'))
-  ->with('i', ($request->input('page', 1) - 1) * 5);
+  ->with('i');
   }
   /**
   * Show the form for creating a new resource.

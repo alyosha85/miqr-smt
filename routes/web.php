@@ -91,7 +91,7 @@ Route::post('/send_unordered_computers','InvAbItemController@sendUnorderedComput
 Route::get('/print_inventur','InvAbItemController@printinventur')->name('printinventur');
 
 
-/******************************************  Settings  ******************************************************/
+//******************************************  Settings  ******************************************************/
 Route::get('/settings','SettingController@index')->name('setting_index');
 /* Add City */
 Route::post('/create_city','PlaceController@addCity')->name('addCity');
@@ -110,18 +110,46 @@ Route::get('/settings/usersList','UserController@index')->name('settings.usersLi
 Route::get('/settings/firstpage/{id}/edit','SettingController@firstpage')->name('settings.firstpage'); 
 Route::patch('/settings/firstpage/{id}','SettingController@firstupdate')->name('settings.firstupdate'); 
 
-/******************************************  Profile  ******************************************************/
-Route::get('/profile',function(){
-  return view('user.profile');
-});
+//******************************************  Profile  ******************************************************/
+Route::get('/profile','UserController@profile')->name('profile');
 
 
-/******************************************  Matrix  ******************************************************/
+//******************************************  Matrix  ******************************************************/
 Route::get('/matrix/berlin','Matrix\BerlinController@index')->name('matrix.berlin');
 
-/******************************************  Contact  ******************************************************/
-Route::get('/contacts','ContactController@index')->name('contact.index');
+//******************************************  Contact  ******************************************************/
+Route::get('/contacts','ContactController@index')->name('contact.index'); 
 
-Route::post('/address', 'ContactController@dynamicAddresses')->name('address');
-Route::post('/rooms', 'ContactController@dynamicrooms')->name('rooms');
+Route::post('/address', 'ContactController@dynamicAddresses')->name('address'); //generate address list from Cities list
+Route::post('/rooms', 'ContactController@dynamicrooms')->name('rooms'); // generate rooms list from addresses list
 
+Route::post('/searchbyname','ContactController@searchByName')->name('searchByName'); //search contact by name
+Route::post('/searchbyusername','ContactController@searchByUsername')->name('searchByUsername'); //search contact by username
+
+
+//******************************************  Ticket  ******************************************************/
+Route::get('/usertickets','TicketController@usertickets')->name('ticket.usertickets'); 
+Route::get('/ticket.index','TicketController@index')->name('ticket.index'); //duplicate
+Route::post('/problem_type','TicketController@problem_type')->name('problem_type'); 
+Route::post('/dependant_forms','TicketController@dependant_forms')->name('forms'); 
+Route::post('/problem_type_machine','TicketController@problem_type_machine')->name('problem_type_machine'); 
+Route::post('/form_store','TicketController@store')->name('form_store'); 
+Route::get('/ticket/address','TicketController@address')->name('ticket.address');
+    //****************************************  Ticket Computer  *************************************************/
+    Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); //duplicate
+    Route::get('/ticket.sotware_request','TicketController@softwareRequest')->name('softwareRequest'); 
+    Route::get('/ticket.hardware_request','TicketController@hardwareRequest')->name('hardwareRequest'); 
+    Route::get('/ticket.pc_problems','TicketController@pc_problems')->name('pc_problems'); 
+    Route::get('/ticket.printer','TicketController@printer_in_out')->name('printer_in_out');  // same page in PC / Laptops and Drucker
+    Route::get('/ticket.other','TicketController@other')->name('other'); 
+    Route::post('/ticket.printer_search_inroom','TicketController@printer_in_room')->name('printer_in_room'); //! AJAX find the printer  
+    //****************************************  Ticket Printer  *************************************************/
+    Route::get('/ticket.printer_all','TicketController@printer_all')->name('printer_all'); 
+    Route::get('/ticket.printer_driver','TicketController@printer_driver')->name('printer_driver'); 
+    Route::get('/ticket.scanner','TicketController@scanner')->name('scanner'); 
+    Route::get('/ticket.function','TicketController@function')->name('function'); 
+    Route::get('/ticket.errors','TicketController@errors')->name('errors'); 
+    //****************************************  Ticket Telephone  *************************************************/
+    Route::get('/ticket.telephone_all','TicketController@telephone_all')->name('telephone_all');
+    Route::get('/ticket.tel_problems','TicketController@tel_problems')->name('tel_problems'); 
+    Route::post('/ticket.tel_search_inroom','TicketController@tel_in_room')->name('tel_in_room');      //! find the Telephone 

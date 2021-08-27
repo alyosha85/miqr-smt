@@ -18,57 +18,58 @@
     @endif
     <div class="row">
       <div class="col-6 mx-auto">
-        <table class="table table-sm">
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Status</th>
-            <th scope="col">Roles</th>
-            <th scope="col"></th>
-          </tr>
+        <table class="table table-sm" id="user_managment">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Status</th>
+              <th scope="col">Roles</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
         @foreach ($data as $key => $user)
-          <tr>
-            <td>{{ ++$i }}</td>
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->email }}</td>
-            <td>
-              @if($user->hasAnyRole($collectionOfRoles))
-              <div>
-                <div class="spinner-grow spinner-grow-sm text-success">
+          <tbody>
+            <tr>
+              <td>{{ ++$i }}</td>
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->email }}</td>
+              <td>
+                @if($user->hasAnyRole($collectionOfRoles))
+                <div>
+                  <div class="spinner-grow spinner-grow-sm text-success">
+                  </div>
+                  <span class="text-success ml-2">Active</span>
                 </div>
-                <span class="text-success ml-2">Active</span>
-              </div>
-              @else
-              <div>
-                <div class="spinner-grow spinner-grow-sm text-danger">
+                @else
+                <div>
+                  <div class="spinner-grow spinner-grow-sm text-danger">
+                  </div>
+                  <span class="text-danger ml-2">Inactive</span>
                 </div>
-                <span class="text-danger ml-2">Inactive</span>
-              </div>
+                @endif
+              </td>
+              <td>
+              @if(!empty($user->getRoleNames()))
+                @foreach($user->getRoleNames() as $v)
+                <label class="badge badge-success">{{ $v }}</label>
+                @endforeach
               @endif
-            </td>
-            <td>
-            @if(!empty($user->getRoleNames()))
-              @foreach($user->getRoleNames() as $v)
-              <label class="badge badge-success">{{ $v }}</label>
-              @endforeach
-            @endif
-            </td>
-            <td class="text-right">
-            <a href="{{ route('users.show',$user->id) }}" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Aussicht "><i class="far fa-eye"></i></a>
-            <a href="{{ route('users.edit',$user->id) }}" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Bearbeiten"><i class="fas fa-pen-alt"></i></a>
-            {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
-            {{ Form::button('<i class="far fa-trash-alt"></i>', ['type'=>'submit', 'class' => 'btn btn-outline-danger']) }}
-            {!! Form::close() !!}
-            </td>
-          </tr>
+              </td>
+              <td class="text-right">
+              <a href="{{ route('users.show',$user->id) }}" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Aussicht "><i class="far fa-eye"></i></a>
+              <a href="{{ route('users.edit',$user->id) }}" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Bearbeiten"><i class="fas fa-pen-alt"></i></a>
+              {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+              {{ Form::button('<i class="far fa-trash-alt"></i>', ['type'=>'submit', 'class' => 'btn btn-outline-danger']) }}
+              {!! Form::close() !!}
+              </td>
+            </tr>
+          </tbody>
         @endforeach
         </table>
-        {!! $data->render() !!}
-
       </div>
     </div>
   </div>
 </section>
 @endsection
-

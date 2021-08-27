@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Spatie\Permission\Models\Role;
+use App\Exports\UserExport;
+use App\Imports\UserImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SettingController extends Controller
 {
@@ -30,10 +33,61 @@ class SettingController extends Controller
     {
       $this->validate($request, [
         'position' => 'required',
+        'abteilung' => 'required',
         'tel' => 'required',
-        'email' => 'required',
-        'straße' => 'required'
+        'ort' => 'required',
+        'straße' => 'required',
+        'plz' => 'required',
+        'vorname' => 'required',
+        'name' => 'required',
+        'title' => 'required',
         ]);
+
+        $importuser = [[
+          $request->username,
+          $request->position,
+          $request->abteilung,
+          $request->tel,
+          $request->fax,
+          $request->ort,
+          $request->straße,
+          $request->plz,
+          $request->title,
+          $request->vorname,
+          $request->name,
+          $request->mobil,
+          $request->privat,
+          $request->email_privat,
+          $request->abschluss,
+          $request->office,
+          ]];
+        try {
+          $importuser = Excel::toArray(new UserImport, 'updateuser.csv','local');
+          $importuser = $importuser[0];
+          $importuser[] = [
+            $request->username,
+            $request->position,
+            $request->abteilung,
+            $request->tel,
+            $request->fax,
+            $request->ort,
+            $request->straße,
+            $request->plz,
+            $request->title,
+            $request->vorname,
+            $request->name,
+            $request->mobil,
+            $request->privat,
+            $request->email_privat,
+            $request->abschluss,
+            $request->office,
+          ];
+        }
+        catch (\Exception $e) {
+          ;
+        }
+        Excel::store(new UserExport($importuser), 'updateuser.csv','local');
+
         $input = $request->all();
         $user = User::find($id);
         $user->update($input);     
@@ -49,7 +103,5 @@ class SettingController extends Controller
 		{
 			return view('settings.index');
 		}
-
-
 }
 

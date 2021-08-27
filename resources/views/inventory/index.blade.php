@@ -4,6 +4,7 @@
   .found {
     background-color: #5cb85c;
   }
+ 
 </style>
 @section('content')
 
@@ -244,6 +245,52 @@
 			<!-- ./col -->
 		</div>
     @endcan
+    <!-- <div class="row mt-2">
+      <div class="col-md-4">
+        <div class="card" style="height: 260px !important; overflow-y:auto;" >
+            <div class="card-header">Zeit something</div>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <li>
+                  sadfsaf
+                </li>
+                <hr>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card card-info card-outline" style="height: 260px !important; overflow-y:auto;">
+          <div class="card-body">
+            <h5 class="card-title mb-3"><strong>Zeit something</strong></h5>
+            <div class="card-text">
+              <div class="list-group">
+                <p href="javascript:" class="list-group-item list-group-item-action list-group-item-info bg-info py-1">
+                  <i class="fas fa-dolly-flatbed"></i> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Non? </p>
+              </div><!-- End List Group -->
+              <div class="list-group">
+                <p href="javascript:" class="list-group-item list-group-item-action list-group-item-info bg-info text-dark text-bold py-1 ">
+                  <i class="fas fa-dolly-flatbed"></i> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Non? </p>
+              </div><!-- End List Group -->
+              <div class="list-group">
+                <p href="javascript:" class="list-group-item list-group-item-action list-group-item-info bg-info py-1 ">
+                  <i class="fas fa-dolly-flatbed"></i> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Non? </p>
+              </div><!-- End List Group -->
+              <div class="list-group">
+                <p href="javascript:" class="list-group-item list-group-item-action list-group-item-info bg-info py-1 ">
+                  <i class="fas fa-dolly-flatbed"></i> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Non? </p>
+              </div><!-- End List Group -->
+              <div class="list-group">
+                <p href="javascript:" class="list-group-item list-group-item-action list-group-item-info bg-info py-1 ">
+                  <i class="fas fa-dolly-flatbed"></i> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis, sed. Non? </p>
+              </div><!-- End List Group -->
+            </div><!-- End Card Text -->
+
+          </div><!-- End Card Body -->
+        </div> <!-- End Card  -->
+      </div>
+    </div>
 	</div>
 </section>
 

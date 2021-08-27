@@ -19,7 +19,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-      $users = User::all();
+      $users = User::get()->toArray();
       $cities = Place::all();
       return view('contacts.index',compact('users','cities'));
     }
@@ -33,9 +33,27 @@ class ContactController extends Controller
 
     public function dynamicrooms(Request $request)
     {
-      $address_id = $request->address_id;
+      $address_id = $request->all();
       $rooms = InvRoom::where('location_id',$address_id)->get();
       return response()->json(['rooms'=>$rooms]);
+    }
+
+    public function searchByName(Request $request)
+    {
+      $contactname = $request->searchbyname;
+			$searchByName = User::where('name',$contactname)->get()->toArray();
+      if (!empty($searchByName )) {
+        return $searchByName;
+      };
+    }
+
+    public function searchByUsername(Request $request)
+    {
+      $contactusername = $request->searchByUsername;
+			$searchByUsername = User::where('username',$contactusername)->get()->toArray();
+      if (!empty($searchByUsername )) {
+        return $searchByUsername;
+      };
     }
 
     /**

@@ -22,17 +22,16 @@
 			<!-- First Section -->
 			<div class="col-3">
 				<!-- Card  -->
-				<div class="card card-info card-outline">
+				<div class="card card-primary card-outline">
 					<div class="card-body">
 						<h5 class="card-title mb-3"><strong>Inventur Einstellungen</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="javascript:" id="addCity_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Stadt hinzufügen
-									 &nbsp; <i class="fas fa-map-marker-alt"></i></a>
-								<a href="javascript:" id="addLocation_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neue Adresse hinzufügen
-									 &nbsp; <i class="fas fa-building"></i></a>
-								<a href="javascript:" id="addRoom_modal" class="list-group-item list-group-item-action list-group-item-info py-1">Neuen Raum hinzufügen
-									&nbsp; <i class="fas fa-chalkboard-teacher"></i></a>
+								<a href="javascript:" id="addCity_modal" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-map-marker-alt"></i> Neue Stadt hinzufügen</a>
+								<a href="javascript:" id="addLocation_modal" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-building"></i> Neue Adresse hinzufügen
+									</a>
+								<a href="javascript:" id="addRoom_modal" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-chalkboard-teacher"></i> Neuen Raum hinzufügen
+								</a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->
@@ -41,15 +40,13 @@
 			<!-- second section -->
 			<div class="col-3">
 				<!-- Card  -->
-				<div class="card card-info card-outline">
+				<div class="card card-primary card-outline">
 					<div class="card-body">
 						<h5 class="card-title mb-3"><strong>Benutzereinstellungen</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="{{ route('settings.usersList')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Benutzerverwaltung
-                &nbsp; <i class="fas fa-users"></i></a>
-								<a href="{{ url ('/roles')}}" class="list-group-item list-group-item-action list-group-item-info py-1">Rollen & Berechtigungen
-                  &nbsp; <i class="fas fa-user-tag"></i></a>
+								<a href="{{ route('settings.usersList')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-users"></i> Benutzerverwaltung</a>
+								<a href="{{ url ('/roles')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-user-tag"></i> Rollen & Berechtigungen</a>
                 </a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
@@ -58,13 +55,13 @@
 			</div><!-- End Second Section -->
 			<!-- third section -->
 			<div class="col-3">
-				<div class="card card-info card-outline">
+				<div class="card card-primary card-outline">
 					<div class="card-body">
 						<h5 class="card-title mb-3"><strong>Hard Code</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="javascript:" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
+								<a href="javascript:" class="list-group-item list-group-item-action list-group-item-primary py-1">Hard Code</a>
+								<a href="#" class="list-group-item list-group-item-action list-group-item-primary py-1">Hard Code</a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->
@@ -72,13 +69,13 @@
 			</div><!-- End Third Section -->
 			<!-- Forth section -->
 			<div class="col-3">
-				<div class="card card-info card-outline">
+				<div class="card card-primary card-outline">
 					<div class="card-body">
 						<h5 class="card-title mb-3"><strong>Hard Code</strong></h5>
 						<div class="card-text">
 							<div class="list-group">
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
-								<a href="#" class="list-group-item list-group-item-action list-group-item-info py-1">Hard Code</a>
+								<a href="#" class="list-group-item list-group-item-action list-group-item-primary py-1">Hard Code</a>
+								<a href="#" class="list-group-item list-group-item-action list-group-item-primary py-1">Hard Code</a>
 							</div><!-- End Linst Group -->
 						</div><!-- End Card Text -->
 					</div><!-- End Card Body -->

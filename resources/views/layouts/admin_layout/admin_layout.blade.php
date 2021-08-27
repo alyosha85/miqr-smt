@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" />
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url ('css/admin_css/adminlte.min.css') }}">
+  <!-- app.css -->
+  <link rel="stylesheet" href="{{mix('css/app.css')}}">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="{{ url ('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Daterange picker -->
@@ -33,8 +35,6 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.8/css/responsive.dataTables.min.css">
-  <!-- app.css -->
-  <link rel="stylesheet" href="{{mix('css/app.css')}}">
   <!-- toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
@@ -42,6 +42,22 @@
   <link rel="stylesheet" href="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/js/slidernav/slidernav.css">
 
   <style>
+
+.tooltip-inner {
+    background-color: #681a24 !important;
+    }
+    .tooltip.bs-tooltip-right .arrow:before {
+        border-right-color: #681a24 !important;
+    }
+    .tooltip.bs-tooltip-left .arrow:before {
+        border-left-color: #681a24 !important;
+    }
+    .tooltip.bs-tooltip-bottom .arrow:before {
+        border-bottom-color: #681a24 !important;
+    }
+    .tooltip.bs-tooltip-top .arrow:before {
+        border-top-color: #681a24 !important;
+    }
     /* swal */
     .swal2-container {
         z-index: X;
@@ -132,6 +148,15 @@
       width: 33.9px !important;
       height: 33.9px !important;
     }
+    /* .os-content {
+      background-color: #681A25!important;
+    } */
+    .main-sidebar {
+      background-color: #681A25 !important;
+    }
+    .card-primary.card-outline {
+      border-top: 3px solid #681A25 !important;
+    }
 
 
   </style>
@@ -168,6 +193,7 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ url ('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>

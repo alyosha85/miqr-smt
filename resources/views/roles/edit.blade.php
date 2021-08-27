@@ -122,6 +122,31 @@
   <hr>
   <div class="row mt-3">
     <div class="col-md-12">
+      <h5><i class="fas fa-arrow-alt-circle-right" style="color:#58355E;"></i> &nbsp;<em><u>Ticket</u></em></h5>
+    </div><!--end third row-->
+  </div>
+  <div class="row mt-1">
+    <div class="col-3">
+      <li class="custom-control custom-checkbox">
+        <input type="checkbox" name="ticket" class="custom-control-input" id="ticket">
+        <label for="ticket" class="custom-control-label" style="color:#5bc0de;"><h5>Ticket</h5></label>
+        <ul>
+          @foreach($permission as $per)
+          @if($per['category']['name'] == 'Ticket')
+        <li class="custom-control custom-checkbox">
+          <input type="checkbox" name="permission[]" class="custom-control-input" id="{{ $per->id }}"  value="{{ $per->id }}"
+          {{ $role->permissions->pluck('id')->contains($per->id) ? 'checked' : '' }}>
+          <label for="{{ $per->id }}" class="custom-control-label">{{$per->name}}</label>
+          </li>
+            @endif
+            @endforeach
+        </ul>
+      </li>
+    </div> <!-- col-3 -->
+  </div> <!-- /.row -->
+  <hr>
+  <div class="row mt-3">
+    <div class="col-md-12">
       <h5><i class="fas fa-arrow-alt-circle-right" style="color: green"></i> &nbsp;<em><u>Standort</u></em></h5>
     </div><!--end third row-->
   </div>

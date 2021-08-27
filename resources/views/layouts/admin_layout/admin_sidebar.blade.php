@@ -1,31 +1,34 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{ url('images/admin_images/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">MIQR SMT</span>
+    <a href="#" class="brand-link">
+      <img src="/images/admin_images/logo.png" alt="MIQR Logo" class="brand-image-xl" style="max-height: 55px; width: 100%;">
+      <br>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{ url('images/admin_images/mitarbeiter/'.auth()->user()->username).'.jpg'}}" class="img-circle elevation-2 img-size-small" alt="User Image"
-          onerror="this.onerror=null;this.src='images/admin_images/mitarbeiter/nopic.jpg';"> 
-        </div>
+      <div class="user-panel text-center">
         <div class="info">
-          <a href="#" class="d-block">{{Auth::user()->name}}</a>
+          <a href="{{route ('profile')}}" class="d-block text-uppercase">{{Auth::user()->vorname}} {{Auth::user()->name}}</a>
+          <a href="{{route ('profile')}}" class="d-block"><strong>{{ substr(Auth::user()->roles->pluck('name'),2,-2) }}</strong></a>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
+      <nav class="mt-4">
         <ul class="nav nav-pills nav-sidebar flex-column text-uppercase" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('Super_Admin')) 
+          <li class="nav-item has-treeview">
+            <a href="{{ url('/') }}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt" style="color: #B17A57"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="{{ url('/settings') }}" class="nav-link">
 							<i class="nav-icon fas fa-cogs" style="color: #5bc0de"></i>
@@ -34,12 +37,11 @@
               </p>
 						</a>
 					</li>
-          @endif
           <li class="nav-item has-treeview">
             <a href="{{ url('/inventory') }}" class="nav-link">
               <i class="nav-icon fas fa-boxes" style="color:#f0ad4e;"></i>
               <p>
-                Inventar
+                Inventar 
               </p>
 						</a>
 					</li>
@@ -48,7 +50,7 @@
             <a href="{{ url('/contacts') }}" class="nav-link">
               <i class="nav-icon fas fa-address-book" style="color:#6969B3;"></i>
               <p>
-                Kontakte
+                MIQR Mitarbeiter
               </p>
 						</a>
 					</li>
@@ -241,6 +243,82 @@
                     </a>
                     </li>
                 </ul>
+                </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-ticket-alt" style="color:orangered;"></i>
+              <p>
+                Ticket
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview text-capitalize">
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-circle"></i>
+                    <p>
+                        IT
+                    <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview font-weight-light">
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Open</p>
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Unassigned</p>
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>My Tickets</p>
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Recently updated</p>
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>B-Trachenberg93</p>
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Solved</p>
+                    </a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Solved</p>
+                    </a>
+                    </li>
+                </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ route('ticket.index') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Ticket Erstellen</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ url('/usertickets') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Meine Tickets</p>
+                  </a>
                 </li>
             </ul>
           </li>

@@ -68,20 +68,22 @@ return [
     'providers' => [
       'ldap' => [
         'driver' => 'ldap',
-        'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
-        //'model' => App\Ldap\User::class,  //uses builtin Model
-
+        //'model' => LdapRecord\Models\ActiveDirectory\User::class,  //uses builtin Model
+        'model' => App\Ldap\User::class,  //uses builtin Model
         'rules' => [],
         'database' => [
             'model' => App\User::class,
             'sync_passwords' => true,
             'sync_attributes' => [
+              'name' => 'sn',             // 1 last name 
               'vorname' => 'givenName',   //first name 
-              'name' => 'sn',             //last name
-              'anrede' => 'personalTitle',
+              'title' => 'personalTitle', //
               'username' => 'samaccountname',
-              'position' => 'title',      
+              'position' => 'title',     //Tätigkeit 
+              'beschreibung' => 'description',
               'abteilung' => 'department',
+              'office' => 'physicalDeliveryOfficeName', //büro
+              'abschluss' => 'info',
               'plz' => 'postalCode',
               'bundesland' => 'st',
               'straße' => 'streetAddress',
@@ -90,17 +92,37 @@ return [
               'privat' => 'otherHomePhone',
               'mobil' => 'mobile',
               'email' => 'mail',
+              'email_privat' => 'url', //must be added to migration
+              'fax' => 'facsimileTelephoneNumber', //must be added to migration
+            ],
+            'sync_existing' => [
+              'name' => 'sn',             // 1 last name 
+              'vorname' => 'givenName',   //first name 
+              'title' => 'personalTitle',
+              'username' => 'samaccountname',
+              'position' => 'title',      //Tätigkeit   
               'beschreibung' => 'description',
-              'office' => 'physicalDeliveryOfficeName', //büro
-              'Abschluss' => 'info',
+              'abteilung' => 'department',
+              'office' => 'physicalDeliveryOfficeName', //büro //BusinessUnit
+              'abschluss' => 'info',
+              'plz' => 'postalCode',
+              'bundesland' => 'st',
+              'straße' => 'streetAddress',
+              'ort' => 'l',
+              'tel' => 'telephoneNumber',
+              'privat' => 'otherHomePhone',
+              'mobil' => 'mobile',
+              'email' => 'mail',
+              'email_privat' => 'url', //must be added to migration
+              'fax' => 'facsimileTelephoneNumber', //must be added to migration
             ],
         ],
     ],
 
-        'users' => [
-            'driver' => 'database',
-            'table' => 'users',
-        ],
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*

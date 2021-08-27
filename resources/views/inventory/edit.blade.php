@@ -34,7 +34,7 @@
 									<input type="text" class="form-control invnr_edit" name="invnr" placeholder="Inventarnummer" data-toggle="tooltip" data-placement="top" title="Inventarnummer" readonly>
 							</div>
 							<div class="form-group col-md-4">
-									<input type="text" class="form-control andat_edit" name="andat" value=""  placeholder="Anschffungsdatum" data-toggle="tooltip" data-placement="top" title="Anschffungsdatum" readonly>
+									<input type="text" class="form-control andat_edit" name="andat" value=""  placeholder="Anschaffungsdatum" data-toggle="tooltip" data-placement="top" title="Anschaffungsdatum" readonly>
 							</div>
 							<div class="form-group col-md-4">
 									<input type="text" class="form-control gname_edit"  name="gname" placeholder="Gerätename" data-toggle="tooltip" data-placement="top" title="Gerätename" readonly>

@@ -32,6 +32,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+    //protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
@@ -48,19 +49,6 @@ class LoginController extends Controller
     {
         return 'username';
     }
-
-    protected function authenticated(Request $request, $user)
-    {
-        if (is_null($user->lastlogin)) {
-          $id = $user->id;
-          
-          return redirect()->route('settings.firstpage',compact('id'));
-             // and laravel will then handle the redirect
-        }
-       
-    }
-
- 
 
     protected function credentials(Request $request)
     {

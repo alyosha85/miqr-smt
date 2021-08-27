@@ -28,7 +28,7 @@ class InvAbItemController extends Controller
 {
   public function __construct()
   {
-      $this->middleware('auth');
+    $this->middleware('permission:Aktuell|Ausgemustert|Ändern|Erfassen_Auto|Erfassen_Manuell|Bewegen|Ausmustern|Drucken_list|Drucken_ticket|Inventur', ['only' => ['index']]);
   }
 
 
