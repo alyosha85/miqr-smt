@@ -447,7 +447,7 @@ public function updateRename(Request $request)
 
     $pdf = $request->file('file');
 
-     $pdfName = time() . '.' . $pdf->extension();
+     $pdfName = time() . '.' . 'pdf';
      $pdf->move(public_path('/inventar/rechnungen/'.date('Y')), $pdfName);
      return date('Y').'/'.$pdfName;
 

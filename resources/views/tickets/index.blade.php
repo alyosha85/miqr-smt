@@ -24,10 +24,10 @@
       border-radius: 5px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box img{
-      -webkit-transition:all .9s ease; 
-      -moz-transition:all .9s ease; 
-      -o-transition:all .9s ease;
-      -ms-transition:all .9s ease; 
+      -webkit-transition:all 0.9s ease; 
+      -moz-transition:all 0.9s ease; 
+      -o-transition:all 0.9s ease;
+      -ms-transition:all 0.9s ease; 
       width: 100%;
       height: 200px;
     }

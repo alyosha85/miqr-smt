@@ -960,7 +960,9 @@ $(document).on('keyup change', '#search_amg', function(){
 Dropzone.options.dropzoneForm = {
 	autoProcessQueue : false,
 	acceptedFiles : ".pdf",
+  maxFilesize: 4,
 	maxFiles:1,
+  addRemoveLinks: true,
 	init:function(){
 	  var submitButton = document.querySelector(".submit_form_ajax");
 	  myDropzone = this;
@@ -971,11 +973,18 @@ Dropzone.options.dropzoneForm = {
 			$('.submit_form_ajax').css('visibility','visible');
 			$('.submit_form').css('visibility','hidden');
 	  });
+    this.on("maxfilesexceeded", function() {
+      if (this.files[1]!=null){
+        this.removeFile(this.files[0]);
+      }
+    }),
 	  this.on("complete", function(data){
 		$('.path_to_rg').val(data.xhr.response);
 		// load_images();
 		$('#item_form').submit();
+    myDropzone.removeFile(data);
 	  });
+
 	}
   };
 //   load_images();
@@ -1003,6 +1012,7 @@ Dropzone.options.dropzoneForm = {
 Dropzone.options.dropzoneFormMan = {
 	autoProcessQueue : false,
 	acceptedFiles : ".pdf",
+  maxFilesize: 5,
 	maxFiles:1,
 	init:function(){
 	  var submitButton = document.querySelector(".submit_form_ajax_man");

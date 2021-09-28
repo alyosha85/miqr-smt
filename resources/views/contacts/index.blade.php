@@ -1,8 +1,8 @@
 @extends('layouts.admin_layout.admin_layout')
 <style>
   .img-size {
-    width:128px !important;
-    height: 128px !important;
+    width:150px !important;
+    height: 150px !important;
   }
 
 
@@ -166,7 +166,7 @@ $(document).ready(function () {
                   </ul>
                 </div>
                 <div class="col-6 text-center">
-                  <img src='images/admin_images/mitarbeiter/${item.username}.jpg' alt="" class="img-circle img-fluid img-size "
+                  <img src='images/admin_images/mitarbeiter/${item.name}, ${item.vorname}.jpg' alt="" class="img-circle img-fluid img-size "
                   onerror="this.onerror=null;this.src='images/admin_images/mitarbeiter/nopic.jpg';">
                 </div>
               </div>
