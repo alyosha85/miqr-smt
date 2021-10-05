@@ -12,6 +12,10 @@ use App\Location;
 use Carbon\Carbon;
 use App\TicketType;
 use App\EquipmentProblem;
+<<<<<<< HEAD
+=======
+use App\Notifications\TicketNotification;
+>>>>>>> dd5728fbb7e119968d65f3af4c3e492405ad4353
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 
@@ -223,7 +227,10 @@ class TicketController extends Controller
     {
         $user = Auth()->user();
         $admins = User::role('Super_Admin')->get();
+<<<<<<< HEAD
         return $admins;
+=======
+>>>>>>> dd5728fbb7e119968d65f3af4c3e492405ad4353
         $item = New Ticket;
         $item -> submitter = $request -> submitter;
         $item -> priority = $request -> priority;
@@ -257,8 +264,13 @@ class TicketController extends Controller
         $item -> location_id = $request -> location_id;
         $item -> room_id = $request -> room_id;
         $item -> printer_name = $request -> printer_name;
+<<<<<<< HEAD
         $item ->save();
         Notification::send();
+=======
+        Notification::send($admins, new TicketNotification($item));
+        $item ->save();
+>>>>>>> dd5728fbb7e119968d65f3af4c3e492405ad4353
         return redirect()->route('ticket.usertickets');
     }
      

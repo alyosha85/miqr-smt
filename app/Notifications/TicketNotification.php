@@ -16,9 +16,15 @@ class TicketNotification extends Notification
      *
      * @return void
      */
+<<<<<<< HEAD
     public function __construct()
     {
         //
+=======
+    public function __construct($data)
+    {
+        $this->myData = $data;
+>>>>>>> dd5728fbb7e119968d65f3af4c3e492405ad4353
     }
 
     /**
@@ -46,6 +52,19 @@ class TicketNotification extends Notification
                     ->line('Thank you for using our application!');
     }
 
+<<<<<<< HEAD
+=======
+    public function toDatabase($notifiable)
+    {
+        return [
+        'message' => 'new Ticket ....',
+        'Ersteller' => $this->myData->submitter,
+        ];
+
+        dd($this->myData->submitter);
+    }
+
+>>>>>>> dd5728fbb7e119968d65f3af4c3e492405ad4353
     /**
      * Get the array representation of the notification.
      *
