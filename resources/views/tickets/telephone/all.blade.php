@@ -137,11 +137,11 @@
                           <div class="container">
                               <div class="row">
                                   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                      <a href="{{route('printer_in_out')}}">
+                                      <a href="{{route ('tel_problems')}}">
                                           <div class="card-flyer">
                                               <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
                                                   <div class="image-box">
-                                                      <img src="/images/admin_images/Printer_Walk_300.png" alt="" />
+                                                      <img src="/images/admin_images/tel_not_working_400.png" alt="" />
                                                   </div>
                                                   <div class="text-container">
                                                     <h6>Funktioniert nicht</h6>
@@ -151,11 +151,11 @@
                                       </a>
                                   </div>
                                   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('printer_driver')}}">
+                                    <a href="{{route ('tel_problems')}}">
                                       <div class="card-flyer">
                                         <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
                                           <div class="image-box">
-                                            <img src="/images/admin_images/Gear_Performance.png" alt="" />
+                                            <img src="/images/admin_images/telepfon_move.png" alt="" />
                                           </div>
                                           <div class="text-container">                                    
                                               <h6>Standort ändern</h6>
@@ -165,11 +165,11 @@
                                     </a>
                                 </div>
                                   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('scanner')}}">
+                                    <a href="{{route ('tel_problems')}}">
                                       <div class="card-flyer">
                                         <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
                                           <div class="image-box">
-                                              <img src="/images/admin_images/scanner_300.png" alt="" />
+                                              <img src="/images/admin_images/Telefon_rename.png" alt="" />
                                           </div>
                                           <div class="text-container">
                                               <h6>Ändere den Namen</h6>
@@ -179,11 +179,11 @@
                                     </a>
                                   </div>
                                   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('function')}}">
+                                    <a href="{{route ('tel_problems')}}">
                                       <div class="card-flyer">
                                         <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
                                           <div class="image-box">
-                                              <img src="/images/admin_images/function_300.png" alt="" />
+                                              <img src="/images/admin_images/telefon_renummber.png" alt="" />
                                           </div>
                                           <div class="text-container">
                                               <h6>Änderen den Nummern</h6>
@@ -193,7 +193,7 @@
                                     </a>
                                   </div>
                                   <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('errors')}}">
+                                    <a href="{{route ('tel_problems')}}">
                                       <div class="card-flyer">
                                         <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
                                           <div class="image-box">

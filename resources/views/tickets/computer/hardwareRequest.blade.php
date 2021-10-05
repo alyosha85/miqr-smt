@@ -51,7 +51,7 @@ label.btn.info.active {
             <div class="card-body box-profile form-group">
               <form action="{{route ('form_store')}}" method="post" id="ticket_forms">
                 @csrf
-                <input type="hidden" name="problem_type" value="hardware_request">
+                <input type="hidden" name="problem_type" value="Hardware Anfrage">
                 <!-- child cards -->
                 <div class="row mx-auto">
                   <!-- first card -->

@@ -164,10 +164,10 @@
                                         <div class="text-container">
                                             <h6>Telefon</h6>
                                             <ul class="list-unstyled">
-                                              <li><a href="{{route ('tel_problems')}}">Funktioniert nicht / Telephone Probleme</a></li>
-                                              <li><a href="">Standort ändern</a></li>
-                                              <li><a href="">Ändere den Namen</a></li>
-                                              <li><a href="">Ändere den Nummern</a></li>
+                                              <li><a href="{{route ('tel_problems')}}">Telephone Funktioniert nicht</a></li>
+                                              <li><a href="{{route ('tel_problems')}}">Standort ändern</a></li>
+                                              <li><a href="{{route ('tel_problems')}}">Ändere den Namen</a></li>
+                                              <li><a href="{{route ('tel_problems')}}">Ändere den Nummern</a></li>
                                               <li><a href="">Geräte wechseln</a></li>
                                             </ul>
                                         </div>

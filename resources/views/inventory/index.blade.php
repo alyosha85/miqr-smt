@@ -344,11 +344,11 @@ $.ajax({
       $("body .pdf_rename_green").hide();
     }else{
       if(resp =="true") {
-              $("body #chksrchrename").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
-              $('body .submit_form_rename').attr('disabled', false)
-              $(".modal-header").addClass('found')
-              $("body .pdf_rename_green").hide();
-              $("body .pdf_rename_red").show();
+        $("body #chksrchrename").removeClass().addClass('fas fa-check').css('color', '#5cb85c');
+        $('body .submit_form_rename').attr('disabled', false)
+        $(".modal-header").addClass('found')
+        $("body .pdf_rename_green").hide();
+        $("body .pdf_rename_red").show();
         $.ajax({
           type:'get',
           url:"{{ route('search_rename') }}",
@@ -369,9 +369,10 @@ $.ajax({
             $('body .item_rename_form .gtyp_rename').val(resp.items.gtyp)
             $('body .item_rename_form .sn_rename').val(resp.items.sn)
             $('body .item_rename_form .notes_rename').val(resp.items.notes)
-          },error:function(){
-            alert("Error");
           }
+          // ,error:function(){
+          //   alert("Error");
+          // }
         });
       }
     }
@@ -425,7 +426,9 @@ $(document).on('keyup change', '#search_edit', function(){
 							$('body .item_edit_form .andat_edit').val(resp.items.andat)
 							$('body .item_edit_form .kp_edit').val(resp.items.kp)
 							$('body .item_edit_form .standort_edit').val(resp.room.invroom.location.address)
-							$('body .item_edit_form .raum_edit').val(resp.room.invroom.rname)
+              let $rname = resp.room.invroom.rname;
+              let $altrname = resp.room.invroom.altrname;
+							$('body .item_edit_form .raum_edit').val($rname +' - '+ $altrname)
 							$('body .item_edit_form .gart_edit').val(resp.items.garts.name)
 							$('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
 							$('body .item_edit_form .sn_edit').val(resp.items.sn)
@@ -934,7 +937,9 @@ $(document).on('keyup change', '#search_amg', function(){
 							$('body .amg_form .andat_amg').val(resp.items.andat)
 							$('body .amg_form .kp_amg').val(resp.items.kp)
 							$('body .amg_form .standort_amg').val(resp.room.invroom.location.address)
-							$('body .amg_form .raum_amg').val(resp.room.invroom.rname)
+              let $rname = resp.room.invroom.rname;
+              let $altrname = resp.room.invroom.altrname;
+							$('body .amg_form .raum_amg').val($rname +' - '+ $altrname)
 							$('body .amg_form .gart_amg').val(resp.items.garts.name)
 							$('body .amg_form .gtyp_amg').val(resp.items.gtyp)
 							$('body .amg_form .sn_amg').val(resp.items.sn)

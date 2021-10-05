@@ -380,9 +380,16 @@ public function updateRename(Request $request)
       }
       Excel::store(new RoomExport($importRoom), 'bewegungRaum.csv','local');
 
+
 			$move = InvItems::Where('gname',$request->gname_move)->first();
 			$move -> room_id = $request->room_id;
       $move->save();
+
+      $move = InvAbItem::Where('gname',$request->gname_move)->first();
+			$move -> location_id = $request->location_id;
+      $move->save();
+
+
 
 
       

@@ -155,7 +155,7 @@ $(document).ready(function() {
     $('#softother').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="software_installieren">
+      <input type="hidden" name="problem_type" value="Software Installieren">
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
@@ -219,7 +219,7 @@ $(document).ready(function() {
     $('#softother').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="activiren">
+      <input type="hidden" name="problem_type" value="Activiren">
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
@@ -273,7 +273,7 @@ $(document).ready(function() {
     $('#softother').removeClass().addClass('btn btn-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="sonstiges">
+      <input type="hidden" name="problem_type" value="Softwareanfrage Sonstiges">
     <div class="card-body box-profile form-group">       
       <div class="row col-md-12">
         <div class="form-group col-md-6">

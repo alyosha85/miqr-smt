@@ -7,11 +7,9 @@
   <section class="content">
     <div class="row">
       <div class="col-md-3">
-        <a href="compose.html" class="btn btn-primary btn-block mb-3">Compose</a>
-
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Folders</h3>
+            <h3 class="card-title">Ordner</h3>
 
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -22,13 +20,13 @@
             <ul class="nav nav-pills flex-column">
               <li class="nav-item active">
                 <a href="#" class="nav-link">
-                  <i class="fas fa-inbox"></i> Inbox
-                  <span class="badge bg-primary float-right">12</span>
+                  <i class="fas fa-inbox"></i> aktuelle 
+                  <span class="badge bg-primary float-right">{{$myTicketsCount}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-trash-alt"></i> Trash
+                  <i class="far fa-trash-alt"></i> Erledigte
                 </a>
               </li>
             </ul>
@@ -40,7 +38,7 @@
       <div class="col-md-9">
         <div class="card card-primary card-outline">
           <div class="card-header">
-            <h3 class="card-title">Inbox</h3>
+            <h3 class="card-title">Tickets</h3>
 
             <div class="card-tools">
               <div class="input-group input-group-sm">
@@ -80,6 +78,7 @@
             <div class="table-responsive mailbox-messages">
               <table class="table table-hover table-striped">
                 <tbody>
+                  @foreach($myTickets as $myTicket)
                 <tr>
                   <td>
                     <div class="icheck-primary">
@@ -88,12 +87,13 @@
                     </div>
                   </td>
                   <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
-                  <td class="mailbox-name"><a href="read-mail.html">From Someone</a></td>
-                  <td class="mailbox-subject"><b>Its Not Working </b> 
+                  <td class="mailbox-name"><a href="read-mail.html">{{$myTicket->problem_type}}</a></td>
+                  <td class="mailbox-subject"><b>{{@$myTicket->gname_id}} </b> 
                   </td>
                   <td class="mailbox-attachment"></td>
-                  <td class="mailbox-date">5 mins ago</td>
+                  <td class="mailbox-date">{{$myTicket->updated_at->diffForHumans()}}</td>
                 </tr>
+                @endforeach
                 </tbody>
               </table>
               <!-- /.table -->
