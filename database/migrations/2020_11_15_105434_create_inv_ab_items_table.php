@@ -30,6 +30,7 @@ class CreateInvAbItemsTable extends Migration
             $table->timestamps();
 
             $table->foreign('location_id')->references('id')->on('locations');
+
             $table->foreign('gart_id')->references('id')->on('garts');
             $table->foreign('amg_id')->references('id')->on('amgs');
             $table->index(['gtyp','gname']);

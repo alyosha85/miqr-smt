@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Place;
 use App\Ticket;
+use App\InvRoom;
 use App\Problem;
 use App\InvItems;
 use App\Location;
 use Carbon\Carbon;
 use App\TicketType;
 use App\EquipmentProblem;
-use App\InvRoom;
+use App\Notifications\TicketNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class TicketController extends Controller
 {
@@ -111,6 +113,7 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.printer.driver',compact('user','now','tickets','users','computers'));
     }
+
     public function scanner() 
     {
       $rooms = InvRoom::with('location')->get();
@@ -166,13 +169,6 @@ class TicketController extends Controller
       return $telephones;
     }
 
-
-
-    public function usertickets()
-    {
-      return view('tickets.usertickets');
-    }
-
     public function problem_type(Request $request)
     {
       $ticket_id = $request->ticket_id;
@@ -213,12 +209,6 @@ class TicketController extends Controller
       return $printers;
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
@@ -232,18 +222,57 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $user = Auth()->user();
+        $admins = User::role('Super_Admin')->get();
+        $item = New Ticket;
+        $item -> submitter = $request -> submitter;
+        $item -> priority = $request -> priority;
+        $item -> tel_number = $request -> tel_number;
+        $item -> custom_tel_number = $request -> custom_tel_number;
+        $item -> problem_type = $request -> problem_type;
+        $item -> gname_id = $request -> searchcomputer;
+        $item -> searchsoftware = $request-> searchsoftware;
+        $item -> software_name = $request-> software_name;
+        $item -> software_reason = $request-> software_reason;
+        $item -> notizen = $request-> notizen;
+        $item -> keyboard = $request-> keyboard;
+        $item -> mouse = $request-> mouse;
+        $item -> speaker = $request-> speaker;
+        $item -> headset = $request-> headset;
+        $item -> webcam = $request-> webcam;
+        $item -> monitor = $request-> monitor;
+        $item -> other = $request-> other;
+        $item -> geht_nicht_an = $request-> geht_nicht_an;
+        $item -> blue = $request-> blue;
+        $item -> black = $request-> black;
+        $item -> slow_computer = $request-> slow_computer;
+        $item -> web_cam_problem = $request-> web_cam_problem;
+        $item -> head_set_problem = $request-> head_set_problem;
+        $item -> lautsprecher_mal = $request-> lautsprecher_mal;
+        $item -> keyboard_malfunction = $request-> keyboard_malfunction;
+        $item -> mouse_mal = $request-> mouse_mal;
+        $item -> slow_network = $request-> slow_network;
+        $item -> no_network_drive = $request-> no_network_drive;
+        $item -> laud_fan = $request-> laud_fan;
+        $item -> location_id = $request -> location_id;
+        $item -> room_id = $request -> room_id;
+        $item -> printer_name = $request -> printer_name;
+        Notification::send($admins, new TicketNotification($item));
+        $item ->save();
+        return redirect()->route('ticket.usertickets');
+    }
+     
+    public function usertickets()
+    {
+
+      $user = Auth()->user();
+      $myTickets = Ticket::where('submitter',$user->username)->orderBy('updated_at','DESC')->get();
+      $myTicketsCount = Ticket::where('submitter',$user->username)->count();
+      return view('tickets.usertickets',compact('user','myTickets','myTicketsCount'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
     public function show(Ticket $ticket)
     {
-        //
     }
 
     /**
@@ -254,7 +283,7 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        //
+
     }
 
     /**

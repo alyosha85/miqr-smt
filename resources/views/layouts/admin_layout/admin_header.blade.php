@@ -25,17 +25,18 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell fa-lg"></i>
-          <span class="badge badge-warning navbar-badge">2</span>
+          <span class="badge badge-warning navbar-badge">{{auth()->user()->unreadnotifications->count()}}</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
+          <!-- <span class="dropdown-item dropdown-header">{{auth()->user()->notifications->count()}} </span> -->
+          @foreach(auth()->user()->unreadnotifications as $notification)
           <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+            <i class="fas fa-circle mr-2" style="color:#661421"></i> {{@$notification->data['Ersteller']}}
+            <span class="float-right text-muted text-sm">{{@$notification->updated_at->diffForHumans()}}</span>
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <!-- <div class="dropdown-divider"></div> -->
+          @endforeach
+          <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
         </div>
       </li>
     </ul>

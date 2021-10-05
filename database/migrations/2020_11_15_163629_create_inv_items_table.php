@@ -18,7 +18,7 @@ class CreateInvItemsTable extends Migration
             $table->date('dateupd')->comment('Datem der letzten Änderung');
             $table->string('invnr',20)->unique();
             $table->foreignId('room_id')->nullable();
-            $table->string('gname',20)->nullable();
+            $table->string('gname',50)->nullable();
             $table->string('sn',50)->nullable();
             $table->foreignId('gart_id')->nullable();
             $table->string('gtyp',50)->nullable();

@@ -145,6 +145,7 @@ headers: {
 }
 });
 
+
 function matchCustom(params, data) {
     // If there are no search terms, return all of the data
     if ($.trim(params.term) === '') {
@@ -172,70 +173,64 @@ function matchCustom(params, data) {
 }
 
 $(document).ready(function() {
-
-    let selectAddresslisten = new Array();
-    let roomlisten = new Array();
+  let selectAddresslisten = new Array();
+  let roomlisten = new Array();
+    $('#printer_name').find('option').remove();
+    $('#printer_place').find('option').remove();
+    $('#printer_place').find('optgroup').remove();
+    $('#printer_place').append(new Option("Standort...",''));
+    $('#printer_room').find('option').remove();
+    $("#printer_room").append(new Option("Raum...",''));
+    $.ajax({
+      type: "get",
+      url: "{{route('item.listen')}}",
+      }).done(function(data) {
+        selectAddresslisten = new Array();
+        $.each(data['places'], function(index, item) {
+            $("body #printer_place").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+        });
+        $.each(data['locations'], function(index, item) {
+        $("#printer_place #"+item.place_id).append(new Option(item.address,item.id));
+        selectAddresslisten.push(item);
+        });
+      });
+    $( document ).on( "change", "#printer_place", function() {
       $('#printer_name').find('option').remove();
-      $('#printer_place').find('option').remove();
-      $('#printer_place').find('optgroup').remove();
-      $('#printer_place').append(new Option("Standort...",''));
       $('#printer_room').find('option').remove();
       $("#printer_room").append(new Option("Raum...",''));
-      $.ajax({
-        type: "get",
-        url: "{{route('item.listen')}}",
-        }).done(function(data) {
-          selectAddresslisten = new Array();
-          $.each(data['places'], function(index, item) {
-              $("body #printer_place").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+      for(let i = 0; i<selectAddresslisten.length ; i++){
+        if(selectAddresslisten[i].id == $( this ).val()){
+          $.each(selectAddresslisten[i].invrooms, function(index, item) {
+            $("#printer_room").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+            roomlisten.push(item);
+            //console.log(item);
           });
-          $.each(data['locations'], function(index, item) {
-          $("#printer_place #"+item.place_id).append(new Option(item.address,item.id));
-          selectAddresslisten.push(item);
-          });
-        });
-      $( document ).on( "change", "#printer_place", function() {
+        }
+      }
+    });
+    
+    $( document ).on( "change","#printer_room",function() {
+    $.ajax({
+      type:'post',
+      url:"{{ route('printer_in_room') }}",
+      data:{printers:$( this ).val(),location_id:$('#location_id_listen').val()},
+      success:function(resp){
         $('#printer_name').find('option').remove();
-        $('#printer_room').find('option').remove();
-        $("#printer_room").append(new Option("Raum...",''));
-        for(let i = 0; i<selectAddresslisten.length ; i++){
-          if(selectAddresslisten[i].id == $( this ).val()){
-            $.each(selectAddresslisten[i].invrooms, function(index, item) {
-              $("#printer_room").append(new Option(item.rname+' ('+item.altrname+')',item.id));
-              roomlisten.push(item);
-              //console.log(item);
+            $.each(resp,function(index, item) {
+            $("#printer_name").append(new Option(item.gname,item.id));
             });
-          }
-        }
-      });
-      
-      $( document ).on( "change","#printer_room",function() {
-      $.ajax({
-        type:'post',
-        url:"{{ route('printer_in_room') }}",
-        data:{printers:$( this ).val(),location_id:$('#location_id_listen').val()},
-        success:function(resp){
-          $('#printer_name').find('option').remove();
-              $.each(resp,function(index, item) {
-              $("#printer_name").append(new Option(item.gname,item.id));
-              });
-        },error:function(){
-          alert("Error");
-        }
-      });
+      },error:function(){
+        alert("Error");
+      }
     });
- 
+  });
 
-    $(".searchcomputer").select2({
-      matcher: matchCustom,
-    });
 
-    $('.searchsoftware').select2({
-      placeholder: 'sometext',
-      allowClear: false,
-      tags: true
-    });
-  })
+  $(".searchcomputer").select2({
+    matcher: matchCustom,
+  });
+
+})
 
 
 </script>
