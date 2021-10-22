@@ -76,7 +76,6 @@
 	 box-sizing: border-box;
 }
  
-
 </style>
 @section('content')
 
@@ -141,23 +140,18 @@
                             <h5 class="card-title mb-3"><strong>Shortcut links</strong></h5>
                             <div class="card-text">
                               <div class="list-group">
-                                <a href="{{route ('profile')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-user"></i><strong> Profil Bearbeiten</strong></a>
-                                <a href="{{ url('/contacts') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-address-book"></i><strong> Adressbuch</strong></a>
-                                <a href="{{ route('ticket.index') }}" id="addRoom_modal" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-ticket-alt"></i><strong> Ticket Erstellen</strong>
+                                <a href="{{route ('profile')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-user fa-lg"></i><strong> Profil Bearbeiten</strong></a>
+                                <a href="{{ url('/contacts') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-address-book fa-lg"></i><strong> Adressbuch</strong></a>
+                                <a href="{{ route('ticket.index') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-ticket-alt fa-lg"></i><strong> Ticket Erstellen</strong>
+                                <a href="{{ route('ticket.usertickets') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-clipboard-list fa-lg"></i><strong> Mein Tickets</strong>
                                 </a>
                               </div><!-- End Linst Group -->
                             </div><!-- End Card Text -->
                           </div><!-- End Card Body -->
                         </div> <!-- End Card  -->
                       </div><!-- End First Section -->
-
-
                 <!--end second card -->
             </div>
-
-
-
-
       </div>
       <!-- /.col -->
     </div>

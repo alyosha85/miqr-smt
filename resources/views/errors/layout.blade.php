@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
-        <style>
+        <!-- <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
@@ -43,7 +43,7 @@
                 font-size: 36px;
                 padding: 20px;
             }
-        </style>
+        </style> -->
     </head>
     <body>
         <div class="flex-center position-ref full-height">

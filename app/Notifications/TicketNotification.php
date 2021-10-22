@@ -2,14 +2,16 @@
 
 namespace App\Notifications;
 
+use App\Ticket;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class TicketNotification extends Notification
 {
     use Queueable;
+    protected $ticket;
 
     /**
      * Create a new notification instance.
@@ -17,9 +19,9 @@ class TicketNotification extends Notification
      * @return void
      */
 
-    public function __construct($data)
+    public function __construct(Ticket $ticket)
     {
-        $this->myData = $data;
+        $this->myData = $ticket;
 
     }
 
@@ -51,11 +53,10 @@ class TicketNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-        'message' => 'new Ticket ....',
-        'Ersteller' => $this->myData->submitter,
+          'ticket_id' => $this->myData->id,
+          'Ersteller' => $this->myData->submitter,
         ];
 
-        dd($this->myData->submitter);
     }
 
     /**

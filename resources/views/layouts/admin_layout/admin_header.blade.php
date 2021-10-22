@@ -25,7 +25,9 @@
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell fa-lg"></i>
+          @if(auth()->user()->unreadnotifications->count())
           <span class="badge badge-warning navbar-badge">{{auth()->user()->unreadnotifications->count()}}</span>
+          @endif
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- <span class="dropdown-item dropdown-header">{{auth()->user()->notifications->count()}} </span> -->

@@ -265,7 +265,7 @@
                 </a>
                 <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
+                    <a href="{{ route('ticket.opentickets') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Open</p>
                     </a>

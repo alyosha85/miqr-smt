@@ -157,8 +157,6 @@
     .card-primary.card-outline {
       border-top: 3px solid #681A25 !important;
     }
-
-
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -269,16 +267,16 @@
 
 
 <script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 </script>
 <!--DropZone-->
 <script src="{{ url('dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
 <!-- sweet alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- Custom JS -->
-    <script src="{{ url('js/admin_js/script.js') }}"></script>
+<!-- Custom JS -->
+<script src="{{ url('js/admin_js/script.js') }}"></script>
 @yield('script')
 </body>
 </html>

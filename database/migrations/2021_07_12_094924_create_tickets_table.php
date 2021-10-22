@@ -47,7 +47,9 @@ class CreateTicketsTable extends Migration
         $table->integer('location_id')->nullable();
         $table->integer('room_id')->nullable();
         $table->integer('printer_name')->nullable();
+        $table->string('assignedTo')->nullable();
         $table->timestamps();
+        $table->softDeletes();
       });
     }
 

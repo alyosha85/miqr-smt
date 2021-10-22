@@ -1,7 +1,9 @@
 @extends('layouts.admin_layout.admin_layout')
-
-
-
+<style>
+.tooltip {
+  pointer-events: none;
+}
+</style>
 @section('content')
   <!-- Main content -->
   <section class="content">
@@ -11,10 +13,6 @@
           <div class="card-header">
             <h3 class="card-title">Ordner</h3>
 
-            <div class="card-tools">
-              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-              </button>
-            </div>
           </div>
           <div class="card-body p-0">
             <ul class="nav nav-pills flex-column">
@@ -38,9 +36,9 @@
       <div class="col-md-9">
         <div class="card card-primary card-outline">
           <div class="card-header">
-            <h3 class="card-title">Tickets</h3>
+            <h3 class="card-title">Anzahl offener Tickets: {{$myTicketsCount}} </h3>
 
-            <div class="card-tools">
+            <!-- <div class="card-tools">
               <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="Search Mail">
                 <div class="input-group-append">
@@ -49,51 +47,32 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- /.card-tools -->
           </div>
           <!-- /.card-header -->
           <div class="card-body p-0">
-            <div class="mailbox-controls">
-              <!-- Check all button -->
-              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-              </button>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
-              </div>
-              <!-- /.btn-group -->
-              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
-              <div class="float-right">
-                1-50/200
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <!-- /.btn-group -->
-              </div>
-              <!-- /.float-right -->
-            </div>
             <div class="table-responsive mailbox-messages">
               <table class="table table-hover table-striped">
                 <tbody>
-                  @foreach($myTickets as $myTicket)
+                  @forelse($myTickets as $myTicket)
                 <tr>
-                  <td>
-                    <div class="icheck-primary">
-                      <input type="checkbox" value="" id="check1">
-                      <label for="check1"></label>
-                    </div>
+                  <td class="text-left">
+                    <a href="#" class="btn btn-outline-success" data-toggle="tooltip" data-placement="right" title="Als Erledigt markieren"><i class="far fa-check-square fa-lg"></i></a>
                   </td>
-                  <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
-                  <td class="mailbox-name"><a href="read-mail.html">{{$myTicket->problem_type}}</a></td>
-                  <td class="mailbox-subject"><b>{{@$myTicket->gname_id}} </b> 
-                  </td>
+                  <td class="mailbox-name"><a href="#">{{$myTicket->problem_type}}</a></td>
+                  <td class="mailbox-subject"><b>{{@$myTicket->gname_id}} </b></td>
+                  <td class="mailbox-subject"><b>{{@$myTicket->printer_name}} </b></td>
+                  <td class="mailbox-subject">{{@$myTicket->priority}} </td>
                   <td class="mailbox-attachment"></td>
-                  <td class="mailbox-date">{{$myTicket->updated_at->diffForHumans()}}</td>
+                  <td class="mailbox-date text-right">{{$myTicket->updated_at->diffForHumans()}}</td>
+
                 </tr>
-                @endforeach
+                @empty
+                  <td class="text-center">
+                    <img src="/images/admin_images/no_ticket.png" alt="why not">
+                  </td>
+                @endforelse
                 </tbody>
               </table>
               <!-- /.table -->
@@ -103,21 +82,10 @@
           <!-- /.card-body -->
           <div class="card-footer p-0">
             <div class="mailbox-controls">
-              <!-- Check all button -->
-              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-              </button>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default btn-sm"><i class="far fa-trash-alt"></i></button>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-reply"></i></button>
-                <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i></button>
-              </div>
-              <!-- /.btn-group -->
-              <button type="button" class="btn btn-default btn-sm"><i class="fas fa-sync-alt"></i></button>
               <div class="float-right">
-                1-50/200
                 <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button>
+                  <!-- <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fas fa-chevron-right"></i></button> -->
                 </div>
                 <!-- /.btn-group -->
               </div>
