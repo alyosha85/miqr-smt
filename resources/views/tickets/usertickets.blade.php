@@ -1,5 +1,6 @@
 @extends('layouts.admin_layout.admin_layout')
 <style>
+/* prevent blinking tooltip */
 .tooltip {
   pointer-events: none;
 }
@@ -60,17 +61,17 @@
                   <td class="text-left">
                     <a href="#" class="btn btn-outline-success" data-toggle="tooltip" data-placement="right" title="Als Erledigt markieren"><i class="far fa-check-square fa-lg"></i></a>
                   </td>
-                  <td class="mailbox-name"><a href="#">{{$myTicket->problem_type}}</a></td>
-                  <td class="mailbox-subject"><b>{{@$myTicket->gname_id}} </b></td>
+                  <td class="mailbox-name"><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->problem_type}}</a></td>
+                  <td class="mailbox-subject"><b>{{@$myTicket->invitem->gname}} </b></td>
                   <td class="mailbox-subject"><b>{{@$myTicket->printer_name}} </b></td>
-                  <td class="mailbox-subject">{{@$myTicket->priority}} </td>
+                  <td class="mailbox-subject">{{@$myTicket->priority}}</td>
                   <td class="mailbox-attachment"></td>
                   <td class="mailbox-date text-right">{{$myTicket->updated_at->diffForHumans()}}</td>
 
                 </tr>
                 @empty
                   <td class="text-center">
-                    <img src="/images/admin_images/no_ticket.png" alt="why not">
+                    <img src="/images/admin_images/no_ticket.png" alt="Kein Ticket">
                   </td>
                 @endforelse
                 </tbody>

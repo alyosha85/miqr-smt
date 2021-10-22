@@ -1,26 +1,8 @@
-@extends('layouts.admin_layout.admin_layout')
+@extends('errors::minimal')
 
-
-@section('content')
-
-<!-- Main content -->
-<section class="content">
-	<div class="container-fluid">
-
-	</div>
-</section>
-
-
-
-
-
-@endsection
-
-@section('script')
-
-
-
-@endsection
+@section('title', __('Not Found'))
+@section('code', '403')
+@section('message', __('Not Found'))
 
 
 

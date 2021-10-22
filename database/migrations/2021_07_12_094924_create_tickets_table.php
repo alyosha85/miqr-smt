@@ -16,7 +16,7 @@ class CreateTicketsTable extends Migration
       Schema::create('tickets', function (Blueprint $table) {
         $table->id();
         $table->string('submitter');
-        $table->string('priority');
+        $table->tinyInteger('priority_id')->default(2);
         $table->string('tel_number');
         $table->string('custom_tel_number')->nullable();
         $table->string('problem_type');
@@ -24,7 +24,7 @@ class CreateTicketsTable extends Migration
         $table->string('searchsoftware')->nullable();
         $table->string('software_name')->nullable();
         $table->string('software_reason')->nullable();
-        $table->string('notizen')->nullable();
+        $table->text('notizen')->nullable();
         $table->string('keyboard')->nullable();
         $table->string('mouse')->nullable();
         $table->string('speaker')->nullable();

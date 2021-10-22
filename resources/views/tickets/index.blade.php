@@ -4,30 +4,29 @@
   /*----  Main Style  ----*/
     #cards_landscape_wrap-2{
       text-align: center;
-      background: #F7F7F7;
+      background: #F7F7F7
     }
     #cards_landscape_wrap-2 .container{
-      padding-top: 40px; 
-      padding-bottom: 100px;
+      padding-bottom: 75px;
     }
     #cards_landscape_wrap-2 a{
       text-decoration: none;
       outline: none;
     }
     #cards_landscape_wrap-2 .card-flyer {
-      border-radius: 5px;
+      border-radius: 50px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box{
       background: #ffffff;
       overflow: hidden;
       box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.50);
-      border-radius: 5px;
+      border-radius: 50px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box img{
-      -webkit-transition:all 0.9s ease; 
-      -moz-transition:all 0.9s ease; 
-      -o-transition:all 0.9s ease;
-      -ms-transition:all 0.9s ease; 
+      -webkit-transition:all .9s ease; 
+      -moz-transition:all .9s ease; 
+      -o-transition:all .9s ease;
+      -ms-transition:all .9s ease; 
       width: 100%;
       height: 200px;
     }
@@ -46,7 +45,7 @@
       padding: 30px 18px;
     }
     #cards_landscape_wrap-2 .card-flyer{
-      background: #FFFFFF;
+      background: #ffffff;
       margin-top: 50px;
       -webkit-transition: all 0.2s ease-in;
       -moz-transition: all 0.2s ease-in;
@@ -92,12 +91,12 @@
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <h1 style="color: #661421;">Submit a Ticket</h1>
+            <h1 class="ticket_header">Ticketanfrage</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+   
     <section class="content">
       <div class="container-fluid col-lg-12">
         <div class="row">
@@ -105,8 +104,8 @@
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
               <div class="card-body box-profile form-group">
-                  <!-- child cards -->
-                  <div class="row mx-auto justify-content-center">
+                <!-- child cards -->
+                <div class="row mx-auto justify-content-center">
                     <!-- second card -->
                     <div class="col-lg-12 ">
                       <div class="card card-primary card-outline" id="underform">
@@ -126,6 +125,7 @@
                                         <ul class="list-unstyled">
                                           <li><a href="{{route('softwareRequest')}}">Softwareanfrage</a></li>
                                           <li><a href="{{route('hardwareRequest')}}">Hardware-Anfrage</a></li>
+                                          <li><a href="{{route('computerRequest')}}">Drucker-Anfrage</a></li>
                                           <li><a href="{{route('pc_problems')}}">Probleme</a></li>
                                           <li><a href="{{route('printer_in_out')}}">Drucker Hinzu. / Ent.</a></li>
                                           <li><a href="{{route('other')}}">Sonstiges</a></li>
@@ -141,13 +141,13 @@
                                       <div class="image-box">
                                         <img src="/images/admin_images/Printer_300.png" alt="" />
                                       </div></a>
-                                      <div class="text-container">                                    
-                                          <h6>Drucker / Beamer</h6>
+                                      <div class="text-container">    
+                                          <h6>Drucker</h6>
                                           <ul class="list-unstyled">
-                                            <li><a href="{{route('printer_in_out')}}">Drucker hinzufügen</a></li>
-                                            <li><a href="{{route('printer_driver')}}">Treiber installieren</a></li>
+                                            <li><a href="{{route('printer_in_out')}}">Neuen Drucker einrichten</a></li>
+                                            <li><a href="{{route('computerRequest')}}">Geräte-Anfrage</a></li>
                                             <li><a href="{{route('scanner')}}">Scanner Probleme</a></li>
-                                            <li><a href="{{route('function')}}">Funktionsanfrage</a></li>
+                                            <li><a href="{{route('functuality')}}">Funktionsanfrage</a></li>
                                             <li><a href="{{route('errors')}}">Fehlermeldung</a></li>
                                           </ul>
                                       </div>
@@ -164,11 +164,8 @@
                                         <div class="text-container">
                                             <h6>Telefon</h6>
                                             <ul class="list-unstyled">
-                                              <li><a href="{{route ('tel_problems')}}">Telephone Funktioniert nicht</a></li>
-                                              <li><a href="{{route ('tel_problems')}}">Standort ändern</a></li>
-                                              <li><a href="{{route ('tel_problems')}}">Ändere den Namen</a></li>
-                                              <li><a href="{{route ('tel_problems')}}">Ändere den Nummern</a></li>
-                                              <li><a href="">Geräte wechseln</a></li>
+                                              <li><a href="{{route ('tel_problems')}}">Probleme</a></li>
+                                              <li><a href="{{route ('tel_problems')}}">Änderungen</a></li>
                                             </ul>
                                         </div>
                                       </div>
@@ -211,6 +208,7 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
+
 
 @endsection
 

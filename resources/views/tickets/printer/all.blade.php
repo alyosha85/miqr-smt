@@ -1,24 +1,6 @@
 @extends('layouts.admin_layout.admin_layout')
 
 <style>
-
-
-    .tooltip-inner {
-    background-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-right .arrow:before {
-        border-right-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-left .arrow:before {
-        border-left-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-bottom .arrow:before {
-        border-bottom-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-top .arrow:before {
-        border-top-color: #681a24 !important;
-    }
-
     
   /*----  Main Style  ----*/
     #cards_landscape_wrap-2{
@@ -26,7 +8,6 @@
       background: #F7F7F7;
     }
     #cards_landscape_wrap-2 .container{
-      padding-top: 40px; 
       padding-bottom: 100px;
     }
     #cards_landscape_wrap-2 a{
@@ -34,13 +15,13 @@
       outline: none;
     }
     #cards_landscape_wrap-2 .card-flyer {
-      border-radius: 5px;
+      border-radius: 50px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box{
       background: #ffffff;
       overflow: hidden;
       box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.50);
-      border-radius: 5px;
+      border-radius: 50px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box img{
       -webkit-transition:all .9s ease; 
@@ -102,6 +83,32 @@
       letter-spacing: 1px;
       color: #671926;
     }
+
+    /* info box */
+
+    #cards_landscape_wrap-2 .card-flyer2 .text-box2 p{
+      margin-top: 10px;
+      margin-bottom: 0px;
+      padding-bottom: 0px; 
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #85323E;
+    }
+    #cards_landscape_wrap-2 .card-flyer2 .text-box2 h2{
+      margin-top: 0px;
+      margin-bottom: 4px; 
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #85323E;
+    }
+    #cards_landscape_wrap-2 .card-flyer2 .text-box2 ul{
+      letter-spacing: 1px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #85323E;
+    }
 </style>
 
 @section('content')
@@ -111,7 +118,7 @@
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <h1>Submit a Ticket</h1>
+            <h1 class="ticket_header">Drucker</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -125,94 +132,84 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile form-group">
 
-                  <!-- child cards -->
-                  <div class="row mx-auto justify-content-center">
-                    <!-- second card -->
-                    <div class="col-lg-12">
-                      <div class="card card-primary card-outline" id="underform">
-                        <!-- Content here -->
-
-
-                        <div id="cards_landscape_wrap-2">
-                          <div class="container">
-                              <div class="row">
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                      <a href="{{route('printer_in_out')}}">
-                                          <div class="card-flyer">
-                                              <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                                  <div class="image-box">
-                                                      <img src="/images/admin_images/Printer_Walk_300.png" alt="" />
-                                                  </div>
-                                                  <div class="text-container">
-                                                    <h6>Drucker hinzufügen</h6>
-                                                </div>
-                                              </div>
-                                          </div>
-                                      </a>
+                <!-- child cards -->
+                <div class="row mx-auto justify-content-center">
+                  <!-- second card -->
+                  <div class="col-lg-12">
+                    <div class="card card-primary card-outline" id="underform">
+                      <!-- Content here -->
+                      <div id="cards_landscape_wrap-2">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_printer_printer">
+                              <a href="{{route('printer_in_out')}}">
+                                <div class="card-flyer">
+                                  <div class="text-box">
+                                    <div class="image-box">
+                                      <img src="/images/admin_images/Printer_Walk_300.png" alt="" />
+                                    </div>
+                                    <div class="text-container">
+                                      <h6>Drucker einrichten</h6>
+                                    </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('printer_driver')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                            <img src="/images/admin_images/Gear_Performance.png" alt="" />
-                                          </div>
-                                          <div class="text-container">                                    
-                                              <h6>Treiber anfrage</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
                                 </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('scanner')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                              <img src="/images/admin_images/scanner_300.png" alt="" />
-                                          </div>
-                                          <div class="text-container">
-                                              <h6>Scanner Probleme</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
+                              </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info-scanner">
+                              <a href="{{route('scanner')}}">
+                                <div class="card-flyer">
+                                  <div class="text-box">
+                                    <div class="image-box">
+                                        <img src="/images/admin_images/scanner_300.png" alt="" />
+                                    </div>
+                                    <div class="text-container">
+                                        <h6>Scanner Probleme</h6>
+                                    </div>
                                   </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('function')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                              <img src="/images/admin_images/function_300.png" alt="" />
-                                          </div>
-                                          <div class="text-container">
-                                              <h6>Funktionsanfrage</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
-                                  </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route('errors')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                              <img src="/images/admin_images/x_300.png" alt="" />
-                                          </div>
-                                          <div class="text-container">
-                                              <h6>Fehlermeldung</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
                                 </div>
+                              </a>
                               </div>
+                              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_functuality">
+                                <a href="{{route('functuality')}}">
+                                  <div class="card-flyer">
+                                    <div class="text-box">
+                                      <div class="image-box">
+                                          <img src="/images/admin_images/function_300.png" alt="" />
+                                      </div>
+                                      <div class="text-container">
+                                          <h6>Funktionsanfrage</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                              </div>
+                              <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_error">
+                                <a href="{{route('errors')}}">
+                                  <div class="card-flyer">
+                                    <div class="text-box">
+                                      <div class="image-box">
+                                          <img src="/images/admin_images/x_300.png" alt="" />
+                                      </div>
+                                      <div class="text-container">
+                                          <h6>Probleme</h6>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100"></div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 h-100 align-self-center" id="tooltip_box_printer" >
+                              <!-- ! Jquery forms here --> 
+
+                              <!-- ! Jquery forms ends here -->
+                            </div>
                           </div>
                         </div>
-
                       </div>
+
                     </div>
-                    <!--end second card -->
+                  </div>
+                  <!--end second card -->
                 </div>
               </div>
               <!-- /.card-body -->
@@ -228,4 +225,103 @@
 @endsection
 
 @section('script')
+<script>
+  $(document).ready(function() {
+let underform = $('div #tooltip_box_printer');
+let rm_children = underform.children().remove();
+rm_children;
+
+$('#info_printer_printer').hover(function(){
+  underform.children().remove();
+    underform.append(
+    `
+    <div class="card-flyer2">
+        <div class="text-box2">
+          <div class="text-container2">
+            <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+            <h2>Drucker Einrichten</h2>
+              <ul class="list-unstyled">
+                <li>Druckerinstallation etc.</li>
+                <br>
+              </ul>
+          </div>
+        </div>
+      </div>
+    `
+    );
+    },function(){
+        underform.children().remove(); 
+  })
+
+  $('#info-scanner').hover(function(){
+  underform.children().remove();
+    underform.append(
+    `
+    <div class="card-flyer2">
+        <div class="text-box2">
+          <div class="text-container2">
+            <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+            <h2>Scanner Probleme</h2>
+              <ul class="list-unstyled">
+                <li>Scanner einrichten oder Probleme mit dem Scanner melden</li>
+                <br>
+              </ul>
+          </div>
+        </div>
+      </div>
+    `
+    );
+    },function(){
+        underform.children().remove(); 
+  })
+
+  $('#info_functuality').hover(function(){
+  underform.children().remove();
+    underform.append(
+    `
+    <div class="card-flyer2">
+        <div class="text-box2">
+          <div class="text-container2">
+            <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+            <h2>Funktionsanfrage</h2>
+              <ul class="list-unstyled">
+                <li>Weiß Keine...</li>
+                <br>
+              </ul>
+          </div>
+        </div>
+      </div>
+    `
+    );
+    },function(){
+        underform.children().remove(); 
+  })
+
+  $('#info_error').hover(function(){
+  underform.children().remove();
+    underform.append(
+    `
+    <div class="card-flyer2">
+        <div class="text-box2">
+          <div class="text-container2">
+            <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+            <h2>Probleme</h2>
+              <ul class="list-unstyled">
+                <li>Probleme bei Druck, Kopie etc.</li>
+                <br>
+              </ul>
+          </div>
+        </div>
+      </div>
+    `
+    );
+    },function(){
+        underform.children().remove(); 
+  })
+
+ 
+
+ 
+  })
+</script>
 @endsection

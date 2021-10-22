@@ -2,19 +2,7 @@
 
 @section('content')
     <!-- Content Header (Page header) -->
-    <section class="content-header text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-6 mx-auto">
-            <h1>Telefon anfrage</h1>
-            <!-- <div class="widget-user-image">
-              <img class="img-circle elevation-2" src="/images/admin_images/software_300.png" alt="" />
-          </div> -->
-          
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+@include('tickets.layout_ticket.header',['title'=>'Telefon anfrage'])
 
     <!-- Main content -->
   <section class="content">
@@ -35,11 +23,11 @@
                         <!-- Submitted by & Date -->
                         <div class="row">
                           <div class="form-group col-md-6">
-                            <label for="submitter"> Eingereicht von</label>
+                            <label for="submitter"> Erstellt von</label>
                             <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="submit_date"> Am</label>
+                            <label for="submit_date">Erstellt Am</label>
                             <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
                           </div>
                         </div>
@@ -380,11 +368,9 @@ $(document).ready(function() {
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-              <legend class="w-auto">Name Ändern <i class="fas fa-file-signature"></i></legend>
-              <label for="current_tel_name"> Aktuelle Name </label>
-              <input type="text" class="form-control mb-2" name="current_tel_name" required>
-              <label for="new_tel_name"> Neue Name </label>
-              <input type="text" class="form-control mb-2" name="new_tel_name" required>
+              <legend class="w-auto">Nummer Ändern <i class="fas fa-file-signature"></i></legend>
+              <label for="new_tel_number"> Neue Nummer </label>
+              <input type="text" class="form-control mb-2" name="new_tel_number" required>
             </fieldset>
           </div> 
             <div class="form-group col-md-6 col-lg-12">

@@ -7,10 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use Spatie\Permission\Traits\HasRoles;
+use Laravelista\Comments\Commenter;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
-    use Notifiable, AuthenticatesWithLdap;
+    use Notifiable, AuthenticatesWithLdap, Commenter;
     use HasRoles;
 
     protected $guard_name = 'web';

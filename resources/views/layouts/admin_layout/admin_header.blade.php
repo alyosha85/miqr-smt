@@ -1,4 +1,5 @@
   <!-- Navbar -->
+
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -20,7 +21,6 @@
       </li> -->
 
     <!-- </ul> -->
-
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -42,5 +42,7 @@
         </div>
       </li>
     </ul>
+
+    
   </nav>
   <!-- /.navbar -->

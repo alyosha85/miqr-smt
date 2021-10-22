@@ -28,6 +28,10 @@ class PermissionTableSeeder extends Seeder
           ["id"=>13,"name"=>"role-edit","guard_name"=>"web","category_id"=>5],
           ["id"=>14,"name"=>"role-delete","guard_name"=>"web","category_id"=>5],
           ["id"=>15,"name"=>"information","guard_name"=>"web","category_id"=>null],
+          ["id"=>16,"name"=>"Umbennen","guard_name"=>"web","category_id"=>null],
+          ["id"=>17,"name"=>"Ticket_IT","guard_name"=>"web","category_id"=>7],
+          ["id"=>18,"name"=>"Ticket_Erstellen","guard_name"=>"web","category_id"=>7],
+          ["id"=>19,"name"=>"Meine_Tickets","guard_name"=>"web","category_id"=>7],
         ]);
     }
 }

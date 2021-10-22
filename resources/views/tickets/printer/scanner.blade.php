@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <h1>Scanner</h1>
+            <h1 class="ticket_header">Scanner</h1>
             <!-- <div class="widget-user-image">
               <img class="img-circle elevation-2" src="/images/admin_images/software_300.png" alt="" />
           </div> -->
@@ -36,11 +36,11 @@
                       <!-- Submitted by & Date -->
                       <div class="row">
                         <div class="form-group col-md-6">
-                          <label for="submitter"> Eingereicht von</label>
+                          <label for="submitter"> Erstellt von</label>
                           <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="submit_date"> Am</label>
+                          <label for="submit_date">Erstellt Am</label>
                           <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
                         </div>
                       </div>
@@ -79,15 +79,15 @@
 
                           <div class="custom-control custom-checkbox mb-3">
                             <input type="checkbox" class="custom-control-input" id="scanner_not_working" name="scanner_not_working">
-                            <label class="custom-control-label" for="scanner_not_working">Not Scanning at all</label>
+                            <label class="custom-control-label" for="scanner_not_working">Scan funktioniert nicht</label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
                             <input type="checkbox" class="custom-control-input" id="scanner_wrong_folder" name="scanner_wrong_folder">
-                            <label class="custom-control-label" for="scanner_wrong_folder">Scanning but not in "SCAN" folder</label>
+                            <label class="custom-control-label" for="scanner_wrong_folder">SScans nicht im Scan Ordner</label>
                           </div>
                           <div class="custom-control custom-checkbox mb-3">
                             <input type="checkbox" class="custom-control-input" id="scanner_myname_list" name="scanner_myname_list">
-                            <label class="custom-control-label" for="scanner_myname_list">My name is not in the list</label>
+                            <label class="custom-control-label" for="scanner_myname_list">Scanner einrichten</label>
                           </div>
 
                         </div>

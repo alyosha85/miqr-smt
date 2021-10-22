@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <h1>Probleme</h1>
+            <h1 class="ticket_header">Probleme</h1>
             <!-- <div class="widget-user-image">
               <img class="img-circle elevation-2" src="/images/admin_images/software_300.png" alt="" />
           </div> -->
@@ -36,11 +36,11 @@
                       <!-- Submitted by & Date -->
                       <div class="row">
                         <div class="form-group col-md-6">
-                          <label for="submitter"> Eingereicht von</label>
+                          <label for="submitter"> Erstellt von</label>
                           <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="submit_date"> Am</label>
+                          <label for="submit_date">Erstellt Am</label>
                           <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
                         </div>
                       </div>
@@ -248,6 +248,10 @@
 headers: {
 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 }
+});
+
+$(".searchcomputer").select2({
+
 });
 
 </script>

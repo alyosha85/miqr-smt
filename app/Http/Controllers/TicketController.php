@@ -11,17 +11,55 @@ use App\InvItems;
 use App\Location;
 use Carbon\Carbon;
 use App\TicketType;
+use App\TicketStatus;
 use App\EquipmentProblem;
+use App\Gart;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\Notifications\TicketNotification;
+use App\TicketPriority;
 use Illuminate\Support\Facades\Notification;
 
 class TicketController extends Controller
 {
 
-  public function __construct()
+  function __construct()
   {
-    $this->middleware('permission:ticket_submit|my_tickets', ['only' => ['submit']]);
+    $this->middleware('permission:Ticket_Erstellen|Meine_Tickets|Ticket_IT', ['only' => [
+      'index',
+      'computer_all',
+      'softwareRequest',
+      'hardwareRequest',
+      'pc_problems',
+      'printer_in_out',
+      'other',
+      'printer_all',
+      'printer_driver',
+      'scanner',
+      'functuality',
+      'errors',
+      'telephone_all',
+      'tel_problems',
+      'tel_in_room',
+      'problem_type',
+      'problem_type_machine',
+      'dependant_forms',
+      'address',
+      'printer_in_room',
+      'store',
+      'usertickets',
+      'show'
+      ]]);
+
+
+    $this->middleware('permission:Ticket_IT', ['only' => [
+      'opentickets',
+      'unassignedtickets',
+      'assignedTo',
+      ]]);
+ 
+
   }
     /**
      * Display a listing of the resource.
@@ -64,6 +102,16 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.computer.hardwareRequest',compact('user','now','tickets','users','computers'));
     }
+    public function computerRequest() 
+    {
+      $users = User::get()->toArray();
+      $machines = Gart::where('id','2')->orwhere('id','3')->orwhere('id','4')->orwhere('id','5')
+      ->orwhere('id','13')->orwhere('id','15')->orwhere('id','18')->orwhere('id','17')->orwhere('id','6')->get();
+      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+      $user = Auth()->user();
+      $tickets = TicketType::all();
+      return view ('tickets.computer.computerRequest',compact('user','now','tickets','users','machines'));
+    }
     public function pc_problems() 
     {
       $users = User::get()->toArray();
@@ -103,16 +151,6 @@ class TicketController extends Controller
       return view('tickets.printer.all',compact('user','now','tickets','users'));
     }
 
-    public function printer_driver() 
-    {
-      $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
-      $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.printer.driver',compact('user','now','tickets','users','computers'));
-    }
 
     public function scanner() 
     {
@@ -124,7 +162,7 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.printer.scanner',compact('user','now','tickets','users','computers'));
     }
-    public function function() 
+    public function functuality() 
     {
       $rooms = InvRoom::with('location')->get();
       $users = User::get()->toArray();
@@ -132,7 +170,7 @@ class TicketController extends Controller
       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
       $user = Auth()->user();
       $tickets = TicketType::all();
-      return view ('tickets.printer.function',compact('user','now','tickets','users','computers'));
+      return view ('tickets.printer.functuality',compact('user','now','tickets','users','computers'));
     }
     public function errors() 
     {
@@ -264,22 +302,39 @@ class TicketController extends Controller
     public function usertickets()
     {
       $user = Auth()->user();
-      $myTickets = Ticket::where('submitter',$user->username)->orderBy('updated_at','DESC')->get();
-      $myTicketsCount = Ticket::where('submitter',$user->username)->count();
+      $myTickets = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
+      $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.usertickets',compact('user','myTickets','myTicketsCount'));
     }
+
     public function opentickets()
     {
       $user = Auth()->user();
       $admins = User::role('Super_Admin')->get();
-      $myTickets = Ticket::orderBy('updated_at','DESC')->get();
-      $myTicketsCount = Ticket::all()->count();
-      return view('tickets.admins.open',compact('user','myTickets','myTicketsCount','admins'));
+      $myTickets = Ticket::orderBy('created_at','DESC')->get();
+      $AllTicketsCount = Ticket::all()->count();
+      $UnassignedTicketsCount = Ticket::whereNull('assignedTo')->count();
+      $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
+      return view('tickets.admins.open',compact('user','myTickets','AllTicketsCount','admins','UnassignedTicketsCount','myTicketsCount'));
+    }
+
+    public function unassignedtickets()
+    {
+      $name = 'unassigned';
+      $user = Auth()->user();
+      $admins = User::role('Super_Admin')->get();
+      $myTickets = Ticket::whereNull('assignedTo')->orderBy('updated_at','DESC')->get();
+      $UnassignedTicketsCount = Ticket::whereNull('assignedTo')->count();
+      $AllTicketsCount = Ticket::all()->count();
+      $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
+      return view('tickets.admins.unassigned',compact('user','myTickets','UnassignedTicketsCount','admins','myTicketsCount','AllTicketsCount'));
     }
 
     public function show($id)
     {
-      $ticket = Ticket::findOrFail($id)->first();
+      $ticket_status = TicketStatus::all();
+      $ticket_priority = TicketPriority::all();
+      $ticket = Ticket::where('id',$id)->first();
       // $userUnreadNotification = auth()->user()->unreadNotifications
       //                           ->where("data['ticket_id']",'=',$id)
       //                           ->first();
@@ -288,7 +343,7 @@ class TicketController extends Controller
       //                             $userUnreadNotification->markAsRead();
       //                         }
       $createdAt = Carbon::parse($ticket->created_at);
-      return view('tickets.admins.showticket',compact('ticket','createdAt'));
+      return view('tickets.admins.showticket',compact('ticket','createdAt','ticket_status','ticket_priority'));
     }
 
     /**
@@ -303,10 +358,24 @@ class TicketController extends Controller
     }
     public function assignedTo(Request $request)
     {
-      $assigned = Ticket::find($request->id_ticket)->first();
-      $assigned -> assignedTo = $request->id;
+      $assigned = Ticket::where('id',$request->ticket_id)->first();
+      $assigned -> assignedTo = $request->assignedTo;
       $assigned->save();
       return $assigned;
+    }
+    public function ticketPriority(Request $request)
+    {
+      $priority = Ticket::where('id',$request->ticket_id)->first();
+      $priority -> priority_id = $request->priority;
+      $priority->save();
+      return $priority;
+    }
+    public function ticketStatus(Request $request)
+    {
+      $status = Ticket::where('id',$request->ticket_id)->first();
+      $status -> ticket_status_id = $request-> status;
+      $status->save();
+      return $status;
     }
 
     /**

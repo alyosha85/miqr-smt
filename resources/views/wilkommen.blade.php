@@ -1,6 +1,15 @@
 @extends('layouts.admin_layout.admin_layout')
 
 <style>
+  #hat {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: -30;
+  top: 0;
+  transform: translate(50%,-50%);
+  z-index: 100;
+}
  
 .onoffswitch3
 {
@@ -122,12 +131,39 @@
                 <!-- first card -->
                 <div class="col-lg-9">
                   <div class="card card-primary card-outline">
-                    <div class="card-body box-profile form-group">
+                    <div class="position-relative">
+                      <img id="hat" src="/images/admin_images/halloween2.png" alt="hat">
+                      <div class="card-body box-profile form-group">
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <video
+                            fluid="true"
+                            id="my-video"
+                            class="video-js"
+                            controls
+                            preload="auto"
+                            width="550"
+                            height="300"
+                            data-setup="{}"
+                          >
+                            <source src="/images/admin_images/tutorial_2.mp4" type="video/mp4" />
+                          </video>
+
+                                                            
+                          </div>
+                          <div class="col-sm-6">
+                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi dolores assumenda aliquam illum consectetur dicta inventore? Tenetur inventore repellat necessitatibus, delectus cumque odio pariatur commodi cupiditate enim aut cum repudiandae assumenda obcaecati veritatis rem libero! </p>
+                        </div>
+                      </div>
 
 
 
 
-                    <!-- /.card-body -->
+
+
+                      <!-- /.card-body -->
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -166,15 +202,10 @@
 	</div>
 </section>
 
-
-
-
-
 @endsection
 
 @section('script')
-<script>
-</script>
+<script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
 
 @endsection
 

@@ -92,7 +92,7 @@
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <h1>Submit a Ticket</h1>
+            <h1 class="ticket_header">Ticketanfrage</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->

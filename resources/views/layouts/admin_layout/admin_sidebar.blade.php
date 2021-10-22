@@ -255,9 +255,10 @@
               </p>
             </a>
             <ul class="nav nav-treeview text-capitalize">
+            @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('Super_Admin'))
             <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-circle"></i>
+                    <i class="fas fa-laptop-code nav-icon"></i>
                     <p>
                         IT
                     <i class="right fas fa-angle-left"></i>
@@ -266,57 +267,41 @@
                 <ul class="nav nav-treeview font-weight-light">
                     <li class="nav-item">
                     <a href="{{ route('ticket.opentickets') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Open</p>
+                        <i class="far fa-folder-open nav-icon"></i>
+                        <p>Offen</p>
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Unassigned</p>
+                    <a href="{{ route('ticket.unassigned') }}" class="nav-link">
+                        <i class="fas fa-exclamation-triangle nav-icon"></i>
+                        <p>Nichtzugewissen</p>
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>My Tickets</p>
+                    <a href="" class="nav-link">
+                      <i class="far fa-bell nav-icon"></i>
+                        <p>Kürzlich aktualisiert</p>
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Recently updated</p>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>B-Trachenberg93</p>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Solved</p>
-                    </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="{{ url('/matrix/berlin') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Solved</p>
+                    <a href="" class="nav-link">
+                      <i class="far fa-folder nav-icon"></i>
+                        <i class="fas fa-check nav-icon"></i>
+                        <p>Erledigt</p>
                     </a>
                     </li>
                 </ul>
                 </li>
+                @endif
                 <li class="nav-item">
                   <a href="{{ route('ticket.index') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                      <i class="fas fa-marker nav-icon" style="color:#E5D0E3;"></i>
                       <p>Ticket Erstellen</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ url('/usertickets') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
+                    <i class="far fa-list-alt nav-icon" style="color:#9FFFCB;"></i>
                       <p>Meine Tickets</p>
                   </a>
                 </li>

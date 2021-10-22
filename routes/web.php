@@ -4,6 +4,7 @@ use App\Http\Controllers\InvAbItemController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -137,17 +138,17 @@ Route::post('/form_store','TicketController@store')->name('form_store');
 Route::get('/ticket/address','TicketController@address')->name('ticket.address');
 //****************************************  Ticket Computer  *************************************************/
 Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); //duplicate
-Route::get('/ticket.sotware_request','TicketController@softwareRequest')->name('softwareRequest'); 
+Route::get('/ticket.software_request','TicketController@softwareRequest')->name('softwareRequest'); 
 Route::get('/ticket.hardware_request','TicketController@hardwareRequest')->name('hardwareRequest'); 
+Route::get('/ticket.computer_request','TicketController@computerRequest')->name('computerRequest'); 
 Route::get('/ticket.pc_problems','TicketController@pc_problems')->name('pc_problems'); 
 Route::get('/ticket.printer','TicketController@printer_in_out')->name('printer_in_out');  // same page in PC / Laptops and Drucker
 Route::get('/ticket.other','TicketController@other')->name('other'); 
 Route::post('/ticket.printer_search_inroom','TicketController@printer_in_room')->name('printer_in_room'); //! AJAX find the printer  
 //****************************************  Ticket Printer  *************************************************/
 Route::get('/ticket.printer_all','TicketController@printer_all')->name('printer_all'); 
-Route::get('/ticket.printer_driver','TicketController@printer_driver')->name('printer_driver'); 
 Route::get('/ticket.scanner','TicketController@scanner')->name('scanner'); 
-Route::get('/ticket.function','TicketController@function')->name('function'); 
+Route::get('/ticket.function','TicketController@functuality')->name('functuality'); 
 Route::get('/ticket.errors','TicketController@errors')->name('errors'); 
 //****************************************  Ticket Telephone  *************************************************/
 Route::get('/ticket.telephone_all','TicketController@telephone_all')->name('telephone_all');
@@ -156,5 +157,8 @@ Route::post('/ticket.tel_search_inroom','TicketController@tel_in_room')->name('t
 
 //****************************************  Ticket Admins  *************************************************/
 Route::get('/opentickets','TicketController@opentickets')->name('ticket.opentickets'); 
+Route::get('/unassignedtickets','TicketController@unassignedtickets')->name('ticket.unassigned'); 
 Route::get('/ticket/{myTicket}','TicketController@show')->name('ticket.show'); 
 Route::post('/ticket/assignTo','TicketController@assignedTo')->name('ticket.assignedTo');
+Route::post('/ticket/priority','TicketController@ticketPriority')->name('ticket.ticketPriority');
+Route::post('/ticket/status','TicketController@ticketStatus')->name('ticket.ticketStatus');

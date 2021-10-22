@@ -33,31 +33,37 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Datatables Css -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.8/css/responsive.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
   <!-- toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
   <link rel="stylesheet" href="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/css/animatecss/animate.min.css">
   <link rel="stylesheet" href="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/js/slidernav/slidernav.css">
-
+  <!-- video.js -->
+  <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
   <style>
+
+
 
 .tooltip-inner {
     background-color: #681a24 !important;
     }
-    .tooltip.bs-tooltip-right .arrow:before {
-        border-right-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-left .arrow:before {
-        border-left-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-bottom .arrow:before {
-        border-bottom-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-top .arrow:before {
-        border-top-color: #681a24 !important;
-    }
+.tooltip.bs-tooltip-right .arrow:before {
+    border-right-color: #681a24 !important;
+}
+.tooltip.bs-tooltip-left .arrow:before {
+    border-left-color: #681a24 !important;
+}
+.tooltip.bs-tooltip-bottom .arrow:before {
+    border-bottom-color: #681a24 !important;
+}
+.tooltip.bs-tooltip-top .arrow:before {
+    border-top-color: #681a24 !important;
+}
+.ticket_header {
+  color:#661421;
+}
     /* swal */
     .swal2-container {
         z-index: X;
@@ -260,10 +266,9 @@
 
 
 <!-- Datatables script-->
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.8/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
 
 
 <script>
@@ -277,6 +282,20 @@ $(function () {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- Custom JS -->
 <script src="{{ url('js/admin_js/script.js') }}"></script>
+<script type="text/javascript">
+$(".hBack").on("click", function(e){
+    e.preventDefault();
+    window.history.back();
+});
+  function zoom() {
+      document.body.style.zoom = "90%" 
+  }
+</script>
+
+
+
+<body onload="zoom()">
+  
 @yield('script')
 </body>
 </html>

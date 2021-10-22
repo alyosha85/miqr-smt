@@ -1,46 +1,28 @@
 @extends('layouts.admin_layout.admin_layout')
 
+
 <style>
 
-
-    .tooltip-inner {
-    background-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-right .arrow:before {
-        border-right-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-left .arrow:before {
-        border-left-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-bottom .arrow:before {
-        border-bottom-color: #681a24 !important;
-    }
-    .tooltip.bs-tooltip-top .arrow:before {
-        border-top-color: #681a24 !important;
-    }
-
-    
   /*----  Main Style  ----*/
     #cards_landscape_wrap-2{
       text-align: center;
       background: #F7F7F7;
     }
     #cards_landscape_wrap-2 .container{
-      padding-top: 40px; 
-      padding-bottom: 100px;
+      padding-bottom: 50px;
     }
     #cards_landscape_wrap-2 a{
       text-decoration: none;
       outline: none;
     }
     #cards_landscape_wrap-2 .card-flyer {
-      border-radius: 5px;
+      border-radius: 50px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box{
       background: #ffffff;
       overflow: hidden;
       box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.50);
-      border-radius: 5px;
+      border-radius: 50px;
     }
     #cards_landscape_wrap-2 .card-flyer .image-box img{
       -webkit-transition:all .9s ease; 
@@ -50,6 +32,7 @@
       width: 100%;
       height: 200px;
     }
+
     #cards_landscape_wrap-2 .card-flyer:hover .image-box img{
       opacity: 0.7;
       -webkit-transform:scale(1.15);
@@ -102,6 +85,32 @@
       letter-spacing: 1px;
       color: #671926;
     }
+/* info box */
+
+    #cards_landscape_wrap-2 .card-flyer2 .text-box2 p{
+      margin-top: 10px;
+      margin-bottom: 0px;
+      padding-bottom: 0px; 
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #85323E;
+    }
+    #cards_landscape_wrap-2 .card-flyer2 .text-box2 h2{
+      margin-top: 0px;
+      margin-bottom: 12px; 
+      font-size: 21px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #85323E;
+    }
+    #cards_landscape_wrap-2 .card-flyer2 .text-box2 ul{
+      letter-spacing: 1px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #85323E;
+    }
+
 </style>
 
 @section('content')
@@ -111,7 +120,7 @@
       <div class="container">
         <div class="row">
           <div class="col-6 mx-auto">
-            <h1>Submit a Ticket</h1>
+            <h1 class="ticket_header">Ticketanfrage</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -131,82 +140,47 @@
                     <div class="col-lg-12">
                       <div class="card card-primary card-outline" id="underform">
                         <!-- Content here -->
-
-
                         <div id="cards_landscape_wrap-2">
                           <div class="container">
                               <div class="row">
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
+                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_notworking_telephone">
                                       <a href="{{route ('tel_problems')}}">
                                           <div class="card-flyer">
-                                              <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
+                                              <div class="text-box">
                                                   <div class="image-box">
                                                       <img src="/images/admin_images/tel_not_working_400.png" alt="" />
                                                   </div>
                                                   <div class="text-container">
-                                                    <h6>Funktioniert nicht</h6>
+                                                    <h6>Probleme</h6>
                                                 </div>
                                               </div>
                                           </div>
                                       </a>
                                   </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
+                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_change_number_telephone">
                                     <a href="{{route ('tel_problems')}}">
                                       <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
+                                        <div class="text-box">
                                           <div class="image-box">
-                                            <img src="/images/admin_images/telepfon_move.png" alt="" />
+                                            <img src="/images/admin_images/mix_move.png" alt="" />
                                           </div>
                                           <div class="text-container">                                    
-                                              <h6>Standort ändern</h6>
+                                              <h6>Änderungen</h6>
                                           </div>
                                         </div>
                                       </div>
                                     </a>
                                 </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route ('tel_problems')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                              <img src="/images/admin_images/Telefon_rename.png" alt="" />
-                                          </div>
-                                          <div class="text-container">
-                                              <h6>Ändere den Namen</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
-                                  </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route ('tel_problems')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                              <img src="/images/admin_images/telefon_renummber.png" alt="" />
-                                          </div>
-                                          <div class="text-container">
-                                              <h6>Änderen den Nummern</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
-                                  </div>
-                                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100">
-                                    <a href="{{route ('tel_problems')}}">
-                                      <div class="card-flyer">
-                                        <div class="text-box" data-toggle="tooltip" data-placement="top" title="ipsum dolor sit amet consectetur adipisicing elit. Amet ipsa quia similique sed! Dolorum, officiis .">
-                                          <div class="image-box">
-                                              <img src="/images/admin_images/x_300.png" alt="" />
-                                          </div>
-                                          <div class="text-container">
-                                              <h6>geräte umtauschen</h6>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </a>
-                                </div>
+                              <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 h-100 align-self-center" id="tooltip_box_telephone" >
+                                <!-- ! Jquery forms here --> 
+        
+                                
+        
+        
+                                <!-- ! Jquery forms ends here -->
                               </div>
+
+                            </div>
                           </div>
                         </div>
 
@@ -228,4 +202,80 @@
 @endsection
 
 @section('script')
+<script>
+  $(document).ready(function() {
+  let underform = $('div #tooltip_box_telephone');
+  let rm_children = underform.children().remove();
+  rm_children;
+  
+    $('#info_notworking_telephone').hover(function(){
+        underform.children().remove();
+        underform.append(
+          `
+            <div class="card-flyer2">
+              <div class="text-box2">
+                <div class="text-container2">
+                  <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+                  <h2>Probleme</h2>
+                    <ul class="list-unstyled">
+                      <li>Jegliche Probleme bzgl. des Telefons.</li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          `
+        );
+  
+      },function(){
+        underform.children().remove(); 
+      })
+  
+    $('#info_change_number_telephone').hover(function(){
+        underform.children().remove();
+        underform.append(
+          `
+          <div class="card-flyer2">
+              <div class="text-box2">
+                <div class="text-container2">
+                  <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+                  <h2>Änderungen</h2>
+                    <ul class="list-unstyled">
+                      <li>Jegliche Änderungswünsche bzgl. dem Telefons.</li>
+                      <li>Maus, Tastatur, etc. </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          `
+        );
+  
+      },function(){
+        underform.children().remove(); 
+      })
+  
+    $('#info_telephone_change').hover(function(){
+      underform.children().remove();
+      underform.append(
+        `
+        <div class="card-flyer2">
+            <div class="text-box2">
+              <div class="text-container2">
+                <img src="/images/admin_images/info_400_2.png" style="max-width:100px;  alt="" />
+                <h2>Hardware-anfrage</h2>
+                  <ul class="list-unstyled">
+                    <li>Anfrage von neuer Hardware wie </li>
+                    <li>PC, Laptop, Bildschirm, etc.</li>
+                  </ul>
+              </div>
+            </div>
+          </div>
+        `
+      );
+      },function(){
+        underform.children().remove(); 
+      })
+
+    })
+  
+  </script>
 @endsection
