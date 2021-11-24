@@ -4,8 +4,30 @@
   .found {
     background-color: #5cb85c;
   }
- 
+
+  @font-face {
+      font-family: 'BrzBC_Code39_MK';
+      src: url('font/BrzBC_Code39_MK.woff2') format('woff2'),
+            url('font/BrzBC_Code39_MK.woff') format('woff'),
+            url('font/BrzBC_Code39_MK.svg#BrzBC_Code39_MK') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+      }
+
+  .barcode {
+      font-family: 'BrzBC_Code39_MK', 'Courier', 'monospace';
+      }
+  .input-lg{
+    font-size: 40px !important;
+  }
+  input[readonly].invnr_print{
+  background-color:transparent;
+  border: 0;
+}
+
 </style>
+ 
 @section('content')
 
 <!-- Main content -->
@@ -67,10 +89,14 @@
         <div class="dropdown-divider"></div>
       @endcan
       @can('Drucken_ticket')
+      <a class="dropdown-item" href="javascript:" id="print_missing">Fehlende Inv</a>
+      <div class="dropdown-divider"></div>
+      @endcan
+      @can('Drucken_ticket')
           <a class="dropdown-item" href="javascript:" id="etiketten_modal">Etiketten</a>
         </div>
         @endcan
-        </li>
+      </li>
       @can('Inventur')
         <li class="nav-item">
           <a class="nav-link" href="javascript:" id="inventur_modal">Inventur <i class="fas fa-dolly-flatbed fa-lg" style="color: orange;"></i></a>
@@ -306,6 +332,7 @@
 @include('inventory.rename')
 <!-- Print modal -->
 @include('inventory.label')
+@include('inventory.missing_label')
 
 
 
@@ -433,6 +460,7 @@ $(document).on('keyup change', '#search_edit', function(){
 							$('body .item_edit_form .gtyp_edit').val(resp.items.gtyp)
 							$('body .item_edit_form .sn_edit').val(resp.items.sn)
 							$('body .item_edit_form .notes_edit').val(resp.items.notes)
+							$('body .item_edit_form .invnr_print').val(resp.items.invnr)
 						},error:function(){
 							alert("Error");
 						}
@@ -605,6 +633,41 @@ $(function() {
     WinPrint.focus();
     WinPrint.print();
     setInterval(function(){ WinPrint.close()}, 3000);
+	}
+
+   //************************************************************* Print Missing Label ******************************************************//
+  $( document ).on( "click", "#print_missing", function() {
+    $('#missing_label').modal('show');
+    $.ajax({
+      type: "get",
+      url: "{{ route('search_missing')}}", 
+      }).done(function( data ) {
+        $.each(data['gerate'], function(index, item) {
+          $("body #searchgerate").append(new Option(item['gname'],item['invnr']))  
+        });
+			});
+
+      $( document ).on( "change", "#searchgerate", function() {
+       let missing_printer =  $("body #searchgerate").val()
+       console.log(missing_printer);
+      });
+      
+
+      $(".searchgerate").select2({
+        width: "100%"
+    });
+
+     
+	});
+  //********************************************************** Print Missing page ******************************************************//
+  function printmissingfunction() {
+    $('#print_missing').modal('show');
+    let printinvnr = $('#searchgerate').val();
+    let WinPrint = window.open('/printmissing/'+printinvnr, '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    // setInterval(function(){ WinPrint.close()}, 3000);
 	}
 //************************************************************* List Print **********************************************************//
 let selectAddresslisten = new Array();

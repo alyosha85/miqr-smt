@@ -70,6 +70,7 @@ public function updateRename(Request $request)
 {
   $items = InvAbItem::where('invnr',$request->invnr)->first();
   $items->gname = $request->gname;
+  $items->notes = $request->notes; 
   $items->save();
   $items2 = InvItems::where('invnr',$request->invnr)->first();
   $items2->gname = $request->gname;
@@ -411,6 +412,21 @@ public function updateRename(Request $request)
 			$anzahlnew->save();
 			return view ('inventory.print',compact('explode','anzahl'));
     }
+
+/**********************************************************{{ Print Missing label Methoad }}****************************************************************/
+
+    public function missing_search()
+    {
+      $gerate = InvAbItem::all();
+      return ['gerate'=>$gerate];
+    }
+
+    public function printmissinglabel($printinvnr)
+    {
+			$explode = explode('-',$printinvnr);
+			return view ('inventory.print_missing',compact('explode'));
+    }
+
 /************************************************************** {{ Upload PDF }} ********************************************************************************/
     /*
     * upload Pdf and store

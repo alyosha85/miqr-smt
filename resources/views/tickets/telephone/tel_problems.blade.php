@@ -1,7 +1,6 @@
 @extends('layouts.admin_layout.admin_layout')
 
 @section('content')
-    <!-- Content Header (Page header) -->
 @include('tickets.layout_ticket.header',['title'=>'Telefon anfrage'])
 
     <!-- Main content -->
@@ -9,55 +8,14 @@
     <div class="container-fluid col-lg-12">
       <div class="row">
         <div class="col-12 mx-auto">
-          <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile form-group">
               <form action="{{route ('form_store')}}" method="post" id="ticket_forms">
                 @csrf
-                <!-- child cards -->
                 <div class="row mx-auto">
-                  <!-- first card -->
-                  <div class="col-lg-4">
-                    <div class="card card-primary card-outline">
-                      <div class="card-body box-profile form-group">
-                        <!-- Submitted by & Date -->
-                        <div class="row">
-                          <div class="form-group col-md-6">
-                            <label for="submitter"> Erstellt von</label>
-                            <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="submit_date">Erstellt Am</label>
-                            <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
-                          </div>
-                        </div>
-                        <!-- Ticket Type -->
-                        <div class="row">
-                          <div class="form-group col-md-12">
-                            <label for="priority"> Priorität</label>
-                            <select class="custom-select" name="priority" id="ticket_type">
-                              <option selected class="dropdown-menu" value="2">Normal</option>
-                              <option value="1">Niedrig</option>
-                              <option value="2">Normal</option>
-                              <option value="3">Hoch</option>
-                            </select>
-                          </div>
-                          <div class="form-group col-md-12">
-                            <label for="tel_number"> Telefon</label>
-                            <input type="text" class="form-control" name="tel_number" value="{{$user->tel}}" readonly>
-                          </div>
-                          <div class="form-group col-md-12">
-                            <label for="custom_tel_number"> Aktuelle Rufnummer <i class="fas fa-question" style="color: #661421;" data-toggle="tooltip" data-placement="top" title="Telefonnummer unter der Sie erreichbar sind" ></i> &nbsp;</label>
-                            <input type="text" class="form-control" name="custom_tel_number" >
-                          </div>
-                        </div>
-                        <div id="output"></div>
-                      <!-- /.card-body -->
-                      </div>
-                    </div>
-                  </div>
-                  <!--end first card -->
-                  <!-- second card -->
+                <!-- Submitter Section layout_ticket submitter.blade.php -->
+                @include('tickets.layout_ticket.submitter')
+                <!--end Submitter Section -->
                   <div class="col-lg-8">
                     <div class="card card-primary card-outline">
                       <div class="card-body box-profile form-group">
@@ -73,27 +31,19 @@
                       </div>
                       <div id="underform">
                         <!-- ! Jquery forms here --> 
-
-
                         <!-- ! Jquery forms ends here -->
                       </div>
-                    </div>
                   </div>
-                  <!--end second card -->
+                </div><!--end second card -->
               </div>
             </form>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
+            </div><!-- /.card-body -->
+          </div><!-- /.card -->
+        </div><!-- /.col -->
+      </div><!-- /.row -->
     </div><!-- /.container-fluid -->
   </section>
-    <!-- /.content -->
-  <!-- /.content-wrapper -->
+
 
 
 

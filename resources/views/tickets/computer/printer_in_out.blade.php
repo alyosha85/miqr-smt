@@ -1,22 +1,7 @@
 @extends('layouts.admin_layout.admin_layout')
-
 @section('content')
-    <!-- Content Header (Page header) -->
-    <section class="content-header text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-6 mx-auto">
-            <h1 class="ticket_header">Druckeranfrage</h1>
-            <!-- <div class="widget-user-image">
-              <img class="img-circle elevation-2" src="/images/admin_images/software_300.png" alt="" />
-          </div> -->
-          
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
+@include('tickets.layout_ticket.header',['title'=>'Druckeranfrage'])
+  <!-- Main content -->
   <section class="content">
     <div class="container-fluid col-lg-12">
       <div class="row">
@@ -28,47 +13,9 @@
                 @csrf
                 <!-- child cards -->
                 <div class="row mx-auto">
-                  <!-- first card -->
-                  <div class="col-lg-4">
-                    <div class="card card-primary card-outline">
-                      <div class="card-body box-profile form-group">
-                        <!-- Submitted by & Date -->
-                        <div class="row">
-                          <div class="form-group col-md-6">
-                            <label for="submitter"> Erstellt von</label>
-                            <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="submit_date">Erstellt Am</label>
-                            <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
-                          </div>
-                        </div>
-                        <!-- Ticket Type -->
-                        <div class="row">
-                          <div class="form-group col-md-12">
-                            <label for="priority"> Priorität</label>
-                            <select class="custom-select" name="priority" id="ticket_type">
-                              <option selected class="dropdown-menu" value="2">Normal</option>
-                              <option value="1">Niedrig</option>
-                              <option value="2">Normal</option>
-                              <option value="3">Hoch</option>
-                            </select>
-                          </div>
-                          <div class="form-group col-md-12">
-                            <label for="tel_number"> Telefon</label>
-                            <input type="text" class="form-control" name="tel_number" value="{{$user->tel}}" readonly>
-                          </div>
-                          <div class="form-group col-md-12">
-                            <label for="custom_tel_number"> Aktuelle Rufnummer <i class="fas fa-question" style="color: #661421;" data-toggle="tooltip" data-placement="top" title="Telefonnummer unter der Sie erreichbar sind" ></i> &nbsp;</label>
-                            <input type="text" class="form-control" name="custom_tel_number" >
-                          </div>
-                        </div>
-                        <div id="output"></div>
-                      <!-- /.card-body -->
-                      </div>
-                    </div>
-                  </div>
-                  <!--end first card -->
+                  <!-- Submitter Section layout_ticket submitter.blade.php -->
+                  @include('tickets.layout_ticket.submitter')
+                  <!--end Submitter Section -->
                   <!-- second card -->
                   <div class="col-lg-8">
                     <div class="card card-primary card-outline">
@@ -76,16 +23,13 @@
                         <div class="row">
                           <div class="col-md-12 d-flex justify-content-around">
                             <button type="button" class="btn btn-outline-primary" id="printer_in">Drucker hinzufügen</button>
-                            <button type="button" class="btn btn-outline-primary" id="printer_out">
-Drucker entfernen</button>
+                            <button type="button" class="btn btn-outline-primary" id="printer_out">Drucker entfernen</button>
                           </div>
                         </div>
                       </div>
                       <div id="underform">
                         <!-- ! Jquery forms here --> 
-                      
-
-
+                    
                         <!-- ! Jquery forms ends here -->
                       </div>
                     </div>
@@ -118,32 +62,6 @@ headers: {
 }
 });
 
-function matchCustom(params, data) {
-    // If there are no search terms, return all of the data
-    if ($.trim(params.term) === '') {
-      return data;
-    }
-
-    // Do not display the item if there is no 'text' property
-    if (typeof data.text === 'undefined') {
-      return null;
-    }
-
-    // `params.term` should be the term that is used for searching
-    // `data.text` is the text that is displayed for the data object
-    if (data.text.indexOf(params.term) > -1) {
-      var modifiedData = $.extend({}, data, true);
-      modifiedData.text ;
-
-      // You can return modified objects from here
-      // This includes matching the `children` how you want in nested data sets
-      return modifiedData;
-    }
-
-    // Return `null` if the term should not be displayed
-    return null;
-}
-
 $(document).ready(function() {
   let underform = $('div#underform');
   let rm_children = underform.children().remove();
@@ -155,7 +73,7 @@ $(document).ready(function() {
     $('#printer_out').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="printer_in">
+      <input type="hidden" name="problem_type" value="Drucker hinzufügen">
         <div class="card-body box-profile form-group">       
           <div class="row col-md-12">
             <div class="form-group col-md-6">
@@ -184,7 +102,7 @@ $(document).ready(function() {
               </fieldset>
             </div> 
               <div class="form-group col-md-6 col-lg-12">
-                <label for="notizen"> Notizen</label>
+                <label for="notizen"> Beschreibung</label>
                 <textarea type="text" name="notizen" class="form-control" ></textarea>
               </div>
             </div>                  
@@ -194,7 +112,6 @@ $(document).ready(function() {
         </div>
       `
     );
-
 
     let selectAddresslisten = new Array();
     let roomlisten = new Array();
@@ -240,17 +157,15 @@ $(document).ready(function() {
         success:function(resp){
           $('#printer_name').find('option').remove();
               $.each(resp,function(index, item) {
-              $("#printer_name").append(new Option(item.gname,item.id));
+              $("#printer_name").append(new Option(item.gname,item.invnr));
               });
         },error:function(){
           alert("Error");
         }
       });
     });
- 
-
+  
     $(".searchcomputer").select2({
-      matcher: matchCustom,
     });
 
     $('.searchsoftware').select2({
@@ -296,7 +211,7 @@ $(document).ready(function() {
               </fieldset>
             </div> 
               <div class="form-group col-md-6 col-lg-12">
-                <label for="notizen"> Notizen</label>
+                <label for="notizen"> Beschreibung</label>
                 <textarea type="text" name="notizen" class="form-control" ></textarea>
               </div>
             </div>                  
@@ -362,7 +277,6 @@ $(document).ready(function() {
  
 
     $(".searchcomputer").select2({
-      matcher: matchCustom,
     });
 
     $('.searchsoftware').select2({

@@ -42,154 +42,32 @@
   <link rel="stylesheet" href="http://demo.hackandphp.com/address-book-with-bootstrap-and-jquery/js/slidernav/slidernav.css">
   <!-- video.js -->
   <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
-  <style>
-
-
-
-.tooltip-inner {
-    background-color: #681a24 !important;
-    }
-.tooltip.bs-tooltip-right .arrow:before {
-    border-right-color: #681a24 !important;
-}
-.tooltip.bs-tooltip-left .arrow:before {
-    border-left-color: #681a24 !important;
-}
-.tooltip.bs-tooltip-bottom .arrow:before {
-    border-bottom-color: #681a24 !important;
-}
-.tooltip.bs-tooltip-top .arrow:before {
-    border-top-color: #681a24 !important;
-}
-.ticket_header {
-  color:#661421;
-}
-    /* swal */
-    .swal2-container {
-        z-index: X;
-      }
-      /* right bounce */
-    @-webkit-keyframes bounceRight {
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        -webkit-transform: translateX(0);
-        transform: translateX(0);
-      }
-      40% {
-        -webkit-transform: translateX(-30px);
-        transform: translateX(-30px);
-      }
-      60% {
-        -webkit-transform: translateX(-15px);
-        transform: translateX(-15px);
-      }
-    }
-    @-moz-keyframes bounceRight {
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        transform: translateX(0);
-      }
-      40% {
-        transform: translateX(-30px);
-      }
-      60% {
-        transform: translateX(-15px);
-      }
-    }
-    @keyframes bounceRight {
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        -ms-transform: translateX(0);
-        transform: translateX(0);
-      }
-      40% {
-        -ms-transform: translateX(-30px);
-        transform: translateX(-30px);
-      }
-      60% {
-        -ms-transform: translateX(-15px);
-        transform: translateX(-15px);
-      }
-    }
-    /* /right bounce */
-
-
-    /* assign bounce */
-    .fa-arrow-right {
-      -webkit-animation: bounceRight 2s infinite;
-      animation: bounceRight 2s infinite;
-      float:right;
-    }
-
-    .fa-arrow-left {
-      -webkit-animation: bounceLeft 2s infinite;
-      animation: bounceLeft 2s infinite;
-    }
-
-    .fa-chevron-down {
-      -moz-animation: bounceDown 2s infinite;
-      -webkit-animation: bounceDown 2s infinite;
-      animation: bounceDown 2s infinite;
-      text-align:center;
-      display:block;
-    }
-
-    .img-circle{
-    border:0px solid;
-    border-radius:50%;
-    width:200px;
-    height:200px;
-    }
-
-    .img-size-small {
-      width: 33.9px !important;
-      height: 33.9px !important;
-    }
-    /* .os-content {
-      background-color: #681A25!important;
-    } */
-    .main-sidebar {
-      background-color: #681A25 !important;
-    }
-    .card-primary.card-outline {
-      border-top: 3px solid #681A25 !important;
-    }
-  </style>
+  <!-- custom.css -->
+  <link rel="stylesheet" href="{{url ('css/custom.css')}}">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
-@include('layouts.admin_layout.admin_header')
 
-@include('layouts.admin_layout.admin_sidebar')
-<div class="content-wrapper">
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+  @include('layouts.admin_layout.admin_header')
+
+  @include('layouts.admin_layout.admin_sidebar')
+  <div class="content-wrapper">
     <div class="content-header">
-        <div class="container-fluid">
+      <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-6">
-            <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
-            </div><!-- /.col -->
-            <div class="col-sm-6">
+          <div class="col-sm-6">
+          <!-- <h1 class="m-0 text-dark">Dashboard</h1> -->
+          </div><!-- /.col -->
+          <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
-                <!-- <li class="breadcrumb-item active">Dashboard v1</li> -->
             </ol>
-            </div><!-- /.col -->
+          </div><!-- /.col -->
         </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+      </div><!-- /.container-fluid -->
     </div>
-
     @yield('content')
-
-</div>
+  </div>
 
 @include('layouts.admin_layout.admin_footer')
 <!-- jQuery -->
@@ -282,19 +160,16 @@ $(function () {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- Custom JS -->
 <script src="{{ url('js/admin_js/script.js') }}"></script>
+<script src="{{ url('js/custom.js') }}"></script>
+
 <script type="text/javascript">
+
 $(".hBack").on("click", function(e){
     e.preventDefault();
     window.history.back();
 });
-  function zoom() {
-      document.body.style.zoom = "90%" 
-  }
 </script>
 
-
-
-<body onload="zoom()">
   
 @yield('script')
 </body>

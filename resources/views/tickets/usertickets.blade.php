@@ -63,7 +63,7 @@
                   </td>
                   <td class="mailbox-name"><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->problem_type}}</a></td>
                   <td class="mailbox-subject"><b>{{@$myTicket->invitem->gname}} </b></td>
-                  <td class="mailbox-subject"><b>{{@$myTicket->printer_name}} </b></td>
+                  <td class="mailbox-subject"><b>{{@$myTicket->printer->gname}} </b></td>
                   <td class="mailbox-subject">{{@$myTicket->priority}}</td>
                   <td class="mailbox-attachment"></td>
                   <td class="mailbox-date text-right">{{$myTicket->updated_at->diffForHumans()}}</td>

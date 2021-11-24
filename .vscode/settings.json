@@ -1,6 +1,6 @@
 {
-  "editor.detectIndentation": false,
   "editor.tabSize": 2,
   "editor.tabCompletion": "on",
   "git.ignoreLimitWarning": true,
+  "editor.detectIndentation": false,
 }

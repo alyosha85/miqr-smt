@@ -17,11 +17,11 @@
         @font-face {
             font-family: 'BrzBC_Code39_MK';
             src: url('font/BrzBC_Code39_MK.woff2') format('woff2'),
-                url('font/BrzBC_Code39_MK.woff') format('woff'),
-                url('font/BrzBC_Code39_MK.svg#BrzBC_Code39_MK') format('svg');
-                font-weight: normal;
-                font-style: normal;
-                font-display: swap;
+                  url('font/BrzBC_Code39_MK.woff') format('woff'),
+                  url('font/BrzBC_Code39_MK.svg#BrzBC_Code39_MK') format('svg');
+                  font-weight: normal;
+                  font-style: normal;
+                  font-display: swap;
             }
 
         .print {

@@ -16,4 +16,8 @@ class InvItems extends Model
     {
         return $this->belongsTo(Gart::class,'gart_id','id');
     }
+    public function invabitem()
+    {
+        return $this->belongsTo(InvAbItem::class,'id','id');
+    }
 }

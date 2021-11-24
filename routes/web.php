@@ -19,11 +19,11 @@ Route::group(['middleware' => ['auth']], function() {
 });
 
 
-
-  // one time query from temp to inv_ab_item table
+// one time query from temp to inv_ab_item table
 Route::get('/sync','TempInvAbItemController@index')->name('sync');
 // query last InvNumber
 Route::get('/auto','InvLastNumberController@index')->name('auto');
+Route::get('/search_missing_label','InvAbItemController@missing_search')->name('search_missing');
 
 //*************************************************   Inventory Index  *********************************************************************/
 Route::get('/inventory','InvAbItemController@index')->name('inventory');
@@ -77,6 +77,7 @@ Route::post('/invalid','InvAbItemController@invalid')->name('invalid');
 
 //*****************************  PrintLabel  ****************************************/
 Route::get('/print/{printinvnr}/{anzahl}','InvAbItemController@printlabel')->name('printlabel');
+Route::get('/printmissing/{printinvnr}','InvAbItemController@printmissinglabel')->name('printmissinglabel');
 
 //*****************************  Print Listen  **************************************/
 Route::get('/item/listen','InvAbItemController@listen')->name('item.listen');
@@ -139,8 +140,8 @@ Route::get('/ticket/address','TicketController@address')->name('ticket.address')
 //****************************************  Ticket Computer  *************************************************/
 Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); //duplicate
 Route::get('/ticket.software_request','TicketController@softwareRequest')->name('softwareRequest'); 
+Route::get('/ticket.peripheral_request','TicketController@peripheralRequest')->name('peripheralRequest'); 
 Route::get('/ticket.hardware_request','TicketController@hardwareRequest')->name('hardwareRequest'); 
-Route::get('/ticket.computer_request','TicketController@computerRequest')->name('computerRequest'); 
 Route::get('/ticket.pc_problems','TicketController@pc_problems')->name('pc_problems'); 
 Route::get('/ticket.printer','TicketController@printer_in_out')->name('printer_in_out');  // same page in PC / Laptops and Drucker
 Route::get('/ticket.other','TicketController@other')->name('other'); 

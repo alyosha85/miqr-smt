@@ -207,6 +207,7 @@
 @section('script')
 <script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
 
+
 @endsection
 
 

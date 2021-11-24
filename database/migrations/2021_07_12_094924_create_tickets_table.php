@@ -21,6 +21,7 @@ class CreateTicketsTable extends Migration
         $table->string('custom_tel_number')->nullable();
         $table->string('problem_type');
         $table->integer('gname_id')->nullable();
+        $table->integer('gart_id')->nullable();
         $table->string('searchsoftware')->nullable();
         $table->string('software_name')->nullable();
         $table->string('software_reason')->nullable();
@@ -44,6 +45,9 @@ class CreateTicketsTable extends Migration
         $table->string('slow_network')->nullable();
         $table->string('no_network_drive')->nullable();
         $table->string('laud_fan')->nullable();
+        $table->string('scanner_not_working')->nullable();
+        $table->string('scanner_myname_list')->nullable();
+        $table->string('scanner_wrong_folder')->nullable();
         $table->integer('location_id')->nullable();
         $table->integer('room_id')->nullable();
         $table->integer('printer_name')->nullable();

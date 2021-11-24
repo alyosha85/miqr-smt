@@ -16,7 +16,7 @@
                   <div class="input-group-text bg-transparent border-right-0"><i class="fa fa-search" style="color: #0275d8;"></i></div>
                 </span>
                 <input type="search" name="search_edit" placeholder="Suchen" id="search_edit" class="form-control py-2 border-left-0 border-right-0 border rounded"
-                        value="{{ request()->input('search') }}">
+                        value="{{ request()->input('search')}}">
                 <div id="theList"></div>
                 @csrf
                 <span class="input-group-append">
@@ -72,10 +72,13 @@
 							<div class="form-group col-md-3">
 									<input type="text" class="form-control sn_edit" name="sn" placeholder="Seriennummer" data-toggle="tooltip" data-placement="top" title="Seriennummer" readonly>
 							</div>
+              <div class="form-group col-md-3 barcode">
+                  <input type="text" class="form-control invnr_print input-lg" readonly>
+              </div>
 					</div>
 					<!-- Forth row -->
 					<div class="form-row">
-							<div class="form-group col-md-12">
+							<div class="form-group col-md-12" style="text-align: center;">
 									<textarea class="form-control notes_edit" name="notes" rows="3" placeholder="Notizen" data-toggle="tooltip" data-placement="top" title="Notizen"></textarea required>
 							</div>
 					</div>

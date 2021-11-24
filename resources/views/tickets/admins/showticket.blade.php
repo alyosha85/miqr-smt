@@ -1,25 +1,23 @@
 @extends('layouts.admin_layout.admin_layout')
 
 <style>
-  /* chat profile photo */
+/* chat profile photo */
 .rounded-circle{
 border-radius:50%;
 width:50px;
 height:50px;
 }
+/* ticket underline */
+u {
+  padding-bottom:3px !important;
+  text-decoration:none !important;
+  border-bottom:2px solid #661421 !important;
+}
+
 </style>
 
 @section('content')
-  <!-- Content Header (Page header) -->
-  <section class="content-header text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-6 mx-auto">
-          <h1>Some meaningful info here !!!"</h1>
-        </div>
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
+@include('tickets.layout_ticket.header',['title'=>'Something Here !!'])
 
   <!-- Main content -->
   <section class="content">
@@ -93,12 +91,45 @@ height:50px;
                   <div class="card card-primary card-outline">
                     <div class="card-body box-profile form-group">
                       <div class="row">
-                        <div class="form-group col-md-6 col-lg-12">
-                          <label for="beschreibung"> Beschreibung </label>
-                          <textarea type="text" name="beschreibung" class="form-control" rows="4" style="resize:none;" readonly>{{@$ticket->notizen}}</textarea>
+                          <!-- PC & Laptop -->
+                          @if($ticket->problem_type ==="Software Installieren")
+                          @include('tickets.admins.view_ticket_blades.softwareInstallTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Softwareanfrage Sonstiges")
+                          @include('tickets.admins.view_ticket_blades.softwareOthersTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Activiren")
+                          @include('tickets.admins.view_ticket_blades.softwareActiveTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Peripherie Anfrage")
+                          @include('tickets.admins.view_ticket_blades.peripherieTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Hardware Anfrage")
+                          @include('tickets.admins.view_ticket_blades.hardwareTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Probleme")
+                          @include('tickets.admins.view_ticket_blades.problemTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Drucker hinzufügen")
+                          @include('tickets.admins.view_ticket_blades.printerTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Scanner Probleme")
+                          @include('tickets.admins.view_ticket_blades.scannerProblemTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Funktionsanfrage")
+                          @include('tickets.admins.view_ticket_blades.printerFunctualityTicket')
+                          @endif
+                       
+                          <div class="col-md-12 invoice-col">
+                            <strong style="color:#661421;">Beschreibung <i class="far fa-comment-dots fa-lg"></i></strong> 
+                            <address>
+                              <strong>{{@$ticket->notizen}}</strong><br>
+                            </address>
+                          </div>
                         </div>
-                        <div class="col-md-12 d-flex justify-content-between">
+                      </div>
 
+                        <div class="col-md-12 d-flex justify-content-between">
                           <!-- Content  -->
 
                         </div>
@@ -108,7 +139,6 @@ height:50px;
                           <label for="beschreibung"> Kemmentar </label>
                         </div>
                         <div class="col-md-12 ">
-
                           @comments(['model' => $ticket])
 
                         </div>

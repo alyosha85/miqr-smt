@@ -1,192 +1,71 @@
 @extends('layouts.admin_layout.admin_layout')
 
-<style>
-  @import url(//fonts.googleapis.com/css?family=Open+Sans:200, 300, 400, 700);
-/* *** Demo CSS Styles *** */
-
-
-/* *** The Checkboxes *** */
-label.btn.toggle-checkbox > i.fa:before { content:"\f096"; }
-    label.btn.toggle-checkbox.active > i.fa:before { content:"\f046"; }
-
-label.btn.active { box-shadow: none; }
-label.btn.primary.active {
-    background-color: #337ab7;
-    border-color: #2e6da4;
-    color: #ffffff;
-    box-shadow: none;
-}
-label.btn.info.active {
-    background-color: #5bc0de;
-    border-color: #46b8da;
-    color: #ffffff;
-    box-shadow: none;
-}
-
-</style>
-
 @section('content')
-    <!-- Content Header (Page header) -->
-    <section class="content-header text-center">
-      <div class="container">
-        <div class="row">
-          <div class="col-6 mx-auto">
-            <h1 class="ticket_header">Hardware-Anfrage</h1>
-            <!-- <div class="widget-user-image">
-              <img class="img-circle elevation-2" src="/images/admin_images/software_300.png" alt="" />
-          </div> -->
-          
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid col-lg-12">
-      <div class="row">
-        <div class="col-12 mx-auto">
-          <!-- Profile Image -->
-          <div class="card card-primary card-outline">
-            <div class="card-body box-profile form-group">
-              <form action="{{route ('form_store')}}" method="post" id="ticket_forms">
-                @csrf
-                <input type="hidden" name="problem_type" value="Hardware Anfrage">
-                <!-- child cards -->
-                <div class="row mx-auto">
-                  <!-- first card -->
-                  <div class="col-lg-4">
-                    <div class="card card-primary card-outline">
-                      <div class="card-body box-profile form-group">
-                        <!-- Submitted by & Date -->
-                        <div class="row">
+@include('tickets.layout_ticket.header',['title'=>'Geräteanfrage'])
+<section class="content">
+  <div class="container-fluid col-lg-12">
+    <div class="row">
+      <div class="col-12 mx-auto">
+        <div class="card card-primary card-outline">
+          <div class="card-body box-profile form-group">
+            <form action="{{route ('form_store')}}" method="post" id="ticket_forms">
+              @csrf
+              <div class="row mx-auto">
+                <!-- Submitter Section layout_ticket submitter.blade.php -->
+                @include('tickets.layout_ticket.submitter')
+                <!--end Submitter Section -->
+                <!-- second card -->
+                <div class="col-lg-8">
+                  <div class="card card-primary card-outline">
+                    <div id="underform">
+                      <input type="hidden" name="problem_type" value="Hardware Anfrage">
+                      <div class="card-body box-profile form-group">       
+                        <div class="row col-md-12">
                           <div class="form-group col-md-6">
-                            <label for="submitter"> Erstellt von</label>
-                            <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="submit_date">Erstellt Am</label>
-                            <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
-                          </div>
-                        </div>
-                        <!-- Ticket Type -->
-                        <div class="row">
-                          <div class="form-group col-md-12">
-                            <label for="priority"> Priorität</label>
-                            <select class="custom-select" name="priority" id="priority">
-                              <option selected class="dropdown-menu" value="2">Normal</option>
-                              <option value="1">Niedrig</option>
-                              <option value="2">Normal</option>
-                              <option value="3">Hoch</option>
+                            <label for="searchmachine"> Geräte Art</label>
+                            <select class="custom-select form-control mb-2 searchmachine" name="searchmachine" required>
+                            <option class="form-control" value="-1"></option>
+                            @foreach($machines as $machine)
+                              <option class="form-control" value="{{$machine['id']}}">{{$machine['name']}}</option>
+                            @endforeach
                             </select>
                           </div>
-                          <div class="form-group col-md-12">
-                            <label for="tel_number"> Telefon</label>
-                            <input type="text" class="form-control" name="tel_number" value="{{$user->tel}}" readonly>
-                          </div>
-                          <div class="form-group col-md-12">
-                            <label for="custom_tel_number"> Aktuelle Rufnummer <i class="fas fa-question" style="color: #661421;" data-toggle="tooltip" data-placement="top" title="Telefonnummer unter der Sie erreichbar sind" ></i> &nbsp;</label>
-                            <input type="text" class="form-control" name="custom_tel_number" >
-                          </div>
-                        </div>
-                        <div id="output"></div>
-                      <!-- /.card-body -->
-                      </div>
-                    </div>
-                  </div>
-                  <!--end first card -->
-                  <!-- second card -->
-                  <div class="col-lg-8">
-                    <div class="card card-primary card-outline">
-                      <div class="card-body box-profile form-group">
-                        <div class="row">
-                          <div class="col-md-12 d-flex justify-content-between">
-
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="keyboard" name="keyboard">
-                              <label class="custom-control-label" for="keyboard">Tastatur</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="mouse" name="mouse">
-                              <label class="custom-control-label" for="mouse">Maus</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="monitor" name="monitor">
-                              <label class="custom-control-label" for="monitor">Bildschirm</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="speaker" name="speaker">
-                              <label class="custom-control-label" for="speaker">Lautsprecher</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="headset" name="headset">
-                              <label class="custom-control-label" for="headset">Kopfhörer</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="webcam" name="webcam">
-                              <label class="custom-control-label" for="webcam">Webcam</label>
-                            </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                              <input type="checkbox" class="custom-control-input" id="other" name="other">
-                              <label class="custom-control-label" for="other">Sonstiges</label>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      <div id="underform">
-                        <!-- ! Jquery forms here --> 
-                        <div class="card-body box-profile form-group">       
-                          <div class="row col-md-12">
-                            <div class="form-group col-md-6">
-                              <label for="searchcomputer"> Welcher Rechner</label>
-                              <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
-                              <option class="form-control" value="-1"></option>
-                              @foreach($computers as $computer)
-                                <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
-                              @endforeach
+                          <div class="form-group col-md-6">
+                            <fieldset class="border rounded px-2 mb-2">
+                            <legend class="w-auto"><i class="fas fa-map-marker-alt"></i></legend>
+                            <label for="printer_place"> Ort</label>
+                            <select class="custom-select form-control mb-2" id="printer_place" name="location_id" required>
+                            </select>
+                              <label for="printer_room"> Raum </label>
+                              <select class="custom-select form-control mb-2" id="printer_room" name="room_id" required>
                               </select>
+                            </fieldset>
+                          </div> 
+                            <div class="form-group col-md-6 col-lg-12">
+                              <label for="notizen"> Beschreibung</label>
+                              <textarea type="text" name="notizen" class="form-control" ></textarea>
                             </div>
-
-                            <div class="form-group col-md-6">
-                              <div id="reason">
-
-                              </div>
-                            </div>
-
-                              <div class="form-group col-md-6 col-lg-12">
-                                <label for="notizen"> Notizen <span style="color: #661421;"><small>Anzahl über <strong>1</strong>? Bitte schreiben Sie die benötigte Anzahl und den Grund in das Notizfeld.</small></span></label>
-                                <textarea type="text" name="notizen" class="form-control" ></textarea>
-                              </div>
-                            </div>                  
-                            <div>
-                              <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>
-                            </div>
+                          </div>                  
+                          <div>
+                            <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>
                           </div>
-
-
-                        <!-- ! Jquery forms ends here -->
                       </div>
                     </div>
                   </div>
-                  <!--end second card -->
-              </div>
-            </form>
+                </div>
+                <!--end second card -->
             </div>
-            <!-- /.card-body -->
+          </form>
           </div>
-          <!-- /.card -->
+          <!-- /.card-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.card -->
       </div>
-      <!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </section>
-    <!-- /.content -->
-  <!-- /.content-wrapper -->
-
-
-
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+</section>
 @endsection
 
 @section('script')
@@ -197,19 +76,63 @@ headers: {
 }
 });
 
-$('#monitor').one('click', function(){
-  // Swal.fire('Bitte Grund ins Notizfeld eintragen.');
-  swal.fire({
-   title: 'Bitte Grund ins Notizfeld eintragen',
-   type: "info",
-   customClass: 'swal-wide',
-   showCancelButton: false,
-   showConfirmButton:true,
-   confirmButtonColor: "#661421",
-    confirmButtonText: "Schon gut!",
-   width: '850px'
-});
-});
+$(document).ready(function() {
+    let selectAddresslisten = new Array();
+    let roomlisten = new Array();
+      $('#printer_name').find('option').remove();
+      $('#printer_place').find('option').remove();
+      $('#printer_place').find('optgroup').remove();
+      $('#printer_place').append(new Option("Standort...",''));
+      $('#printer_room').find('option').remove();
+      $("#printer_room").append(new Option("Raum...",''));
+      $.ajax({
+        type: "get",
+        url: "{{route('item.listen')}}",
+        }).done(function(data) {
+          selectAddresslisten = new Array();
+          $.each(data['places'], function(index, item) {
+              $("body #printer_place").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
+          });
+          $.each(data['locations'], function(index, item) {
+          $("#printer_place #"+item.place_id).append(new Option(item.address,item.id));
+          selectAddresslisten.push(item);
+          });
+        });
+      $( document ).on( "change", "#printer_place", function() {
+        $('#printer_name').find('option').remove();
+        $('#printer_room').find('option').remove();
+        $("#printer_room").append(new Option("Raum...",''));
+        for(let i = 0; i<selectAddresslisten.length ; i++){
+          if(selectAddresslisten[i].id == $( this ).val()){
+            $.each(selectAddresslisten[i].invrooms, function(index, item) {
+              $("#printer_room").append(new Option(item.rname+' ('+item.altrname+')',item.id));
+              roomlisten.push(item);
+              //console.log(item);
+            });
+          }
+        }
+      });
+
+    $(".searchmachine").select2({
+      allowClear: false,
+    });
+
+    $('.searchsoftware').select2({
+      placeholder: 'sometext',
+      allowClear: false,
+      tags: true
+    });
+  })
+
+
+
+
+
+
+
+
+
+
 
 
 

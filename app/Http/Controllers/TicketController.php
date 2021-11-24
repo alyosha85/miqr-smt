@@ -12,6 +12,7 @@ use App\Location;
 use Carbon\Carbon;
 use App\TicketType;
 use App\TicketStatus;
+use App\InvAbItem;
 use App\EquipmentProblem;
 use App\Gart;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class TicketController extends Controller
       'index',
       'computer_all',
       'softwareRequest',
-      'hardwareRequest',
+      'peripheralRequest',
       'pc_problems',
       'printer_in_out',
       'other',
@@ -93,16 +94,16 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.computer.softwareRequest',compact('user','now','tickets','users','computers'));
     }
-    public function hardwareRequest() 
+    public function peripheralRequest() 
     {
       $users = User::get()->toArray();
       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
       $user = Auth()->user();
       $tickets = TicketType::all();
-      return view ('tickets.computer.hardwareRequest',compact('user','now','tickets','users','computers'));
+      return view ('tickets.computer.peripheralRequest',compact('user','now','tickets','users','computers'));
     }
-    public function computerRequest() 
+    public function hardwareRequest() 
     {
       $users = User::get()->toArray();
       $machines = Gart::where('id','2')->orwhere('id','3')->orwhere('id','4')->orwhere('id','5')
@@ -110,7 +111,7 @@ class TicketController extends Controller
       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
       $user = Auth()->user();
       $tickets = TicketType::all();
-      return view ('tickets.computer.computerRequest',compact('user','now','tickets','users','machines'));
+      return view ('tickets.computer.hardwareRequest',compact('user','now','tickets','users','machines'));
     }
     public function pc_problems() 
     {
@@ -263,7 +264,8 @@ class TicketController extends Controller
         $admins = User::role('Super_Admin')->get();
         $ticket = New Ticket;
         $ticket -> submitter = $request -> submitter;
-        $ticket -> priority = $request -> priority;
+        $ticket -> priority_id = $request -> priority;
+        $ticket -> gart_id = $request -> searchmachine;
         $ticket -> tel_number = $request -> tel_number;
         $ticket -> custom_tel_number = $request -> custom_tel_number;
         $ticket -> problem_type = $request -> problem_type;
@@ -291,6 +293,9 @@ class TicketController extends Controller
         $ticket -> slow_network = $request-> slow_network;
         $ticket -> no_network_drive = $request-> no_network_drive;
         $ticket -> laud_fan = $request-> laud_fan;
+        $ticket -> scanner_wrong_folder = $request-> scanner_wrong_folder;
+        $ticket -> scanner_not_working = $request-> scanner_not_working;
+        $ticket -> scanner_myname_list = $request-> scanner_myname_list;
         $ticket -> location_id = $request -> location_id;
         $ticket -> room_id = $request -> room_id;
         $ticket -> printer_name = $request -> printer_name;
@@ -302,7 +307,7 @@ class TicketController extends Controller
     public function usertickets()
     {
       $user = Auth()->user();
-      $myTickets = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
+      $myTickets = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('submitter',$user->username)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
       $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.usertickets',compact('user','myTickets','myTicketsCount'));
     }
@@ -334,7 +339,8 @@ class TicketController extends Controller
     {
       $ticket_status = TicketStatus::all();
       $ticket_priority = TicketPriority::all();
-      $ticket = Ticket::where('id',$id)->first();
+      $ticket = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('id',$id)->first();
+
       // $userUnreadNotification = auth()->user()->unreadNotifications
       //                           ->where("data['ticket_id']",'=',$id)
       //                           ->first();
