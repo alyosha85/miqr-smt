@@ -74,7 +74,7 @@ $(document).ready(function() {
         <div class="row col-md-12">
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone-slash"></i></legend>
+            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone-slash" style="color:#e3342f;"></i></legend>
             <label for="tel_current_place"> Telefon standort </label>
             <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
             </select>
@@ -88,7 +88,7 @@ $(document).ready(function() {
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Neuer Standort <i class="fas fa-phone"></i></i></legend>
+            <legend class="w-auto">Neuer Standort <i class="fas fa-phone" style="color:#285D17;"></i></legend>
             <label for="tel_target_place"> Telefon Standort </label>
             <select class="custom-select form-control mb-2" id="tel_target_place" name="tel_target_place" required>
             </select>
@@ -207,7 +207,7 @@ $(document).ready(function() {
         <div class="row col-md-12">
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone"></i></legend>
+            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone" style="color:#285D17;"></i></legend>
             <label for="tel_current_place"> Telefon standort </label>
             <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
             </select>
@@ -221,7 +221,7 @@ $(document).ready(function() {
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-              <legend class="w-auto">Name Ändern <i class="fas fa-file-signature"></i></legend>
+              <legend class="w-auto">Name Ändern <i class="fas fa-file-signature" style="color:#285D17;"></i></legend>
               <label for="current_tel_name"> Aktuelle Name </label>
               <input type="text" class="form-control mb-2" name="current_tel_name" required>
               <label for="new_tel_name"> Neue Name </label>
@@ -299,12 +299,12 @@ $(document).ready(function() {
     $('#tel_change_number').removeClass().addClass('btn btn-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="tel_change_name">
+      <input type="hidden" name="problem_type" value="tel_change_number">
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone"></i></legend>
+            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone" style="color:#285D17;"></i></legend>
             <label for="tel_current_place"> Telefon standort </label>
             <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
             </select>
@@ -318,7 +318,7 @@ $(document).ready(function() {
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-              <legend class="w-auto">Nummer Ändern <i class="fas fa-file-signature"></i></legend>
+              <legend class="w-auto">Nummer Ändern <i class="fas fa-file-signature" style="color:#285D17;"></i></legend>
               <label for="new_tel_number"> Neue Nummer </label>
               <input type="text" class="form-control mb-2" name="new_tel_number" required>
             </fieldset>

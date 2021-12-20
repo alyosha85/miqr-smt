@@ -261,6 +261,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+      return $request;
         $admins = User::role('Super_Admin')->get();
         $ticket = New Ticket;
         $ticket -> submitter = $request -> submitter;

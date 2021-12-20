@@ -84,6 +84,73 @@
 * {
 	 box-sizing: border-box;
 }
+
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid black;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: black;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* top left*/
+.ribbon-top-left {
+  top: -10px;
+  left: -10px;
+}
+.ribbon-top-left::before,
+.ribbon-top-left::after {
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+.ribbon-top-left::before {
+  top: 0;
+  right: 0;
+}
+.ribbon-top-left::after {
+  bottom: 0;
+  left: 0;
+}
+.ribbon-top-left span {
+  right: -25px;
+  top: 30px;
+  transform: rotate(-45deg);
+}
+
+/* Messy stack of paper */
+.paper {
+  background: #fff;
+  padding: 30px;
+  position: relative;
+}
+
+.paper,
+.paper::before,
+.paper::after {
+  /* Styles to distinguish sheets from one another */
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+  border: 1px solid #bbb;
+}
  
 </style>
 @section('content')
@@ -96,19 +163,7 @@
       <input type="checkbox" name="onoffswitch3" class="onoffswitch3-checkbox" id="myonoffswitch3" checked>
       <label class="onoffswitch3-label" for="myonoffswitch3">
           <span class="onoffswitch3-inner">
-              <span class="onoffswitch3-active">
-                  <marquee class="scroll-text">&nbsp;&nbsp;
-                    Lorem ipsum dolor sit amet.  &nbsp;&nbsp;
-                    <i class="fas fa-grip-lines-vertical"></i>&nbsp;&nbsp;
-                    Lorem ipsum dolor sit amet. &nbsp;&nbsp;
-                    <i class="fas fa-grip-lines-vertical"></i>&nbsp;&nbsp;
-                    Lorem ipsum dolor sit amet. &nbsp;&nbsp;
-                    </marquee>
-
-                  <span class="onoffswitch3-switch">Neuigkeiten <i class="fas fa-times"></i></span>
-              </span>
-              <span class="onoffswitch3-inactive"><span class="onoffswitch3-switch">Zeigen</span></span>
-          </span>
+              
       </label>
   </div>
   <!-- End News -->
@@ -132,12 +187,12 @@
                 <div class="col-lg-9">
                   <div class="card card-primary card-outline">
                     <div class="position-relative">
-                      <img id="hat" src="/images/admin_images/halloween2.png" alt="hat">
+                      <div class="ribbon ribbon-top-left"><span></span></div>
                       <div class="card-body box-profile form-group">
-
+                        
                         <div class="row">
                           <div class="col-sm-6">
-                            <video
+                            <!-- <video
                             fluid="true"
                             id="my-video"
                             class="video-js"
@@ -148,19 +203,94 @@
                             data-setup="{}"
                           >
                             <source src="/images/admin_images/tutorial_2.mp4" type="video/mp4" />
-                          </video>
+                          /video> -->
+                       
 
-                                                            
+                           <div class="paper">
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:20px;font-family:"Calibri",sans-serif;' class="text-center">Sehr geehrte Mitarbeiterinnen und Mitarbeiter,</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;im Rahmen des Infektionsschutzgesetzes treten ab Mittwoch, den 24.11.2021, neue Regelungen in Kraft.</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Allgemein gilt:</strong></p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Ab den 24.11.2021 ist es die Pflicht des Arbeitgebers t&auml;glich den Impf-, Genesenen- oder Teststatus jedes und jeder Angestellten zu &uuml;berpr&uuml;fen bevor Sie Ihren Arbeitsplatz betreten.</li>
+                                </ul>
+                            </div>
+                            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:.0001pt;margin-left:36.0pt;font-size:15px;font-family:"Calibri",sans-serif;'><u>Einzige Ausnahme</u>: Wenn ein Arbeitgeber Schnelltests in den Betriebsr&auml;umen anbietet, d&uuml;rfen Arbeitnehmerinnen und Arbeitnehmer diese auch ohne Nachweis betreten, jedoch ausschlie&szlig;lich, um sich dort testen zu lassen.</p>
+                            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:.0001pt;margin-left:36.0pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Von den Zutrittsbeschr&auml;nkungen ausgenommen, sind alle Mitarbeiterinnen und Mitarbeiter, die freiwillig ihren Impf- oder Genesenenstatus an die Standortleitung/Verantwortlichen per Mail (<a href="mailto:Martin.Lorenz@miqr.de"><span style="color:windowtext;">Martin.Lorenz@miqr.de</span></a>, <a href="mailto:Peter.Schmidt@miqr.de"><span style="color:windowtext;">Peter.Schmidt@miqr.de</span></a>, <a href="mailto:Lisa.Zilt@miqr.de"><span style="color:windowtext;">Lisa.Zilt@miqr.de</span></a> und <a href="mailto:Matthias.Kirchner@miqr.de"><span style="color:windowtext;">Matthias.Kirchner@miqr.de</span></a>) melden oder bereits gemeldet haben.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="color:#1F497D;">&nbsp;</span></strong></p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="color:#1F497D;">&nbsp;</span></strong></p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Was bedeutet dies konkret f&uuml;r Sie:</strong></p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>&nbsp;</strong></p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Geimpfte oder Genesene, die Ihren Status nicht per E-Mail mitteilen m&ouml;chten, k&ouml;nnen Ihren Nachweis im Sekretariat des jeweiligen Standortes vorlegen. Der Zugang kann jedoch erst gew&auml;hrt werden, wenn der Weiterverarbeitung der Daten zur Umsetzung der 3G-Regel am Arbeitsplatz zugestimmt wird. Erfolgt dies nicht, muss der Nachweis t&auml;glich erneut im Sekretariat vorgezeigt werden.</li>
+                                </ul>
+                            </div>
+                            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:.0001pt;margin-left:0cm;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Geimpfte oder Genesene, die keinen Nachweis erbringen, m&uuml;ssen sich entsprechen der geltenden Verordnung testen lassen.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>F&uuml;r Besch&auml;ftigte ohne g&uuml;ltigen Impf- oder Genesenennachweis gilt die Testpflicht gem&auml;&szlig; des aktuell geltenden Infektionsschutzgesetzes.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Die Nachweispflicht obliegt dabei der Verantwortung des Mitarbeiters.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Um einen reibungslosen Ablauf nicht zu gef&auml;hrden, werden wir im Rahmen eines Zusatzangebotes die t&auml;glichen Tests zur Verf&uuml;gung stellen.</li>
+                                </ul>
+                            </div>
+                            <p style='margin-top:0cm;margin-right:0cm;margin-bottom:.0001pt;margin-left:36.0pt;font-size:15px;font-family:"Calibri",sans-serif;'>Bitte melden Sie sich bei dem f&uuml;r Ihren Standort zust&auml;ndigen Testbeauftragten (<strong>Erfurt:</strong> Frau Hauke und Herr Ockel; <strong>Berlin:</strong> Frau Haase und Frau Freliga; <strong>Dresden:</strong> Frau Crell und Frau Runte; <strong>Chemnitz:</strong> Frau Draeger; <strong>Leipzig:</strong> Frau Zilt; <strong>Suhl:</strong> Frau Schneider).</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Selbstausgef&uuml;hrte Tests, au&szlig;erhalb der Arbeitsst&auml;tte, au&szlig;er die von offiziell anerkannten und zertifizierten Teststellen, d&uuml;rfen nicht als Nachweis anerkannt werden.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Jeder Besch&auml;ftigte ist selbst daf&uuml;r verantwortlich, trotz Testung, p&uuml;nktlich an seinem Arbeitsplatz zu erscheinen. Das Testen erfolgt au&szlig;erhalb der Arbeitszeit.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <div style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>
+                                <ul style="margin-bottom:0cm;list-style-type: disc;">
+                                    <li style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Der Impf-, Genesenen- oder Testnachweis muss grunds&auml;tzlich immer mitgef&uuml;hrt werden.</li>
+                                </ul>
+                            </div>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><span style="color:#1F497D;">&nbsp;</span></p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'>Wir stehen im st&auml;ndigen Austausch mit den Standortleitern. Bei R&uuml;ckfragen bzw. Fragen bez&uuml;glich der Beschulung der Teilnehmer in Pr&auml;senzunterricht, k&ouml;nnen Sie sich gern, wie gewohnt<span style="color:#1F497D;">,</span> an Ihre Standortleitung wenden.</p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="color:#1F497D;">&nbsp;</span></strong></p>
+                            <p style='margin:0cm;margin-bottom:.0001pt;font-size:15px;font-family:"Calibri",sans-serif;'><strong>Hinweis:</strong> Die aktuell g&uuml;ltigen Richtlinien befinden sich seitens des Gesetzgebers in st&auml;ndiger Anpassung. Wir informieren Sie unverz&uuml;glich dar&uuml;ber, sollte sich eine f&uuml;r Sie relevante &Auml;nderung ergeben.</p>
+                            
+                            
+
+                           </div>                                 
                           </div>
-                          <div class="col-sm-6">
-                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi dolores assumenda aliquam illum consectetur dicta inventore? Tenetur inventore repellat necessitatibus, delectus cumque odio pariatur commodi cupiditate enim aut cum repudiandae assumenda obcaecati veritatis rem libero! </p>
-                        </div>
+                          <!-- <div class="col-sm-6">
+                           <p></p>
+                        </div> -->
                       </div>
-
-
-
-
-
 
                       <!-- /.card-body -->
                       </div>
@@ -171,15 +301,15 @@
                 <!-- second card -->
                       <div class="col-lg-3">
                         <!-- Card  -->
-                        <div class="card card-primary card-outline">
+                        <div class="card card-primary card-outline" style="background-color: #661421;">
                           <div class="card-body">
-                            <h5 class="card-title mb-3"><strong>Shortcut links</strong></h5>
+                            <h5 class="card-title mb-3" style="color:#fff;"><strong>Favoriten Links</strong></h5>
                             <div class="card-text">
                               <div class="list-group">
-                                <a href="{{route ('profile')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-user fa-lg"></i><strong> Profil Bearbeiten</strong></a>
+                                <a href="{{route ('profile')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-user fa-lg"></i><strong> Eigenes Profil bearbeiten</strong></a>
                                 <a href="{{ url('/contacts') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-address-book fa-lg"></i><strong> Adressbuch</strong></a>
-                                <a href="{{ route('ticket.index') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-ticket-alt fa-lg"></i><strong> Ticket Erstellen</strong>
-                                <a href="{{ route('ticket.usertickets') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-clipboard-list fa-lg"></i><strong> Mein Tickets</strong>
+                                <a href="{{ route('ticket.index') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-ticket-alt fa-lg"></i><strong> Ticket erstellen</strong>
+                                <a href="{{ route('ticket.usertickets') }}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="fas fa-clipboard-list fa-lg"></i><strong>     Meine Tickets</strong>
                                 </a>
                               </div><!-- End Linst Group -->
                             </div><!-- End Card Text -->
@@ -205,7 +335,7 @@
 @endsection
 
 @section('script')
-<script src="https://vjs.zencdn.net/7.15.4/video.min.js"></script>
+
 
 
 @endsection
