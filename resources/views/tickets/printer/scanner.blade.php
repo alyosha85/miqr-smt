@@ -133,7 +133,7 @@ let roomlisten = new Array();
     success:function(resp){
       $('#printer_name').find('option').remove();
           $.each(resp,function(index, item) {
-          $("#printer_name").append(new Option(item.gname,item.id));
+          $("#printer_name").append(new Option(item.gname,item.invnr));
           });
     },error:function(){
       alert("Error");

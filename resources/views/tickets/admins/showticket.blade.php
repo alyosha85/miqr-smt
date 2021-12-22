@@ -119,6 +119,9 @@ u {
                           @if($ticket->problem_type ==="Funktionsanfrage")
                           @include('tickets.admins.view_ticket_blades.printerFunctualityTicket')
                           @endif
+                          @if($ticket->problem_type ==="PC / Laptop Sonstiges")
+                          @include('tickets.admins.view_ticket_blades.pcLaptopSonstiges')
+                          @endif
                        
                           <div class="col-md-12 invoice-col">
                             <strong style="color:#661421;">Beschreibung <i class="far fa-comment-dots fa-lg"></i></strong> 
@@ -140,7 +143,6 @@ u {
                         </div>
                         <div class="col-md-12 ">
                           @comments(['model' => $ticket])
-
                         </div>
                       </div><!--end for second row of second card-->
                     </div><!-- /.card-body box-profile second card -->

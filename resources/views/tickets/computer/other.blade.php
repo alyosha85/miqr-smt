@@ -10,7 +10,7 @@
           <div class="card-body box-profile form-group">
             <form action="{{route ('form_store')}}" method="post" id="ticket_forms">
             @csrf
-            <input type="hidden" name="problem_type" value="problem">
+            <input type="hidden" name="problem_type" value="PC / Laptop Sonstiges">
             <!-- child cards -->
             <div class="row mx-auto">
               <!-- Submitter Section layout_ticket submitter.blade.php -->
@@ -22,12 +22,12 @@
                   <div class="card-body box-profile form-group">       
                     <div class="row col-md-12">
                       <div class="form-group col-md-6">
-                        <label for="searchcomputer"> Betreff</label>
-                        <input type="text" name="other" id="other" class="form-control" required autocomplete="false">
+                        <label for="pclaptopsonstiges"> Betreff</label>
+                        <input type="text" name="pclaptopsonstiges" id="pclaptopsonstiges" class="form-control" required autocomplete="false">
                       </div>
                       <div class="form-group col-md-6 col-lg-12">
-                        <label for="prob_discription"> Problembeschreibung </label>
-                        <textarea type="text" name="prob_discription" class="form-control" rows="15" value="{{ old('prob_discription') ? $request->prob_discription : '' }}" required autocomplete="false"></textarea>
+                        <label for="notizen"> Problembeschreibung </label>
+                        <textarea type="text" name="notizen" class="form-control" rows="15" value="{{ old('notizen') ? $request->notizen : '' }}" required autocomplete="false"></textarea>
                       </div>
                     </div>                  
                     <div>
@@ -47,7 +47,6 @@
 @endsection
 @section('script')
 @endsection
-
 
 
 

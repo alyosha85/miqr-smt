@@ -260,21 +260,20 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-      return $request;
+    { 
         $admins = User::role('Super_Admin')->get();
         $ticket = New Ticket;
         $ticket -> submitter = $request -> submitter;
         $ticket -> priority_id = $request -> priority;
-        $ticket -> gart_id = $request -> searchmachine;
         $ticket -> tel_number = $request -> tel_number;
         $ticket -> custom_tel_number = $request -> custom_tel_number;
         $ticket -> problem_type = $request -> problem_type;
-        $ticket -> gname_id = $request -> searchcomputer;
+        $ticket -> gname_id = $request -> searchcomputer;   //* searchcomputer -> gname_id //
         $ticket -> searchsoftware = $request-> searchsoftware;
         $ticket -> software_name = $request-> software_name;
         $ticket -> software_reason = $request-> software_reason;
         $ticket -> notizen = $request-> notizen;
+        $ticket -> pc_laptop_others = $request-> pclaptopsonstiges; //*pc_laptop_others -> pclaptopsonsitges // 
         $ticket -> keyboard = $request-> keyboard;
         $ticket -> mouse = $request-> mouse;
         $ticket -> speaker = $request-> speaker;
@@ -300,6 +299,7 @@ class TicketController extends Controller
         $ticket -> location_id = $request -> location_id;
         $ticket -> room_id = $request -> room_id;
         $ticket -> printer_name = $request -> printer_name;
+        $ticket -> gart_id = $request -> searchmachine;
         $ticket ->save();
         Notification::send($admins, new TicketNotification($ticket));
         return redirect()->route('ticket.usertickets');

@@ -8,7 +8,7 @@
       <div class="col-sm-4 invoice-col">
         PC
         <address>
-          <u class="mt-1"><strong>{{$ticket->invitem->gname}}</strong></u><br>
+          <u class="mt-1"><strong>{{@$ticket->invitem->gname}}</strong></u><br>
         </address>
       </div>
       <div class="col-sm-4 invoice-col">

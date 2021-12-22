@@ -8,7 +8,7 @@
 
 @if($comments->count() < 1)
     <div class="col-lg-6">
-      <img src="../../images/admin_images/comment_400.png" style="max-width:30%;" alt="Kein Kommentar">
+      <img src="../../images/admin_images/comment_400.png" style="max-width:25%;" alt="Kein Kommentar">
   </div>
 @endif
 

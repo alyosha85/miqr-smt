@@ -84,6 +84,15 @@ $(document).ready(function() {
                 <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
               @endforeach
               </select>
+              <br><br><br>
+              <div class="card-flyer2 text-center">
+                <div class="text-box2">
+                  <div class="text-container2">
+                    <img src="/images/admin_images/info_400_2.png" style="max-width:70px;  alt="" />
+                      <p class="text-info">Klicken Sie<a href="#"> hier</a>, falls der Drucker nicht aufgelistet ist.</p>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="form-group col-md-6">
               <fieldset class="border rounded px-2 mb-2">

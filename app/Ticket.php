@@ -21,7 +21,7 @@ class Ticket extends Model
   }
   public function printer()
   {
-    return $this->belongsTo('App\InvItems','printer_name','id');
+    return $this->belongsTo('App\InvItems','printer_name','invnr');
   }
   public function ticket_status()
   {

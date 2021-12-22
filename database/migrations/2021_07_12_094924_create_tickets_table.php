@@ -50,7 +50,7 @@ class CreateTicketsTable extends Migration
         $table->string('scanner_wrong_folder')->nullable();
         $table->integer('location_id')->nullable();
         $table->integer('room_id')->nullable();
-        $table->integer('printer_name')->nullable();
+        $table->string('printer_name')->nullable();
         $table->string('assignedTo')->nullable();
         $table->integer('target_location_id')->nullable();
         $table->integer('target_room_id')->nullable();
