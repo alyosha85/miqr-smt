@@ -88,7 +88,7 @@ $(document).ready(function() {
               <div class="card-flyer2 text-center">
                 <div class="text-box2">
                   <div class="text-container2">
-                    <img src="/images/admin_images/info_400_2.png" style="max-width:70px;  alt="" />
+                    <img src="/images/admin_images/info_400_2.png" style="max-width:70px;"  alt="" />
                       <p class="text-info">Klicken Sie<a href="#"> hier</a>, falls der Drucker nicht aufgelistet ist.</p>
                   </div>
                 </div>

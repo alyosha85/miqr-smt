@@ -272,7 +272,6 @@ class TicketController extends Controller
         $ticket -> searchsoftware = $request-> searchsoftware;
         $ticket -> software_name = $request-> software_name;
         $ticket -> software_reason = $request-> software_reason;
-        $ticket -> notizen = $request-> notizen;
         $ticket -> pc_laptop_others = $request-> pclaptopsonstiges; //*pc_laptop_others -> pclaptopsonsitges // 
         $ticket -> keyboard = $request-> keyboard;
         $ticket -> mouse = $request-> mouse;
@@ -300,7 +299,42 @@ class TicketController extends Controller
         $ticket -> room_id = $request -> room_id;
         $ticket -> printer_name = $request -> printer_name;
         $ticket -> gart_id = $request -> searchmachine;
-        $ticket ->save();
+        $description = $request->notizen;
+ 
+        $dom = new \DomDocument();
+  
+        $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);    
+  
+        $images = $dom->getElementsByTagName('img');
+  
+        foreach($images as $k => $img){
+  
+  
+            $data = $img->getAttribute('src');
+  
+            list($type, $data) = explode(';', $data);
+  
+            list($type, $data) = explode(',', $data);
+  
+            $data = base64_decode($data);
+  
+            $image_name= "/upload/" . time().$k.'.png';
+  
+            $path = public_path() . $image_name;
+  
+            file_put_contents($path, $data);
+  
+            $img->removeAttribute('src');
+  
+            $img->setAttribute('src', $image_name);
+  
+         }
+  
+  
+        $description = $dom->saveHTML();
+        $ticket->notizen = $description;
+        $ticket->save();
+
         Notification::send($admins, new TicketNotification($ticket));
         return redirect()->route('ticket.usertickets');
     }

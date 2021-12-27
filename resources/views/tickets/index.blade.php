@@ -15,9 +15,9 @@
                   <div class="card card-primary card-outline" id="underform">
                     <!-- Content here -->
                     <div id="cards_landscape_wrap-2">
-                      <div class="container">
-                          <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 d-flex align-items-stretch">
+                      <div class="container-fluid">
+                          <div class="row d-flex justify-content-between">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
                               <div class="card-flyer">
                                 <div class="text-box">
                                 <a href="{{route('computer_all')}}">
@@ -38,7 +38,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 d-flex align-items-stretch">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
                               <div class="card-flyer">
                                 <div class="text-box">
                                   <a href="{{route ('printer_all')}}">
@@ -58,7 +58,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 d-flex align-items-stretch">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
                               <div class="card-flyer">
                                 <div class="text-box">
                                   <a href="{{route ('telephone_all')}}">
@@ -75,7 +75,7 @@
                                   </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 d-flex align-items-stretch">
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
                               <div class="card-flyer">
                                 <div class="text-box">
                                   <a href="">
@@ -95,6 +95,46 @@
                                   </div>
                                 </div>
                             </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
+                            <div class="card-flyer">
+                              <div class="text-box">
+                              <a href="{{route('computer_all')}}">
+                                <div class="image-box">
+                                  <img src="/images/admin_images/www.png" alt="" />
+                                </div></a>
+                                  <div class="text-container">                                    
+                                    <h6>Web</h6>
+                                  <ul class="list-unstyled">
+                                    <li><a href="{{route('softwareRequest')}}">Big Blue Button</a></li>
+                                    <li><a href="{{route('peripheralRequest')}}">Vtiger</a></li>
+                                    <li><a href="{{route('hardwareRequest')}}">FirmenVZ</a></li>
+                                    <li><a href="{{route('pc_problems')}}">SMT</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
+                            <div class="card-flyer">
+                              <div class="text-box">
+                              <a href="{{route('computer_all')}}">
+                                <div class="image-box">
+                                  <img src="/images/admin_images/web.png" alt="" />
+                                </div></a>
+                                  <div class="text-container">                                    
+                                    <h6>PC / Laptop </h6>
+                                  <ul class="list-unstyled">
+                                    <li><a href="{{route('softwareRequest')}}">Softwareanfrage</a></li>
+                                    <li><a href="{{route('peripheralRequest')}}">peripherie-Anfrage</a></li>
+                                    <li><a href="{{route('hardwareRequest')}}">Hardware-Anfrage</a></li>
+                                    <li><a href="{{route('pc_problems')}}">Probleme</a></li>
+                                    <li><a href="{{route('printer_in_out')}}">Drucker Hinzu. / Ent.</a></li>
+                                    <li><a href="{{route('other')}}">Sonstiges</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           </div>
                       </div>
                     </div>  

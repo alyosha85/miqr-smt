@@ -124,9 +124,9 @@ u {
                           @endif
                        
                           <div class="col-md-12 invoice-col">
-                            <strong style="color:#661421;">Beschreibung <i class="far fa-comment-dots fa-lg"></i></strong> 
-                            <address>
-                              <strong>{{@$ticket->notizen}}</strong><br>
+                            <strong style="color:#661421;" >Beschreibung <i class="far fa-comment-dots fa-lg"></i></strong>
+                            <address class="mt-3">
+                              <strong>{!!@$ticket->notizen!!}</strong><br>
                             </address>
                           </div>
                         </div>

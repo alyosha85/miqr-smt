@@ -44,6 +44,8 @@
   <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" />
   <!-- custom.css -->
   <link rel="stylesheet" href="{{url ('css/custom.css')}}">
+
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -161,6 +163,10 @@ $(function () {
 <!-- Custom JS -->
 <script src="{{ url('js/admin_js/script.js') }}"></script>
 <script src="{{ url('js/custom.js') }}"></script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script&gt;
+
+
 
 <script type="text/javascript">
 

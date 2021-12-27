@@ -23,6 +23,24 @@
         <u class="mt-1"><strong>{{@$ticket->invitem->invroom->rname}} <i class="fas fa-grip-lines-vertical"></i> {{@$ticket->invitem->invroom->altrname}}</strong></u><br>
       </address>
     </div>
+    <div class="col-sm-4 invoice-col">
+      Drucker
+      <address>
+        <u class="mt-1"><strong>{{$ticket->printer->gname}}</strong></u><br>
+      </address>
+    </div>
+    <div class="col-sm-4 invoice-col">
+      Adresse
+      <address>
+        <u class="mt-1"><strong>{{@$ticket->printer->invroom->location->address}}</strong></u><br>
+      </address>
+    </div>
+    <div class="col-sm-4 invoice-col">
+      Raum
+      <address>
+        <u class="mt-1"><strong>{{@$ticket->printer->invroom->rname}} <i class="fas fa-grip-lines-vertical"></i> {{@$ticket->invitem->invroom->altrname}}</strong></u><br>
+      </address>
+    </div>
     <div class="col-md-12 invoice-col">
       <strong style="color:#661421;">Probleme <i class="fas fa-exclamation-triangle  fa-lg"></i></strong> 
       <!-- <address>

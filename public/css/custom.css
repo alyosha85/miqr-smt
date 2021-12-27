@@ -128,7 +128,7 @@ color:#661421;
     text-align: center;
     background: #F7F7F7;
   }
-  #cards_landscape_wrap-2 .container{
+  #cards_landscape_wrap-2 .container-fluid{
     padding-bottom: 50px;
   }
   #cards_landscape_wrap-2 a{
