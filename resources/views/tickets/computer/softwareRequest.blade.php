@@ -104,7 +104,7 @@ $(document).ready(function() {
             </div>
             <div class="form-group col-md-6 col-lg-12">
               <label for="notizen"> Notizen</label>
-              <textarea type="text" name="notizen" class="form-control" ></textarea>
+              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
             </div>
           </div>                  
           <div>
@@ -121,6 +121,11 @@ $(document).ready(function() {
       placeholder: 'sometext',
       allowClear: false,
       tags: true
+    });
+
+    $('.notizen').summernote({
+    height:150,
+    lang: 'de-DE'
     });
   })
 
@@ -159,7 +164,7 @@ $(document).ready(function() {
             </div>
             <div class="form-group col-md-6 col-lg-12">
               <label for="notizen"> Notizen</label>
-              <textarea type="text" name="notizen" class="form-control" ></textarea>
+              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
             </div>
           </div>                  
           <div>
@@ -175,6 +180,11 @@ $(document).ready(function() {
       placeholder: 'sometext',
       allowClear: false,
       tags: true
+    });
+
+    $('.notizen').summernote({
+    height:150,
+    lang: 'de-DE'
     });
   })
 
@@ -199,7 +209,7 @@ $(document).ready(function() {
         </div>
           <div class="form-group col-md-6 col-lg-12">
             <label for="notizen"> Bitte beschreiben Sie das Problem / Anfrage</label>
-            <textarea type="text" name="notizen" class="form-control" ></textarea>
+            <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
           </div>
         </div>                  
         <div>
@@ -210,6 +220,11 @@ $(document).ready(function() {
     );
 
     $(".searchcomputer").select2({
+    });
+
+    $('.notizen').summernote({
+    height:150,
+    lang: 'de-DE'
     });
   })
 

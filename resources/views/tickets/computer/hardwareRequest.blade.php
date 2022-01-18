@@ -41,10 +41,7 @@
                               </select>
                             </fieldset>
                           </div> 
-                            <div class="form-group col-md-6 col-lg-12">
-                              <label for="notizen"> Beschreibung</label>
-                              <textarea type="text" name="notizen" class="form-control" ></textarea>
-                            </div>
+                          @include('tickets.layout_ticket.note',['discription'=>'Beschreibung'])
                           </div>                  
                           <div>
                             <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>

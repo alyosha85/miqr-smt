@@ -25,10 +25,7 @@
                         <label for="pclaptopsonstiges"> Betreff</label>
                         <input type="text" name="pclaptopsonstiges" id="pclaptopsonstiges" class="form-control" required autocomplete="false">
                       </div>
-                      <div class="form-group col-md-6 col-lg-12">
-                        <label for="notizen"> Problembeschreibung </label>
-                        <textarea type="text" name="notizen" class="form-control" rows="15" value="{{ old('notizen') ? $request->notizen : '' }}" required autocomplete="false"></textarea>
-                      </div>
+                      @include('tickets.layout_ticket.note',['discription'=>'Problembeschreibung'])
                     </div>                  
                     <div>
                       <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>

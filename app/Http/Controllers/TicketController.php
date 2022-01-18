@@ -21,6 +21,7 @@ use Spatie\Permission\Models\Permission;
 use App\Notifications\TicketNotification;
 use App\TicketPriority;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\DatabaseNotification;
 
 class TicketController extends Controller
 {
@@ -142,6 +143,41 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.computer.other',compact('user','now','tickets','users','computers'));
     }
+
+     //! Ticket users //
+     public function users_all()
+     {
+       $users = User::get()->toArray();
+       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+       $user = Auth()->user();
+       return view('tickets.users.all',compact('user','now','users'));
+     }
+
+     public function employee() 
+     {
+       $users = User::get()->toArray();
+       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+       $user = Auth()->user();
+       return view ('tickets.users.employee',compact('user','now','users'));
+     }
+
+     public function participant() 
+     {
+       $users = User::get()->toArray();
+       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+       $user = Auth()->user();
+       return view ('tickets.users.participant',compact('user','now','users'));
+     }
+     public function users_others() 
+     {
+       $users = User::get()->toArray();
+       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+       $user = Auth()->user();
+       return view ('tickets.users.usersOthers',compact('user','now','users'));
+     }
+
+
+
     //! Ticket printer //
     public function printer_all()
     {
@@ -151,7 +187,6 @@ class TicketController extends Controller
       $tickets = TicketType::all(); 
       return view('tickets.printer.all',compact('user','now','tickets','users'));
     }
-
 
     public function scanner() 
     {
@@ -191,6 +226,15 @@ class TicketController extends Controller
       $user = Auth()->user();
       $tickets = TicketType::all(); 
       return view('tickets.telephone.all',compact('user','now','tickets','users'));
+    }
+    public function tel_changes() 
+    {
+      $rooms = InvRoom::with('location')->get();
+      $users = User::get()->toArray();
+      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+      $user = Auth()->user();
+      $tickets = TicketType::all();
+      return view ('tickets.telephone.tel_changes',compact('user','now','tickets','users'));
     }
     public function tel_problems() 
     {
@@ -248,11 +292,6 @@ class TicketController extends Controller
       return $printers;
     }
 
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -269,81 +308,117 @@ class TicketController extends Controller
         $ticket -> custom_tel_number = $request -> custom_tel_number;
         $ticket -> problem_type = $request -> problem_type;
         $ticket -> gname_id = $request -> searchcomputer;   //* searchcomputer -> gname_id //
-        $ticket -> searchsoftware = $request-> searchsoftware;
-        $ticket -> software_name = $request-> software_name;
-        $ticket -> software_reason = $request-> software_reason;
-        $ticket -> pc_laptop_others = $request-> pclaptopsonstiges; //*pc_laptop_others -> pclaptopsonsitges // 
-        $ticket -> keyboard = $request-> keyboard;
-        $ticket -> mouse = $request-> mouse;
-        $ticket -> speaker = $request-> speaker;
-        $ticket -> headset = $request-> headset;
-        $ticket -> webcam = $request-> webcam;
-        $ticket -> monitor = $request-> monitor;
-        $ticket -> other = $request-> other;
-        $ticket -> geht_nicht_an = $request-> geht_nicht_an;
-        $ticket -> blue = $request-> blue;
-        $ticket -> black = $request-> black;
-        $ticket -> slow_computer = $request-> slow_computer;
-        $ticket -> web_cam_problem = $request-> web_cam_problem;
-        $ticket -> head_set_problem = $request-> head_set_problem;
-        $ticket -> lautsprecher_mal = $request-> lautsprecher_mal;
-        $ticket -> keyboard_malfunction = $request-> keyboard_malfunction;
-        $ticket -> mouse_mal = $request-> mouse_mal;
-        $ticket -> slow_network = $request-> slow_network;
-        $ticket -> no_network_drive = $request-> no_network_drive;
-        $ticket -> laud_fan = $request-> laud_fan;
-        $ticket -> scanner_wrong_folder = $request-> scanner_wrong_folder;
-        $ticket -> scanner_not_working = $request-> scanner_not_working;
-        $ticket -> scanner_myname_list = $request-> scanner_myname_list;
+        $ticket -> searchsoftware = $request -> searchsoftware;
+        $ticket -> software_name = $request -> software_name;
+        $ticket -> software_reason = $request -> software_reason;
+        $ticket -> pc_laptop_others = $request -> pclaptopsonstiges; //*pc_laptop_others -> pclaptopsonsitges // 
+        $ticket -> keyboard = $request -> keyboard;
+        $ticket -> mouse = $request -> mouse;
+        $ticket -> speaker = $request -> speaker;
+        $ticket -> headset = $request -> headset;
+        $ticket -> webcam = $request -> webcam;
+        $ticket -> monitor = $request -> monitor;
+        $ticket -> other = $request -> other;
+        $ticket -> geht_nicht_an = $request -> geht_nicht_an;
+        $ticket -> blue = $request -> blue;
+        $ticket -> black = $request -> black;
+        $ticket -> slow_computer = $request -> slow_computer;
+        $ticket -> web_cam_problem = $request -> web_cam_problem;
+        $ticket -> head_set_problem = $request -> head_set_problem;
+        $ticket -> lautsprecher_mal = $request -> lautsprecher_mal;
+        $ticket -> keyboard_malfunction = $request -> keyboard_malfunction;
+        $ticket -> mouse_mal = $request -> mouse_mal;
+        $ticket -> slow_network = $request -> slow_network;
+        $ticket -> no_network_drive = $request -> no_network_drive;
+        $ticket -> laud_fan = $request -> laud_fan;
+        $ticket -> scanner_wrong_folder = $request -> scanner_wrong_folder;
+        $ticket -> scanner_not_working = $request -> scanner_not_working;
+        $ticket -> scanner_myname_list = $request -> scanner_myname_list;
         $ticket -> location_id = $request -> location_id;
         $ticket -> room_id = $request -> room_id;
         $ticket -> printer_name = $request -> printer_name;
         $ticket -> gart_id = $request -> searchmachine;
+        $ticket -> replication_id = $request -> replication_id;
+        $ticket -> position_employee = $request -> position_employee;
+        $ticket -> abteilung_employee = $request -> abteilung_employee;
+        $ticket -> telephone_employee = $request -> telephone_employee;
+        $ticket -> outlook = $request -> outlook;
+        $ticket -> isplus = $request -> isplus ;
+        $ticket -> employee_lastname = $request -> employee_lastname ;
+        $ticket -> employee_firstname = $request -> employee_firstname ;
+        $ticket -> password_name = $request -> password_name ;
+        $ticket -> forgotten = $request -> forgotten ;
+        $ticket -> inaktiv = $request -> inaktiv ;
+        $ticket -> expiring_date = $request -> expiring_date;
+        $ticket -> abgelaufen = $request -> abgelaufen;
+        $ticket -> user_oldname = $request -> user_oldname;
+        $ticket -> user_newname = $request -> user_newname;
+        $ticket -> user_other_username = $request -> user_other_username;
+        $ticket -> tel_target_place = $request -> tel_target_place;
+        $ticket -> tel_target_room = $request -> tel_target_room;
+        $ticket -> current_tel_name = $request -> current_tel_name;
+        $ticket -> new_tel_name = $request -> new_tel_name;
+        $ticket -> new_tel_number = $request -> new_tel_number;
         $description = $request->notizen;
- 
-        $dom = new \DomDocument();
-  
-        $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);    
-  
-        $images = $dom->getElementsByTagName('img');
-  
-        foreach($images as $k => $img){
-  
-  
-            $data = $img->getAttribute('src');
-  
-            list($type, $data) = explode(';', $data);
-  
-            list($type, $data) = explode(',', $data);
-  
-            $data = base64_decode($data);
-  
-            $image_name= "/upload/" . time().$k.'.png';
-  
-            $path = public_path() . $image_name;
-  
-            file_put_contents($path, $data);
-  
-            $img->removeAttribute('src');
-  
-            $img->setAttribute('src', $image_name);
-  
-         }
-  
-  
-        $description = $dom->saveHTML();
-        $ticket->notizen = $description;
+        
+        if ($description) {
+          $dom = new \DomDocument();
+          $dom->loadHtml(utf8_decode($description), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);   
+          $images = $dom->getElementsByTagName('img');
+            foreach($images as $k => $img){
+              $data = $img->getAttribute('src');
+              list($type, $data) = explode(';', $data);
+              list($type, $data) = explode(',', $data);
+              $data = base64_decode($data);
+              $image_name= "/upload/" . time().$k.'.png';
+              $path = public_path() . $image_name;
+              file_put_contents($path, $data);
+              $img->removeAttribute('src');
+              $img->setAttribute('src', $image_name);
+            }
+          $description = $dom->saveHTML();
+          $ticket->notizen = $description;
+        }
+
+
         $ticket->save();
 
-        Notification::send($admins, new TicketNotification($ticket));
+        $notifications = [
+          'ticket_id' => $ticket->id,
+          'submitter' => $ticket->subUser->username,
+          'problem_type' => $ticket->problem_type,
+        ];
+        Notification::send($admins, new TicketNotification($notifications));
         return redirect()->route('ticket.usertickets');
+    }
+
+
+    public function store_participant(Request $request){
+      foreach ($request->addmore as $key => $value) {
+        $admins = User::role('Super_Admin')->get();
+        $ticket = New Ticket;
+        $ticket -> submitter = $request -> submitter;
+        $ticket -> priority_id = $request -> priority;
+        $ticket -> tel_number = $request -> tel_number;
+        $ticket -> custom_tel_number = $request -> custom_tel_number;
+        $ticket -> problem_type = $request -> problem_type;
+        $ticket->name_participant = $request->name_participant;
+        $ticket->vorname_participant = $request->vorname_participant;
+        $ticket->course_participant = $request->course_participant;
+        $ticket->notes_participant = $request->notes_participant;
+      }
+      return $request;
+      $ticket->save();
+
+      Notification::send($admins, new TicketNotification($ticket));
+      return redirect()->route('ticket.usertickets');
     }
      
     public function usertickets()
     {
       $user = Auth()->user();
-      $myTickets = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('submitter',$user->username)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
-      $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
+      $myTickets = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('submitter',$user->id)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
+      $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.usertickets',compact('user','myTickets','myTicketsCount'));
     }
 
@@ -351,10 +426,10 @@ class TicketController extends Controller
     {
       $user = Auth()->user();
       $admins = User::role('Super_Admin')->get();
-      $myTickets = Ticket::orderBy('created_at','DESC')->get();
+      $myTickets = Ticket::with('subUser')->orderBy('created_at','DESC')->get();
       $AllTicketsCount = Ticket::all()->count();
       $UnassignedTicketsCount = Ticket::whereNull('assignedTo')->count();
-      $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
+      $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.admins.open',compact('user','myTickets','AllTicketsCount','admins','UnassignedTicketsCount','myTicketsCount'));
     }
 
@@ -366,7 +441,7 @@ class TicketController extends Controller
       $myTickets = Ticket::whereNull('assignedTo')->orderBy('updated_at','DESC')->get();
       $UnassignedTicketsCount = Ticket::whereNull('assignedTo')->count();
       $AllTicketsCount = Ticket::all()->count();
-      $myTicketsCount = Ticket::where('submitter',$user->username)->orWhere('assignedTo',$user->id)->count();
+      $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.admins.unassigned',compact('user','myTickets','UnassignedTicketsCount','admins','myTicketsCount','AllTicketsCount'));
     }
 
@@ -374,17 +449,21 @@ class TicketController extends Controller
     {
       $ticket_status = TicketStatus::all();
       $ticket_priority = TicketPriority::all();
-      $ticket = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('id',$id)->first();
+      $ticket = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->with('subUser')->where('id',$id)->first();
 
-      // $userUnreadNotification = auth()->user()->unreadNotifications
-      //                           ->where("data['ticket_id']",'=',$id)
-      //                           ->first();
-      //                           return $userUnreadNotification;
+      $userUnreadNotification = auth()->user()->unreadNotifications
+                                ->whereIn('data->id',$id)
+                                ->first();
+                                return $userUnreadNotification;
       //                           if($userUnreadNotification) {
       //                             $userUnreadNotification->markAsRead();
       //                         }
+
+
       $createdAt = Carbon::parse($ticket->created_at);
-      return view('tickets.admins.showticket',compact('ticket','createdAt','ticket_status','ticket_priority'));
+      $telNewRoom = InvRoom::where('id',$ticket->tel_target_room)->first();
+      $telNewAddress = Location::where('id',$ticket->tel_target_place)->first();
+      return view('tickets.admins.showticket',compact('ticket','createdAt','ticket_status','ticket_priority','telNewRoom','telNewAddress'));
     }
 
     /**

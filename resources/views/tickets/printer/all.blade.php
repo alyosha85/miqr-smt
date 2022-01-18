@@ -57,7 +57,7 @@
                               </div>
                             </a>
                           </div>
-                          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_error">
+                          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100 mb-5" id="info_error"> <!-- ? margin button on the last element-->
                             <a href="{{route('errors')}}">
                               <div class="card-flyer">
                                 <div class="text-box">

@@ -17,6 +17,7 @@ class CreateLocationsTable extends Migration
             $table->id();
             $table->foreignId('place_id'); //unsignedBigInteger
             $table->string('address')->default('0');
+            $table->string('postleitzahl')->default('0');
             $table->timestamps();
 
             $table->foreign('place_id')->references('id')->on('places');

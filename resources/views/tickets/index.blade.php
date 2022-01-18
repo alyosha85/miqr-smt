@@ -69,7 +69,7 @@
                                         <h6>Telefon</h6>
                                         <ul class="list-unstyled">
                                           <li><a href="{{route ('tel_problems')}}">Probleme</a></li>
-                                          <li><a href="{{route ('tel_problems')}}">Änderungen</a></li>
+                                          <li><a href="{{route ('tel_changes')}}">Änderungen</a></li>
                                         </ul>
                                     </div>
                                   </div>
@@ -78,18 +78,16 @@
                             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
                               <div class="card-flyer">
                                 <div class="text-box">
-                                  <a href="">
+                                  <a href="{{route('users_all')}}">
                                   <div class="image-box">
-                                      <img src="/images/admin_images/Help_300.png" alt="" />
+                                      <img src="/images/admin_images/benutzer.png" alt="" />
                                   </div></a>
                                     <div class="text-container">
                                         <h6>Benutzer</h6>
                                         <ul class="list-unstyled">
-                                          <li><a href="">Neuer Mitarbeiter</a></li>
-                                          <li><a href="">Neuer Benutzer</a></li>
-                                          <li><a href="">Passwort ändern / Inaktiv</a></li>
-                                          <li><a href="">Namen ändern</a></li>
-                                          <li><a href="">Sonstiges</a></li>
+                                          <li><a href="{{route('users_employee')}}">Neuer Mitarbeiter</a></li>
+                                          <li><a href="{{route('users_participant')}}">Neuer Benutzer</a></li>
+                                          <li><a href="{{route('users_others')}}">Sonstiges</a></li>
                                         </ul>
                                     </div>
                                   </div>
@@ -119,17 +117,12 @@
                               <div class="text-box">
                               <a href="{{route('computer_all')}}">
                                 <div class="image-box">
-                                  <img src="/images/admin_images/web.png" alt="" />
+                                  <img src="/images/admin_images/construction.png" alt="" />
                                 </div></a>
                                   <div class="text-container">                                    
-                                    <h6>PC / Laptop </h6>
+                                    <h6>In Bearbeitung </h6>
                                   <ul class="list-unstyled">
-                                    <li><a href="{{route('softwareRequest')}}">Softwareanfrage</a></li>
-                                    <li><a href="{{route('peripheralRequest')}}">peripherie-Anfrage</a></li>
-                                    <li><a href="{{route('hardwareRequest')}}">Hardware-Anfrage</a></li>
-                                    <li><a href="{{route('pc_problems')}}">Probleme</a></li>
-                                    <li><a href="{{route('printer_in_out')}}">Drucker Hinzu. / Ent.</a></li>
-                                    <li><a href="{{route('other')}}">Sonstiges</a></li>
+
                                   </ul>
                                 </div>
                               </div>

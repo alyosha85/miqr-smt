@@ -2,13 +2,29 @@
   <div class="card card-primary card-outline">
     <div class="card-body box-profile form-group">
       <div class="row">
+        @if(auth()->user()->hasRole('Super_Admin'))
+        <div class="form-group col-md-12">
+          <button type="submit" class="btn btn-success col-md-12">Erledigt</button>
+        </div>
+        @endif
         <div class="form-group col-md-6">
           <label for="submitter"> Erstellt von</label>
-          <input type="text" class="form-control" name="submitter" value="{{$user->username}}" readonly>
+          <input type="text" class="form-control" name="submitter_name" value="{{$user->username}}" readonly>
+          <input type="hidden" class="form-control" name="submitter" value="{{$user->id}}" readonly>
         </div>
         <div class="form-group col-md-6">
           <label for="submit_date">Erstellt Am</label>
           <input type="text" class="form-control" name="submit_date" value="{{ $now }}" readonly>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="submitter_standort"> Standort</label>
+          <input type="text" class="form-control" name="submitter_standort" value="{{$user->ort}}" readonly>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="submitter_adresse">Adresse</label>
+          <input type="text" class="form-control" name="submitter_adresse" value="{{$user->straße}}" readonly>
         </div>
       </div>
       <div class="row">

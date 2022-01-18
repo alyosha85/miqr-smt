@@ -15,7 +15,7 @@ class CreateTicketsTable extends Migration
     {
       Schema::create('tickets', function (Blueprint $table) {
         $table->id();
-        $table->string('submitter');
+        $table->integer('submitter');
         $table->tinyInteger('priority_id')->default(2);
         $table->string('tel_number');
         $table->string('custom_tel_number')->nullable();
@@ -45,17 +45,36 @@ class CreateTicketsTable extends Migration
         $table->string('slow_network')->nullable();
         $table->string('no_network_drive')->nullable();
         $table->string('laud_fan')->nullable();
+        $table->string('scanner_wrong_folder')->nullable();
         $table->string('scanner_not_working')->nullable();
         $table->string('scanner_myname_list')->nullable();
-        $table->string('scanner_wrong_folder')->nullable();
+        $table->string('pc_laptop_others')->nullable();
         $table->integer('location_id')->nullable();
         $table->integer('room_id')->nullable();
         $table->string('printer_name')->nullable();
         $table->string('assignedTo')->nullable();
-        $table->integer('target_location_id')->nullable();
-        $table->integer('target_room_id')->nullable();
-        $table->integer('telefon_name')->nullable();
-
+        $table->integer('ticket_status_id')->nullable();
+        $table->integer('replication_id')->nullable();
+        $table->string('position_employee')->nullable();
+        $table->string('abteilung_employee')->nullable();
+        $table->string('telephone_employee')->nullable();
+        $table->string('outlook')->nullable();
+        $table->string('isplus')->nullable();
+        $table->string('employee_firstname')->nullable();
+        $table->string('employee_lastname')->nullable();
+        $table->string('inaktiv')->nullable();
+        $table->string('forgotten')->nullable();
+        $table->string('abgelaufen')->nullable();
+        $table->string('password_name')->nullable();
+        $table->string('expiring_date')->nullable();
+        $table->string('user_oldname')->nullable();
+        $table->string('user_newname')->nullable();
+        $table->string('user_other_username')->nullable();
+        $table->integer('tel_target_place')->nullable();
+        $table->integer('tel_target_room')->nullable();
+        $table->string('current_tel_name')->nullable();
+        $table->string('new_tel_name')->nullable();
+        $table->string('new_tel_number')->nullable();
         $table->timestamps();
         $table->softDeletes();
       });

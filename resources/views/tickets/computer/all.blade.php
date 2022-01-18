@@ -89,7 +89,7 @@
                           </a>
                         </div>
                         <!-- Sonstiges -->
-                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_other">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100 mb-5" id="info_other"> <!-- ? margin button on the last element-->
                           <a href="{{route('other')}}">
                             <div class="card-flyer">
                               <div class="text-box">

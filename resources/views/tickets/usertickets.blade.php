@@ -59,7 +59,7 @@
                   @forelse($myTickets as $myTicket)
                 <tr>
                   <td class="text-left">
-                    <a href="#" class="btn btn-outline-success" data-toggle="tooltip" data-placement="right" title="Als Erledigt markieren"><i class="far fa-check-square fa-lg"></i></a>
+                    <a href="#" class="btn btn-outline-success" data-toggle="tooltip" data-placement="right" title="Als Erledigt markieren"><i class="fas fa-check fa-lg"></i></a>
                   </td>
                   <td class="mailbox-name"><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->problem_type}}</a></td>
                   <td class="mailbox-subject"><b>{{@$myTicket->invitem->gname}} </b></td>

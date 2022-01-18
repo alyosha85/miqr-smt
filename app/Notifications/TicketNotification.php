@@ -19,9 +19,9 @@ class TicketNotification extends Notification
      * @return void
      */
 
-    public function __construct(Ticket $ticket)
+    public function __construct($notifications)
     {
-        $this->myData = $ticket;
+        $this->myData = $notifications;
 
     }
 
@@ -53,8 +53,9 @@ class TicketNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-          'ticket_id' => $this->myData->id,
-          'Ersteller' => $this->myData->submitter,
+          'id' => $this->myData['ticket_id'],
+          'Ersteller' => $this->myData['submitter'],
+          'problem_type' => $this->myData['problem_type'],
         ];
 
     }

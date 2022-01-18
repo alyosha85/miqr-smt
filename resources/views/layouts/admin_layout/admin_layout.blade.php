@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="{{ url ('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
   <!-- Dropzone -->
   <link rel="stylesheet" href="{{ url('dropzone-5.7.0/dist/min/dropzone.min.css') }}" />
+  <!-- FilePond -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/filepond/4.30.3/filepond.css" integrity="sha512-lA1v3OiAORI4FvglHuwPns240yxZFQiirFBS+93lmHG9v8qzAjHhlC69Ba/B/GlJKIfkBbp2NzfaQM25t1vVKg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ url ('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Select 2 Bootstrap Theme -->
@@ -45,7 +47,7 @@
   <!-- custom.css -->
   <link rel="stylesheet" href="{{url ('css/custom.css')}}">
 
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -158,14 +160,16 @@ $(function () {
 </script>
 <!--DropZone-->
 <script src="{{ url('dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
+<!-- File Pond -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/filepond/4.30.3/filepond.min.js" integrity="sha512-AuMJiyTn/5k+gog21BWPrcoAC+CgOoobePSRqwsOyCSPo3Zj64eHyOsqDev8Yn9H45WUJmzbe9RaLTdFKkO0KQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- sweet alert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Custom JS -->
 <script src="{{ url('js/admin_js/script.js') }}"></script>
 <script src="{{ url('js/custom.js') }}"></script>
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.4/summernote.js"></script&gt;
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/lang/summernote-de-DE.min.js" integrity="sha512-2C5K3vx127hx1xmHot25EPLCOVYyqPr6F8A9UKPtmoYEL3la45Etrq5E7nby09as3cjMLzrxFJzslw1OFEOq4A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <script type="text/javascript">
@@ -174,6 +178,13 @@ $(".hBack").on("click", function(e){
     e.preventDefault();
     window.history.back();
 });
+
+
+$('.notizen').summernote({
+  height:150,
+  lang: 'de-DE'
+  });
+  
 </script>
 
   

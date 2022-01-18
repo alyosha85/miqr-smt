@@ -65,10 +65,17 @@
                               @endforeach
                             </select>
                           </div>
-                          <div class="form-group col-md-6 col-lg-12">
-                            <label for="notizen"> Beschreibung <span style="color: #661421;"><small>Anzahl über <strong>1</strong>? Bitte schreiben Sie die benötigte Anzahl und den Grund in das Notizfeld.</small></span></label>
-                            <textarea type="text" name="notizen" class="form-control"></textarea>
+                          <div class="form-group col-md-6">
+                            <div class="card-flyer2 text-center">
+                              <div class="text-box2">
+                                <div class="text-container2">
+                                  <img src="/images/admin_images/info_400_2.png" style="max-width:75px;"  alt="" />
+                                    <p class="text-info">Anzahl über <strong>1</strong>? Bitte schreiben Sie die benötigte<br> Anzahl und den Grund in das Notizfeld.</p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
+                          @include('tickets.layout_ticket.note',['discription'=>'Beschreibung'])
                         </div>                  
                         <div>
                           <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>

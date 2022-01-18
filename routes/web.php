@@ -154,12 +154,21 @@ Route::get('/ticket.errors','TicketController@errors')->name('errors');
 //****************************************  Ticket Telephone  *************************************************/
 Route::get('/ticket.telephone_all','TicketController@telephone_all')->name('telephone_all');
 Route::get('/ticket.tel_problems','TicketController@tel_problems')->name('tel_problems'); 
+Route::get('/ticket.tel_changes','TicketController@tel_changes')->name('tel_changes'); 
 Route::post('/ticket.tel_search_inroom','TicketController@tel_in_room')->name('tel_in_room');      //! find the Telephone 
 
+//****************************************  Ticket Users  *************************************************/
+Route::get('/ticket.users_all','TicketController@users_all')->name('users_all'); 
+Route::get('/ticket.employee','TicketController@employee')->name('users_employee'); 
+Route::get('/ticket.users_others','TicketController@users_others')->name('users_others');
+Route::get('/ticket.participant','TicketController@participant')->name('users_participant'); 
+Route::get('/ticket.participant','TicketController@participant')->name('users_participant'); 
+Route::post('/ticket.participant.store','TicketController@store_participant')->name('store_participant'); //! store participant dynamic table 
 //****************************************  Ticket Admins  *************************************************/
 Route::get('/opentickets','TicketController@opentickets')->name('ticket.opentickets'); 
 Route::get('/unassignedtickets','TicketController@unassignedtickets')->name('ticket.unassigned'); 
 Route::get('/ticket/{myTicket}','TicketController@show')->name('ticket.show'); 
+// Route::get('/ticket/{myTicket}','TicketController@show')->name('ticket.show'); 
 Route::post('/ticket/assignTo','TicketController@assignedTo')->name('ticket.assignedTo');
 Route::post('/ticket/priority','TicketController@ticketPriority')->name('ticket.ticketPriority');
 Route::post('/ticket/status','TicketController@ticketStatus')->name('ticket.ticketStatus');

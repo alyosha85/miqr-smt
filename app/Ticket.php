@@ -10,10 +10,15 @@ class Ticket extends Model
 {
   use SoftDeletes, Commentable;
 
+  public $fillable = ['name_participant', 'vorname_participant', 'course_participant','notes_participant'];
 
   public function user()
   {
     return $this->belongsTo('App\User','assignedTo','id');
+  }
+  public function subUser()
+  {
+    return $this->belongsTo('App\User','submitter','id');
   }
   public function invitem()
   {
@@ -42,6 +47,10 @@ class Ticket extends Model
   public function room()
   {
     return $this->belongsTo('App\InvRoom','room_id','id');
+  }
+  public function replication()
+  {
+    return $this->belongsTo('App\User','replication_id','id');
   }
 
 }

@@ -33,8 +33,8 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100" id="info_change_number_telephone">
-                                  <a href="{{route ('tel_problems')}}">
+                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 h-100 mb-5" id="info_change_number_telephone"><!-- ? margin button on the last element-->
+                                  <a href="{{route ('tel_changes')}}">
                                     <div class="card-flyer">
                                       <div class="text-box">
                                         <div class="image-box">
@@ -49,10 +49,6 @@
                               </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 h-100 align-self-center" id="tooltip_box_telephone" >
                               <!-- ! Jquery forms here --> 
-      
-                              
-      
-      
                               <!-- ! Jquery forms ends here -->
                             </div>
 

@@ -29,13 +29,18 @@
           <span class="badge badge-warning navbar-badge">{{auth()->user()->unreadnotifications->count()}}</span>
           @endif
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <!-- <span class="dropdown-item dropdown-header">{{auth()->user()->notifications->count()}} </span> -->
+        <div class="dropdown-menu dropdown-menu-right">
+          <p class="dropdown-item">Sie haben {{auth()->user()->notifications->count()}} neue Benachrichtigungen </p>
           @foreach(auth()->user()->unreadnotifications as $notification)
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-circle mr-2" style="color:#661421"></i> {{@$notification->data['Ersteller']}}
-            <span class="float-right text-muted text-sm">{{@$notification->updated_at->diffForHumans()}}</span>
+          <input type="hidden" value="{{@$notification->id}}">
+          <a href="{{url ('ticket/'.$notification->data['id'])}}" class="dropdown-item">
+            <i class="far fa-user mr-2" style="color:#661421"></i> {{@$notification->data['Ersteller']}}<br>
+            <i class="fas fa-question-circle mr-2" style="color:blue;"></i> {{@$notification->data['problem_type']}}<br>
+            <i class="fas fa-hourglass-start mr-2" style="color:green"></i> {{@$notification->updated_at->diffForHumans()}}<br>
+            <!-- <span class="float-right text-muted text-sm">{{@$notification->data['problem_type']}}</span>
+            <p class="float-right text-muted text-sm">{{@$notification->updated_at->diffForHumans()}}</p> -->
           </a>
+          <hr>
           <!-- <div class="dropdown-divider"></div> -->
           @endforeach
           <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->

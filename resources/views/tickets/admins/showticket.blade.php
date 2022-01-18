@@ -43,11 +43,21 @@ u {
                         @endif
                         <div class="form-group col-md-6">
                           <label for="submitter"> Ersteller</label>
-                          <input type="text" class="form-control" name="submitter" value="{{$ticket->submitter}}" readonly>
+                          <input type="text" class="form-control" name="submitter" value="{{@$ticket->subUser->username}}" readonly>
                         </div>
                         <div class="form-group col-md-6">
                           <label for="ticket_created_at"> Am</label>
                           <input type="text" class="form-control" name="ticket_created_at" value="{{$createdAt->format('d M Y')}}" readonly>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label for="submitter_standort"> Standort</label>
+                          <input type="text" class="form-control" name="submitter_standort" value="{{@$ticket->subUser->ort}}" readonly>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label for="submitter_adresse">Adresse</label>
+                          <input type="text" class="form-control" name="submitter_adresse" value="{{@$ticket->subUser->straße}}" readonly>
                         </div>
                       </div>
                       <!-- Ticket Type -->
@@ -122,8 +132,32 @@ u {
                           @if($ticket->problem_type ==="PC / Laptop Sonstiges")
                           @include('tickets.admins.view_ticket_blades.pcLaptopSonstiges')
                           @endif
+                          @if($ticket->problem_type ==="Neuer Mitarbeiter")
+                          @include('tickets.admins.view_ticket_blades.employeeTicket')
+                          @endif
+                          @if($ticket->problem_type ==="Kennwort zurücksetzen")
+                          @include('tickets.admins.view_ticket_blades.userResetPassword')
+                          @endif
+                          @if($ticket->problem_type ==="Namensänderung")
+                          @include('tickets.admins.view_ticket_blades.userChangeName')
+                          @endif
+                          @if($ticket->problem_type ==="Benutzer sonstiges")
+                          @include('tickets.admins.view_ticket_blades.userOthers')
+                          @endif
+                          @if($ticket->problem_type ==="Ändern den Telefonstandort")
+                          @include('tickets.admins.view_ticket_blades.tel_change_place')
+                          @endif
+                          @if($ticket->problem_type ==="Ändern den Telefonnamen")
+                          @include('tickets.admins.view_ticket_blades.tel_change_name')
+                          @endif
+                          @if($ticket->problem_type ==="Ändern die Telefonnummer")
+                          @include('tickets.admins.view_ticket_blades.tel_change_number')
+                          @endif
+                          @if($ticket->problem_type ==="Tel Probleme")
+                          @include('tickets.admins.view_ticket_blades.tel_problems')
+                          @endif
                        
-                          <div class="col-md-12 invoice-col">
+                          <div class="col-md-12 invoice-col mt-2">
                             <strong style="color:#661421;" >Beschreibung <i class="far fa-comment-dots fa-lg"></i></strong>
                             <address class="mt-3">
                               <strong>{!!@$ticket->notizen!!}</strong><br>
@@ -139,7 +173,7 @@ u {
                       </div>
                       <div class="row">
                         <div class="form-group col-md-6 col-lg-12">
-                          <label for="beschreibung"> Kemmentar </label>
+                          <label for="beschreibung"> Kommentar </label>
                         </div>
                         <div class="col-md-12 ">
                           @comments(['model' => $ticket])
@@ -200,6 +234,7 @@ $(document).ready(function(){
    });
   });
 })
+
 </script>
 @endsection
 

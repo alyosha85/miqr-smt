@@ -60,10 +60,7 @@
                                 </select>
                               </fieldset>
                             </div> 
-                              <div class="form-group col-md-6 col-lg-12">
-                                <label for="notizen"> Beschreibung</label>
-                                <textarea type="text" name="notizen" id="notizen" class="form-contro" ></textarea>
-                              </div>
+                            @include('tickets.layout_ticket.note',['discription'=>'Beschreibung'])
                             </div>                  
                             <div>
                               <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>
@@ -96,6 +93,7 @@
 @section('script')
 
 <script>
+
   $.ajaxSetup({
 headers: {
 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -165,17 +163,8 @@ $(document).ready(function() {
       tags: true
     });
 
-    $('#notizen').summernote({
 
-      height:300,
-
-      });
-  }
-
+})
 
 </script>
 @endsection
-
-
-
-

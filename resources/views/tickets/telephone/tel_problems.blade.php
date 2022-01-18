@@ -81,8 +81,8 @@ $(document).ready(function() {
               <label for="tel_current_room"> Raum </label>
               <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
               </select>
-              <label for="tel_name"> Telefon </label>
-              <select class="custom-select form-control mb-2" id="tel_name" name="tel_name" required>
+              <label for="gname_id"> Telefon </label>
+              <select class="custom-select form-control mb-2" id="gname_id" name="gname_id" required>
               </select>
             </fieldset>
           </div>
@@ -99,7 +99,7 @@ $(document).ready(function() {
           </div> 
             <div class="form-group col-md-6 col-lg-12">
               <label for="notizen"> Notizen</label>
-              <textarea type="text" name="notizen" class="form-control" ></textarea>
+              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
             </div>
           </div>                  
           <div>
@@ -193,6 +193,11 @@ $(document).ready(function() {
           }
         }
       });
+
+    $('.notizen').summernote({
+    height:150,
+    lang:'de-DE'
+    }); 
   })
 
   $('#tel_change_name').click(function(){
@@ -214,8 +219,8 @@ $(document).ready(function() {
               <label for="tel_current_room"> Raum </label>
               <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
               </select>
-              <label for="tel_name"> Telefon </label>
-              <select class="custom-select form-control mb-2" id="tel_name" name="tel_name" required>
+              <label for="gname_id"> Telefon </label>
+              <select class="custom-select form-control mb-2" id="gname_id" name="gname_id" required>
               </select>
             </fieldset>
           </div>
@@ -230,7 +235,7 @@ $(document).ready(function() {
           </div> 
             <div class="form-group col-md-6 col-lg-12">
               <label for="notizen"> Grund</label>
-              <textarea type="text" name="notizen" class="form-control" ></textarea>
+              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
             </div>
           </div>                  
           <div>
@@ -290,6 +295,11 @@ $(document).ready(function() {
         }
       });
     });
+
+    $('.notizen').summernote({
+    height:150,
+    lang:'de-DE'
+    }); 
   })
 
   $('#tel_change_number').click(function(){
@@ -311,8 +321,8 @@ $(document).ready(function() {
               <label for="tel_current_room"> Raum </label>
               <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
               </select>
-              <label for="tel_name"> Telefon </label>
-              <select class="custom-select form-control mb-2" id="tel_name" name="tel_name" required>
+              <label for="gname_id"> Telefon </label>
+              <select class="custom-select form-control mb-2" id="gname_id" name="gname_id" required>
               </select>
             </fieldset>
           </div>
@@ -325,7 +335,7 @@ $(document).ready(function() {
           </div> 
             <div class="form-group col-md-6 col-lg-12">
               <label for="notizen"> Grund</label>
-              <textarea type="text" name="notizen" class="form-control" ></textarea>
+              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
             </div>
           </div>                  
           <div>
@@ -420,8 +430,15 @@ $(document).ready(function() {
           }
         }
       });
+      
+      $('.notizen').summernote({
+    height:150,
+    lang:'de-DE'
+    }); 
 
-  })
+  });
+
+  
   
 
 });

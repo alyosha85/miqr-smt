@@ -125,7 +125,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
                     <span class="btn btn-success btn-small"><i class="fas fa-check"></i></span>
                   </td> -->
 
-                  <td><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->submitter}}</a></td>
+                  <td><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->subUser->username}}</a></td>
                   <!-- <td><a>{{$myTicket->tel_number}}</a></td>
                   <td><a>{{$myTicket->custom_tel_number}}</a></td> -->
                   <td><a>{{$myTicket->problem_type}}</a></td>
@@ -148,7 +148,7 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
                   <td>{{$myTicket->created_at->diffForHumans()}}
                     <p class="small muted">{{ $myTicket->created_at->format('d.m.Y ')}}</p>
                   </td>
-                  <td class="wrapok" >{{$myTicket->notizen}}</td>
+                  <td class="wrapok" >{!!$myTicket->notizen!!}</td>
                 </tr>
                 @empty
                   <td class="text-center">
@@ -195,7 +195,7 @@ $(document).ready(function() {
       responsive: true,
       autoWidth: false,
       columnDefs: [
-                { targets: 8, width: "40%" },
+    { targets: 8, width: "40%" },
     ]
     });
 } );
