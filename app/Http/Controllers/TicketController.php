@@ -469,7 +469,7 @@ class TicketController extends Controller
     {
       $user = Auth()->user();
       $myTickets = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('submitter',$user->id)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
-      $ticketsdone = Ticket::onlyTrashed()->where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
+      $ticketsdone = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->onlyTrashed()->count();
       $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.usertickets',compact('user','myTickets','myTicketsCount','ticketsdone'));
     }
