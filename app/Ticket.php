@@ -52,5 +52,9 @@ class Ticket extends Model
   {
     return $this->belongsTo('App\User','replication_id','id');
   }
+  public function participantTable()
+  {
+    return $this->hasMany('App\ParticipantTicketTable','ticket_id','id');
+  }
 
 }

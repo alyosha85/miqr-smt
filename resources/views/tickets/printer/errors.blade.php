@@ -23,13 +23,13 @@
                       </div>
                       <div id="underform">
                         <!-- ! Jquery forms here --> 
-                        <input type="hidden" name="problem_type" value="Drucker hinzufügen">
+                        <input type="hidden" name="problem_type" value="Drucker Fehler">
                         <div class="card-body box-profile form-group">       
                           <div class="row col-md-12">
                             <div class="form-group col-md-6">
                               <label for="searchcomputer"> Welcher Rechner</label>
                               <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
-                              <option class="form-control" value="-1"></option>
+                              <option class="form-control" value="">Bitte Wählen</option>
                               @foreach($computers as $computer)
                                 <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
                               @endforeach

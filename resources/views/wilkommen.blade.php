@@ -303,7 +303,7 @@
                         <!-- Card  -->
                         <div class="card card-primary card-outline" style="background-color: #661421;">
                           <div class="card-body">
-                            <h5 class="card-title mb-3" style="color:#fff;"><strong>Favoriten Links</strong></h5>
+                            <h5 class="card-title mb-3" style="color:#fff;"><strong>Shortcut-Panel</strong></h5>
                             <div class="card-text">
                               <div class="list-group">
                                 <a href="{{route ('profile')}}" class="list-group-item list-group-item-action list-group-item-primary py-1"><i class="far fa-user fa-lg"></i><strong> Eigenes Profil bearbeiten</strong></a>

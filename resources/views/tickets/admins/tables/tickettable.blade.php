@@ -61,8 +61,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
             <h3 class="card-title text-bold">
               @if (URL::current() == route('ticket.opentickets'))   
               Anzahl offener Tickets:{{@$AllTicketsCount}}</h3>
-              @else 
-                Anzahl Nicht zugewiesener Tickets: {{@$UnassignedTicketsCount}}</h3>
+              @elseif  (URL::current() == route('ticket.unassigned'))
+              Anzahl Nicht zugewiesener Tickets: {{@$UnassignedTicketsCount}}</h3>
+              @elseif  (URL::current() == route('ticket.history'))
+              Anzahl Erledigter Tickets: {{@$done}}</h3>
               @endif
             
 
@@ -81,18 +83,18 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
           <!-- /.card-header -->
           <div class="card-body p-0">
             <div class="mailbox-messages display nowrap" style="width: 100%;">
-              <table class="display nowrap table-sm" id="ticket_table">
+              <table class="display responsive compact table-sm" id="ticket_table">
                 <thead>
                   <tr>
                     <th></th>
                     <th class="text-center"></th>
-                    <th>Erstellt von</th>
+                    <th class="text-center">Erstellt von</th>
                     <th>Anfrage</th>
                     <th>Rechner</th>
                     <th></th>
                     <th>Priorität</th>
                     <th>Erstellt am</th>
-                    <th>Beschreibung</th>
+                    <th class="none">Beschreibung</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -125,10 +127,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
                     <span class="btn btn-success btn-small"><i class="fas fa-check"></i></span>
                   </td> -->
 
-                  <td><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->subUser->username}}</a></td>
+                  <td class="text-center"><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->subUser->username}}</a></td>
                   <!-- <td><a>{{$myTicket->tel_number}}</a></td>
                   <td><a>{{$myTicket->custom_tel_number}}</a></td> -->
-                  <td><a>{{$myTicket->problem_type}}</a></td>
+                  <td><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->problem_type}}</a></td>
                   
                   <td><b>{{@$myTicket->invitem->gname}} </b></td>
                   <td></td>
@@ -145,10 +147,10 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
                     <span class="badge badge-pill badge-danger">Hoch</span>
                     @endif
                   </td>
-                  <td>{{$myTicket->created_at->diffForHumans()}}
-                    <p class="small muted">{{ $myTicket->created_at->format('d.m.Y ')}}</p>
+                  <td>{{@$myTicket->created_at->diffForHumans()}}
+                    <p class="small muted">{{ @$myTicket->created_at->format('d.m.Y ')}}</p>
                   </td>
-                  <td class="wrapok" >{!!$myTicket->notizen!!}</td>
+                  <td>{!!$myTicket->notizen!!}</td>
                 </tr>
                 @empty
                   <td class="text-center">
@@ -195,7 +197,7 @@ $(document).ready(function() {
       responsive: true,
       autoWidth: false,
       columnDefs: [
-    { targets: 8, width: "40%" },
+    { targets: 8, width: "1%" },
     ]
     });
 } );

@@ -2,26 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Gart;
 use App\User;
+use Response;
 use App\Place;
 use App\Ticket;
 use App\InvRoom;
 use App\Problem;
 use App\InvItems;
 use App\Location;
+use App\InvAbItem;
 use Carbon\Carbon;
 use App\TicketType;
 use App\TicketStatus;
-use App\InvAbItem;
+use App\TicketPriority;
 use App\EquipmentProblem;
-use App\Gart;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use App\Imports\ParticipantTicketImport;
 use Spatie\Permission\Models\Permission;
 use App\Notifications\TicketNotification;
-use App\TicketPriority;
+use App\ParticipantTicketTable;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Notifications\DatabaseNotification;
 
 class TicketController extends Controller
 {
@@ -236,6 +241,7 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.telephone.tel_changes',compact('user','now','tickets','users'));
     }
+    
     public function tel_problems() 
     {
       $rooms = InvRoom::with('location')->get();
@@ -245,6 +251,25 @@ class TicketController extends Controller
       $tickets = TicketType::all();
       return view ('tickets.telephone.tel_problems',compact('user','now','tickets','users'));
     }
+
+    //! Ticket Web //
+    public function web_all()
+    {
+      $users = User::get()->toArray();
+      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+      $user = Auth()->user();
+      $tickets = TicketType::all(); 
+      return view('tickets.web.all',compact('user','now','tickets','users'));
+    }
+    public function terminal_tn() 
+    {
+      $users = User::get()->toArray();
+      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+      $user = Auth()->user();
+      $tickets = TicketType::all(); 
+      return view('tickets.web.terminal_tn',compact('user','now','tickets'));
+    }
+    
 
     public function tel_in_room(Request $request)
     {
@@ -301,6 +326,7 @@ class TicketController extends Controller
     public function store(Request $request)
     { 
         $admins = User::role('Super_Admin')->get();
+        $user = Auth()->user();
         $ticket = New Ticket;
         $ticket -> submitter = $request -> submitter;
         $ticket -> priority_id = $request -> priority;
@@ -359,6 +385,9 @@ class TicketController extends Controller
         $ticket -> current_tel_name = $request -> current_tel_name;
         $ticket -> new_tel_name = $request -> new_tel_name;
         $ticket -> new_tel_number = $request -> new_tel_number;
+        $ticket -> terminal_name = $request -> terminal_name;
+        $ticket -> terminal_datev = $request -> terminal_datev;
+        $ticket -> terminal_lexware = $request -> terminal_lexware;
         $description = $request->notizen;
         
         if ($description) {
@@ -388,13 +417,27 @@ class TicketController extends Controller
           'submitter' => $ticket->subUser->username,
           'problem_type' => $ticket->problem_type,
         ];
+        
         Notification::send($admins, new TicketNotification($notifications));
         return redirect()->route('ticket.usertickets');
     }
 
+    public function download_muster()
+    {
+      $path=public_path('Muster.xlsx');
+      return response()->download($path);
+    }
+
 
     public function store_participant(Request $request){
-      foreach ($request->addmore as $key => $value) {
+
+      $validator=Validator::make($request->all(),[
+           'muster'=>'required|max:20000|mimes:xlsx,xls',
+       ]);
+       if ($validator->fails()) {
+        return back()
+        ->withErrors($validator);
+      }
         $admins = User::role('Super_Admin')->get();
         $ticket = New Ticket;
         $ticket -> submitter = $request -> submitter;
@@ -402,24 +445,44 @@ class TicketController extends Controller
         $ticket -> tel_number = $request -> tel_number;
         $ticket -> custom_tel_number = $request -> custom_tel_number;
         $ticket -> problem_type = $request -> problem_type;
-        $ticket->name_participant = $request->name_participant;
-        $ticket->vorname_participant = $request->vorname_participant;
-        $ticket->course_participant = $request->course_participant;
-        $ticket->notes_participant = $request->notes_participant;
-      }
-      return $request;
-      $ticket->save();
+        $ticket->save();
+        Excel::import(new ParticipantTicketImport($ticket->id), $request->file('muster'));
 
-      Notification::send($admins, new TicketNotification($ticket));
+        $notifications = [
+          'ticket_id' => $ticket->id,
+          'submitter' => $ticket->subUser->username,
+          'problem_type' => $ticket->problem_type,
+        ];
+      Notification::send($admins, new TicketNotification($notifications));
       return redirect()->route('ticket.usertickets');
     }
      
+    public function participant_username_update(Request $request)
+    {
+      $username = ParticipantTicketTable::where('id',$request->password_id)->first();
+      $username -> username = $request->username;
+      $username->save();
+      return $username;
+    }
+
     public function usertickets()
     {
       $user = Auth()->user();
       $myTickets = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->where('submitter',$user->id)->orWhere('assignedTo',$user->id)->orderBy('updated_at','DESC')->get();
+      $ticketsdone = Ticket::onlyTrashed()->where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
       $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
-      return view('tickets.usertickets',compact('user','myTickets','myTicketsCount'));
+      return view('tickets.usertickets',compact('user','myTickets','myTicketsCount','ticketsdone'));
+    }
+    public function userticketshistory()
+    {
+      $user = Auth()->user();
+      $oldTickets = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')
+                                        ->where('submitter',$user->id)
+                                        ->orWhere('assignedTo',$user->id)
+                                        ->orderBy('updated_at','DESC')->onlyTrashed()->get();
+      $ticketsdone = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->onlyTrashed()->count();
+      $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
+      return view('tickets.userticketsdone',compact('user','oldTickets','myTicketsCount','ticketsdone'));
     }
 
     public function opentickets()
@@ -444,26 +507,36 @@ class TicketController extends Controller
       $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
       return view('tickets.admins.unassigned',compact('user','myTickets','UnassignedTicketsCount','admins','myTicketsCount','AllTicketsCount'));
     }
+    public function tickethistory()
+    {
+
+      $name = 'ticket history';
+      $user = Auth()->user();
+      $admins = User::role('Super_Admin')->get();
+      $myTickets = Ticket::onlyTrashed()->orderBy('updated_at','DESC')->get();
+      $done = Ticket::onlyTrashed()->count();
+      $AllTicketsCount = Ticket::all()->count();
+      $myTicketsCount = Ticket::where('submitter',$user->id)->orWhere('assignedTo',$user->id)->count();
+      return view('tickets.admins.tickethistory',compact('user','myTickets','done','admins','myTicketsCount','AllTicketsCount'));
+    }
 
     public function show($id)
     {
+      $user = Auth()->user();
       $ticket_status = TicketStatus::all();
       $ticket_priority = TicketPriority::all();
       $ticket = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->with('subUser')->where('id',$id)->first();
-
-      $userUnreadNotification = auth()->user()->unreadNotifications
-                                ->whereIn('data->id',$id)
-                                ->first();
-                                return $userUnreadNotification;
-      //                           if($userUnreadNotification) {
-      //                             $userUnreadNotification->markAsRead();
-      //                         }
-
+      $blade_name = 'tickets.admins.view_ticket_blades.'.str_replace(' ','',strtolower($ticket->problem_type)).'ticket';
+      $not = $user->unreadNotifications()->where('data->id',$id)->first();
+      if($not){
+      $not->markAsRead();
+      }
 
       $createdAt = Carbon::parse($ticket->created_at);
       $telNewRoom = InvRoom::where('id',$ticket->tel_target_room)->first();
       $telNewAddress = Location::where('id',$ticket->tel_target_place)->first();
-      return view('tickets.admins.showticket',compact('ticket','createdAt','ticket_status','ticket_priority','telNewRoom','telNewAddress'));
+      $teilnehmers = ParticipantTicketTable::where('ticket_id',$ticket->id)->get();
+      return view('tickets.admins.showticket',compact('ticket','createdAt','ticket_status','ticket_priority','telNewRoom','telNewAddress','blade_name','teilnehmers'));
     }
 
     /**
@@ -516,8 +589,15 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ticket $ticket)
+    public function destroy($id)
     {
-        //
+      $admins = User::role('Super_Admin')->get();
+      $ticket = Ticket::findOrFail($id);
+      foreach ($admins as $admin) {
+        $not = $admin->Notifications()->where('data->id',$id)->first();
+          $not->markAsRead();
+      }
+      $ticket -> delete();
+      return redirect()->route('ticket.opentickets');
     }
 }

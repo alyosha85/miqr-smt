@@ -69,7 +69,7 @@ $(document).ready(function() {
     $('#tel_change_number').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="Ändern den Telefonstandort">
+      <input type="hidden" name="problem_type" value="Anderer Telefonstandort">
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
@@ -149,7 +149,6 @@ $(document).ready(function() {
         url:"{{ route('tel_in_room') }}",
         data:{telephones:$( this ).val(),location_id:$('#location_id_listen').val()},
         success:function(resp){
-          console.log(resp)
           $('#tel_name').find('option').remove();
               $.each(resp,function(index, item) {
               $("#tel_name").append(new Option(item.gname,item.id));
@@ -159,7 +158,6 @@ $(document).ready(function() {
         }
       });
     });
-
 
     let selectAddresslist = new Array();
     let roomlist = new Array();
@@ -194,6 +192,7 @@ $(document).ready(function() {
         }
       });
 
+
     $('.notizen').summernote({
     height:150,
     lang:'de-DE'
@@ -207,7 +206,7 @@ $(document).ready(function() {
     $('#tel_change_number').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="Ändern den Telefonnamen">
+      <input type="hidden" name="problem_type" value="Telefonnamenswechsel">
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
@@ -285,7 +284,6 @@ $(document).ready(function() {
         url:"{{ route('tel_in_room') }}",
         data:{telephones:$( this ).val(),location_id:$('#location_id_listen').val()},
         success:function(resp){
-          console.log(resp)
           $('#tel_name').find('option').remove();
               $.each(resp,function(index, item) {
               $("#tel_name").append(new Option(item.gname,item.id));
@@ -309,7 +307,7 @@ $(document).ready(function() {
     $('#tel_change_number').removeClass().addClass('btn btn-primary');
     underform.append(
       `
-      <input type="hidden" name="problem_type" value="Ändern die Telefonnummer">
+      <input type="hidden" name="problem_type" value="Telefonnummerntausch">
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
@@ -386,7 +384,6 @@ $(document).ready(function() {
         url:"{{ route('tel_in_room') }}",
         data:{telephones:$( this ).val(),location_id:$('#location_id_listen').val()},
         success:function(resp){
-          console.log(resp)
           $('#tel_name').find('option').remove();
               $.each(resp,function(index, item) {
               $("#tel_name").append(new Option(item.gname,item.id));
@@ -398,39 +395,7 @@ $(document).ready(function() {
     });
 
 
-    let selectAddresslist = new Array();
-    let roomlist = new Array();
-      $('#tel_target_place').find('option').remove();
-      $('#tel_target_place').find('optgroup').remove();
-      $('#tel_target_place').append(new Option("Standort...",''));
-      $('#tel_target_room').find('option').remove();
-      $("#tel_target_room").append(new Option("Raum...",''));
-      $.ajax({
-        type: "get",
-        url: "{{route('item.listen')}}",
-        }).done(function(data) {
-          selectAddresslist = new Array();
-          $.each(data['places'], function(index, item) {
-              $("body #tel_target_place").append('<optgroup label="'+index+'" id="'+item+'" ></optgroup>');
-          });
-          $.each(data['locations'], function(index, item) {
-          $("#tel_target_place #"+item.place_id).append(new Option(item.address,item.id));
-          selectAddresslist.push(item);
-          });
-        });
-      $( document ).on( "change", "#tel_target_place", function() {
-        $('#tel_target_room').find('option').remove();
-        $("#tel_target_room").append(new Option("Raum...",''));
-        for(let i = 0; i<selectAddresslist.length ; i++){
-          if(selectAddresslist[i].id == $( this ).val()){
-            $.each(selectAddresslist[i].invrooms, function(index, item) {
-              $("#tel_target_room").append(new Option(item.rname+' ('+item.altrname+')',item.id));
-              roomlist.push(item);
-            });
-          }
-        }
-      });
-      
+  
       $('.notizen').summernote({
     height:150,
     lang:'de-DE'

@@ -96,7 +96,7 @@ class SettingController extends Controller
           'alert-type' => 'success'
         );
         
-        return redirect()->route('inventory')->with($sucMsg);
+        return redirect()->route('home')->with($sucMsg);
     }
 		//** Settings index **//
 		public function index()

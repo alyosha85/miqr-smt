@@ -36,7 +36,7 @@ class TicketNotification extends Notification
         return ['database'];
     }
 
-    /**
+    /** 
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -66,10 +66,11 @@ class TicketNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
+    // public function toArray($notifiable)
+    // {
+    //     return [
+    //         //
+    //     ];
+    // }
+
 }

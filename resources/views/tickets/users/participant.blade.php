@@ -7,7 +7,7 @@
       <div class="col-12 mx-auto">
         <div class="card card-primary card-outline">
           <div class="card-body box-profile form-group">
-            <form action="{{route ('store_participant')}}" method="post">
+            <form action="{{route ('store_participant')}}" method="post" enctype="multipart/form-data">
               @csrf
               <div class="row mx-auto">
                 <!-- Submitter Section layout_ticket submitter.blade.php -->
@@ -20,29 +20,18 @@
                       <input type="hidden" name="problem_type" value="Neuer Teilnehmer">
                       <div class="card-body box-profile form-group">       
                         <div class="row col-md-12">
-                          <table class="table table-sm" id="dynamicTable">  
-                            <tr>
-                                <th>Name</th>
-                                <th>Vorname</th>
-                                <th>Maßnahme</th>
-                                <th>Bemerkung</th>
-                                <th></th>
-                            </tr>
-                            <tr>  
-                                <td><input type="text" name="addmore[0][name_participant]" class="form-control" /></td>  
-                                <td><input type="text" name="addmore[0][vorname_participant]" class="form-control" /></td>  
-                                <td><input type="text" name="addmore[0][course_participant]" class="form-control" /></td>  
-                                <td><input type="text" name="addmore[0][notes_participant]" class="form-control" /></td>  
-                                <td><button type="button" name="add" id="add" class="btn btn-success">Weitere</button></td>  
-                            </tr>  
-                          </table> 
+                          <a type="button" href="{{route('download_muster')}}" name="muster_download" id="muster_download" class="btn btn-success">Muster Herunterladen</a>
+                          <br>
+                          <div class="row col-md-12 mt-3">
+                          <p>Bitte laden Sie das Muster herunter und tragen die Teilnehmer Daten in die entsprechende Zellen ein.</p>
+                          </div>
                         </div>                  
+                        <input type="file" name="muster"/>                         
                         <div>
                           <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>
                         </div>
                       </div>
                     </div>
-                    <input type="file">                          
                   </div>
                 </div><!--end second card -->
               </div>
@@ -63,29 +52,9 @@ headers: {
 }
 });
 
-var i = 0;
-       
-    $("#add").click(function(){
-   
-        ++i;
-   
-        $("#dynamicTable").append('<tr><td><input type="text" name="addmore['+i+'][name]" class="form-control"/></td><td><input type="text" name="addmore['+i+'][vorname_participant]" class="form-control"/></td><td><input type="text" name="addmore['+i+'][course_participant]" class="form-control" /></td><td><input type="text" name="addmore['+i+'][notes_participant]" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Entfernen</button></td></tr>');
-    });
-   
-    $(document).on('click', '.remove-tr', function(){  
-         $(this).parents('tr').remove();
-    });  
 
 
-
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file"]');
-    const pond = FilePond.create(inputElement);
-    FilePond.seOptions({
-    });
-
-
-
+ 
 </script>
 @endsection
 

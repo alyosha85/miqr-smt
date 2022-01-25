@@ -8,7 +8,7 @@
     <div class="col-sm-4 invoice-col">
       PC
       <address>
-        <u class="mt-1"><strong>{{$ticket->invitem->gname}}</strong></u><br>
+        <u class="mt-1"><strong>{{@$ticket->invitem->gname}}</strong></u><br>
       </address>
     </div>
     <div class="col-sm-4 invoice-col">
@@ -23,22 +23,4 @@
         <u class="mt-1"><strong>{{@$ticket->invitem->invroom->rname}} <i class="fas fa-grip-lines-vertical"></i> {{@$ticket->invitem->invroom->altrname}}</strong></u><br>
       </address>
     </div>
-    <div class="col-sm-4 invoice-col">
-      Drucker
-      <address>
-        <u class="mt-1"><strong>{{$ticket->printer->gname}}</strong></u><br>
-      </address>
-    </div>
-    <div class="col-sm-4 invoice-col">
-      Adresse
-      <address>
-        <u class="mt-1"><strong>{{@$ticket->printer->invroom->location->address}}</strong></u><br>
-      </address>
-    </div>
-    <div class="col-sm-4 invoice-col">
-      Raum
-      <address>
-        <u class="mt-1"><strong>{{@$ticket->printer->invroom->rname}} <i class="fas fa-grip-lines-vertical"></i> {{@$ticket->printer->invroom->altrname}}</strong></u><br>
-      </address>
-    </div>
-   
+

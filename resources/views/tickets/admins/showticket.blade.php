@@ -17,7 +17,7 @@ u {
 </style>
 
 @section('content')
-@include('tickets.layout_ticket.header',['title'=>'Something Here !!'])
+@include('tickets.layout_ticket.header',['title'=>''])
 
   <!-- Main content -->
   <section class="content">
@@ -38,7 +38,10 @@ u {
                         </div>
                         @if(auth()->user()->hasRole('Super_Admin'))
                         <div class="form-group col-md-12">
-                          <button type="submit" class="btn btn-success col-md-12">Erledigt</button>
+                        <form action="{{ route ('ticket.delete',$ticket->id) }}" method="POST">
+                          @csrf
+                          <button type="submit" class="btn btn-success col-md-12" type="submit" value="Delete" >Erledigt</button>
+                       </form>
                         </div>
                         @endif
                         <div class="form-group col-md-6">
@@ -102,60 +105,8 @@ u {
                     <div class="card-body box-profile form-group">
                       <div class="row">
                           <!-- PC & Laptop -->
-                          @if($ticket->problem_type ==="Software Installieren")
-                          @include('tickets.admins.view_ticket_blades.softwareInstallTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Softwareanfrage Sonstiges")
-                          @include('tickets.admins.view_ticket_blades.softwareOthersTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Activiren")
-                          @include('tickets.admins.view_ticket_blades.softwareActiveTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Peripherie Anfrage")
-                          @include('tickets.admins.view_ticket_blades.peripherieTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Hardware Anfrage")
-                          @include('tickets.admins.view_ticket_blades.hardwareTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Probleme")
-                          @include('tickets.admins.view_ticket_blades.problemTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Drucker hinzufügen")
-                          @include('tickets.admins.view_ticket_blades.printerTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Scanner Probleme")
-                          @include('tickets.admins.view_ticket_blades.scannerProblemTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Funktionsanfrage")
-                          @include('tickets.admins.view_ticket_blades.printerFunctualityTicket')
-                          @endif
-                          @if($ticket->problem_type ==="PC / Laptop Sonstiges")
-                          @include('tickets.admins.view_ticket_blades.pcLaptopSonstiges')
-                          @endif
-                          @if($ticket->problem_type ==="Neuer Mitarbeiter")
-                          @include('tickets.admins.view_ticket_blades.employeeTicket')
-                          @endif
-                          @if($ticket->problem_type ==="Kennwort zurücksetzen")
-                          @include('tickets.admins.view_ticket_blades.userResetPassword')
-                          @endif
-                          @if($ticket->problem_type ==="Namensänderung")
-                          @include('tickets.admins.view_ticket_blades.userChangeName')
-                          @endif
-                          @if($ticket->problem_type ==="Benutzer sonstiges")
-                          @include('tickets.admins.view_ticket_blades.userOthers')
-                          @endif
-                          @if($ticket->problem_type ==="Ändern den Telefonstandort")
-                          @include('tickets.admins.view_ticket_blades.tel_change_place')
-                          @endif
-                          @if($ticket->problem_type ==="Ändern den Telefonnamen")
-                          @include('tickets.admins.view_ticket_blades.tel_change_name')
-                          @endif
-                          @if($ticket->problem_type ==="Ändern die Telefonnummer")
-                          @include('tickets.admins.view_ticket_blades.tel_change_number')
-                          @endif
-                          @if($ticket->problem_type ==="Tel Probleme")
-                          @include('tickets.admins.view_ticket_blades.tel_problems')
-                          @endif
+
+                          @include($blade_name)
                        
                           <div class="col-md-12 invoice-col mt-2">
                             <strong style="color:#661421;" >Beschreibung <i class="far fa-comment-dots fa-lg"></i></strong>
@@ -172,10 +123,10 @@ u {
                         </div>
                       </div>
                       <div class="row">
-                        <div class="form-group col-md-6 col-lg-12">
+                        <div class="form-group col-md-6 col-lg-12 ml-3">
                           <label for="beschreibung"> Kommentar </label>
                         </div>
-                        <div class="col-md-12 ">
+                        <div class="col-md-12 ml-3">
                           @comments(['model' => $ticket])
                         </div>
                       </div><!--end for second row of second card-->
@@ -207,16 +158,13 @@ headers: {
 
 $(document).ready(function(){
   let ticket_id = $('#ticket_id_priority').val();
-  console.log(ticket_id);
   $(document).on('change', '#priority', function() {
     let priority = $(this).val();
-    console.log(priority);
    $.ajax({
     type:"post",
     url: "{{route('ticket.ticketPriority')}}",
     data: {"priority":priority,"ticket_id":ticket_id},
     success:function(result){
-      console.log(result);
     }
    });
   });
@@ -229,11 +177,33 @@ $(document).ready(function(){
     url: "{{route('ticket.ticketStatus')}}",
     data: {"status":status,"ticket_id":ticket_id},
     success:function(result){
-      console.log(result);
     }
    });
   });
+
+  
 })
+
+$(document).on('blur', '.password', function() {
+    let password_id = $(this).attr('id');
+    let username =$(this).val();
+    $.ajax({
+    type:"post",
+    url: "{{route('participant_username_update')}}",
+    data: {"password_id":password_id,"username":username},
+    success:function(result){
+      console.log(result);
+    }
+   });
+
+
+
+  });
+
+
+
+
+
 
 </script>
 @endsection

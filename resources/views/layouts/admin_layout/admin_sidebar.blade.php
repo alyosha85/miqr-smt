@@ -1,7 +1,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="{{route('home')}}" class="brand-link">
       <img src="/images/admin_images/logo.png" alt="MIQR Logo" class="brand-image-xl" style="max-height: 55px; width: 100%;">
       <br>
     </a>
@@ -55,6 +55,7 @@
 						</a>
 					</li>
           @endif
+          @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('Super_Admin'))
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-sitemap" style="color:green;"></i>
@@ -246,6 +247,7 @@
                 </li>
             </ul>
           </li>
+          @endif
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-ticket-alt" style="color:orangered;"></i>
@@ -284,7 +286,7 @@
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('ticket.history') }}" class="nav-link">
                       <i class="far fa-folder nav-icon"></i>
                         <i class="fas fa-check nav-icon"></i>
                         <p>Erledigt</p>

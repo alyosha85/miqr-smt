@@ -22,7 +22,7 @@
                       <div class="card-body box-profile form-group">
                       </div>
                       <div id="underform">
-                        <input type="hidden" name="problem_type" value="Drucker hinzufügen">
+                        <input type="hidden" name="problem_type" value="Drucker Einrichten">
                         <div class="card-body box-profile form-group">       
                           <div class="row col-md-12">
                             <div class="form-group col-md-6">

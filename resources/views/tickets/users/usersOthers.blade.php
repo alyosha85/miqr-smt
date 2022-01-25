@@ -67,7 +67,7 @@ $(document).ready(function() {
     $('#softother').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-    <input type="hidden" name="problem_type" value="Kennwort zurücksetzen">
+    <input type="hidden" name="problem_type" value="neues Kennwort">
     <div class="card-body box-profile form-group">       
       <div class="row col-md-12">
         <div class="form-group col-md-6">
@@ -161,7 +161,7 @@ $(document).ready(function() {
     $('#softother').removeClass().addClass('btn btn-outline-primary');
     underform.append(
       `
-    <input type="hidden" name="problem_type" value="Namensänderung">
+    <input type="hidden" name="problem_type" value="Wechsel Name">
     <div class="card-body box-profile form-group">       
       <div class="row col-md-12">
         <div class="form-group col-md-12">

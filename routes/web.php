@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'TicketController@index')->name('home');
+
 
 Route::group(['middleware' => ['auth']], function() {
   Route::resource('roles','RoleController');
@@ -131,21 +132,24 @@ Route::post('/searchbyusername','ContactController@searchByUsername')->name('sea
 
 //******************************************  Ticket  ******************************************************/
 Route::get('/usertickets','TicketController@usertickets')->name('ticket.usertickets'); 
+Route::get('/userticketshistory','TicketController@userticketshistory')->name('ticket.userticketsdone'); 
 Route::get('/ticket.index','TicketController@index')->name('ticket.index'); //duplicate
 Route::post('/problem_type','TicketController@problem_type')->name('problem_type'); 
 Route::post('/dependant_forms','TicketController@dependant_forms')->name('forms'); 
 Route::post('/problem_type_machine','TicketController@problem_type_machine')->name('problem_type_machine'); 
 Route::post('/form_store','TicketController@store')->name('form_store'); 
 Route::get('/ticket/address','TicketController@address')->name('ticket.address');
+
 //****************************************  Ticket Computer  *************************************************/
-Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); //duplicate
+Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); //ticket.assignedToduplicate
 Route::get('/ticket.software_request','TicketController@softwareRequest')->name('softwareRequest'); 
 Route::get('/ticket.peripheral_request','TicketController@peripheralRequest')->name('peripheralRequest'); 
 Route::get('/ticket.hardware_request','TicketController@hardwareRequest')->name('hardwareRequest'); 
 Route::get('/ticket.pc_problems','TicketController@pc_problems')->name('pc_problems'); 
-Route::get('/ticket.printer','TicketController@printer_in_out')->name('printer_in_out');  // same page in PC / Laptops and Drucker
+Route::get('/ticket.printer','TicketController@printer_in_out')->name('printer_in_out');  //! same page in PC / Laptops and Drucker
 Route::get('/ticket.other','TicketController@other')->name('other'); 
 Route::post('/ticket.printer_search_inroom','TicketController@printer_in_room')->name('printer_in_room'); //! AJAX find the printer  
+
 //****************************************  Ticket Printer  *************************************************/
 Route::get('/ticket.printer_all','TicketController@printer_all')->name('printer_all'); 
 Route::get('/ticket.scanner','TicketController@scanner')->name('scanner'); 
@@ -162,13 +166,23 @@ Route::get('/ticket.users_all','TicketController@users_all')->name('users_all');
 Route::get('/ticket.employee','TicketController@employee')->name('users_employee'); 
 Route::get('/ticket.users_others','TicketController@users_others')->name('users_others');
 Route::get('/ticket.participant','TicketController@participant')->name('users_participant'); 
-Route::get('/ticket.participant','TicketController@participant')->name('users_participant'); 
 Route::post('/ticket.participant.store','TicketController@store_participant')->name('store_participant'); //! store participant dynamic table 
+Route::get('donwload_muster', 'TicketController@download_muster')->name('download_muster');
+Route::post('/participant.username', 'TicketController@participant_username_update')->name('participant_username_update'); //! ajax update usernames in participant table
 //****************************************  Ticket Admins  *************************************************/
 Route::get('/opentickets','TicketController@opentickets')->name('ticket.opentickets'); 
 Route::get('/unassignedtickets','TicketController@unassignedtickets')->name('ticket.unassigned'); 
+Route::get('/tickethistory','TicketController@tickethistory')->name('ticket.history'); 
 Route::get('/ticket/{myTicket}','TicketController@show')->name('ticket.show'); 
-// Route::get('/ticket/{myTicket}','TicketController@show')->name('ticket.show'); 
+Route::post('/ticket.delete/{myTicket}','TicketController@destroy')->name('ticket.delete'); 
 Route::post('/ticket/assignTo','TicketController@assignedTo')->name('ticket.assignedTo');
 Route::post('/ticket/priority','TicketController@ticketPriority')->name('ticket.ticketPriority');
 Route::post('/ticket/status','TicketController@ticketStatus')->name('ticket.ticketStatus');
+
+//****************************************  Ticket Web  *************************************************/
+Route::get('/ticket.web_all','TicketController@web_all')->name('web_all');
+Route::get('/ticket.terminal_tn','TicketController@terminal_tn')->name('terminal_tn');
+Route::get('/ticket.bbb','TicketController@bbb')->name('bbb');
+Route::get('/ticket.vtiger','TicketController@vtiger')->name('vtiger');
+Route::get('/ticket.firmenvz','TicketController@firmenvz')->name('firmenvz');
+Route::get('/ticket.smt','TicketController@smt')->name('smt');

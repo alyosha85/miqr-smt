@@ -17,16 +17,11 @@
           </div>
           <div class="card-body p-0">
             <ul class="nav nav-pills flex-column">
-              <li class="nav-item active">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-inbox"></i> aktuelle 
-                  <span class="badge bg-primary float-right">{{$myTicketsCount}}</span>
-                </a>
+              <li class="nav-item active"><a href="{{route('ticket.usertickets')}}" class="nav-link"><i class="fas fa-inbox"></i> aktuelle 
+                  <span class="badge bg-primary float-right">{{$myTicketsCount}}</span></a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-trash-alt"></i> Erledigte
-                </a>
+                <a href="{{route('ticket.userticketsdone')}}" class="nav-link"><i class="far fa-check-circle"></i> Erledigte <span class="badge bg-success float-right">{{$ticketsdone}}</span></a></a>
               </li>
             </ul>
           </div>
@@ -38,7 +33,6 @@
         <div class="card card-primary card-outline">
           <div class="card-header">
             <h3 class="card-title">Anzahl offener Tickets: {{$myTicketsCount}} </h3>
-
             <!-- <div class="card-tools">
               <div class="input-group input-group-sm">
                 <input type="text" class="form-control" placeholder="Search Mail">
@@ -67,7 +61,6 @@
                   <td class="mailbox-subject">{{@$myTicket->priority}}</td>
                   <td class="mailbox-attachment"></td>
                   <td class="mailbox-date text-right">{{$myTicket->updated_at->diffForHumans()}}</td>
-
                 </tr>
                 @empty
                   <td class="text-center">

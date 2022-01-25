@@ -53,7 +53,7 @@ class CreateTicketsTable extends Migration
         $table->integer('room_id')->nullable();
         $table->string('printer_name')->nullable();
         $table->string('assignedTo')->nullable();
-        $table->integer('ticket_status_id')->nullable();
+        $table->integer('ticket_status_id')->default(1);
         $table->integer('replication_id')->nullable();
         $table->string('position_employee')->nullable();
         $table->string('abteilung_employee')->nullable();
@@ -75,6 +75,9 @@ class CreateTicketsTable extends Migration
         $table->string('current_tel_name')->nullable();
         $table->string('new_tel_name')->nullable();
         $table->string('new_tel_number')->nullable();
+        $table->string('terminal_name')->nullable();
+        $table->string('terminal_datev')->nullable();
+        $table->string('terminal_lexware')->nullable();
         $table->timestamps();
         $table->softDeletes();
       });

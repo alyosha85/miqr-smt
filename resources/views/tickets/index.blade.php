@@ -96,13 +96,14 @@
                             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 d-flex align-items-stretch">
                             <div class="card-flyer">
                               <div class="text-box">
-                              <a href="{{route('computer_all')}}">
+                              <a href="{{route('web_all')}}">
                                 <div class="image-box">
                                   <img src="/images/admin_images/www.png" alt="" />
                                 </div></a>
                                   <div class="text-container">                                    
                                     <h6>Web</h6>
                                   <ul class="list-unstyled">
+                                    <li><a href="{{route('terminal_tn')}}">Terminal TN</a></li>
                                     <li><a href="{{route('softwareRequest')}}">Big Blue Button</a></li>
                                     <li><a href="{{route('peripheralRequest')}}">Vtiger</a></li>
                                     <li><a href="{{route('hardwareRequest')}}">FirmenVZ</a></li>

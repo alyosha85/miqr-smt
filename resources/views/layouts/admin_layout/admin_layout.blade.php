@@ -48,6 +48,8 @@
   <link rel="stylesheet" href="{{url ('css/custom.css')}}">
 
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+  <!-- bootstraptable.css -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -170,21 +172,23 @@ $(function () {
 
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/lang/summernote-de-DE.min.js" integrity="sha512-2C5K3vx127hx1xmHot25EPLCOVYyqPr6F8A9UKPtmoYEL3la45Etrq5E7nby09as3cjMLzrxFJzslw1OFEOq4A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Bootstrap table JS -->
+<script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
 
 
 <script type="text/javascript">
-
-$(".hBack").on("click", function(e){
-    e.preventDefault();
-    window.history.back();
-});
 
 
 $('.notizen').summernote({
   height:150,
   lang: 'de-DE'
-  });
-  
+  });  
+ 
+  setInterval(function()
+  {
+  $('#notification_bell').load(document.URL + ' #notification_bell');
+  console.log('notification refreshed');
+}, 10000*5);
 </script>
 
   

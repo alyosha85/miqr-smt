@@ -4,11 +4,12 @@
       <h4 class="ticket_header">{{$ticket->problem_type}}</h4>
     </div>
   </div>
-  <div class="row invoice-info">
+  
+  <div class="row invoice-info">  
     <div class="col-sm-4 invoice-col">
-      PC
+      Telefon
       <address>
-        <u class="mt-1"><strong>{{$ticket->invitem->gname}}</strong></u><br>
+        <u class="mt-1"><strong>{{@$ticket->invitem->gname}}</strong></u><br>
       </address>
     </div>
     <div class="col-sm-4 invoice-col">
@@ -23,4 +24,3 @@
         <u class="mt-1"><strong>{{@$ticket->invitem->invroom->rname}} <i class="fas fa-grip-lines-vertical"></i> {{@$ticket->invitem->invroom->altrname}}</strong></u><br>
       </address>
     </div>
-
