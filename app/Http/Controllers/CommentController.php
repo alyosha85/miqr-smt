@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Http\Comments;
+namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Laravelista\Comments\Comment;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Honeypot\ProtectAgainstSpam;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Config;
+use Spatie\Honeypot\ProtectAgainstSpam;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CommentNotification;
 use Illuminate\Support\Facades\Notification;
-use App\User;
 use Laravelista\Comments\CommentControllerInterface;
 
 

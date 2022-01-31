@@ -27,7 +27,7 @@
                         <div class="card-body box-profile form-group">       
                           <div class="row col-md-12">
                             <div class="form-group col-md-6">
-                              <label for="searchcomputer"> Welcher Rechner</label>
+                              <label for="searchcomputer"> Welcher Rechner &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                               <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
                               <option class="form-control" value="">Bitte Wählen</option>
                               @foreach($computers as $computer)
@@ -47,15 +47,15 @@
                             <div class="form-group col-md-6">
                               <fieldset class="border rounded px-2 mb-2">
                               <legend class="w-auto">Drucker <i class="fas fa-print"></i></legend>
-                              <label for="printer_place"> Druckerstandort </label>
+                              <label for="printer_place"> Druckerstandort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                               <select class="custom-select form-control mb-2" id="printer_place" name="printer_place" required>
                               </select>
-                                <label for="printer_room"> Raum </label>
+                                <label for="printer_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                                 <select class="custom-select form-control mb-2" id="printer_room" name="printer_room" required>
                                 </select>
                 
                 
-                                <label for="printer_room"> Drucker </label>
+                                <label for="printer_room"> Drucker &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                                 <select class="custom-select form-control mb-2" id="printer_name" name="printer_name" required>
                                 </select>
                               </fieldset>

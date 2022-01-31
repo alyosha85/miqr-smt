@@ -113,7 +113,6 @@
                   <h2>Änderungen</h2>
                     <ul class="list-unstyled">
                       <li>Jegliche Änderungswünsche bzgl. dem Telefons.</li>
-                      <li>Maus, Tastatur, etc. </li>
                     </ul>
                 </div>
               </div>

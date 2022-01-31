@@ -24,19 +24,19 @@
                         <div class="card-body box-profile form-group">       
                           <div class="row col-md-12">
                             <div class="form-group col-md-6">
-                              <label for="tel_current_place"> Telefon standort </label>
+                              <label for="tel_current_place"> Telefon standort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                               <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
                               </select>
-                                <label for="tel_current_room"> Raum </label>
+                                <label for="tel_current_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                                 <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
                                 </select>
-                                <label for="searchcomputer"> Telefon </label>
+                                <label for="searchcomputer"> Telefon &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                                 <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
                                 </select>
                             </div>
                               <div class="form-group col-md-6 col-lg-12">
-                                <label for="notizen"> Notizen</label>
-                                <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
+                                <label for="notizen"> Notizen &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
+                                <textarea type="text" name="notizen" class="form-control notizen" required></textarea>
                               </div>
                             </div>                  
                             <div>

@@ -7,7 +7,7 @@
     </div>
     <div class="row invoice-info">
       <div class="col-sm-12 invoice-col">
-        PC
+        Rechner
         <address>
           <u class="mt-1"><strong>{{@$ticket->invitem->gname}}</strong></u><br>
         </address>

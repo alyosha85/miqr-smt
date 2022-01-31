@@ -53,6 +53,7 @@ class TicketNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
+          'title' => $this->myData['title'],
           'id' => $this->myData['ticket_id'],
           'Ersteller' => $this->myData['submitter'],
           'problem_type' => $this->myData['problem_type'],

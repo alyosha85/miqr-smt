@@ -22,7 +22,7 @@
                   <div class="card-body box-profile form-group">       
                     <div class="row col-md-12">
                       <div class="form-group col-md-6">
-                        <label for="pclaptopsonstiges"> Betreff</label>
+                        <label for="pclaptopsonstiges"> Betreff &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                         <input type="text" name="pclaptopsonstiges" id="pclaptopsonstiges" class="form-control" required autocomplete="false">
                       </div>
                       @include('tickets.layout_ticket.note',['discription'=>'Problembeschreibung'])

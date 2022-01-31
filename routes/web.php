@@ -141,7 +141,7 @@ Route::post('/form_store','TicketController@store')->name('form_store');
 Route::get('/ticket/address','TicketController@address')->name('ticket.address');
 
 //****************************************  Ticket Computer  *************************************************/
-Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); //ticket.assignedToduplicate
+Route::get('/ticket.computer_all','TicketController@computer_all')->name('computer_all'); 
 Route::get('/ticket.software_request','TicketController@softwareRequest')->name('softwareRequest'); 
 Route::get('/ticket.peripheral_request','TicketController@peripheralRequest')->name('peripheralRequest'); 
 Route::get('/ticket.hardware_request','TicketController@hardwareRequest')->name('hardwareRequest'); 
@@ -175,6 +175,7 @@ Route::get('/unassignedtickets','TicketController@unassignedtickets')->name('tic
 Route::get('/tickethistory','TicketController@tickethistory')->name('ticket.history'); 
 Route::get('/ticket/{myTicket}','TicketController@show')->name('ticket.show'); 
 Route::post('/ticket.delete/{myTicket}','TicketController@destroy')->name('ticket.delete'); 
+Route::post('/ticket.restore/{myTicket}','TicketController@restore')->name('ticket.restore'); 
 Route::post('/ticket/assignTo','TicketController@assignedTo')->name('ticket.assignedTo');
 Route::post('/ticket/priority','TicketController@ticketPriority')->name('ticket.ticketPriority');
 Route::post('/ticket/status','TicketController@ticketStatus')->name('ticket.ticketStatus');

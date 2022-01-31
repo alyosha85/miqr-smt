@@ -33,17 +33,31 @@ u {
                     <div class="card-body box-profile form-group">
                       <div class="row">
                         <div class="form-group col-md-12">
+                          @if($ticket->deleted_at)
+                          <p class="text-center lead">Erledigt von </p>
+                          <h3 class="text-center" style="color: #661421;"><b>{{$ticket->done_by}}</b></h3>
+                          @else
                           <p class="text-center lead">Zugewiesen an </p>
                           <h3 class="text-center" style="color: #661421;"><b>{{$ticket->user['username']}}</b></h3>
+                          @endif
                         </div>
-                        @if(auth()->user()->hasRole('Super_Admin'))
+                        @if($ticket->deleted_at)
                         <div class="form-group col-md-12">
-                        <form action="{{ route ('ticket.delete',$ticket->id) }}" method="POST">
-                          @csrf
-                          <button type="submit" class="btn btn-success col-md-12" type="submit" value="Delete" >Erledigt</button>
-                       </form>
-                        </div>
-                        @endif
+                          <form action="{{ route ('ticket.restore',$ticket->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary col-md-12" >Wiederherstellen</button>
+                        </form>
+                          </div>
+                        @else
+                          @if(auth()->user()->hasRole('Super_Admin'))
+                          <div class="form-group col-md-12">
+                          <form action="{{ route ('ticket.delete',$ticket->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success col-md-12" type="submit" value="Delete" >Erledigt</button>
+                        </form>
+                          </div>
+                            @endif
+                            @endif
                         <div class="form-group col-md-6">
                           <label for="submitter"> Ersteller</label>
                           <input type="text" class="form-control" name="submitter" value="{{@$ticket->subUser->username}}" readonly>

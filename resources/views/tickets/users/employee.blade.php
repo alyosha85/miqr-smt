@@ -21,20 +21,20 @@
                       <div class="card-body box-profile form-group">       
                         <div class="row col-md-12">
                           <div class="form-group col-md-6">
-                            <label for="replication"> Berechtigungen wie bei  </label>
+                            <label for="replication"> Berechtigungen wie bei &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                             <select class="custom-select form-control mb-2 replication" name="replication_id" required>
-                            <option class="form-control" value="-1"></option>
+                            <option class="form-control" value=""></option>
                             @foreach($users as $user)
                               <option class="form-control" value="{{$user['id']}}">{{$user['name']}}</option>
                             @endforeach
                             </select>
                             <div class="row mt-4">
                               <div class="form-group col-md-6">
-                                <label for="submitter">Nachname</label>
+                                <label for="submitter">Nachname &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                                 <input type="text" class="form-control" name="employee_lastname" required>
                               </div>
                               <div class="form-group col-md-6">
-                                <label for="submit_date">Vorname</label>
+                                <label for="submit_date">Vorname &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                                 <input type="text" class="form-control" name="employee_firstname" required>
                               </div>
                             </div>
@@ -42,14 +42,14 @@
                           <div class="form-group col-md-6">
                             <fieldset class="border rounded px-2 mb-2">
                             <legend class="w-auto"><i class="fas fa-clipboard-list" style="color:green;"></i></legend>
-                            <label for="employee_place"> Standort</label>
+                            <label for="employee_place"> Standort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                             <select class="custom-select form-control mb-2" id="employee_place" name="location_id" required>
                             </select>
-                            <label for="position_employee"> Position</label>
+                            <label for="position_employee"> Position &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                             <input type="text" class="form-control mb-2" id="position_employee" name="position_employee" required>
-                            <label for="abteilung_employee"> Abteilung</label>
+                            <label for="abteilung_employee"> Abteilung &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                             <input type="text" class="form-control mb-2" id="abteilung_employee" name="abteilung_employee" required>
-                            <label for="telephone_employee"> Telefon</label>
+                            <label for="telephone_employee"> Telefon &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
                             <input type="text" class="form-control mb-2" id="telephone_employee" name="telephone_employee" required>
                             <div class="col-md-12 d-flex justify-content-around">
                               <div class="custom-control custom-checkbox mb-3">
@@ -116,6 +116,7 @@ $(document).ready(function() {
         });
 
     $(".replication").select2({
+      placeholder: 'Bitte Wählen',
       allowClear: false,
       tags: true
     });

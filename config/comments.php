@@ -15,4 +15,11 @@ return [
      */
     'user_model' => null,
 
+    /**
+     * The Comment Controller.
+     * Change this to your own implementation of the CommentController.
+     * You can use the \Laravelista\Comments\CommentControllerInterface.
+     */
+    'controller' => 'App\Http\Controllers\CommentController',
+
 ];

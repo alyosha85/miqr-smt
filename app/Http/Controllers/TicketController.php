@@ -13,7 +13,6 @@ use App\InvItems;
 use App\Location;
 use App\InvAbItem;
 use Carbon\Carbon;
-use App\TicketType;
 use App\TicketStatus;
 use App\TicketPriority;
 use App\EquipmentProblem;
@@ -25,6 +24,7 @@ use App\Imports\ParticipantTicketImport;
 use Spatie\Permission\Models\Permission;
 use App\Notifications\TicketNotification;
 use App\ParticipantTicketTable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 
@@ -58,219 +58,147 @@ class TicketController extends Controller
       'usertickets',
       'show'
       ]]);
-
-
     $this->middleware('permission:Ticket_IT', ['only' => [
       'opentickets',
       'unassignedtickets',
       'assignedTo',
       ]]);
- 
-
   }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+  //! index Ticketanfrage main page//
     public function index()
     {
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view('tickets.index',compact('user','now','tickets','users'));
+      list($user,$users,$now)=User::getAll();
+      return view('tickets.index',compact('user','now','users'));
 
     }
     //! Ticket computer //
     public function computer_all()
     {
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all(); 
-      return view('tickets.computer.all',compact('user','now','tickets','users'));
+      return view('tickets.computer.all');
     }
     public function softwareRequest() 
     {
-      $users = User::get()->toArray();
+      list($user,$users,$now)=User::getAll();
       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.computer.softwareRequest',compact('user','now','tickets','users','computers'));
+      return view ('tickets.computer.softwareRequest',compact('user','now','users','computers'));
     }
     public function peripheralRequest() 
     {
-      $users = User::get()->toArray();
+      list($user,$users,$now)=User::getAll();
       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.computer.peripheralRequest',compact('user','now','tickets','users','computers'));
+      return view ('tickets.computer.peripheralRequest',compact('user','now','users','computers'));
     }
     public function hardwareRequest() 
     {
-      $users = User::get()->toArray();
       $machines = Gart::where('id','2')->orwhere('id','3')->orwhere('id','4')->orwhere('id','5')
       ->orwhere('id','13')->orwhere('id','15')->orwhere('id','18')->orwhere('id','17')->orwhere('id','6')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.computer.hardwareRequest',compact('user','now','tickets','users','machines'));
+      return view ('tickets.computer.hardwareRequest',compact('user','now','users','machines'));
     }
     public function pc_problems() 
     {
-      $users = User::get()->toArray();
+      list($user,$users,$now)=User::getAll();
       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.computer.pc_problems',compact('user','now','tickets','users','computers'));
+      return view ('tickets.computer.pc_problems',compact('user','now','users','computers'));
     }
     public function printer_in_out() 
     {
+      list($user,$users,$now)=User::getAll();
       $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.computer.printer_in_out',compact('user','now','tickets','users','computers'));
+      return view ('tickets.computer.printer_in_out',compact('user','now','users','computers'));
     }
     public function other() 
     {
+      list($user,$users,$now)=User::getAll();
       $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.computer.other',compact('user','now','tickets','users','computers'));
+      return view ('tickets.computer.other',compact('user','now','users','computers'));
     }
+
+     //! Ticket printer //
+     public function printer_all()
+     {
+      return view('tickets.printer.all');
+     }
+ 
+     public function scanner() 
+     {
+       list($user,$users,$now)=User::getAll();
+       $rooms = InvRoom::with('location')->get();
+       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
+       return view ('tickets.printer.scanner',compact('user','now','users','computers'));
+     }
+     public function functuality() 
+     {
+       list($user,$users,$now)=User::getAll();
+       $rooms = InvRoom::with('location')->get();
+       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
+       return view ('tickets.printer.functuality',compact('user','now','users','computers'));
+     }
+     public function errors() 
+     {
+       list($user,$users,$now)=User::getAll();
+       $rooms = InvRoom::with('location')->get();
+       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
+       return view ('tickets.printer.errors',compact('user','now','users','computers'));
+     }
 
      //! Ticket users //
      public function users_all()
      {
-       $users = User::get()->toArray();
-       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-       $user = Auth()->user();
-       return view('tickets.users.all',compact('user','now','users'));
+       return view('tickets.users.all');
      }
 
      public function employee() 
      {
-       $users = User::get()->toArray();
-       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-       $user = Auth()->user();
-       return view ('tickets.users.employee',compact('user','now','users'));
+      list($user,$users,$now)=User::getAll();
+      return view ('tickets.users.employee',compact('user','now','users'));
      }
 
      public function participant() 
      {
-       $users = User::get()->toArray();
-       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-       $user = Auth()->user();
-       return view ('tickets.users.participant',compact('user','now','users'));
+      list($user,$users,$now)=User::getAll();
+      return view ('tickets.users.participant',compact('user','now','users'));
      }
      public function users_others() 
      {
-       $users = User::get()->toArray();
-       $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-       $user = Auth()->user();
-       return view ('tickets.users.usersOthers',compact('user','now','users'));
+       $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
+       list($user,$users,$now)=User::getAll();
+       return view ('tickets.users.usersOthers',compact('user','now','users','computers'));
      }
 
-
-
-    //! Ticket printer //
-    public function printer_all()
-    {
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all(); 
-      return view('tickets.printer.all',compact('user','now','tickets','users'));
-    }
-
-    public function scanner() 
-    {
-      $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
-      $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.printer.scanner',compact('user','now','tickets','users','computers'));
-    }
-    public function functuality() 
-    {
-      $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
-      $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.printer.functuality',compact('user','now','tickets','users','computers'));
-    }
-    public function errors() 
-    {
-      $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
-      $computers = InvItems::where('gart_id','2')->orwhere('gart_id','3')->get();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.printer.errors',compact('user','now','tickets','users','computers'));
-    }
     //! Ticket telephone //
     public function telephone_all()
     {
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all(); 
-      return view('tickets.telephone.all',compact('user','now','tickets','users'));
+      list($user,$users,$now)=User::getAll(); 
+      return view('tickets.telephone.all',compact('user','now','users'));
     }
     public function tel_changes() 
     {
       $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.telephone.tel_changes',compact('user','now','tickets','users'));
+      list($user,$users,$now)=User::getAll();
+      return view ('tickets.telephone.tel_changes',compact('user','now','users'));
     }
     
     public function tel_problems() 
     {
       $rooms = InvRoom::with('location')->get();
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all();
-      return view ('tickets.telephone.tel_problems',compact('user','now','tickets','users'));
+      list($user,$users,$now)=User::getAll();
+      return view ('tickets.telephone.tel_problems',compact('user','now','users'));
     }
-
     //! Ticket Web //
     public function web_all()
     {
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all(); 
-      return view('tickets.web.all',compact('user','now','tickets','users'));
+      list($user,$users,$now,$tickets)=User::getAll(); 
+      return view('tickets.web.all',compact('user','now','users'));
     }
     public function terminal_tn() 
     {
-      $users = User::get()->toArray();
-      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
-      $user = Auth()->user();
-      $tickets = TicketType::all(); 
-      return view('tickets.web.terminal_tn',compact('user','now','tickets'));
+      list($user,$users,$now)=User::getAll();
+      return view('tickets.web.terminal_tn',compact('user','now'));
     }
-    
-
+    //! Ajax requests //
     public function tel_in_room(Request $request)
     {
 			$telephones = InvItems::where('room_id',$request->telephones)->where('gart_id','15')->get();
@@ -306,9 +234,9 @@ class TicketController extends Controller
 
     public function address()
     {
-        $places = Place::pluck('id','pnname')->toArray();
-        $locations = Location::with('invrooms')->get()->toArray();
-        return ['locations'=>$locations,'places'=>$places];
+      $places = Place::pluck('id','pnname')->toArray();
+      $locations = Location::with('invrooms')->get()->toArray();
+      return ['locations'=>$locations,'places'=>$places];
     }
 
     public function printer_in_room(Request $request)
@@ -317,12 +245,6 @@ class TicketController extends Controller
       return $printers;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     { 
         $admins = User::role('Super_Admin')->get();
@@ -413,6 +335,7 @@ class TicketController extends Controller
         $ticket->save();
 
         $notifications = [
+          'title' => 'Neues Ticket',
           'ticket_id' => $ticket->id,
           'submitter' => $ticket->subUser->username,
           'problem_type' => $ticket->problem_type,
@@ -449,6 +372,7 @@ class TicketController extends Controller
         Excel::import(new ParticipantTicketImport($ticket->id), $request->file('muster'));
 
         $notifications = [
+          'title' => 'Neuer Teilnehmer',
           'ticket_id' => $ticket->id,
           'submitter' => $ticket->subUser->username,
           'problem_type' => $ticket->problem_type,
@@ -525,7 +449,7 @@ class TicketController extends Controller
       $user = Auth()->user();
       $ticket_status = TicketStatus::all();
       $ticket_priority = TicketPriority::all();
-      $ticket = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->with('subUser')->where('id',$id)->first();
+      $ticket = Ticket::with('invitem.invroom.location.place')->with('printer.invroom.location.place')->with('subUser')->where('id',$id)->withTrashed()->first();
       $blade_name = 'tickets.admins.view_ticket_blades.'.str_replace(' ','',strtolower($ticket->problem_type)).'ticket';
       $not = $user->unreadNotifications()->where('data->id',$id)->first();
       if($not){
@@ -554,7 +478,26 @@ class TicketController extends Controller
       $assigned = Ticket::where('id',$request->ticket_id)->first();
       $assigned -> assignedTo = $request->assignedTo;
       $assigned->save();
+
+      $admins = User::role('Super_Admin')->get();
+      foreach ($admins as $admin) {
+        $not = $admin->Notifications()->where('data->id',$request->ticket_id)->first();
+        if($not){
+          $not->delete();
+          } 
+      }
+
+      $ticket = Ticket::where('id',$request->ticket_id)->first();
+      $assignedTo = User::where('id',$ticket->assignedTo)->first();
+      $notifications = [
+        'title' => 'Zugewiesen an',
+        'ticket_id' => $ticket->id,
+        'submitter' => $ticket->subUser->username,
+        'problem_type' => $ticket->problem_type,
+      ];
+      Notification::send($assignedTo, new TicketNotification($notifications));
       return $assigned;
+
     }
     public function ticketPriority(Request $request)
     {
@@ -589,15 +532,35 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+      $user = Auth()->user();
       $admins = User::role('Super_Admin')->get();
       $ticket = Ticket::findOrFail($id);
+      $ticket-> done_by = $user -> username;
+      $ticket->save();
       foreach ($admins as $admin) {
         $not = $admin->Notifications()->where('data->id',$id)->first();
+        if($not){
           $not->markAsRead();
+          }
+          
       }
       $ticket -> delete();
+      return redirect()->route('ticket.opentickets');
+    }
+
+    public function restore($id)
+    {
+      $admins = User::role('Super_Admin')->get();
+      $ticket =Ticket::withTrashed()->find($id);
+      $notifications = [
+        'ticket_id' => $ticket->id,
+        'submitter' => $ticket->subUser->username,
+        'problem_type' => $ticket->problem_type,
+      ];
+      Notification::send($admins, new TicketNotification($notifications));
+      $ticket->restore();
       return redirect()->route('ticket.opentickets');
     }
 }

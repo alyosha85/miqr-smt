@@ -38,7 +38,7 @@
             <option value="3">Hoch</option>
           </select>
           @else
-          <select class="custom-select" name="priority" id="ticket_type" readonly>
+          <select class="custom-select" name="priority" readonly>
             <option selected class="dropdown-menu" value="2">Normal</option>
           @endif
         </div>
@@ -52,6 +52,7 @@
         </div>
       </div>
       <div id="output"></div>
+      &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i> <span>Pflichtfeld</span>
     <!-- /.card-body -->
     </div>
   </div>

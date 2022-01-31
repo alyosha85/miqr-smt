@@ -63,6 +63,7 @@ class CreateTicketsTable extends Migration
         $table->string('employee_firstname')->nullable();
         $table->string('employee_lastname')->nullable();
         $table->string('inaktiv')->nullable();
+        $table->string('other_error_participant')->nullable();
         $table->string('forgotten')->nullable();
         $table->string('abgelaufen')->nullable();
         $table->string('password_name')->nullable();

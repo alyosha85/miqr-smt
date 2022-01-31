@@ -90,8 +90,8 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
                     <th class="text-center"></th>
                     <th class="text-center">Erstellt von</th>
                     <th>Anfrage</th>
-                    <th>Rechner</th>
-                    <th></th>
+                    <th>Das Gerät</th>
+                    <th>Tel</th>
                     <th>Priorität</th>
                     <th>Erstellt am</th>
                     <th class="none">Beschreibung</th>
@@ -133,7 +133,11 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataT
                   <td><a href="{{url ('ticket/'.$myTicket->id)}}">{{$myTicket->problem_type}}</a></td>
                   
                   <td><b>{{@$myTicket->invitem->gname}} </b></td>
-                  <td></td>
+                  <td>{{@$myTicket->tel_number}}
+                    @if(@$myTicket->custom_tel_number)
+                    <i class="fas fa-grip-lines-vertical"></i> {{@$myTicket->custom_tel_number}}
+                    @endif
+                  </td>
                   <td>
                     @if($myTicket->priority_id == 1)
                     <!-- <i class="fas fa-circle" data-toggle="tooltip" title="bla bla" style="color:#3490dc"></i> -->

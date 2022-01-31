@@ -74,25 +74,25 @@ $(document).ready(function() {
         <div class="row col-md-12">
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone-slash" style="color:#e3342f;"></i></legend>
-            <label for="tel_current_place"> Telefon standort </label>
+            <legend class="w-auto">Aktueller Standort &nbsp;<i class="fas fa-phone-slash" style="color:#e3342f;"></i></legend>
+            <label for="tel_current_place"> Telefon standort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
             <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
             </select>
-              <label for="tel_current_room"> Raum </label>
+              <label for="tel_current_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
               </select>
-              <label for="gname_id"> Telefon </label>
+              <label for="gname_id"> Telefon &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_name" name="searchcomputer" required>
               </select>
             </fieldset>
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Neuer Standort <i class="fas fa-phone" style="color:#285D17;"></i></legend>
-            <label for="tel_target_place"> Telefon Standort </label>
+            <legend class="w-auto">Neuer Standort &nbsp;<i class="fas fa-phone" style="color:#285D17;"></i></legend>
+            <label for="tel_target_place"> Telefon Standort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
             <select class="custom-select form-control mb-2" id="tel_target_place" name="tel_target_place" required>
             </select>
-              <label for="tel_target_room"> Raum </label>
+              <label for="tel_target_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_target_room" name="tel_target_room" required>
               </select>
             </fieldset>
@@ -211,30 +211,30 @@ $(document).ready(function() {
         <div class="row col-md-12">
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone" style="color:#285D17;"></i></legend>
-            <label for="tel_current_place"> Telefon standort </label>
+            <legend class="w-auto">Aktueller Standort &nbsp;<i class="fas fa-phone" style="color:#285D17;"></i></legend>
+            <label for="tel_current_place"> Telefon standort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
             <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
             </select>
-              <label for="tel_current_room"> Raum </label>
+              <label for="tel_current_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
               </select>
-              <label for="gname_id"> Telefon </label>
+              <label for="gname_id"> Telefon &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_name" name="searchcomputer" required>
               </select>
             </fieldset>
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-              <legend class="w-auto">Name Ändern <i class="fas fa-file-signature" style="color:#285D17;"></i></legend>
-              <label for="current_tel_name"> Aktuelle Name </label>
+              <legend class="w-auto">Name Ändern &nbsp;<i class="fas fa-file-signature" style="color:#285D17;"></i></legend>
+              <label for="current_tel_name"> Aktuelle Name &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <input type="text" class="form-control mb-2" name="current_tel_name" required>
-              <label for="new_tel_name"> Neue Name </label>
+              <label for="new_tel_name"> Neue Name &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <input type="text" class="form-control mb-2" name="new_tel_name" required>
             </fieldset>
           </div> 
             <div class="form-group col-md-6 col-lg-12">
-              <label for="notizen"> Grund</label>
-              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
+              <label for="notizen"> Grund &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
+              <textarea type="text" name="notizen" class="form-control notizen" required ></textarea>
             </div>
           </div>                  
           <div>
@@ -312,28 +312,28 @@ $(document).ready(function() {
         <div class="row col-md-12">
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-            <legend class="w-auto">Aktueller Standort <i class="fas fa-phone" style="color:#285D17;"></i></legend>
-            <label for="tel_current_place"> Telefon standort </label>
+            <legend class="w-auto">Aktueller Standort &nbsp;<i class="fas fa-phone" style="color:#285D17;"></i></legend>
+            <label for="tel_current_place"> Telefon standort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
             <select class="custom-select form-control mb-2" id="tel_current_place" name="tel_current_place" required>
             </select>
-              <label for="tel_current_room"> Raum </label>
+              <label for="tel_current_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_current_room" name="tel_current_room" required>
               </select>
-              <label for="gname_id"> Telefon </label>
+              <label for="gname_id"> Telefon &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <select class="custom-select form-control mb-2" id="tel_name" name="searchcomputer" required>
               </select>
             </fieldset>
           </div>
           <div class="form-group col-md-6">
             <fieldset class="border rounded px-2 mb-2">
-              <legend class="w-auto">Nummer Ändern <i class="fas fa-file-signature" style="color:#285D17;"></i></legend>
-              <label for="new_tel_number"> Neue Nummer </label>
+              <legend class="w-auto">Nummer Ändern &nbsp;<i class="fas fa-file-signature" style="color:#285D17;"></i></legend>
+              <label for="new_tel_number"> Neue Nummer &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
               <input type="text" class="form-control mb-2" name="new_tel_number" required>
             </fieldset>
           </div> 
             <div class="form-group col-md-6 col-lg-12">
-              <label for="notizen"> Grund</label>
-              <textarea type="text" name="notizen" class="form-control notizen" ></textarea>
+              <label for="notizen"> Grund &nbsp;<i class="fas fa-feather-alt fa-lg" style="color:#661421;"></i></label>
+              <textarea type="text" name="notizen" class="form-control notizen" required></textarea>
             </div>
           </div>                  
           <div>

@@ -66,17 +66,26 @@ $(document).ready(function() {
     $('#usernameChange').removeClass().addClass('btn btn-outline-primary');
     $('#softother').removeClass().addClass('btn btn-outline-primary');
     underform.append(
-      `
-    <input type="hidden" name="problem_type" value="neues Kennwort">
+    `
+    <input type="hidden" name="problem_type" value="Anmelde Probleme">
     <div class="card-body box-profile form-group">       
       <div class="row col-md-12">
-        <div class="form-group col-md-6">
-          <div class="row">
-            <div class="form-group col-md-12">
-              <label for="submitter">Vollständiger Name</label>
+        <div class="form-group col-md-12">
+          <div class="row col-md-12">
+            <div class="form-group col-md-6">
+              <label for="submitter">Vollständiger Name &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
               <input type="text" class="form-control" name="password_name" required>
               <input type="hidden" name="expiring_date" id="expiring_date" value="">
-            
+              </div>
+            <div class="form-group col-md-6">
+                <label for="searchcomputer"> Welcher Rechner </label>
+                <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer">
+                <option class="form-control" value="">Bitte Wählen</option>
+                @foreach($computers as $computer)
+                  <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
+                @endforeach
+                </select>
+              </div>
             </div>
               <div class="col-md-12 d-flex justify-content-around">
                 <div class="custom-control custom-checkbox mb-4">
@@ -91,6 +100,10 @@ $(document).ready(function() {
                   <input type="checkbox" class="custom-control-input" id="forgotten" name="forgotten">
                   <label class="custom-control-label" for="forgotten">Passwort vergessen</label>
                 </div>
+                <div class="custom-control custom-checkbox mb-4">
+                  <input type="checkbox" class="custom-control-input" id="other_error_participant" name="other_error_participant">
+                  <label class="custom-control-label" for="other_error_participant">Anderer Fehler</label>
+                </div>
               </div>
           </div>
         </div>
@@ -98,14 +111,14 @@ $(document).ready(function() {
         </div> 
         <div class="form-group col-md-6 col-lg-12">
           <label for="notizen">Beschreibung</label>
-          <textarea type="text" name="notizen" class="form-contro notizen" ></textarea>
+          <textarea type="text" name="notizen" class="form-contro notizen"></textarea>
         </div>
-        </div>                  
         <div>
           <button type="submit" class="btn btn-outline-success col-lg-2 float-right">Einreichen</button>
         </div>
       </div>
-      `
+    </div> 
+    `
     );
 
     $('#abgelaufen').click(function(){
@@ -142,6 +155,9 @@ $(document).ready(function() {
         });
     }
     });
+    $(".searchcomputer").select2({
+      placeholder: 'Bitte Wählen',
+    });
 
 
 
@@ -167,11 +183,11 @@ $(document).ready(function() {
         <div class="form-group col-md-12">
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="user_oldname">Alter Name</label>
+              <label for="user_oldname">Alter Name &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
               <input type="text" class="form-control" name="user_oldname" required>
             </div>
             <div class="form-group col-md-6">
-              <label for="user_newname">Neuer Name </label>
+              <label for="user_newname">Neuer Name &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
               <input type="text" class="form-control" name="user_newname" required>
             </div>
           </div>
@@ -209,7 +225,7 @@ $(document).ready(function() {
         <div class="form-group col-md-6">
           <div class="row">
             <div class="form-group col-md-12">
-              <label for="user_other_username">Vollständiger Name</label>
+              <label for="user_other_username">Vollständiger Name &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
               <input type="text" class="form-control" name="user_other_username" required>            
             </div>
           </div>

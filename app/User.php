@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
+use Laravelista\Comments\Commenter;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
-use Spatie\Permission\Traits\HasRoles;
-use Laravelista\Comments\Commenter;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements LdapAuthenticatable
 {
@@ -62,4 +63,13 @@ class User extends Authenticatable implements LdapAuthenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getAll()
+    {
+      $users = User::get()->toArray();
+      $user = Auth()->user();
+      $now = Carbon::now()->locale('de_DE')->translatedFormat('d F Y H:i');
+      $admins = User::role('Super_Admin')->get();
+      return [$user,$users,$now,$admins];
+    }
 }

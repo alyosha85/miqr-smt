@@ -26,35 +26,35 @@
                         <div class="card-body box-profile form-group">       
                           <div class="row col-md-12">
                             <div class="form-group col-md-6">
-                              <label for="searchcomputer"> Welcher Rechner</label>
+                              <label for="searchcomputer"> Welcher Rechner &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                               <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
-                              <option class="form-control" value="-1"></option>
+                              <option class="form-control" value="">Bitte wählen</option>
                               @foreach($computers as $computer)
                                 <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
                               @endforeach
                               </select>
                               <br><br><br>
-                              <div class="card-flyer2 text-center">
+                              <!-- <div class="card-flyer2 text-center">
                                 <div class="text-box2">
                                   <div class="text-container2">
                                     <img src="/images/admin_images/info_400_2.png" style="max-width:70px;"  alt="" />
                                       <p class="text-info">Klicken Sie<a href="#"> hier</a>, falls der Drucker nicht aufgelistet ist.</p>
                                   </div>
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
                             <div class="form-group col-md-6">
                               <fieldset class="border rounded px-2 mb-2">
                               <legend class="w-auto">Drucker <i class="fas fa-print"></i></legend>
-                              <label for="printer_place"> Druckerstandort </label>
+                              <label for="printer_place"> Druckerstandort &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                               <select class="custom-select form-control mb-2" id="printer_place" name="printer_place" required>
                               </select>
-                                <label for="printer_room"> Raum </label>
+                                <label for="printer_room"> Raum &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                                 <select class="custom-select form-control mb-2" id="printer_room" name="printer_room" required>
                                 </select>
                 
                 
-                                <label for="printer_room"> Drucker </label>
+                                <label for="printer_room"> Drucker &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
                                 <select class="custom-select form-control mb-2" id="printer_name" name="printer_name" required>
                                 </select>
                               </fieldset>

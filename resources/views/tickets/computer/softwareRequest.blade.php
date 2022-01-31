@@ -73,9 +73,9 @@ $(document).ready(function() {
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
-            <label for="searchcomputer"> Welcher Rechner</label>
+            <label for="searchcomputer"> Welcher Rechner &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
             <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
-            <option class="form-control" value="-1"></option>
+            <option class="form-control" value="">Bitte Wählen</option>
             @foreach($computers as $computer)
               <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
             @endforeach
@@ -83,8 +83,8 @@ $(document).ready(function() {
           </div>
             <div class="form-group col-md-6">
               <label for="searchsoftware"> Welche App </label>
-            <select class="custom-select form-control mb-2 searchsoftware" name="searchsoftware" required>
-            <option class="form-control" value="-1"></option>
+            <select class="custom-select form-control mb-2 searchsoftware" name="searchsoftware">
+            <option class="form-control" value=""></option>
               <option class="form-control" value="1">Teamviewer</option>
               <option class="form-control" value="2">FireFox</option>
               <option class="form-control" value="3">Chrome</option>
@@ -99,8 +99,9 @@ $(document).ready(function() {
               <input type="text" name="software_name" class="form-control" >
             </div>
             <div class="form-group col-md-6 col-lg-12">
-              <label for="software_reason"> Warum Sie diese App brauchen</label>
-              <input type="text" name="software_reason" class="form-control">
+              <label for="software_reason"> Warum benötigen Sie die Software &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
+              
+              <input type="text" name="software_reason" class="form-control" required>
             </div>
             <div class="form-group col-md-6 col-lg-12">
               <label for="notizen"> Notizen</label>
@@ -115,10 +116,11 @@ $(document).ready(function() {
     );
 
     $(".searchcomputer").select2({
+      placeholder: 'Bitte Wählen',
     });
 
     $('.searchsoftware').select2({
-      placeholder: 'sometext',
+      placeholder: 'Bitte Wählen',
       allowClear: false,
       tags: true
     });
@@ -141,18 +143,18 @@ $(document).ready(function() {
       <div class="card-body box-profile form-group">       
         <div class="row col-md-12">
           <div class="form-group col-md-6">
-            <label for="searchcomputer"> Welcher Rechner</label>
+            <label for="searchcomputer"> Welcher Rechner &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
             <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
-            <option class="form-control" value="-1"></option>
+            <option class="form-control" value=""></option>
             @foreach($computers as $computer)
               <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
             @endforeach
             </select>
           </div>
             <div class="form-group col-md-6">
-              <label for="searchsoftware"> Welche App</label>
+              <label for="searchsoftware"> Welche App &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
             <select class="custom-select form-control mb-2 searchsoftware" name="searchsoftware" required>
-            <option class="form-control" value="-1"></option>
+            <option class="form-control" value=""></option>
               <option class="form-control" value="1">Teamviewer</option>
               <option class="form-control" value="2">FireFox</option>
               <option class="form-control" value="3">Chrome</option>
@@ -174,10 +176,11 @@ $(document).ready(function() {
       `
     );
     $(".searchcomputer").select2({
+      placeholder: 'Bitte Wählen',
     });
 
     $('.searchsoftware').select2({
-      placeholder: 'sometext',
+      placeholder: 'Bitte Wählen',
       allowClear: false,
       tags: true
     });
@@ -199,9 +202,9 @@ $(document).ready(function() {
     <div class="card-body box-profile form-group">       
       <div class="row col-md-12">
         <div class="form-group col-md-6">
-          <label for="searchcomputer"> Welcher Rechner</label>
+          <label for="searchcomputer"> Welcher Rechner &nbsp;<i class="fas fa-feather-alt fa-lg" style="color: #661421;"></i></label>
           <select class="custom-select form-control mb-2 searchcomputer" name="searchcomputer" required>
-          <option class="form-control" value="-1"></option>
+          <option class="form-control" value=""></option>
           @foreach($computers as $computer)
             <option class="form-control" value="{{$computer['id']}}">{{$computer['gname']}}</option>
           @endforeach
@@ -220,6 +223,7 @@ $(document).ready(function() {
     );
 
     $(".searchcomputer").select2({
+      placeholder: 'Bitte Wählen',
     });
 
     $('.notizen').summernote({
